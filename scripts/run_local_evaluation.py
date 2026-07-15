@@ -4,9 +4,12 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import importlib.util
 import json
 import os
+import re
+import shutil
 from pathlib import Path
 from typing import Optional
 
@@ -65,14 +68,31 @@ def main() -> int:
     parser.add_argument("--results", type=Path, required=True)
     parser.add_argument("--testbed", type=Path, required=True)
     parser.add_argument("--timeout", type=int, default=900)
+    parser.add_argument("--model-alias")
     args = parser.parse_args()
 
     repo_root = Path(__file__).resolve().parents[1]
-    predictions = args.predictions.resolve()
-    if not predictions.is_file():
-        raise FileNotFoundError(predictions)
+    original_predictions = args.predictions.resolve()
+    if not original_predictions.is_file():
+        raise FileNotFoundError(original_predictions)
     args.results.mkdir(parents=True, exist_ok=True)
     args.testbed.mkdir(parents=True, exist_ok=True)
+
+    alias = args.model_alias or (
+        "eval_" + hashlib.sha256(original_predictions.parent.name.encode()).hexdigest()[:8]
+    )
+    if re.fullmatch(r"[A-Za-z0-9_.-]+", alias) is None:
+        raise ValueError("model alias contains unsupported characters")
+    staging_dir = args.testbed.resolve().parent / "eval_inputs" / alias
+    staging_dir.mkdir(parents=True, exist_ok=True)
+    predictions = staging_dir / "all_preds.jsonl"
+    shutil.copy2(original_predictions, predictions)
+    for trajectory in original_predictions.parent.glob("*.traj"):
+        shutil.copy2(trajectory, staging_dir / trajectory.name)
+    for stale_name in ("scorecards.json", "results.json"):
+        stale_path = staging_dir / stale_name
+        if stale_path.exists():
+            stale_path.unlink()
 
     configure_conda_downloads()
     install_requirements_compatibility()
@@ -90,9 +110,13 @@ def main() -> int:
         num_processes=1,
     )
 
-    scorecards_path = predictions.parent / "scorecards.json"
+    scorecards_path = staging_dir / "scorecards.json"
     if not scorecards_path.is_file():
         raise RuntimeError("Evaluator did not produce scorecards.json")
+    shutil.copy2(scorecards_path, original_predictions.parent / "scorecards.json")
+    results_path = staging_dir / "results.json"
+    if results_path.is_file():
+        shutil.copy2(results_path, original_predictions.parent / "results.json")
     scorecards = json.loads(scorecards_path.read_text(encoding="utf-8"))
     infrastructure_failures = {
         "build_failure",
