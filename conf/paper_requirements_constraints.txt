@@ -1,0 +1,8 @@
+# Compatibility constraints for the paper-era Python 3.9 environment.
+#
+# The upstream snapshot declares swebench>=1.0.1. Resolving this requirement
+# in 2026 selected swebench 3.0.17, whose imported source uses Python 3.10
+# union syntax and fails during test collection under the upstream Python 3.9
+# environment. Pin the paper-era lower bound until a complete historical lock
+# is reconstructed and validated.
+swebench==1.0.1
