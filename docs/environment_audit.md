@@ -26,6 +26,9 @@
 - conda：可用，但不得修改共享环境。
 - Docker：命令不可用。
 - Podman/Apptainer/Singularity/Enroot：命令均未发现。
+- Docker socket：`/var/run/docker.sock` 与 `/run/docker.sock` 均不存在。
+- Environment Modules：未发现 `module`/`modulecmd` 入口。
+- 常见系统路径：`/usr/bin`、`/usr/local/bin` 与 `/opt` 常见位置未发现上述容器运行时。
 - SLURM：`srun`、`sbatch`、`sinfo` 均未发现。
 - 文件系统：`/public/home/mty` 总计 72 TiB，已用 71 TiB，可用约 2.0 TiB，使用率 98%。
 - GPU 占用：审计时已有 4 个约 17-21 GiB 的计算进程，说明节点为共享状态。

@@ -3,3 +3,4 @@ EXP-SETUP-001,2026-07-15,P0,repository_setup,none,none,paper_snapshot,42,PARTIAL
 EXP-SETUP-002,2026-07-15,P0,config_audit,gpt-4-1106-preview,none,paper_default,42,COMPLETE,,0,"Paper settings mapped to snapshot fields"
 EXP-SETUP-003,2026-07-15,P0,environment_setup,none,none,python39,42,COMPLETE_WITH_LIMITATIONS,,0,"16 offline tests passed; dependency drift documented"
 EXP-SMOKE-001,2026-07-15,P0,snapshot_verifier,gpt-4-1106-preview,none,paper_default,42,COMPLETE,,0,"11 configuration and version checks passed locally and remotely"
+EXP-SETUP-004,2026-07-15,P0,container_audit,none,none,server_runtime,42,BLOCKED_EXTERNAL,,0,"No socket, module, or container executable found"

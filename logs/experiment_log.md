@@ -119,3 +119,24 @@ pip 将无上限的 `swebench>=1.0.1` 解析为 3.0.17。该版本使用 Python 
 ### 状态
 
 `COMPLETE`。
+
+## 2026-07-15 — EXP-SETUP-004：容器后端兜底检查
+
+### 目的
+
+排除容器运行时已安装但未加入 PATH 的情况。
+
+### 检查项
+
+- `/var/run/docker.sock` 与 `/run/docker.sock`；
+- `module`/`modulecmd` 及可加载的容器模块；
+- `/usr/bin`、`/usr/local/bin` 和 `/opt` 下常见 Docker、Podman、Apptainer、Singularity 路径；
+- 当前用户组。
+
+### 结果
+
+未发现 Docker socket、Environment Modules 或任何常见容器运行时可执行文件。当前用户组也不包含 docker 类组。容器后端缺失被确认为外部基础设施阻塞，而不是 PATH 配置问题。
+
+### 状态
+
+`BLOCKED_EXTERNAL`：需要管理员提供容器后端，或把正式评测迁移到另一台已授权的 Docker 主机。
