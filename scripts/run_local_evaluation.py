@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import argparse
 import importlib.util
+import json
+import os
 from pathlib import Path
 from typing import Optional
 
@@ -16,8 +18,11 @@ def install_requirements_compatibility() -> None:
 
     def get_requirements_compat(instance: dict, save_path: Optional[str] = None):
         result = original(instance, save_path)
-        candidate = Path(result)
-        if save_path is not None and candidate.is_file():
+        if save_path is not None:
+            candidate = Path(result)
+        else:
+            candidate = None
+        if candidate is not None and candidate.is_file():
             content = candidate.read_text(encoding="utf-8")
             candidate.write_text(
                 content.replace("types-pkg_resources", "types-setuptools"),
@@ -29,6 +34,18 @@ def install_requirements_compatibility() -> None:
         return result
 
     context_manager.get_requirements = get_requirements_compat
+
+
+def configure_conda_downloads() -> None:
+    defaults = {
+        "CONDA_REMOTE_CONNECT_TIMEOUT_SECS": "60",
+        "CONDA_REMOTE_READ_TIMEOUT_SECS": "180",
+        "CONDA_REMOTE_MAX_RETRIES": "10",
+        "CONDA_DEFAULT_THREADS": "1",
+        "CONDA_SOLVER": "classic",
+    }
+    for name, value in defaults.items():
+        os.environ.setdefault(name, value)
 
 
 def load_paper_evaluator(repo_root: Path):
@@ -57,6 +74,7 @@ def main() -> int:
     args.results.mkdir(parents=True, exist_ok=True)
     args.testbed.mkdir(parents=True, exist_ok=True)
 
+    configure_conda_downloads()
     install_requirements_compatibility()
     evaluator = load_paper_evaluator(repo_root)
     evaluator.main(
@@ -71,6 +89,17 @@ def main() -> int:
         log_suffix="",
         num_processes=1,
     )
+
+    scorecards_path = predictions.parent / "scorecards.json"
+    if not scorecards_path.is_file():
+        raise RuntimeError("Evaluator did not produce scorecards.json")
+    scorecards = json.loads(scorecards_path.read_text(encoding="utf-8"))
+    infrastructure_failures = {
+        "build_failure",
+        "install_failure",
+    }
+    if any(infrastructure_failures.intersection(card.get("statuses", [])) for card in scorecards):
+        raise RuntimeError("Evaluator reported an infrastructure failure")
     return 0
 
 

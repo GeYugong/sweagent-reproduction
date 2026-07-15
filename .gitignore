@@ -18,6 +18,7 @@ outputs/logs/*
 outputs/traces/*
 outputs/patches/*
 outputs/results/*
+outputs/evaluation/*
 outputs/figures/*
 data/cache/
 data/docker/
@@ -28,6 +29,7 @@ tmp/
 !outputs/traces/.gitkeep
 !outputs/patches/.gitkeep
 !outputs/results/.gitkeep
+!outputs/evaluation/.gitkeep
 !outputs/figures/.gitkeep
 
 # Editor and operating system files
