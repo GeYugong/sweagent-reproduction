@@ -368,3 +368,43 @@ SWE-bench 1.0.2 对 Marshmallow 2.20 未配置额外 Conda packages。旧 harnes
 ### 状态
 
 `COMPLETE`：resolved=1。
+
+## 2026-07-15 — EXP-DEV20-002：Marshmallow 容器字段格式继承
+
+### 实例与配置
+
+- 实例：`marshmallow-code__marshmallow-1359`；
+- 模型：`gpt-5.6-terra`；
+- ACI：论文默认配置；
+- API 调用上限：25；
+- temperature：0.0；
+- top_p：0.95。
+
+### 推理过程
+
+模型构造最小 schema，复现 List 内部 DateTime 未继承 `Meta.datetimeformat` 的行为；随后检查 `Field.root`、List/Tuple bind 流程和既有格式测试。修复把 `DateTime._bind_to_schema()` 的格式来源从直接父 schema 改为根 schema，并覆盖 List 和 Tuple 回归场景。
+
+### 推理统计
+
+- API 调用：23；
+- 输入 token：299,097；
+- 输出 token：5,405；
+- agent 步骤：21；
+- API 响应窗口：约 171 秒；
+- exit status：`submitted`。
+
+### 正式判分
+
+- patch apply：成功；
+- FAIL_TO_PASS：1/1；
+- PASS_TO_PASS：76/76；
+- 总目标测试：77/77；
+- SWE-bench 判定：`RESOLVED_FULL`。
+
+### 批处理验证
+
+批处理通过 1343 的正式 scorecard 将其跨 run ID 跳过，随后只启动 1359。推理完成后自动执行 evaluator，短别名、空参数过滤与 Conda 下载稳健性配置均正常工作。
+
+### 状态
+
+`COMPLETE`：resolved=1。
