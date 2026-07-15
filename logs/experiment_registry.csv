@@ -7,3 +7,5 @@ EXP-SETUP-004,2026-07-15,P0,container_audit,none,none,server_runtime,42,BLOCKED_
 EXP-LOCAL-001,2026-07-15,P0,local_environment,none,none,wsl2_docker_python39,42,COMPLETE,,0,"WSL moved to D; Docker and uv Python environment verified"
 EXP-API-001,2026-07-15,P0,api_compatibility,gpt-5.6-terra,none,legacy_chat,42,COMPLETE,,0,"HTTP 200; exact OK response; 312 total tokens"
 EXP-LOCAL-002,2026-07-15,P0,container_smoke,instant_empty_submit,SWE-bench_Lite,sqlfluff__sqlfluff-1625,42,COMPLETE,,1,"Local Docker trajectory completed with zero API calls; yanked typing stub replaced"
+EXP-API-PILOT-001,2026-07-15,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,sqlfluff__sqlfluff-1625,42,BUDGET_TRUNCATED,0,1,"8 calls; 73004 input and 848 output tokens; no patch"
+EXP-API-BASELINE-001,2026-07-15,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,sqlfluff__sqlfluff-1625,42,COMPLETE,0,1,"25 calls; patch applied; 68/69 target tests passed; RESOLVED_NO"

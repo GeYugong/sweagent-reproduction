@@ -115,3 +115,14 @@ python -m pytest -q -x code/SWE-agent/tests/test_models.py
 `sqlfluff__sqlfluff-1625` 的历史 requirements 包含 `types-pkg_resources`。该包的 PyPI 版本已全部撤回，官方撤回说明要求改用 `types-setuptools`。运行适配补丁只在显式设置 `SWE_AGENT_COMPAT_YANKED_PACKAGES=1` 时替换该类型存根，不修改任务代码、基准提交或测试。
 
 完成替换后，零 API 单实例成功生成轨迹和预测文件。该兼容项必须在所有相关实验报告中保留，不能将其描述为未经修改的 2024 环境。
+
+### 推理与评测环境分离
+
+论文快照的 agent 主路径在 `swebench==1.0.1` 下通过，但同一提交中的 `evaluation/evaluation.py` 导入 `get_eval_refs`；该符号从 PyPI 的 `swebench==1.0.2` 发布物开始提供。为避免把评测依赖升级混入推理环境，建立独立环境：
+
+- 推理环境：Python 3.9.25、SWE-bench 1.0.1；
+- 评测环境：Python 3.9.25、SWE-bench 1.0.2、unidiff 0.7.5；
+- 评测脚本：论文快照的 `evaluation/evaluation.py`；
+- 评测兼容项：与推理阶段相同的 `types-pkg_resources` → `types-setuptools` 替换。
+
+首次正式评测在 Conda 包下载时发生代理 TLS 超时。第二次使用单线程下载、60 秒连接超时、180 秒读取超时、10 次重试和 classic solver 后完成。网络重试不改变数据、模型补丁或测试集合。
