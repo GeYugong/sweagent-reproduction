@@ -1,0 +1,94 @@
+diff --git a/sweagent/agent/models.py b/sweagent/agent/models.py
+index 2492e4f..3710ed5 100644
+--- a/sweagent/agent/models.py
++++ b/sweagent/agent/models.py
+@@ -164,5 +164,12 @@ class BaseModel:
+             )
+             raise CostLimitExceededError("Instance cost limit exceeded")
++
++        max_api_calls = int(os.environ.get("SWE_AGENT_MAX_API_CALLS", "0"))
++        if 0 < max_api_calls <= self.stats.api_calls:
++            logger.warning(
++                f"API calls {self.stats.api_calls} reached limit {max_api_calls}"
++            )
++            raise CostLimitExceededError("API call limit reached")
+         return cost
+ 
+     def query(self, history: list[dict[str, str]]) -> str:
+@@ -207,6 +214,23 @@ class OpenAIModel(BaseModel):
+             "cost_per_input_token": 1e-05,
+             "cost_per_output_token": 3e-05,
+         },
++        # Relay billing is not exposed through the OpenAI-compatible API.
++        # Keep token and request accounting exact without reporting a false USD cost.
++        "gpt-5.4-mini": {
++            "max_context": 128_000,
++            "cost_per_input_token": 0.0,
++            "cost_per_output_token": 0.0,
++        },
++        "gpt-5.4": {
++            "max_context": 128_000,
++            "cost_per_input_token": 0.0,
++            "cost_per_output_token": 0.0,
++        },
++        "gpt-5.6-terra": {
++            "max_context": 128_000,
++            "cost_per_input_token": 0.0,
++            "cost_per_output_token": 0.0,
++        },
+     }
+ 
+     SHORTCUTS = {
+diff --git a/sweagent/environment/swe_env.py b/sweagent/environment/swe_env.py
+index 95278f8..0dad67c 100644
+--- a/sweagent/environment/swe_env.py
++++ b/sweagent/environment/swe_env.py
+@@ -696,6 +696,12 @@ class SWEEnv(gym.Env):
+                 )
+                 # Write reqs to requirements.txt in docker container
+                 content_reqs = get_requirements(self.record)
++                if os.environ.get("SWE_AGENT_COMPAT_YANKED_PACKAGES") == "1":
++                    content_reqs = content_reqs.replace(
++                        "types-pkg_resources",
++                        "types-setuptools",
++                    )
++                    self.logger.info("Replaced yanked types-pkg_resources with types-setuptools")
+                 copy_file_to_container(self.container_obj, content_reqs, PATH_TO_REQS)
+                 # Create conda environment + install reqs
+                 self.communicate_with_handling(
+diff --git a/sweagent/environment/utils.py b/sweagent/environment/utils.py
+index 789087f..ba63f1c 100644
+--- a/sweagent/environment/utils.py
++++ b/sweagent/environment/utils.py
+@@ -238,6 +238,23 @@ def get_background_pids(container_obj):
+     return bash_pids, other_pids
+ 
+ 
++def _local_container_network_args() -> list[str]:
++    """Build opt-in Docker arguments for a proxy reachable on the host loopback."""
++    proxy = os.environ.get("SWE_AGENT_CONTAINER_PROXY")
++    if not proxy:
++        return []
++
++    args = ["--network", os.environ.get("SWE_AGENT_DOCKER_NETWORK", "host")]
++    no_proxy = os.environ.get(
++        "SWE_AGENT_CONTAINER_NO_PROXY",
++        "localhost,127.0.0.1,::1",
++    )
++    for name, value in (("HTTP_PROXY", proxy), ("HTTPS_PROXY", proxy), ("NO_PROXY", no_proxy)):
++        args.extend(["--env", f"{name}={value}"])
++        args.extend(["--env", f"{name.lower()}={value}"])
++    return args
++
++
+ def _get_non_persistent_container(ctr_name: str, image_name: str) -> Tuple[subprocess.Popen, set]:
+     startup_cmd = [
+         "docker",
+@@ -247,6 +264,7 @@ def _get_non_persistent_container(ctr_name: str, image_name: str) -> Tuple[subprocess.Popen, set]:
+         "--rm",
+         "--name",
+         ctr_name,
++        *_local_container_network_args(),
+         image_name,
+         "/bin/bash",
+         "-l",
