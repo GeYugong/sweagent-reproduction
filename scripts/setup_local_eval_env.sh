@@ -12,10 +12,12 @@ fi
 "${uv_bin}" venv --python 3.9 "${venv_root}"
 "${uv_bin}" pip install \
   --python "${venv_root}/bin/python" \
-  "swebench==1.0.2"
+  "swebench==1.0.2" \
+  "unidiff==0.7.5"
 
 "${venv_root}/bin/python" - <<'PY'
 import swebench
+import unidiff
 from swebench import get_eval_refs, run_evaluation
 
 print(f"swebench={swebench.__version__}")
