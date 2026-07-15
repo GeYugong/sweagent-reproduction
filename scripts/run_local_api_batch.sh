@@ -6,14 +6,16 @@ manifest="${1:-${repo_root}/data/manifests/swebench_lite_dev20_seed42.json}"
 model_name="${2:-gpt-5.6-terra}"
 batch_id="${3:-dev20_baseline}"
 max_new_runs="${4:-1}"
+max_api_calls="${5:-25}"
 
 if [[ ! -f "${manifest}" ]]; then
   echo "Manifest not found: ${manifest}" >&2
   exit 2
 fi
 if [[ ! "${batch_id}" =~ ^[A-Za-z0-9_.-]+$ ]] \
-  || [[ ! "${max_new_runs}" =~ ^[1-9][0-9]*$ ]]; then
-  echo "Batch id or max-new-runs value is invalid." >&2
+  || [[ ! "${max_new_runs}" =~ ^[1-9][0-9]*$ ]] \
+  || [[ ! "${max_api_calls}" =~ ^[1-9][0-9]*$ ]]; then
+  echo "Batch id, max-new-runs, or API call limit is invalid." >&2
   exit 2
 fi
 
@@ -38,7 +40,8 @@ for instance_id in "${instance_ids[@]}"; do
     continue
   fi
 
-  "${repo_root}/scripts/run_local_api_instance.sh" \
+  SWE_AGENT_MAX_API_CALLS="${max_api_calls}" \
+    "${repo_root}/scripts/run_local_api_instance.sh" \
     "${instance_id}" "${model_name}" "${run_id}"
   started=$((started + 1))
   if [[ "${started}" -ge "${max_new_runs}" ]]; then
