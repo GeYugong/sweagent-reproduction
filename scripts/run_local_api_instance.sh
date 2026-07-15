@@ -76,8 +76,12 @@ set -o pipefail
   2>&1 | tee "${run_log}"
 
 trajectory_root="$(find trajectories -type d -name "*__${run_id}" -print -quit)"
-if [[ -z "${trajectory_root}" ]]; then
-  echo "No trajectory directory was produced for ${run_id}." >&2
+trajectory_file="${trajectory_root}/${instance_id}.traj"
+predictions_file="${trajectory_root}/all_preds.jsonl"
+if [[ -z "${trajectory_root}" ]] \
+  || [[ ! -s "${trajectory_file}" ]] \
+  || [[ ! -s "${predictions_file}" ]]; then
+  echo "Complete trajectory and predictions were not produced for ${run_id}." >&2
   exit 1
 fi
 

@@ -60,7 +60,7 @@ diff --git a/sweagent/environment/utils.py b/sweagent/environment/utils.py
 index 789087f..ba63f1c 100644
 --- a/sweagent/environment/utils.py
 +++ b/sweagent/environment/utils.py
-@@ -238,6 +238,23 @@ def get_background_pids(container_obj):
+@@ -238,6 +238,33 @@ def get_background_pids(container_obj):
      return bash_pids, other_pids
  
  
@@ -75,7 +75,17 @@ index 789087f..ba63f1c 100644
 +        "SWE_AGENT_CONTAINER_NO_PROXY",
 +        "localhost,127.0.0.1,::1",
 +    )
-+    for name, value in (("HTTP_PROXY", proxy), ("HTTPS_PROXY", proxy), ("NO_PROXY", no_proxy)):
++    env_pairs = (
++        ("HTTP_PROXY", proxy),
++        ("HTTPS_PROXY", proxy),
++        ("NO_PROXY", no_proxy),
++        ("CONDA_REMOTE_CONNECT_TIMEOUT_SECS", "60"),
++        ("CONDA_REMOTE_READ_TIMEOUT_SECS", "180"),
++        ("CONDA_REMOTE_MAX_RETRIES", "10"),
++        ("CONDA_DEFAULT_THREADS", "1"),
++        ("CONDA_SOLVER", "classic"),
++    )
++    for name, value in env_pairs:
 +        args.extend(["--env", f"{name}={value}"])
 +        args.extend(["--env", f"{name.lower()}={value}"])
 +    return args
@@ -84,7 +94,7 @@ index 789087f..ba63f1c 100644
  def _get_non_persistent_container(ctr_name: str, image_name: str) -> Tuple[subprocess.Popen, set]:
      startup_cmd = [
          "docker",
-@@ -247,6 +264,7 @@ def _get_non_persistent_container(ctr_name: str, image_name: str) -> Tuple[subprocess.Popen, set]:
+@@ -247,6 +274,7 @@ def _get_non_persistent_container(ctr_name: str, image_name: str) -> Tuple[subprocess.Popen, set]:
          "--rm",
          "--name",
          ctr_name,
