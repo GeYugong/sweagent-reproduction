@@ -29,6 +29,18 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 
 该比例只有三个样本，不报告置信区间，也不用于模型间比较。至少完成冻结的 20 个实例后再计算主指标与 bootstrap 置信区间。
 
+## 未计入正式结果的尝试
+
+`EXP-DEV20-003A` 尝试运行 `pvlib__pvlib-python-1154`，但容器内 Conda 在下载 Python、NumPy、Pandas、SciPy 与 OpenBLAS 时连续发生代理 TLS 超时。失败发生在 agent 初始化前：
+
+- API 调用：0；
+- 轨迹：未生成；
+- 预测：未生成；
+- 正式评测：未启动；
+- dev20 分母：不计入。
+
+运行适配补丁已向实验容器注入单线程下载、60 秒连接超时、180 秒读取超时、10 次重试和 classic solver。运行器也已改为必须同时检测到实例 `.traj` 与 `all_preds.jsonl`，避免把只有 `args.yaml` 的目录误判为推理成功。
+
 ## Marshmallow 成功案例
 
 模型首先用最小脚本复现 nested schema 输入类型错误与 field validator 的交互，随后定位 `BaseSchema._do_load()`。候选修复只在 `result is not None` 时调用 field validators，并添加回归测试。

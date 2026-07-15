@@ -369,6 +369,36 @@ SWE-bench 1.0.2 对 Marshmallow 2.20 未配置额外 Conda packages。旧 harnes
 
 `COMPLETE`：resolved=1。
 
+## 2026-07-15 — EXP-DEV20-003A：pvlib 1154 环境失败
+
+### 目标
+
+运行冻结清单中的下一个实例 `pvlib__pvlib-python-1154`，保持 `gpt-5.6-terra`、论文 ACI 与 25 次调用上限不变。
+
+### 失败位置
+
+任务仓库 clone 成功，失败发生在容器内创建 Conda 环境。Conda 并行下载 Python、NumPy、Pandas、SciPy、OpenBLAS 等包时，代理多次出现 TLS handshake timeout，最终返回 ProxyError。
+
+失败早于 agent 推理：没有 API 调用，没有实例轨迹，没有预测 patch，也没有启动正式 evaluator。因此该尝试不进入 dev20 的已评测分母。
+
+### 同时发现的运行器缺陷
+
+SWE-agent 在环境失败后仍创建了 run 目录和 `args.yaml`。旧运行器只检查目录是否存在，随后把空目录复制为实验输出，可能误报成功。
+
+### 修正
+
+1. agent 容器增加 `CONDA_REMOTE_CONNECT_TIMEOUT_SECS=60`；
+2. 增加 `CONDA_REMOTE_READ_TIMEOUT_SECS=180`；
+3. 增加 `CONDA_REMOTE_MAX_RETRIES=10`；
+4. 设置 `CONDA_DEFAULT_THREADS=1` 与 `CONDA_SOLVER=classic`；
+5. 运行器必须同时找到非空的 `<instance_id>.traj` 与 `all_preds.jsonl` 才接受推理完成。
+
+修正已提交。当前宿主执行会话随后无法访问 WSL 服务，最小 `wsl ... echo` 返回 `Wsl/Service/E_ACCESSDENIED`；Windows 侧也没有 Docker、Podman 或 nerdctl 备用入口。本次重试保持 pending，不改变实验路线。
+
+### 状态
+
+`INFRA_FAILURE`：零 API 调用，等待本地 WSL 执行权限恢复后按相同 run ID 重试。
+
 ## 2026-07-15 — EXP-DEV20-002：Marshmallow 容器字段格式继承
 
 ### 实例与配置
