@@ -3,9 +3,10 @@ set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source_repo="${repo_root}/code/SWE-agent"
-runtime_root="${1:-${repo_root}/tmp/runtime/SWE-agent-local}"
 patch_file="${repo_root}/patches/sweagent_local_api.patch"
 venv_root="${HOME}/.venvs/sweagent-paper"
+patch_id="$(sha256sum "${patch_file}" | cut -c1-12)"
+runtime_root="${1:-${repo_root}/tmp/runtime/SWE-agent-local-${patch_id}}"
 
 snapshot="$(git -C "${source_repo}" rev-parse HEAD)"
 

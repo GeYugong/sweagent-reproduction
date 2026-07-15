@@ -1,21 +1,8 @@
 diff --git a/sweagent/agent/models.py b/sweagent/agent/models.py
-index 2492e4f..3710ed5 100644
+index 2492e4f..72a1d66 100644
 --- a/sweagent/agent/models.py
 +++ b/sweagent/agent/models.py
-@@ -164,5 +164,12 @@ class BaseModel:
-             )
-             raise CostLimitExceededError("Instance cost limit exceeded")
-+
-+        max_api_calls = int(os.environ.get("SWE_AGENT_MAX_API_CALLS", "0"))
-+        if 0 < max_api_calls <= self.stats.api_calls:
-+            logger.warning(
-+                f"API calls {self.stats.api_calls} reached limit {max_api_calls}"
-+            )
-+            raise CostLimitExceededError("API call limit reached")
-         return cost
- 
-     def query(self, history: list[dict[str, str]]) -> str:
-@@ -207,6 +214,23 @@ class OpenAIModel(BaseModel):
+@@ -207,6 +207,23 @@ class OpenAIModel(BaseModel):
              "cost_per_input_token": 1e-05,
              "cost_per_output_token": 3e-05,
          },
@@ -39,6 +26,19 @@ index 2492e4f..3710ed5 100644
      }
  
      SHORTCUTS = {
+@@ -258,6 +275,12 @@ class OpenAIModel(BaseModel):
+         """
+         Query the OpenAI API with the given `history` and return the response.
+         """
++        max_api_calls = int(os.environ.get("SWE_AGENT_MAX_API_CALLS", "0"))
++        if 0 < max_api_calls <= self.stats.api_calls:
++            logger.warning(
++                f"API calls {self.stats.api_calls} reached limit {max_api_calls}"
++            )
++            raise CostLimitExceededError("API call limit reached")
+         try:
+             # Perform OpenAI API call
+             response = self.client.chat.completions.create(
 diff --git a/sweagent/environment/swe_env.py b/sweagent/environment/swe_env.py
 index 95278f8..0dad67c 100644
 --- a/sweagent/environment/swe_env.py
