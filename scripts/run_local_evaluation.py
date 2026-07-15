@@ -18,6 +18,7 @@ from swebench.harness import context_manager
 
 def install_requirements_compatibility() -> None:
     original = context_manager.get_requirements
+    original_exec = context_manager.ExecWrapper.__call__
 
     def get_requirements_compat(instance: dict, save_path: Optional[str] = None):
         result = original(instance, save_path)
@@ -37,6 +38,13 @@ def install_requirements_compatibility() -> None:
         return result
 
     context_manager.get_requirements = get_requirements_compat
+
+    def exec_compat(self, cmd, raise_error=True, **kwargs):
+        if isinstance(cmd, list):
+            cmd = [part for part in cmd if part != ""]
+        return original_exec(self, cmd, raise_error=raise_error, **kwargs)
+
+    context_manager.ExecWrapper.__call__ = exec_compat
 
 
 def configure_conda_downloads() -> None:
