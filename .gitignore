@@ -11,6 +11,7 @@ secrets/
 **/.ruff_cache/
 .venv/
 venv/
+.cache/
 
 # Large or reproducible experiment artifacts
 outputs/logs/*
