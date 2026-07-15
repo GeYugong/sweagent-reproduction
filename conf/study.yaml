@@ -44,6 +44,7 @@ evaluation:
   benchmark: SWE-bench Lite
   smoke_instances: 1
   dev_instances: 20
+  dev_manifest: data/manifests/swebench_lite_dev20_seed42.json
   formal_instances: 300
   seed: 42
   retry_policy: no_automatic_retry

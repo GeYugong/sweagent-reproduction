@@ -9,3 +9,4 @@ EXP-API-001,2026-07-15,P0,api_compatibility,gpt-5.6-terra,none,legacy_chat,42,CO
 EXP-LOCAL-002,2026-07-15,P0,container_smoke,instant_empty_submit,SWE-bench_Lite,sqlfluff__sqlfluff-1625,42,COMPLETE,,1,"Local Docker trajectory completed with zero API calls; yanked typing stub replaced"
 EXP-API-PILOT-001,2026-07-15,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,sqlfluff__sqlfluff-1625,42,BUDGET_TRUNCATED,0,1,"8 calls; 73004 input and 848 output tokens; no patch"
 EXP-API-BASELINE-001,2026-07-15,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,sqlfluff__sqlfluff-1625,42,COMPLETE,0,1,"25 calls; patch applied; 68/69 target tests passed; RESOLVED_NO"
+EXP-DEV20-001,2026-07-15,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,marshmallow-code__marshmallow-1343,42,COMPLETE,1,1,"22 calls; 243975 input and 2750 output tokens; 25/25 target tests passed; RESOLVED_FULL"

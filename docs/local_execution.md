@@ -14,6 +14,7 @@
 - `scripts/run_local_api_instance.sh`：安全物化密钥、限制 API 次数并保存实例级轨迹；
 - `scripts/setup_local_eval_env.sh`：建立独立的论文期评测环境；
 - `scripts/run_local_evaluation.py`：运行论文快照 evaluator 并处理已撤回依赖；
+- `scripts/run_local_api_batch.sh`：按冻结清单逐实例执行，默认一次只新增一个实例；
 - `patches/sweagent_local_api.patch`：容器代理、现代模型注册、调用次数上限与撤回依赖兼容。
 
 原始子模块始终固定在 `658eb2842e8a8b00069b301338bc342b70538f7a`。运行副本位于被 Git 忽略的 `tmp/runtime/`，避免把适配改动混入论文快照。
@@ -27,3 +28,5 @@
 本机已完成一个 SWE-bench Lite dev 实例的零 API 冷启动闭环。物理 D 盘余量约 59 GiB，低于完整 SWE-bench 推荐容量，因此当前只执行逐实例和小批量实验。扩大到完整 Lite 或并行批次前，必须先增加磁盘空间或迁移到具备容器后端的服务器。
 
 首个真实 `gpt-5.6-terra` 基线也已完成：25 次调用后生成候选补丁，正式 evaluator 判定 `RESOLVED_NO`。该结果证明本地链路可以完成从 API 推理到正式判分的端到端流程，但不能作为成功实例计入 resolve rate。
+
+开发批次固定在 `data/manifests/swebench_lite_dev20_seed42.json`。批处理通过轨迹目录跳过已完成实例，每次调用默认最多新增 1 个实例，避免一次命令意外消耗完整 20 实例额度。

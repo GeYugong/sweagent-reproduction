@@ -126,3 +126,10 @@ python -m pytest -q -x code/SWE-agent/tests/test_models.py
 - 评测兼容项：与推理阶段相同的 `types-pkg_resources` → `types-setuptools` 替换。
 
 首次正式评测在 Conda 包下载时发生代理 TLS 超时。第二次使用单线程下载、60 秒连接超时、180 秒读取超时、10 次重试和 classic solver 后完成。网络重试不改变数据、模型补丁或测试集合。
+
+Marshmallow 评测又暴露两个旧 harness 问题：
+
+1. 长 run ID 使临时 Miniconda 前缀达到 145 字符，安装器生成 `/usr/bin/env python` shebang，导致 `conda env list` 无法启动。评测器现在使用短哈希模型别名，并把结果复制回原始轨迹目录。
+2. `MAP_VERSION_TO_INSTALL` 未提供 `packages` 时，1.0.2 harness 用 `split(" ")` 生成空命令参数，Conda 报无效 MatchSpec。运行时 wrapper 只过滤参数列表中的空字符串。
+
+两项兼容均属于 testbed 启动修复，不改变预测 patch、官方 test patch、FAIL_TO_PASS 或 PASS_TO_PASS 集合。
