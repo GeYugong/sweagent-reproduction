@@ -43,3 +43,27 @@
 ### 状态
 
 `PARTIAL`：版本与研究协议已冻结；正式单实例闭环受容器后端缺失阻塞。
+
+## 2026-07-15 — EXP-SETUP-002：论文配置逐字段核对
+
+### 目的
+
+确认论文附录中的模型、上下文、窗口和 ACI 组件能够映射到论文期代码快照中的具体字段。
+
+### 执行过程
+
+1. 读取 `config/default.yaml` 的 system、instance、demonstration 和 next-step 模板。
+2. 核对 `WINDOW=100`、`Last5Observations`、`edit_linting.sh` 和 `search.sh`。
+3. 检查 `run.py` 中模型、temperature、top-p 和单实例费用上限的默认值。
+4. 检查 `models.py` 中 `gpt4` shortcut 的 API 模型映射。
+
+### 结果
+
+- `gpt4` 映射到 `gpt-4-1106-preview`。
+- temperature 为 0.0，top-p 为 0.95，单实例费用上限为 3 美元。
+- 文件窗口、最近五次观察、demonstration、linting 编辑器和摘要式搜索均与论文描述一致。
+- 逐字段结果写入 `docs/config_alignment.md`。
+
+### 状态
+
+`COMPLETE`：论文配置与代码字段的静态对齐已完成。

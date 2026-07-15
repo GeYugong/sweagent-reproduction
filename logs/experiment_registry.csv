@@ -1,2 +1,3 @@
 run_id,date,phase,system,model,dataset,variant,seed,status,resolved,n_instances,notes
 EXP-SETUP-001,2026-07-15,P0,repository_setup,none,none,paper_snapshot,42,PARTIAL,,0,"Version frozen; container backend unavailable on server"
+EXP-SETUP-002,2026-07-15,P0,config_audit,gpt-4-1106-preview,none,paper_default,42,COMPLETE,,0,"Paper settings mapped to snapshot fields"
