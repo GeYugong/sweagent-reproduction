@@ -100,4 +100,18 @@ python -m pytest -q -x code/SWE-agent/tests/test_models.py
 
 ## 当前结论
 
-论文代码的纯离线核心工具已可执行，OpenAI 适配器的 mock 路径可通过。正式单实例仍受两个外部条件阻塞：可用容器后端与显式 API 模型/预算配置。依赖锁定尚未完成，现有 freeze 是审计快照，不是最终跨机器 lock。
+论文代码的纯离线核心工具、OpenAI 适配器 mock 路径和本地 Docker 单实例均已通过。OpenAI 兼容中转接口已完成真实最小请求验证；费用接口未公开，因此只记录实际 token 数与 API 调用数，不把上游公开价或零值伪装成中转费用。
+
+### 本地 Python 环境
+
+- uv：0.11.28；
+- Python：3.9.25；
+- SWE-bench：1.0.1；
+- OpenAI SDK：2.45.0；
+- 论文快照验证：11/11 PASS。
+
+### 2026 包生态漂移
+
+`sqlfluff__sqlfluff-1625` 的历史 requirements 包含 `types-pkg_resources`。该包的 PyPI 版本已全部撤回，官方撤回说明要求改用 `types-setuptools`。运行适配补丁只在显式设置 `SWE_AGENT_COMPAT_YANKED_PACKAGES=1` 时替换该类型存根，不修改任务代码、基准提交或测试。
+
+完成替换后，零 API 单实例成功生成轨迹和预测文件。该兼容项必须在所有相关实验报告中保留，不能将其描述为未经修改的 2024 环境。

@@ -24,10 +24,21 @@ paper_configuration:
   summarized_search: true
 
 resources:
-  max_gpus: 2
-  gpu_type: NVIDIA A40
-  container_backend: unresolved
+  primary_execution: local_wsl2
+  model_inference: remote_openai_compatible_api
+  max_gpus: 0
+  container_backend: docker_engine_wsl2
   max_parallel_instances: 1
+
+modern_replication:
+  primary_model: gpt-5.6-terra
+  smoke_model: gpt-5.4-mini
+  api_style: chat_completions
+  temperature: 0.0
+  top_p: 0.95
+  relay_pricing: unknown
+  accounting: tokens_and_api_calls
+  max_api_calls_per_instance: 25
 
 evaluation:
   benchmark: SWE-bench Lite

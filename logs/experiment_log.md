@@ -140,3 +140,95 @@ pip 将无上限的 `swebench>=1.0.1` 解析为 3.0.17。该版本使用 Python 
 ### 状态
 
 `BLOCKED_EXTERNAL`：需要管理员提供容器后端，或把正式评测迁移到另一台已授权的 Docker 主机。
+
+## 2026-07-15 — EXP-LOCAL-001：本地 WSL2 与 Docker 环境
+
+### 目的
+
+建立不依赖服务器权限、无需本地模型显卡的单实例执行环境。
+
+### 执行过程
+
+1. 将 Ubuntu WSL2 发行版迁移到 `D:\2software\WSL\Ubuntu`，迁移前导出备份。
+2. 将 WSL2 限制为 20 GiB 内存、16 个处理器和 8 GiB swap。
+3. 按 Docker 官方 Ubuntu 安装流程部署 Docker Engine 29.6.1。
+4. 为 Docker daemon 配置本机 HTTP 代理，完成 `hello-world` 拉取与运行。
+5. 拉取论文快照所需 `sweagent/swe-agent:latest`，记录镜像摘要。
+6. 使用 uv 0.11.28 安装 Python 3.9.25，创建隔离环境并固定 `swebench==1.0.1`。
+7. 运行论文快照验证脚本，11 项检查全部通过。
+
+### 结果
+
+本地容器与 Python 环境可用。模型推理被明确放在远程 API，RTX 4060 未参与实验。
+
+### 状态
+
+`COMPLETE`。
+
+## 2026-07-15 — EXP-API-001：OpenAI 兼容接口验证
+
+### 目的
+
+验证中转接口是否兼容论文快照使用的 Chat Completions 调用方式。
+
+### 方法
+
+- 探测 `/v1/models` 和 `/models`；
+- 对候选模型发送固定最小请求：`temperature=0.0`、`top_p=0.95`；
+- 只保存接口状态、模型名、响应结构和 token 统计，不保存密钥。
+
+### 结果
+
+- 模型列表接口返回 OpenAI 兼容结构；
+- `gpt-5.4-mini`、`gpt-5.4` 与 `gpt-5.6-terra` 均通过旧版 Chat Completions；
+- `gpt-5.6-terra` 返回 HTTP 200 和精确文本 `OK`；
+- 该请求使用 307 个输入 token、5 个输出 token，共 312 个 token；
+- 中转价格未通过公开接口获得，因此不报告推测费用。
+
+### 决策
+
+现代复现实验主模型使用 `gpt-5.6-terra`，低成本连通 smoke 使用 `gpt-5.4-mini`。论文原始结果仍标注为 `gpt-4-1106-preview`，不得把现代模型结果称为原论文分数复现。
+
+### 状态
+
+`COMPLETE`。
+
+## 2026-07-15 — EXP-LOCAL-002：零 API 单实例闭环
+
+### 目的
+
+在产生模型费用前验证 SWE-bench Lite 的本地完整执行链路。
+
+### 实例与配置
+
+- 实例：`sqlfluff__sqlfluff-1625`；
+- split：dev；
+- 模型：`instant_empty_submit`；
+- API 费用上限：0；
+- 预期 API 调用数：0。
+
+### 失败 1：基础镜像缺失
+
+论文快照不会自动拉取 `sweagent/swe-agent:latest`。首次运行在创建容器前失败。拉取固定摘要镜像后进入容器初始化。
+
+### 失败 2：容器内 GitHub 超时
+
+Docker daemon 能通过代理拉取镜像，但实验容器没有继承代理。`git clone` 在 500 秒读取窗口内超时。运行补丁通过 `--network host` 注入大小写代理环境变量；独立命令 `git ls-remote` 随后通过。
+
+### 失败 3：撤回的历史依赖
+
+SQLFluff 历史 requirements 使用 `types-pkg_resources`，当前 PyPI 已撤回其全部版本。依据官方撤回说明，显式启用兼容开关，将其替换为 `types-setuptools`。
+
+### 最终结果
+
+- 容器初始化：通过；
+- GitHub clone：通过；
+- Conda 环境与项目安装：通过；
+- 任务 reset 与 agent loop：通过；
+- 轨迹、patch 与 `all_preds.jsonl`：均成功落盘；
+- `api_calls=0`、`tokens_sent=0`、`tokens_received=0`；
+- 最终成功轮墙钟时间：约 336 秒（冷启动）。
+
+### 状态
+
+`COMPLETE`。本地单实例链路具备进入真实 API 试运行的条件。

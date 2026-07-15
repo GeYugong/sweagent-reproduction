@@ -4,3 +4,6 @@ EXP-SETUP-002,2026-07-15,P0,config_audit,gpt-4-1106-preview,none,paper_default,4
 EXP-SETUP-003,2026-07-15,P0,environment_setup,none,none,python39,42,COMPLETE_WITH_LIMITATIONS,,0,"16 offline tests passed; dependency drift documented"
 EXP-SMOKE-001,2026-07-15,P0,snapshot_verifier,gpt-4-1106-preview,none,paper_default,42,COMPLETE,,0,"11 configuration and version checks passed locally and remotely"
 EXP-SETUP-004,2026-07-15,P0,container_audit,none,none,server_runtime,42,BLOCKED_EXTERNAL,,0,"No socket, module, or container executable found"
+EXP-LOCAL-001,2026-07-15,P0,local_environment,none,none,wsl2_docker_python39,42,COMPLETE,,0,"WSL moved to D; Docker and uv Python environment verified"
+EXP-API-001,2026-07-15,P0,api_compatibility,gpt-5.6-terra,none,legacy_chat,42,COMPLETE,,0,"HTTP 200; exact OK response; 312 total tokens"
+EXP-LOCAL-002,2026-07-15,P0,container_smoke,instant_empty_submit,SWE-bench_Lite,sqlfluff__sqlfluff-1625,42,COMPLETE,,1,"Local Docker trajectory completed with zero API calls; yanked typing stub replaced"

@@ -1,0 +1,24 @@
+# 本地执行方案
+
+## 计算边界
+
+模型推理由 OpenAI 兼容 API 完成，本机不加载模型权重。WSL2 中的 Docker 只负责检出任务仓库、安装历史依赖、执行 agent 命令和运行测试。实验资源按 16 个 CPU、20 GiB 内存、8 GiB swap、0 GPU 规划。
+
+## 可复现组件
+
+- `conf/wslconfig.swebench`：WSL2 资源配置；
+- `scripts/install_docker_wsl.sh`：Docker Engine 安装；
+- `scripts/configure_docker_proxy_wsl.sh`：Docker daemon 代理；
+- `scripts/setup_local_wsl_env.sh`：uv、Python 3.9 与论文依赖；
+- `scripts/prepare_local_runtime.sh`：从冻结提交创建临时 worktree 并应用适配补丁；
+- `patches/sweagent_local_api.patch`：容器代理、现代模型注册、调用次数上限与撤回依赖兼容。
+
+原始子模块始终固定在 `658eb2842e8a8b00069b301338bc342b70538f7a`。运行副本位于被 Git 忽略的 `tmp/runtime/`，避免把适配改动混入论文快照。
+
+## API 与费用控制
+
+密钥保存在被 Git 忽略且限制 ACL 的环境文件中。探测脚本不打印密钥。中转接口未公开计费单价，因而运行适配层将模型美元单价设为 0，仅用于避免伪造费用；实际控制项为 `SWE_AGENT_MAX_API_CALLS`，轨迹继续记录输入 token、输出 token 和调用次数。
+
+## 当前范围
+
+本机已完成一个 SWE-bench Lite dev 实例的零 API 冷启动闭环。物理 D 盘余量约 59 GiB，低于完整 SWE-bench 推荐容量，因此当前只执行逐实例和小批量实验。扩大到完整 Lite 或并行批次前，必须先增加磁盘空间或迁移到具备容器后端的服务器。
