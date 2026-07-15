@@ -1,0 +1,37 @@
+timestamp_utc=2026-07-15T09:31:29Z
+hostname=2d3722767853
+user=mty
+pwd=/public/home/mty/GeYugong/05_sweagent_repro_ser
+git_commit=f7c683d00fbc132dbff6961032db18fe16972efb
+python=Python 3.8.10
+git=git version 2.25.1
+cpu_count=30
+
+[filesystem]
+Filesystem             Size  Used Avail Use% Mounted on
+iio1:/public/home/mty   72T   71T  2.0T  98% /public/home/mty
+
+[memory]
+              total        used        free      shared  buff/cache   available
+Mem:          251Gi        35Gi       157Gi       884Mi        58Gi       213Gi
+Swap:          31Gi          0B        31Gi
+
+[gpus]
+0, NVIDIA A40, 46068 MiB, 20804 MiB, 95 %, 535.230.02
+1, NVIDIA A40, 46068 MiB, 20810 MiB, 69 %, 535.230.02
+2, NVIDIA A40, 46068 MiB, 17390 MiB, 94 %, 535.230.02
+3, NVIDIA A40, 46068 MiB, 61 MiB, 0 %, 535.230.02
+4, NVIDIA A40, 46068 MiB, 20820 MiB, 63 %, 535.230.02
+5, NVIDIA A40, 46068 MiB, 61 MiB, 0 %, 535.230.02
+
+[container_backends]
+docker=unavailable
+podman=unavailable
+apptainer=unavailable
+singularity=unavailable
+enroot=unavailable
+
+[schedulers]
+srun=unavailable
+sbatch=unavailable
+sinfo=unavailable
