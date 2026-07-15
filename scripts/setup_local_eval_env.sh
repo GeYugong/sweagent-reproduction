@@ -9,7 +9,9 @@ if [[ ! -x "${uv_bin}" ]]; then
   exit 1
 fi
 
-"${uv_bin}" venv --python 3.9 "${venv_root}"
+if [[ ! -x "${venv_root}/bin/python" ]]; then
+  "${uv_bin}" venv --python 3.9 "${venv_root}"
+fi
 "${uv_bin}" pip install \
   --python "${venv_root}/bin/python" \
   "swebench==1.0.2" \
