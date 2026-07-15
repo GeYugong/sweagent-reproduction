@@ -1,0 +1,3 @@
+[submodule "code/SWE-agent"]
+	path = code/SWE-agent
+	url = https://github.com/SWE-agent/SWE-agent.git

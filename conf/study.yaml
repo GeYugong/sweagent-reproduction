@@ -1,0 +1,43 @@
+project:
+  name: sweagent-reproduction
+  local_root: D:/0code/Research/05
+  server_root: /public/home/mty/GeYugong/05_sweagent_repro_ser
+
+paper:
+  arxiv_id: "2405.15793"
+  version: v3
+  pdf: paper/2405.15793_SWE-agent.pdf
+  source: paper/2405.15793_source.tar.gz
+
+upstream:
+  repository: https://github.com/SWE-agent/SWE-agent.git
+  paper_snapshot: 658eb2842e8a8b00069b301338bc342b70538f7a
+  reference_release: v0.7.0
+
+paper_configuration:
+  model: gpt-4-1106-preview
+  temperature: 0.0
+  file_window_lines: 100
+  history_processor: Last5Observations
+  demonstration: true
+  linting_editor: true
+  summarized_search: true
+
+resources:
+  max_gpus: 2
+  gpu_type: NVIDIA A40
+  container_backend: unresolved
+  max_parallel_instances: 1
+
+evaluation:
+  benchmark: SWE-bench Lite
+  smoke_instances: 1
+  dev_instances: 20
+  formal_instances: 300
+  seed: 42
+  retry_policy: no_automatic_retry
+
+tracking:
+  registry: logs/experiment_registry.csv
+  narrative_log: logs/experiment_log.md
+  raw_outputs: outputs

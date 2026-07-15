@@ -1,0 +1,2 @@
+run_id,date,phase,system,model,dataset,variant,seed,status,resolved,n_instances,notes
+EXP-SETUP-001,2026-07-15,P0,repository_setup,none,none,paper_snapshot,42,PARTIAL,,0,"Version frozen; container backend unavailable on server"

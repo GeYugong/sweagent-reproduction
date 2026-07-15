@@ -1,0 +1,36 @@
+# Credentials and local configuration
+.env
+*.key
+keys.cfg
+secrets/
+
+# Python and tool caches
+**/__pycache__/
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+.venv/
+venv/
+
+# Large or reproducible experiment artifacts
+outputs/logs/*
+outputs/traces/*
+outputs/patches/*
+outputs/results/*
+outputs/figures/*
+data/cache/
+data/docker/
+tmp/
+
+# Keep output directory structure
+!outputs/logs/.gitkeep
+!outputs/traces/.gitkeep
+!outputs/patches/.gitkeep
+!outputs/results/.gitkeep
+!outputs/figures/.gitkeep
+
+# Editor and operating system files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
