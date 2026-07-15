@@ -1,0 +1,103 @@
+# 依赖审计
+
+审计日期：2026-07-15
+
+## 环境创建
+
+论文快照的 `environment.yml` 指定 Python 3.9。服务器默认 Python 为 3.8.10，因此在项目目录内创建独立环境：
+
+```text
+/public/home/mty/GeYugong/05_sweagent_repro_ser/.venv
+```
+
+所有 conda 和 pip 缓存均重定向到：
+
+```text
+/public/home/mty/GeYugong/05_sweagent_repro_ser/.cache
+```
+
+没有修改共享 conda 环境、`.condarc` 或系统 Python。环境创建完成后：
+
+- Python：3.9.25；
+- `.venv` 大小：约 193 MB（仅基础环境测量时）；
+- conda 缓存：约 143 MB（仅基础环境测量时）。
+
+## 首次解析结果
+
+上游 requirements 大部分没有版本上限。2026-07-15 直接执行 editable install 时解析到的关键版本包括：
+
+- `sweagent==0.2.0`；
+- `swebench==3.0.17`；
+- `openai==2.45.0`；
+- `anthropic==0.116.0`；
+- `datasets==4.5.0`；
+- `numpy==2.0.2`；
+- `pytest==8.4.2`。
+
+完整解析结果保存在 `logs/environment/pip_freeze_20260715.txt`，conda 基础包显式清单保存在 `logs/environment/conda_explicit_20260715.txt`。
+
+## 已确认的不兼容
+
+### SWE-bench 与 Python 3.9
+
+`swebench==3.0.17` 在导入时使用 `list | None`，该语法要求 Python 3.10 及以上。论文环境固定为 Python 3.9，因此 pytest 在 collection 阶段报错：
+
+```text
+TypeError: unsupported operand type(s) for |: 'type' and 'NoneType'
+```
+
+上游快照只声明 `swebench>=1.0.1`。为恢复论文期兼容性，研究约束文件把 SWE-bench 固定为 `1.0.1`。降级后 SWE-agent 与 SWE-bench 均可正常导入。
+
+### Together 适配器与 Anthropic SDK
+
+`test_models.py` 的 OpenAI mock 用例通过。Together 参数化用例在 `anthropic==0.116.0` 下失败：
+
+```text
+AttributeError: 'Anthropic' object has no attribute 'count_tokens'
+```
+
+论文主基线使用 GPT-4 Turbo，此失败不阻塞 GPT-4 路径，但会阻塞旧版 Together 模型适配器。后续若纳入 Together 对照，必须重建 2024 年 Anthropic SDK 约束或对适配层做独立兼容性修复；两种方案不能与论文基线混为一组。
+
+## 测试结果
+
+### 失败的混合 smoke 选择
+
+最初选择 `test_parsing.py`、`test_models.py` 和完整 `test_utils.py`。其中 `test_utils.py` 含 GitHub API 与 clone 网络用例，不属于稳定的离线 smoke 集。运行 210 秒后仍停在网络部分，进程被明确终止并记录原因。
+
+### 冻结的离线 smoke 选择
+
+命令：
+
+```bash
+python -m pytest -q \
+  code/SWE-agent/tests/test_parsing.py \
+  code/SWE-agent/tests/test_utils.py \
+  -k "not get_associated and not get_instance"
+```
+
+结果：
+
+```text
+16 passed, 6 deselected in 0.07s
+```
+
+### 模型适配首错测试
+
+命令：
+
+```bash
+python -m pytest -q -x code/SWE-agent/tests/test_models.py
+```
+
+结果：1 passed，随后 Together 用例因 Anthropic SDK API 漂移失败。
+
+### 导入与 CLI smoke
+
+- `import sweagent`：通过；
+- `import swebench`：通过，版本为 1.0.1；
+- `run.py --help`：通过；
+- `OPENAI_API_KEY`：未配置。
+
+## 当前结论
+
+论文代码的纯离线核心工具已可执行，OpenAI 适配器的 mock 路径可通过。正式单实例仍受两个外部条件阻塞：可用容器后端与显式 API 模型/预算配置。依赖锁定尚未完成，现有 freeze 是审计快照，不是最终跨机器 lock。

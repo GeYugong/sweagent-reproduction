@@ -56,3 +56,15 @@ SWE-bench 镜像缓存可能占用 120GB 以上。当前文件系统使用率为
 ## 当前结论
 
 GPU、内存和 CPU 足以开展两卡本地模型实验，但容器后端是单实例正式闭环的首要阻塞项。环境解决前可以继续完成论文配置核对、数据清单设计、轨迹分析脚本和无模型测试，不能开始大规模评测。
+
+## 项目隔离环境补充
+
+- 项目内 conda 环境：`.venv`；
+- Python：3.9.25，与上游 `environment.yml` 一致；
+- conda/pip 缓存：`.cache`，未写入共享包缓存；
+- SWE-agent import：通过；
+- SWE-bench：固定为 1.0.1 后 import 通过；
+- CLI help：通过；
+- 离线测试：16 passed，6 deselected；
+- OpenAI API key：未配置；
+- 正式推理：未启动，API 费用为 0。

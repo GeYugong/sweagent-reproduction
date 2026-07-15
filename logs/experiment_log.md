@@ -67,3 +67,55 @@
 ### 状态
 
 `COMPLETE`：论文配置与代码字段的静态对齐已完成。
+
+## 2026-07-15 — EXP-SETUP-003：服务器隔离环境与依赖漂移审计
+
+### 目的
+
+在不修改共享环境的前提下建立论文声明的 Python 3.9 环境，并验证 2026 年依赖解析能否直接运行论文快照。
+
+### 执行过程
+
+1. 将 conda 和 pip 缓存重定向到项目内 `.cache`。
+2. 在项目内 `.venv` 创建 Python 3.9 环境。
+3. editable 安装论文快照与 pytest。
+4. 保存 pip freeze 与 conda explicit 清单。
+5. 运行静态导入与 pytest smoke。
+
+### 首次失败
+
+pip 将无上限的 `swebench>=1.0.1` 解析为 3.0.17。该版本使用 Python 3.10 类型语法，在 Python 3.9 下导入失败。失败发生在测试 collection 阶段，不是 SWE-agent 逻辑失败。
+
+### 修正
+
+新增 `conf/paper_requirements_constraints.txt`，将 SWE-bench 固定为 1.0.1。修正后 `sweagent`、`swebench` 和 CLI help 均通过。
+
+### 其他发现
+
+- OpenAI mock 用例通过。
+- Together 适配器与 2026 年 Anthropic SDK 不兼容，首错为缺少 `count_tokens`。
+- 初始混合 smoke 集误含 GitHub 网络测试，210 秒后终止；后续冻结为纯离线选择。
+- 纯离线测试结果为 16 passed、6 deselected。
+- 服务器未配置 `OPENAI_API_KEY`，没有产生 API 调用或费用。
+
+### 状态
+
+`COMPLETE_WITH_LIMITATIONS`：论文主路径可导入且离线工具测试通过；Together 适配器仍存在依赖漂移，正式评测仍缺容器后端。
+
+## 2026-07-15 — EXP-SMOKE-001：论文快照自动验证
+
+### 目的
+
+自动验证本地与服务器均处于论文期提交，并防止配置在后续实验中静默漂移。
+
+### 方法
+
+执行 `scripts/verify_paper_snapshot.py`，核对上游 commit、100 行窗口、最近五次观察、命令集合、demonstration、解析器、模型映射、temperature、top-p 和费用上限。
+
+### 结果
+
+本地与服务器均通过全部 11 项检查，状态为 `PASS`。
+
+### 状态
+
+`COMPLETE`。
