@@ -28,13 +28,14 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 | EXP-DEV20-009 | `pydicom__pydicom-1413` | 20 | 249,072 | 5,460 | applied | RESOLVED_PARTIAL |
 | EXP-DEV20-010 | `pydicom__pydicom-1694` | 25 | 312,767 | 3,346 | apply failed | unresolved |
 | EXP-DEV20-011 | `pydicom__pydicom-901` | 25 | 287,071 | 3,485 | applied | RESOLVED_NO |
+| EXP-DEV20-012 | `pylint-dev__astroid-1196` | 25 | 289,720 | 3,862 | apply failed | unresolved |
 
 当前累计：
 
-- 已评测：12/20；
+- 已评测：13/20；
 - resolved：4；
-- 未 resolved：8；
-- 暂时 resolve rate：33.33%。
+- 未 resolved：9；
+- 暂时 resolve rate：30.77%。
 
 当前样本仍未完成，不报告置信区间，也不用于模型间比较。至少完成冻结的 20 个实例后再计算主指标与 bootstrap 置信区间。
 
@@ -201,6 +202,21 @@ Python 3.6 / pytest 6.2.5 兼容修复后，模型尝试解决“库导入不应
 - 正式判定：`RESOLVED_NO`。
 
 该实例未出现 PASS_TO_PASS 回归计数，但目标修复测试全部失败，因此明确计为 unresolved。
+
+## astroid 1196 正式结果
+
+模型针对字典解包节点的 `getitem()` 推理，增加对 unpacked value 再执行 `infer()` 后查找键的分支；同时保留 `reproduce.py`，并修改 `tests/unittest_python3.py` 添加回归测试。Agent 运行了该测试文件，在 25 次调用上限时提交。
+
+干净基线上的候选补丁预检查成功。正式 evaluator 应用 benchmark test patch 后，生产文件 `astroid/nodes/node_classes.py` 与新增 `reproduce.py` 检查通过，但测试文件第 7 行 import hunk无法匹配，因此整份预测补丁应用失败：
+
+- API 调用：25；
+- 输入 token：289,720；
+- 输出 token：3,862；
+- agent 步骤：25；
+- exit status：`submitted (exit_cost)`；
+- 正式判定：`PATCH_APPLY_FAILED` / unresolved。
+
+这是第三个因模型提交测试修改而在正式应用顺序中冲突的实例，且本例还把临时复现脚本包含在提交中。冻结基线不净化补丁，后续改进组可分别评估移除测试文件和临时文件的效果。
 
 ## Marshmallow 成功案例
 

@@ -563,6 +563,30 @@ Python 3.6 evaluator 成功安装 pytest 6.2.5，benchmark test patch 和 predic
 
 `COMPLETE`：resolved=0。dev20 累计 4/12 完全解决，主 resolve rate 为 33.33%。
 
+## 2026-07-16 — EXP-DEV20-012：astroid 1196 字典解包键查找
+
+### 推理过程
+
+模型在 `Dict.getitem()` 的 `DictUnpack` 分支中先尝试直接 `value.getitem()`，失败后遍历 `value.infer(context)` 的结果再次查找键，并扩展捕获 `AttributeError`。提交同时包含临时 `reproduce.py` 和 `tests/unittest_python3.py` 的两个回归测试。Agent 运行该测试文件，达到 25 次调用上限后提交。
+
+### 推理统计
+
+- API 调用：25；
+- 输入 token：289,720；
+- 输出 token：3,862；
+- agent 步骤：25；
+- exit status：`submitted (exit_cost)`。
+
+### 正式判分
+
+`pred_try` 在干净基线上应用和回退成功。benchmark test patch 应用后，正式预测检查通过 `astroid/nodes/node_classes.py` 与新增 `reproduce.py`，但 `tests/unittest_python3.py` 第 7 行 import 区域已经改变，预测测试 hunk无法应用。scorecard 只有 `generated`。
+
+按冻结协议不剥离测试或临时文件重判。该实例是第三个提交层测试冲突案例，进一步确立后续补丁净化消融的样本基础。
+
+### 状态
+
+`COMPLETE`：resolved=0，失败类型为 `PATCH_APPLY_FAILED`。dev20 累计 4/13 完全解决，主 resolve rate 为 30.77%。
+
 ## 2026-07-15 — EXP-DEV20-003B：pvlib 1154 镜像 clone 停滞
 
 ### 失败位置
