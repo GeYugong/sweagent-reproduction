@@ -369,6 +369,18 @@ SWE-bench 1.0.2 对 Marshmallow 2.20 未配置额外 Conda packages。旧 harnes
 
 `COMPLETE`：resolved=1。
 
+## 2026-07-16 — EXP-DEV20-006A：pvlib 1854 容器 EOF 竞态
+
+第七个实例在 Agent 初始化前终止。触发命令只是对 `export SEARCH_RESULTS=()` 执行 Bash 语法检查；日志显示后台 PID 为空，退出码读取缓冲区已经包含 `0`，但第二次读取仍等待满 5 秒并抛出 TimeoutError。
+
+旧 `read_with_timeout()` 在 `select()` 报告可读后调用 `os.read()`，却没有处理返回空字节的 EOF 情况，导致循环直到超时。运行适配补丁增加空读取立即 `break`，使已缓冲的退出码能够返回给调用方。该修改符合 pipe EOF 语义，不改变命令、输出或任务逻辑。
+
+失败前没有 Agent 轨迹或预测，API 调用为 0，不计入 dev20 分母。
+
+### 状态
+
+`INFRA_FAILURE`：容器通信兼容修正完成，等待原配置重试。
+
 ## 2026-07-15 — EXP-DEV20-003B：pvlib 1154 镜像 clone 停滞
 
 ### 失败位置

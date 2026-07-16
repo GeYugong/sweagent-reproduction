@@ -70,9 +70,18 @@ index 95278f8..2d5377f 100644
                      timeout_duration=LONG_TIMEOUT
                  )
 diff --git a/sweagent/environment/utils.py b/sweagent/environment/utils.py
-index 789087f..ba63f1c 100644
+index 789087f..b5a7f4c 100644
 --- a/sweagent/environment/utils.py
 +++ b/sweagent/environment/utils.py
+@@ -148,6 +148,8 @@ def read_with_timeout(container, pid_func, timeout_duration):
+             data = os.read(fd, 4096)
+             if data:
+                 buffer += data
++            else:
++                break
+         else:
+             # No more data to read
+             break
 @@ -238,6 +238,33 @@ def get_background_pids(container_obj):
      return bash_pids, other_pids
  

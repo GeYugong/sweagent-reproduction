@@ -139,3 +139,7 @@ Marshmallow 评测又暴露两个旧 harness 问题：
 `pvlib__pvlib-python-1707` 的首次 evaluator 环境从当前包索引安装了 NumPy 2.0.2。冻结提交仍在模块导入时引用 `np.Inf`，而 NumPy 2 已移除该别名，导致 FAIL_TO_PASS 与全部 PASS_TO_PASS 在 pytest 收集前统一失败。Agent 容器中的同一测试文件为 30/30 通过，说明这不是候选 patch 引入的回归。
 
 论文实验早于该破坏性依赖组合，因而 evaluator wrapper 对 pvlib 实例写入并导出 `PIP_CONSTRAINT=numpy<2`。约束只作用于 evaluator 建立的隔离环境，不修改任务仓库、预测 patch、benchmark test patch 或测试集合；其他仓库不设置该约束。初次 NumPy 2 判分标记为无效评测，使用完全相同的预测重新判分。
+
+### Docker attach 空读取竞态
+
+`pvlib__pvlib-python-1854` 首次初始化时，容器命令已返回退出码 `0` 且后台 PID 列表为空，但旧 `read_with_timeout()` 在 `select()` 可读后得到空字节仍继续循环，最终把成功命令误报为 5 秒超时。适配补丁按 pipe EOF 语义在空读取时立即结束；已有缓冲区中的退出码随后正常解析。失败早于 Agent 初始化，API 调用为 0。
