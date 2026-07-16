@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "validated_at_utc": "2026-07-16T23:46:26.675476+00:00",
+  "validation_method": "local_cross_hostname_redirect",
+  "instance_id": "psf__requests-2317",
+  "source_base_commit": "091991be0da19de9108dbe5e3752917fea3d7fdc",
+  "gold_patch_sha256": "e6f1e63850e2a5eefcfe6b4bbc6ba39038372415633a328ba7afea001fcbd50e",
+  "test_patch_sha256": "ff283039874db19ea594bda54c2aa6812eb25fea9881e2517c4a143805cdb552",
+  "source_file_sha256": {
+    "requests/sessions.py": "79e18d2bda96ce35992b558c5c8bea4e79a9e10960e42fe41a8457a1047cb366",
+    "test_requests.py": "fe816a0da3b4abd996014ef559a0ce7eeefcd0664d62a683924bd65840998b02"
+  },
+  "python_version": "3.9.25",
+  "requests_version": "2.4.3",
+  "requests_import": "/mnt/d/0code/Research/05/tmp/requests-2317-local/requests/__init__.py",
+  "status_code": 200,
+  "history_length": 1,
+  "initial_authorization_present": true,
+  "final_authorization_absent_client": true,
+  "final_authorization_absent_server": true,
+  "source_hostname": "127.0.0.1",
+  "destination_hostname": "localhost"
+}
