@@ -40,6 +40,12 @@ modern_replication:
   accounting: tokens_and_api_calls
   max_api_calls_per_instance: 25
 
+weak_aci_control:
+  variant: no_search_editor
+  config_source: conf/weak_aci_no_search_editor.yaml
+  unchanged: [model, temperature, top_p, max_api_calls, window, history_processor, demonstrations]
+  removed_command_files: [config/commands/search.sh, config/commands/edit_linting.sh]
+
 evaluation:
   benchmark: SWE-bench Lite
   smoke_instances: 1

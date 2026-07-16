@@ -8,6 +8,8 @@ model_name="${2:-gpt-5.6-terra}"
 run_id="${3:-api_pilot_$(date +%Y%m%d_%H%M%S)}"
 max_api_calls="${SWE_AGENT_MAX_API_CALLS:-8}"
 container_proxy="${SWE_AGENT_CONTAINER_PROXY:-http://127.0.0.1:10808}"
+config_file="${SWE_AGENT_CONFIG_FILE:-config/default.yaml}"
+config_source="${SWE_AGENT_CONFIG_SOURCE:-}"
 
 if [[ ! -f "${secret_file}" ]]; then
   echo "Secret environment file not found: ${secret_file}" >&2
@@ -62,14 +64,27 @@ export SWE_AGENT_DOCKER_NETWORK="host"
 export SWE_AGENT_COMPAT_YANKED_PACKAGES="1"
 export SWE_AGENT_MAX_API_CALLS="${max_api_calls}"
 
+if [[ -n "${config_source}" ]]; then
+  if [[ ! -f "${config_source}" ]]; then
+    echo "SWE-agent config source not found: ${config_source}" >&2
+    exit 2
+  fi
+  cp "${config_source}" "${runtime_root}/config/local_experiment.yaml"
+  config_file="config/local_experiment.yaml"
+fi
+
 cd "${runtime_root}"
+if [[ ! -f "${config_file}" ]]; then
+  echo "SWE-agent config file not found: ${config_file}" >&2
+  exit 2
+fi
 set -o pipefail
 "${HOME}/.venvs/sweagent-paper/bin/python" run.py \
   --model_name "${model_name}" \
   --data_path princeton-nlp/SWE-bench_Lite \
   --split dev \
   --instance_filter "^${instance_id}$" \
-  --config_file config/default.yaml \
+  --config_file "${config_file}" \
   --per_instance_cost_limit 0 \
   --total_cost_limit 0 \
   --temperature 0.0 \

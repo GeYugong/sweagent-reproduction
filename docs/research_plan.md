@@ -54,6 +54,12 @@
 - 在查看正式结果前冻结 `data/manifests/dev20.jsonl`。
 - 运行论文版默认配置和一个 shell-only/弱化 ACI 对照。
 
+弱化 ACI 对照在运行前冻结为 `no_search_editor`：仅从默认命令文件中移除
+`search.sh` 与 `edit_linting.sh`，保留 `defaults.sh`、提交协议、文件窗口、
+`Last5Observations`、演示、模型、temperature、top-p 与 25-call 上限。该设计
+将专用搜索和 linting editor 的可用性作为唯一实验变量；普通 shell 命令仍按
+默认系统提示允许使用。
+
 退出条件：结果表中不存在缺失的运行元数据，失败实例均有分类。
 
 ### P3：论文版部分复现
