@@ -1323,3 +1323,103 @@ gold/no-apply 首次执行于 01:15:35 开始，使用：
 - 可重复脚本：`scripts/official_evaluator_edge_replay.py`。
 
 `COMPLETE_5_OF_5_EXACT_EDGE_OUTCOMES`：P2 的 evaluator 代表单元/容器分支已完成。`G_EVALUATOR_REPLAY` 更新为 `PARTIAL_AGGREGATION_AND_REPRESENTATIVE_BRANCHES_COMPLETE`，因为全量 300/2,294 prediction 容器重评和每个支持仓库至少一个 gold 环境验证仍未完成。
+
+## 2026-07-17 — EXP-ARTIFACT-007：官方实例级分析 A01–A10 重放
+
+### 目标
+
+从论文期公开预测、轨迹、结果列表、冻结数据集和 arXiv 源码重新计算 A01–A10。验收要求为：所有已公开原始输入的表格单元和图形统计均可由单一脚本重建；无法精确匹配的项目必须定位到具体缺失实例或论文内部不一致，不用插值、去重变体或人工修数追配目标。
+
+该实验属于 `artifact reproduction`，不执行代理推理，不替代论文原模型严格重跑。
+
+### 冻结输入
+
+- arXiv：`2405.15793v3`，源码 SHA-256 `3d2bafc2fd9e104fd204f7d4582260817c48b15133f7c1cf668dd081c2fbc1ab`；
+- experiments：`a5d52722965c791c0c04d18135f906b44f716d39`；
+- Lite：`81ad348adcaf3368691f4db2907f8fc97a8f7526`，Parquet SHA-256 `2c0969b6fb6920f9425015563419901a4fe7fd078d143a3457fa1997b52365b1`；
+- Full：`283547aced6224d4adbe55c678b4c9c43fe7d501`，Parquet SHA-256 `831728617f006e70c9de546e15cbdb49ce27b6fe8a8e4c4cd8035e8da3de3020`；
+- GPT-4 Full 轨迹树 `9c9fee3591ee9a65fc3e1eede61f7018f75bc3d1`，2,268 个文件；
+- Claude Full 轨迹树 `875352db0e584909897a27df2bca4fd9ca2d833a`，2,013 个文件；
+- GPT-4 Lite 轨迹树 `043a824469ff2817ec19c9d16ddedae946432d63`，300 个文件；
+- Claude Lite 轨迹树 `8de1a3ea59b5af9ed4323029fa26324ab1f43908`，300 个文件。
+
+原分析源码 blob 为 `resolved_by_repo.py@13e9c2e9`、`resolved_by_time.py@8731a0ff`、`stats_patch.py@e5350c96` 和 `calc_localization_f1.py@6f355a70`。论文目标在运行前从 arXiv 源码固定，派生结果不以论文 PDF 手工抄数作为输入。
+
+### 环境与实现
+
+运行环境为本地 WSL2、Python 3.11.15、NumPy 1.26.4、Matplotlib 3.8.4、PyArrow 21.0.0、unidiff 0.7.5。新增依赖只安装在受 Git 忽略的 `.venv-analysis`；没有修改系统 Python、共享 conda 环境或远程环境。
+
+新增 `scripts/reproduce_official_instance_analyses.py`。脚本使用 `git cat-file --batch` 从固定历史提交流式读取轨迹和预测，不检出包含 Windows 超长路径的旧树。执行过程为：
+
+1. 校验论文源码和两个 Parquet 的 SHA-256；
+2. 校验四棵轨迹树的 Git object ID 和文件数量；
+3. 从历史 `results.json` 读取 resolved 列表，并同时保留列表行语义和唯一实例语义；
+4. 依次复算仓库/年份、退出条件、turn/cost、动作、n-gram、失败 edit、patch 和文件定位统计；
+5. 写出 13 个 CSV，生成 4 份 PDF；
+6. 在 JSON 清单中记录运行版本、输入 object ID、逐项状态和每个输出的字节数/SHA-256。
+
+一次完整运行墙钟约 44–48 秒。模型 API 调用 0、费用 0、GPU 未使用、远程服务器未使用。
+
+### A01–A02：仓库和年份表现
+
+复算沿用历史预测行和官方结果语义，不把预测行数误作数据集分母。A01 得到 60/60 个论文表格单元精确相等；A02 得到 25/25 个单元精确相等。
+
+### A03：退出条件
+
+共比较 32 个“run × split × outcome × category”单元。按公开唯一轨迹计数得到 31/32 精确，按预测行权重得到 30/32 精确。唯一不可恢复的核心组是 Claude Full resolved：
+
+- 论文：Submit 206、Exit Cost (Submit) 35；
+- 公开唯一轨迹：157、35；
+- 预测行加权：181、39；
+- 官方结果：241 个 resolved 条目、213 个唯一实例；
+- 其中 21 个唯一 resolved 实例没有公开轨迹，无法读取退出状态。
+
+Claude Full 的全体退出条件、GPT-4 Full/Lite 和 Claude Lite 均可复现。该项状态为 `PARTIAL_CLAUDE_FULL_RESOLVED_TRAJECTORIES_MISSING`。
+
+### A04：turn、step 与 cost
+
+GPT-4 Full resolved 的 turn 均值/中位数/75 分位数为 14.7098/12/18，对齐论文 14.71/12/18；Claude Lite resolved 为 12.7143/13/15，对齐论文 12.71/13/15。两个发布 turn 目标 2/2 精确。
+
+公开 GPT-4 Full 轨迹的 resolved/unresolved 成本中位数为 1.1796/2.5355，而论文正文为 1.21/2.52。turn 统计精确，成本正文存在不可由当前公开轨迹消除的轻微漂移，状态为 `PARTIAL_TURN_TARGETS_EXACT_COST_PROSE_DRIFT`。
+
+### A05–A07：动作分析
+
+A05 从 286 条 resolved GPT-4 Full 轨迹重建逐 turn 频率、条件占比和动作内 turn 密度。第一动作计数为 create 178、find_file 55、search_dir 50、open 2、ls 1；原始少数动作没有删除。第 5 turn 的最高频动作为 open，第 6–31 turn 均为 edit。
+
+A06 的 top-10 三元动作计数为 10/10 精确；附录手工分类的 47 个分阶段模式计数为 47/47 精确。类别标签直接来自 `appx_tables/most_common_triples_by_index.tex` 的人工分组。
+
+A07 生成 811 行 1–4 gram 转移数据，对论文源图抽查 10 个概率单元，10/10 精确。审计发现论文旧图的 heatmap 行按频率排序，而右侧计数仍按字典插入顺序输出，造成计数标签错位；新图按排序后的行重新绑定计数。论文正文还把 `create | edit | python` 后的 `edit/find_file/search_dir` 写作 `.39/.31/.22`，源图和公开轨迹均为 `.36/.28/.20`。
+
+### A08：失败 edit
+
+公开 GPT-4 Full 轨迹只有 2,268 条，论文分母为 2,294，差 26。公开轨迹中 1,159 条至少有一次失败 edit，论文写 1,185，也差 26。resolved 子集为 113/286，实际比例 39.5%；论文正文写 31.5%，与自身计数不相容。
+
+按公开轨迹识别出 2,009 个最大连续失败 run，最终成功 1,150、未成功 859；论文写 810/555。两组平均 run 长度仍分别为 2.2009 和 5.5879，与论文 2.2/5.59 相同。恢复概率中 `n=0` 为 90.292% 对论文 90.5%，`n=1` 为 57.242% 对论文 57.2%。状态为 `PARTIAL_PUBLIC_TRAJECTORY_GAP_AND_PAPER_COUNT_INCONSISTENCY`。
+
+### A09：patch 统计语义
+
+32/32 个发布统计单元精确。精确匹配要求保留所有非空 JSONL 行且不按实例去重；每条保留预测都重复关联一次 gold patch；每个指标分别计算 90 分位数并保留小于等于该阈值的样本，再计算均值/中位数。
+
+GPT-4 Full 为 2,283 个预测行、2,129 个非空行、286 个 resolved 行；Claude Full 为 2,576 个预测行、2,343 个非空行、241 个 resolved 行，后者分别只有 2,063 和 213 个唯一实例。Claude 重复行是论文统计语义的一部分。
+
+### A10：文件定位
+
+论文目标来自 Lite。GPT-4 SWE-agent 的 mean F1 为 59.0508%，对齐论文 59.05%；Claude 3 Opus RAG 为 45.4667%，对齐论文 45.47%。两个目标 2/2 精确。
+
+### 输出与清单修正
+
+最终输出为 13 个 CSV、4 份 PDF 和 `data/manifests/official_instance_analyses.json`。第一次清单生成时，转移概率 CSV 和 PDF 都使用 `transition_probabilities` 键，PDF 覆盖了清单中的 CSV 条目；两个文件内容均正确。键名改为 `transition_probabilities` 与 `transition_probabilities_figure` 后重新生成，清单完整包含 17 个输出。
+
+### 确定性验证
+
+在同一冻结输入上连续运行完整脚本。包括 13 个本实验 CSV 和 4 份 PDF 在内的全部新工件 SHA-256 均未变化。脚本通过 `py_compile`；机器清单解析得到 10 个 analysis、17 个 output、7 个 complete/public replay 和 3 个 partial gap。
+
+### PDF 自动与视觉验证
+
+四份 PDF 页数依次为 2、4、4、2，共 12 页，全部无加密。PyPDF 可提取预期标题：resolved trajectories、intentional submissions、action frequency、turn density、frequent triples、transition probabilities、failed edit actions 和 recovery probability。
+
+Poppler 渲染第一版后，轨迹、转移与失败 edit 图均通过；动作图的共享图例过密，堆叠密度图也容易造成面积语义误读。绘图实现随后把图例移到绘图区外，并把动作内 turn 密度改为折线图。第二版 4 页动作图重新渲染后，图例、曲线、坐标和边界均清晰，无裁切或重叠。最终 PDF 与 CSV 的数值一致。
+
+### 状态
+
+`COMPLETE_AVAILABLE_INPUTS_7_COMPLETE_3_DOCUMENTED_GAPS`：A01–A10 的全部公开输入均已重放。A01/A02/A05/A06/A07/A09/A10 完成，A03/A04/A08 的剩余差异已经定位为公开轨迹缺失或论文内部不一致。A11、A13、A14、逐仓库 gold 验证、全量容器重评和论文原模型严格重跑仍未完成。

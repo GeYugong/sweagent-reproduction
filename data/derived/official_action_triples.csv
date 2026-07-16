@@ -1,0 +1,11 @@
+rank,pattern,paper_count,observed_count,exact
+1,edit | edit | edit,308,308,True
+2,create | edit | python,215,215,True
+3,edit | python | edit,196,196,True
+4,edit | python | rm,157,157,True
+5,python | rm | submit,142,142,True
+6,python | edit | python,125,125,True
+7,edit | edit | python,122,122,True
+8,open | search_file | goto,107,107,True
+9,edit | python | find_file,98,98,True
+10,search_file | goto | edit,82,82,True

@@ -1,0 +1,33 @@
+run,split,outcome,category,paper_count,public_unique_count,public_prediction_line_weighted_count,unique_exact,weighted_exact
+20240402_sweagent_gpt4,full,all,Submit,1589,1589,1589,True,True
+20240402_sweagent_gpt4,full,all,Exit Cost (Submit),630,630,630,True,True
+20240402_sweagent_gpt4,full,all,Exit Cost (No Submit),48,48,48,True,True
+20240402_sweagent_gpt4,full,all,Early Exit,1,1,1,True,True
+20240402_sweagent_gpt4,full,resolved,Submit,266,266,266,True,True
+20240402_sweagent_gpt4,full,resolved,Exit Cost (Submit),20,20,20,True,True
+20240402_sweagent_gpt4,full,resolved,Exit Cost (No Submit),0,0,0,True,True
+20240402_sweagent_gpt4,full,resolved,Early Exit,0,0,0,True,True
+20240402_sweagent_claude3opus,full,all,Submit,882,882,882,True,True
+20240402_sweagent_claude3opus,full,all,Exit Cost (Submit),1048,1048,1048,True,True
+20240402_sweagent_claude3opus,full,all,Exit Cost (No Submit),73,73,73,True,True
+20240402_sweagent_claude3opus,full,all,Early Exit,1,1,1,True,True
+20240402_sweagent_claude3opus,full,resolved,Submit,206,157,181,False,False
+20240402_sweagent_claude3opus,full,resolved,Exit Cost (Submit),35,35,39,True,False
+20240402_sweagent_claude3opus,full,resolved,Exit Cost (No Submit),0,0,0,True,True
+20240402_sweagent_claude3opus,full,resolved,Early Exit,0,0,0,True,True
+20240402_sweagent_gpt4,lite,all,Submit,203,203,203,True,True
+20240402_sweagent_gpt4,lite,all,Exit Cost (Submit),95,95,95,True,True
+20240402_sweagent_gpt4,lite,all,Exit Cost (No Submit),2,2,2,True,True
+20240402_sweagent_gpt4,lite,all,Early Exit,0,0,0,True,True
+20240402_sweagent_gpt4,lite,resolved,Submit,50,50,50,True,True
+20240402_sweagent_gpt4,lite,resolved,Exit Cost (Submit),4,4,4,True,True
+20240402_sweagent_gpt4,lite,resolved,Exit Cost (No Submit),0,0,0,True,True
+20240402_sweagent_gpt4,lite,resolved,Early Exit,0,0,0,True,True
+20240402_sweagent_claude3opus,lite,all,Submit,133,133,133,True,True
+20240402_sweagent_claude3opus,lite,all,Exit Cost (Submit),156,156,156,True,True
+20240402_sweagent_claude3opus,lite,all,Exit Cost (No Submit),11,11,11,True,True
+20240402_sweagent_claude3opus,lite,all,Early Exit,0,0,0,True,True
+20240402_sweagent_claude3opus,lite,resolved,Submit,32,32,32,True,True
+20240402_sweagent_claude3opus,lite,resolved,Exit Cost (Submit),3,3,3,True,True
+20240402_sweagent_claude3opus,lite,resolved,Exit Cost (No Submit),0,0,0,True,True
+20240402_sweagent_claude3opus,lite,resolved,Early Exit,0,0,0,True,True

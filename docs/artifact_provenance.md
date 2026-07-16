@@ -134,7 +134,22 @@ wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
 - `data/derived/humanevalfix_histogram_bins.csv`；
 - `output/pdf/humanevalfix_turns_artifact.pdf`。
 
-## 5. Claude API 可用性审计
+## 5. A01–A10 实例级分析复算
+
+`scripts/reproduce_official_instance_analyses.py` 从 experiments `a5d5272` 的 Git blob、论文期 Lite/Full Parquet 与 arXiv 源码重新生成 13 个 CSV 和 4 份 PDF。运行只使用本地 CPU，模型/API 调用、GPU 和服务器使用均为 0。
+
+验收结果为：
+
+- A01 按仓库表现 60/60、A02 按年份表现 25/25 精确；
+- A06 top triples 10/10 与手工分阶段计数 47/47 精确；
+- A09 patch 统计 32/32、A10 文件定位目标 2/2 精确；
+- A05 完整重放 286 条 resolved GPT-4 Full 动作轨迹；
+- A07 概率抽查 10/10 精确，并定位论文旧图右侧计数标签的排序错位；
+- A03、A04、A08 因 Claude Full resolved 轨迹缺失、成本正文漂移、GPT-4 Full 26 条轨迹缺口及论文内部算术不一致保留为部分完成。
+
+同一输入连续运行后，17 个新生成 CSV/PDF 的 SHA-256 均未变化。四份 PDF 共 12 页、无加密，文本与逐页渲染检查均通过。机器清单为 `data/manifests/official_instance_analyses.json`，完整算法、差异和输出说明见 `docs/official_instance_analyses.md`。
+
+## 6. Claude API 可用性审计
 
 Anthropic Messages 端点完成最小协议验证：
 
@@ -145,7 +160,7 @@ Anthropic Messages 端点完成最小协议验证：
 
 凭据只保存在 Git 忽略的 `secrets/anthropic.env`，ACL 与现有密钥文件一致，仅当前 Windows 账户拥有 FullControl。任何受 Git 管理的日志、清单和提交均不包含密钥值。
 
-## 6. 当前完成边界
+## 7. 当前完成边界
 
 已完成：
 
@@ -154,6 +169,7 @@ Anthropic Messages 端点完成最小协议验证：
 3. HumanEvalFix 实际语言确认、论文数字复算、分母缺陷定位；
 4. HumanEvalFix 492 个实例级结果、resolved-turn 数据与 PDF 图生成；
 5. 精确 Claude 3 Opus 不可用性实测。
+6. A01–A10 的全部公开实例级输入重放，其中 7 项完成、3 项保留明确的公开工件缺口。
 
 尚未完成：
 
@@ -162,12 +178,13 @@ Anthropic Messages 端点完成最小协议验证：
 3. 37 个 dev 实例与 16x5 超参数运行工件；
 4. 六次 Lite 重复和 pass@k 的实例级工件；
 5. 失败分类请求、标签和人工验证集；
-6. 对官方主预测执行全量冻结 evaluator 容器级重新执行；历史日志聚合层已实现 8/8 完整列表一致，pytest 代表核心与边界分支已通过；
-7. 论文精确 GPT-4、Claude 3 Opus、GPT-4o 模型重新推理。
+6. A03/A04/A08 缺失的未公开轨迹或原始分析输入；现有公开部分已全部重放；
+7. 对官方主预测执行全量冻结 evaluator 容器级重新执行；历史日志聚合层已实现 8/8 完整列表一致，pytest 代表核心与边界分支已通过；
+8. 论文精确 GPT-4、Claude 3 Opus、GPT-4o 模型重新推理。
 
 这些未完成项继续保留在全论文矩阵中，不能由本次工件复算自动标记为严格复现完成。
 
-## 7. 论文源码聚合与协议负检索
+## 8. 论文源码聚合与协议负检索
 
 对 SWE-agent 全部 822 个公开 PR head、论文期 309 个 PR head、SWE-bench experiments 的论文期 PR 元数据、公开 S3 前缀和 arXiv 源码包完成交叉审计。默认 ACI、FullHistory 以及 100/200 窗口参数实现可以定位；Shell-only、全文 viewer、无 lint editor、迭代搜索、dev37 实例 ID、六次 pass@k 预测和失败模式逐实例标签没有公开工件。
 

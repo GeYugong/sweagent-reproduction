@@ -1,0 +1,13 @@
+scope,metric,public_value,paper_value,exact
+all,public_trajectory_count,2268,2294,False
+all,trajectories_with_failed_edit,1159,1185,False
+all,positive_median_failed_edits,3.0,3.0,True
+all,positive_mean_failed_edits,6.3252804141501295,,
+all,positive_max_failed_edits,33,33,True
+all,total_failed_edits,7331,,
+resolved,public_trajectory_count,286,286,True
+resolved,trajectories_with_failed_edit,113,113,True
+resolved,positive_median_failed_edits,2.0,2.0,True
+resolved,positive_mean_failed_edits,3.734513274336283,,
+resolved,positive_max_failed_edits,26,26,True
+resolved,total_failed_edits,422,,

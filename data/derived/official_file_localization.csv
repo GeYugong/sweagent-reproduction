@@ -1,0 +1,5 @@
+run,split,prediction_lines,scored_lines,patch_parse_errors,gold_added_only_skips,mean_f1_percent,paper_mean_f1_percent,paper_exact
+20240402_sweagent_gpt4,lite,302,302,16,0,59.0508,59.05,True
+20240402_sweagent_claude3opus,lite,300,300,26,0,46.8889,,
+20240402_rag_gpt4,lite,300,300,80,0,32.2222,,
+20240402_rag_claude3opus,lite,300,300,41,0,45.4667,45.47,True

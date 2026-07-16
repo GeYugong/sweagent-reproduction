@@ -1,0 +1,300 @@
+{
+  "schema_version": 1,
+  "status": "COMPLETE_AVAILABLE_A01_A10_WITH_DOCUMENTED_PUBLIC_ARTIFACT_GAPS",
+  "generated_at_utc": "2026-07-16T18:01:29.720165+00:00",
+  "paper": {
+    "arxiv_id": "2405.15793v3",
+    "source_path": "paper/2405.15793_source.tar.gz",
+    "source_sha256": "3d2bafc2fd9e104fd204f7d4582260817c48b15133f7c1cf668dd081c2fbc1ab"
+  },
+  "frozen_inputs": {
+    "experiments_revision": "a5d52722965c791c0c04d18135f906b44f716d39",
+    "lite_dataset_revision": "81ad348adcaf3368691f4db2907f8fc97a8f7526",
+    "lite_dataset_sha256": "2c0969b6fb6920f9425015563419901a4fe7fd078d143a3457fa1997b52365b1",
+    "full_dataset_revision": "283547aced6224d4adbe55c678b4c9c43fe7d501",
+    "full_dataset_sha256": "831728617f006e70c9de546e15cbdb49ce27b6fe8a8e4c4cd8035e8da3de3020",
+    "trajectory_trees": {
+      "full/20240402_sweagent_gpt4": {
+        "git_tree": "9c9fee3591ee9a65fc3e1eede61f7018f75bc3d1",
+        "files": 2268
+      },
+      "full/20240402_sweagent_claude3opus": {
+        "git_tree": "875352db0e584909897a27df2bca4fd9ca2d833a",
+        "files": 2013
+      },
+      "lite/20240402_sweagent_gpt4": {
+        "git_tree": "043a824469ff2817ec19c9d16ddedae946432d63",
+        "files": 300
+      },
+      "lite/20240402_sweagent_claude3opus": {
+        "git_tree": "8de1a3ea59b5af9ed4323029fa26324ab1f43908",
+        "files": 300
+      }
+    },
+    "paper_analysis_source_blobs": {
+      "analysis/resolved_by_repo.py": "13e9c2e9f035de8f7b5e00ac8a1ae9e72a7f6d6f",
+      "analysis/resolved_by_time.py": "8731a0ff316e6d5cef7d3bd3eccfd81af54b2430",
+      "analysis/stats_patch.py": "e5350c963a8d6ffdb8e3cca7d6fd9718f73153b8",
+      "analysis/calc_localization_f1.py": "6f355a70041630f031d5da4f4e771d19581f363f"
+    }
+  },
+  "runtime": {
+    "python": "3.11.15",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "numpy": "1.26.4",
+    "matplotlib": "3.8.4",
+    "pyarrow": "21.0.0",
+    "unidiff": "0.7.5"
+  },
+  "analyses": {
+    "A01_performance_by_repository": {
+      "status": "COMPLETE_EXACT",
+      "a01_repo_rows": 60,
+      "a01_exact_rows": 60
+    },
+    "A02_performance_by_year": {
+      "status": "COMPLETE_EXACT",
+      "a02_year_rows": 25,
+      "a02_exact_rows": 25
+    },
+    "A03_exit_conditions": {
+      "status": "PARTIAL_CLAUDE_FULL_RESOLVED_TRAJECTORIES_MISSING",
+      "rows": 32,
+      "unique_exact_rows": 31,
+      "weighted_exact_rows": 30,
+      "claude_full_public_gap": {
+        "trajectory_files": 2013,
+        "missing_exit_status": 9,
+        "resolved_report_entries": 241,
+        "resolved_unique_instances": 213,
+        "resolved_entries_without_public_trajectory": 21,
+        "resolved_unique_without_public_trajectory": 21
+      }
+    },
+    "A04_turn_step_cost": {
+      "status": "PARTIAL_TURN_TARGETS_EXACT_COST_PROSE_DRIFT",
+      "paper_turn_targets": 2,
+      "paper_turn_exact": 2,
+      "paper_text_cost_note": {
+        "claim": "resolved median cost 1.21 and 12 steps; unresolved 2.52 and 21 steps",
+        "public_full_gpt4_resolved_median_cost": "1.1796",
+        "public_full_gpt4_unresolved_median_cost": "2.5355"
+      }
+    },
+    "A05_actions_per_turn": {
+      "status": "COMPLETE_PUBLIC_TRAJECTORY_REPLAY",
+      "resolved_trajectories": 286,
+      "first_action_counts": {
+        "create": 178,
+        "find_file": 55,
+        "ls": 1,
+        "open": 2,
+        "search_dir": 50
+      },
+      "first_actions_match_paper_set": false,
+      "top_actions_turn_5_to_31": {
+        "5": "open",
+        "6": "edit",
+        "7": "edit",
+        "8": "edit",
+        "9": "edit",
+        "10": "edit",
+        "11": "edit",
+        "12": "edit",
+        "13": "edit",
+        "14": "edit",
+        "15": "edit",
+        "16": "edit",
+        "17": "edit",
+        "18": "edit",
+        "19": "edit",
+        "20": "edit",
+        "21": "edit",
+        "22": "edit",
+        "23": "edit",
+        "24": "edit",
+        "25": "edit",
+        "26": "edit",
+        "27": "edit",
+        "28": "edit",
+        "29": "edit",
+        "30": "edit",
+        "31": "edit"
+      }
+    },
+    "A06_action_triples": {
+      "status": "COMPLETE_EXACT_PUBLISHED_COUNTS",
+      "top_triple_rows": 10,
+      "top_triple_exact": 10,
+      "indexed_rows": 47,
+      "indexed_exact": 47,
+      "category_labels_source": "manual assignments in appx_tables/most_common_triples_by_index.tex"
+    },
+    "A07_action_transitions": {
+      "status": "COMPLETE_NUMERIC_SPOT_CHECKS_WITH_LEGACY_LABEL_BUG",
+      "rows": 811,
+      "source_pdf_spot_checks": 10,
+      "source_pdf_spot_checks_exact": 10,
+      "legacy_figure_issue": "The paper PDF's right-margin transition counts follow dictionary insertion order while heatmap rows are sorted, so those labels are permuted. Probability cells are unaffected.",
+      "prose_figure_difference": {
+        "sequence": "create | edit | python",
+        "figure_next_edit_find_file_search_dir": [
+          0.36,
+          0.28,
+          0.2
+        ],
+        "prose_next_edit_find_file_search_dir": [
+          0.39,
+          0.31,
+          0.22
+        ]
+      }
+    },
+    "A08_failed_edits": {
+      "status": "PARTIAL_PUBLIC_TRAJECTORY_GAP_AND_PAPER_COUNT_INCONSISTENCY",
+      "public_full_gpt4_trajectory_files": 2268,
+      "paper_denominator": 2294,
+      "public_trajectory_gap": 26,
+      "resolved_positive_percentage_recomputed": 39.5,
+      "paper_resolved_positive_percentage_text": 31.5,
+      "paper_percentage_is_arithmetically_inconsistent": true,
+      "maximal_failure_runs": 2009,
+      "successful_failure_runs": 1150,
+      "unsuccessful_failure_runs": 859,
+      "successful_mean_run_length": 2.2008695652173915,
+      "unsuccessful_mean_run_length": 5.587892898719441,
+      "paper_reported_run_counts": {
+        "successful": 810,
+        "unsuccessful": 555
+      },
+      "paper_reported_mean_lengths": {
+        "successful": 2.2,
+        "unsuccessful": 5.59
+      },
+      "mean_lengths_match_paper": true
+    },
+    "A09_patch_statistics": {
+      "status": "COMPLETE_EXACT",
+      "rows": 32,
+      "exact_rows": 32,
+      "input_counts": {
+        "gpt4": {
+          "prediction_lines": 2283,
+          "nonempty_prediction_lines": 2129,
+          "unique_nonempty_instances": 2129,
+          "resolved_prediction_lines": 286,
+          "unique_resolved_instances": 286
+        },
+        "claude3opus": {
+          "prediction_lines": 2576,
+          "nonempty_prediction_lines": 2343,
+          "unique_nonempty_instances": 2063,
+          "resolved_prediction_lines": 241,
+          "unique_resolved_instances": 213
+        }
+      },
+      "semantics": "Nonempty prediction lines are retained in JSONL order without deduplication. Gold patches are repeated once per retained prediction line. Each metric independently keeps values less than or equal to its 90th percentile before median/mean calculation."
+    },
+    "A10_file_localization": {
+      "status": "COMPLETE_EXACT",
+      "paper_targets": 2,
+      "paper_targets_exact": 2,
+      "paper_split_recovered": "lite"
+    }
+  },
+  "outputs": {
+    "performance_by_repo": {
+      "path": "data/derived/official_performance_by_repo.csv",
+      "bytes": 3140,
+      "sha256": "960cb3cbdfacbc3cebce22916e241235c09681e8959e9f83200c80447499dd1a"
+    },
+    "performance_by_year": {
+      "path": "data/derived/official_performance_by_year.csv",
+      "bytes": 1107,
+      "sha256": "19e9e00d10bf100f7ffbad9d275ddaf2cf924bba9612994c2dbd2c3f6a83b280"
+    },
+    "exit_conditions": {
+      "path": "data/derived/official_exit_conditions.csv",
+      "bytes": 2412,
+      "sha256": "58846a9c4a8b0f7e1ce292e72bd008bcd05ee098190d60b82d09d2f9f616ba5e"
+    },
+    "trajectory_summary": {
+      "path": "data/derived/official_trajectory_summary.csv",
+      "bytes": 2708,
+      "sha256": "405d51a88a69ccab6bd6766d453c1d18f288f0cacec6754d99b439be1e39387e"
+    },
+    "trajectory_instances": {
+      "path": "data/derived/official_trajectory_instances.csv",
+      "bytes": 443422,
+      "sha256": "97a1305f509599d5e39d9b03d1f8720843c8a1c6b36e489ad4cc3519e21c66c4"
+    },
+    "actions_per_turn": {
+      "path": "data/derived/official_actions_per_turn.csv",
+      "bytes": 22474,
+      "sha256": "f320e8d6941eaf488445122b5759a6906da77290871076228fd5b64e0e5c9919"
+    },
+    "action_triples": {
+      "path": "data/derived/official_action_triples.csv",
+      "bytes": 418,
+      "sha256": "98e0b0d374e94bb23bf0e519b7d259901c6a68cf471a2c29289bb38f3b1cb1f4"
+    },
+    "action_patterns_by_turn": {
+      "path": "data/derived/official_action_patterns_by_turn.csv",
+      "bytes": 2568,
+      "sha256": "7f197583a1239c5fbbe46ed5e95cf388ef0af5e04ee54a8fe6126ae60479f391"
+    },
+    "transition_probabilities": {
+      "path": "data/derived/official_transition_probabilities.csv",
+      "bytes": 41603,
+      "sha256": "2e60e63afa259b8d4ab899f2e2b8ceef09e79b85c3e6d7a070d260ecbeb33c5a"
+    },
+    "failed_edit_summary": {
+      "path": "data/derived/official_failed_edit_summary.csv",
+      "bytes": 592,
+      "sha256": "fbb73c3a82f6017b4eae60a4cd4b5a504afb679bdafd5dd44297effb1f1c6e27"
+    },
+    "failed_edit_recovery": {
+      "path": "data/derived/official_failed_edit_recovery.csv",
+      "bytes": 900,
+      "sha256": "06a3764533cf2b6e9f14ffbdae2a69e473ebd3526aee1745705eb274587bc6c9"
+    },
+    "patch_statistics": {
+      "path": "data/derived/official_patch_statistics.csv",
+      "bytes": 2807,
+      "sha256": "763b670b725979676ca91fe307d8245bfdb79f23a031693e9bbc010bd498366b"
+    },
+    "file_localization": {
+      "path": "data/derived/official_file_localization.csv",
+      "bytes": 357,
+      "sha256": "366febd91fa1acb9f6591424d8a5dfe69042dfcddc0ecb7bd1dde671ff32970b"
+    },
+    "trajectory_distributions": {
+      "path": "output/pdf/official_trajectory_distributions_artifact.pdf",
+      "bytes": 23323,
+      "sha256": "9d830c61198d972dbe3a00f8b5e114d3f06f6d6c2af88adf311f520683aa957d"
+    },
+    "action_analyses": {
+      "path": "output/pdf/official_action_analyses_artifact.pdf",
+      "bytes": 44971,
+      "sha256": "4a310ee0bcdb4034bffdefa34b6e68ea0f62c7ca3181ab994b2ab6eaf7bc78d1"
+    },
+    "transition_probabilities_figure": {
+      "path": "output/pdf/official_transition_probabilities_artifact.pdf",
+      "bytes": 58734,
+      "sha256": "f8e1fc67a6cd8534508719ee1155599ef5da6a7300a09c471b0e90e028a0f8f0"
+    },
+    "failed_edits": {
+      "path": "output/pdf/official_failed_edits_artifact.pdf",
+      "bytes": 19115,
+      "sha256": "983033c95eb90cb08b6ed85b24595bb84811107b8b0112b250979bd325b15dd1"
+    }
+  },
+  "summary": {
+    "analysis_items": 10,
+    "complete_exact_or_public_replay": 7,
+    "partial_with_explicit_gap": 3,
+    "api_calls": 0,
+    "gpu_used": false,
+    "server_used": false
+  }
+}

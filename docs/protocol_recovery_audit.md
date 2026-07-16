@@ -98,7 +98,21 @@ wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
 
 Poppler 以 160 DPI 渲染后完成视觉检查。两张图均为单页 PDF，无加密；坐标、六个 pass@k 点、八个非零扇区、比例与图例均无裁切或重叠。
 
-## 5. 后续实验边界
+## 5. 公开实例级分析输入审计
+
+论文期 experiments 提交公开了 A01–A10 所需的大部分主运行输入，但轨迹覆盖并不等于数据集覆盖。固定提交中 GPT-4 Full 有 2,268 条轨迹、Claude Full 有 2,013 条，均少于 Full 的 2,294 个实例；两组 Lite 各有 300 条。
+
+从这些输入完成的独立复算表明：
+
+- A01、A02、A06、A09、A10 的全部发布目标精确相等；
+- A05 与 A07 的公开轨迹统计可以完整重放，A07 同时暴露旧图右侧计数标签与排序行错位；
+- A03 只有 Claude Full resolved 退出条件不能恢复，官方 213 个唯一 resolved 实例中有 21 个没有公开轨迹；
+- A04 的 turn 目标精确，但公开轨迹成本中位数与论文正文轻微漂移；
+- A08 的 26 条 GPT-4 Full 轨迹缺口会同步造成“至少一次失败 edit”计数少 26，论文给出的 113/286=31.5% 还存在独立算术错误，实际为 39.5%。
+
+因此，A03/A04/A08 的剩余差异属于 `PUBLIC_ARTIFACT_GAP_OR_PAPER_INCONSISTENCY`，不是仍可通过修改公开分析脚本消除的实现偏差。完整逐项证据与机器清单分别见 `docs/official_instance_analyses.md` 和 `data/manifests/official_instance_analyses.json`。
+
+## 6. 后续实验边界
 
 严格重跑仍被三个独立条件阻塞：论文模型不可用、部分官方精确实现缺失、批量预算和磁盘门槛未满足。现代 Claude 或当前 GPT 模型只能进入 `modern` 证据层；推导出的 no-search/no-edit 等配置必须标为 reconstructed，不能替代论文 exact 结果。
 
