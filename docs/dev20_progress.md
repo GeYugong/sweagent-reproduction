@@ -32,13 +32,14 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 | EXP-DEV20-013 | `pylint-dev__astroid-1268` | 20 | 210,496 | 2,509 | applied | RESOLVED_NO |
 | EXP-DEV20-014 | `pylint-dev__astroid-1333` | 25 | 303,979 | 3,845 | not generated | unresolved |
 | EXP-DEV20-015 | `pyvista__pyvista-4315` | 4 | 50,758 | 802 | not generated | unresolved |
+| EXP-DEV20-016 | `sqlfluff__sqlfluff-1517` | 17 | 279,449 | 3,105 | not generated | unresolved |
 
 当前累计：
 
-- 已评测：16/20；
+- 已评测：17/20；
 - resolved：4；
-- 未 resolved：12；
-- 暂时 resolve rate：25.00%。
+- 未 resolved：13；
+- 暂时 resolve rate：23.53%。
 
 当前样本仍未完成，不报告置信区间，也不用于模型间比较。至少完成冻结的 20 个实例后再计算主指标与 bootstrap 置信区间。
 
