@@ -26,13 +26,14 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 | EXP-DEV20-007 | `pydicom__pydicom-1139` | 21 | 353,071 | 2,521 | applied | RESOLVED_PARTIAL |
 | EXP-DEV20-008 | `pydicom__pydicom-1256` | 21 | 248,681 | 2,580 | applied | RESOLVED_FULL |
 | EXP-DEV20-009 | `pydicom__pydicom-1413` | 20 | 249,072 | 5,460 | applied | RESOLVED_PARTIAL |
+| EXP-DEV20-010 | `pydicom__pydicom-1694` | 25 | 312,767 | 3,346 | apply failed | unresolved |
 
 当前累计：
 
-- 已评测：10/20；
+- 已评测：11/20；
 - resolved：4；
-- 未 resolved：6；
-- 暂时 resolve rate：40.0%。
+- 未 resolved：7；
+- 暂时 resolve rate：36.36%。
 
 当前样本仍未完成，不报告置信区间，也不用于模型间比较。至少完成冻结的 20 个实例后再计算主指标与 bootstrap 置信区间。
 
@@ -168,6 +169,21 @@ EOF 通信竞态修复后，`EXP-DEV20-006` 正常进入 Agent。模型首个计
 - 正式判定：`RESOLVED_PARTIAL`。
 
 模型只把 `OL` 加入排除列表，没有从问题的一般规律归纳到同为二进制数值 VR 的 `OD` 与 `OV`。该实例不计为完全解决，但保留为第二个部分解决样本。
+
+## pydicom 1694 正式结果
+
+模型把 `Dataset.to_json_dict()` 中原本位于 `try` 之外的 `self[key]` 移入异常抑制范围，使 `suppress_invalid_tags=True` 能覆盖 raw data element 转换期间的异常；同时修改 `test_json.py` 增加回归测试。Agent 运行目标筛选测试和完整 `test_json.py`，在第 25 次 API 调用后以 `submitted (exit_cost)` 保存候选补丁。
+
+候选补丁在干净基线上预检查成功，但正式 evaluator 先应用 benchmark test patch 后，预测对 `test_json.py` import 区域的 hunk 无法匹配。生产代码文件的检查没有报错，冲突来自模型提交的测试修改。按照冻结协议不得删除测试 hunk 后重新判分：
+
+- API 调用：25；
+- 输入 token：312,767；
+- 输出 token：3,346；
+- agent 步骤：24；
+- prediction patch：正式顺序应用失败；
+- 正式判定：`PATCH_APPLY_FAILED` / unresolved。
+
+这是 dev20 中第二个因模型同时修改测试而与 benchmark test patch 冲突的实例，进一步支持在后续改进组评估“提交时仅保留生产代码”的独立策略。
 
 ## Marshmallow 成功案例
 

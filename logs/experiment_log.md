@@ -506,6 +506,29 @@ benchmark test patch 与 prediction patch 均应用成功。PASS_TO_PASS 为 301
 
 `COMPLETE`：resolved=0，partial=1。dev20 累计 4/10 完全解决，主 resolve rate 为 40.0%。
 
+## 2026-07-16 — EXP-DEV20-010：pydicom 1694 无效 raw tag 抑制
+
+### 推理过程
+
+模型追踪 `Dataset.to_json_dict()` 到 `Dataset.__getitem__()` 的 raw element 转换路径，发现 `self[key]` 在 `try` 块之外执行，使 `suppress_invalid_tags=True` 无法捕获转换异常。候选补丁把该取值移入 `try`，并在 `test_json.py` 增加 mock `DataElement_from_raw` 的回归测试。模型执行目标筛选和完整 JSON 测试文件，达到 25 次调用上限后以 `submitted (exit_cost)` 保存补丁。
+
+### 推理统计
+
+- API 调用：25；
+- 输入 token：312,767；
+- 输出 token：3,346；
+- agent 步骤：24。
+
+### 正式判分
+
+干净基线上的 `pred_try` 应用及回退成功。正式 evaluator 随后应用 benchmark test patch，再应用预测时，`pydicom/dataset.py` 检查通过，但 `pydicom/tests/test_json.py` 第 7 行 import hunk 找不到原上下文。整份 prediction patch 因测试文件冲突而失败，scorecard 只有 `generated`。
+
+冻结协议不允许人工剥离测试 hunk，因此不对生产代码单独重判。该失败与 `pvlib__pvlib-python-1154` 属于同一类提交层冲突，可作为后续无额外模型调用的补丁净化改进组。
+
+### 状态
+
+`COMPLETE`：resolved=0，失败类型为 `PATCH_APPLY_FAILED`。dev20 累计 4/11 完全解决，主 resolve rate 为 36.36%。
+
 ## 2026-07-15 — EXP-DEV20-003B：pvlib 1154 镜像 clone 停滞
 
 ### 失败位置
