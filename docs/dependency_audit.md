@@ -165,3 +165,5 @@ Marshmallow 评测又暴露两个旧 harness 问题：
 `pyvista__pyvista-4315` 的未约束 requirements 在当前索引解析到 VTK 9.6.2。冻结 PyVista 0.39 导入 `_vtk.py` 时仍引用 `vtkCompositePolyDataMapper2`，而该类在当前 VTK wheel 中不存在，导致 Agent 自测与 evaluator 均在 pytest 插件加载阶段、目标测试收集之前失败。首次 14-call 轨迹受缺失测试反馈影响，标记为 Agent 环境无效并归档。
 
 兼容层只对 `pyvista/pyvista` requirements 中的裸 `vtk` 改写为 `vtk<9.3`，使 resolver 选择仍提供该 API 的 VTK 9.2 系列。Agent 与 evaluator 使用同一约束；其他依赖、任务代码、benchmark patch 与测试集合不变。必须在修正环境中重新推理，不能只重判原预测。
+
+VTK 9.2 约束生效后的第二次运行暴露了独立的系统依赖缺口：容器中没有 `libGL.so.1`，因而 `import vtk, pyvista` 仍在测试收集前失败。该尝试在确认所有测试反馈均无效后于第 7 次调用终止，部分轨迹归档且不进入正式分母。兼容层仅为 `pyvista/pyvista` 安装 Debian 包 `libgl1`；这属于 VTK wheel 的动态链接运行库，不改变 Python 依赖解析或目标代码。
