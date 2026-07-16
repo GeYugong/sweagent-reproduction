@@ -39,14 +39,14 @@ PY
 
 started=0
 for instance_id in "${instance_ids[@]}"; do
-  if "${eval_python}" - "${repo_root}/outputs/traces" "${instance_id}" <<'PY'
+  if "${eval_python}" - "${repo_root}/outputs/traces" "${batch_id}" "${instance_id}" <<'PY'
 import json
 import pathlib
 import sys
 
-for path in pathlib.Path(sys.argv[1]).glob("*/scorecards.json"):
+for path in pathlib.Path(sys.argv[1]).glob(f"{sys.argv[2]}_*/scorecards.json"):
     for card in json.loads(path.read_text(encoding="utf-8")):
-        if card.get("instance_id") == sys.argv[2]:
+        if card.get("instance_id") == sys.argv[3]:
             raise SystemExit(0)
 raise SystemExit(1)
 PY
