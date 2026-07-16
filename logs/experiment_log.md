@@ -391,6 +391,18 @@ EOF 修正后的重试成功完成环境初始化。模型计划通过最小 `PV
 
 `COMPLETE`：resolved=0，失败类型为 `NOT_GENERATED/EXIT_FORMAT`。
 
+## 2026-07-16 — EXP-DEV20-007A：pydicom 1139 缺失测试运行器
+
+模型完成 16 次 API 调用，修改 `PersonName.__iter__` 并尝试运行 `pytest -q pydicom/tests/test_valuerep.py`。Agent 容器返回 `pytest: command not found`，模型仍提交候选补丁。evaluator 成功应用 benchmark test patch 与 prediction patch，但测试命令同样立即返回 `pytest: not found`，因此 FAIL_TO_PASS 3 项与 PASS_TO_PASS 38 项均未实际执行。
+
+SWE-bench 1.0.x 的 pydicom 2.0 映射只声明 `numpy`，当前基础镜像和临时 Miniconda 又都不包含 pytest。缺少测试运行器既影响 Agent 决策，也使正式判分无效，不能只对原预测重判。
+
+兼容层只为 pydicom 安装配置增加 pytest，同时覆盖 Agent 与 evaluator。原轨迹、预测、scorecard 和日志移入无效实验归档；16 次调用保留在资源审计中，但不进入正式 dev20 汇总。修正后以相同模型参数重新推理。
+
+### 状态
+
+`AGENT_ENV_INVALID`：不计入 dev20 分母，等待修正环境重跑。
+
 ## 2026-07-15 — EXP-DEV20-003B：pvlib 1154 镜像 clone 停滞
 
 ### 失败位置

@@ -79,6 +79,22 @@ def configure_pip_constraints(predictions: Path, staging_dir: Path) -> Optional[
     return constraint_path
 
 
+def install_test_runner_compatibility(predictions: Path) -> None:
+    instance_ids = set()
+    with predictions.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            if line.strip():
+                record = json.loads(line)
+                instance_ids.add(record.get("instance_id", ""))
+    if not any(instance_id.startswith("pydicom__pydicom-") for instance_id in instance_ids):
+        return
+    for install_config in context_manager.MAP_VERSION_TO_INSTALL["pydicom/pydicom"].values():
+        pip_packages = install_config.get("pip_packages", "").split()
+        if "pytest" not in pip_packages:
+            pip_packages.append("pytest")
+        install_config["pip_packages"] = " ".join(pip_packages)
+
+
 def load_paper_evaluator(repo_root: Path):
     evaluator_path = repo_root / "code" / "SWE-agent" / "evaluation" / "evaluation.py"
     spec = importlib.util.spec_from_file_location("paper_evaluation", evaluator_path)
@@ -124,6 +140,7 @@ def main() -> int:
 
     configure_conda_downloads()
     configure_pip_constraints(predictions, staging_dir)
+    install_test_runner_compatibility(predictions)
     install_requirements_compatibility()
     evaluator = load_paper_evaluator(repo_root)
     evaluator.main(

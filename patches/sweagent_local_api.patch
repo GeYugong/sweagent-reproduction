@@ -40,10 +40,22 @@ index 2492e4f..72a1d66 100644
              # Perform OpenAI API call
              response = self.client.chat.completions.create(
 diff --git a/sweagent/environment/swe_env.py b/sweagent/environment/swe_env.py
-index 95278f8..2d5377f 100644
+index 95278f8..684f6bd 100644
 --- a/sweagent/environment/swe_env.py
 +++ b/sweagent/environment/swe_env.py
-@@ -696,6 +696,12 @@ class SWEEnv(gym.Env):
+@@ -674,5 +674,11 @@ class SWEEnv(gym.Env):
+                 )
+                 raise ValueError(msg) from e
++        if self.record["repo"] == "pydicom/pydicom":
++            install_configs = dict(install_configs)
++            pip_packages = install_configs.get("pip_packages", "").split()
++            if "pytest" not in pip_packages:
++                pip_packages.append("pytest")
++            install_configs["pip_packages"] = pip_packages
+         # Create environment if does not exist yet
+         env_name = f"{self._repo_name}__{self.record['version']}"
+         env_check = self.communicate(
+@@ -696,6 +702,12 @@ class SWEEnv(gym.Env):
                  )
                  # Write reqs to requirements.txt in docker container
                  content_reqs = get_requirements(self.record)
@@ -56,7 +68,7 @@ index 95278f8..2d5377f 100644
                  copy_file_to_container(self.container_obj, content_reqs, PATH_TO_REQS)
                  # Create conda environment + install reqs
                  self.communicate_with_handling(
-@@ -744,8 +750,11 @@ class SWEEnv(gym.Env):
+@@ -744,8 +756,11 @@ class SWEEnv(gym.Env):
                  )
              # Install extra pip packages if specified
              if install_configs.get("pip_packages", False):

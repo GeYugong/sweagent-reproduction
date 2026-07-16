@@ -143,3 +143,9 @@ Marshmallow 评测又暴露两个旧 harness 问题：
 ### Docker attach 空读取竞态
 
 `pvlib__pvlib-python-1854` 首次初始化时，容器命令已返回退出码 `0` 且后台 PID 列表为空，但旧 `read_with_timeout()` 在 `select()` 可读后得到空字节仍继续循环，最终把成功命令误报为 5 秒超时。适配补丁按 pipe EOF 语义在空读取时立即结束；已有缓冲区中的退出码随后正常解析。失败早于 Agent 初始化，API 调用为 0。
+
+### pydicom 缺失 pytest
+
+`swebench 1.0.x` 对 pydicom 2.0 的安装映射只有 Python 3.8 与 NumPy，没有测试运行器。当前 SWE-agent 镜像与 evaluator 的临时 Miniconda 均不预装 pytest：Agent 的自测命令报 `pytest: command not found`，evaluator 也在执行任何目标测试前以相同错误退出。
+
+适配层只对 `pydicom/pydicom` 的安装配置补充 pytest，同时作用于 Agent 与 evaluator；其他仓库不变。首次 1139 推理在缺少预期测试能力的环境中完成，因此轨迹与判分标记为无效并完整归档，随后在修正环境中重新运行。

@@ -23,3 +23,4 @@ EXP-DEV20-005A,2026-07-16,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,pvlib__
 EXP-DEV20-005,2026-07-16,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,pvlib__pvlib-python-1707,42,COMPLETE,1,1,"21 calls; 361753 input and 4612 output tokens; numpy<2 compatibility re-evaluation passed 31/31 target tests"
 EXP-DEV20-006A,2026-07-16,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,pvlib__pvlib-python-1854,42,INFRA_FAILURE,,0,"Container exit-code read saw EOF after code 0 and timed out; zero API calls; pipe EOF handling fixed"
 EXP-DEV20-006,2026-07-16,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,pvlib__pvlib-python-1854,42,COMPLETE,0,1,"4 calls; 51333 input and 1269 output tokens; duplicated discussion and language-tagged fence; NOT_GENERATED"
+EXP-DEV20-007A,2026-07-16,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,pydicom__pydicom-1139,42,AGENT_ENV_INVALID,,0,"16 calls; Agent and evaluator both lacked pytest; trajectory archived and excluded from formal dev20"
