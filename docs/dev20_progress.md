@@ -25,13 +25,14 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 | EXP-DEV20-006 | `pvlib__pvlib-python-1854` | 4 | 51,333 | 1,269 | not generated | unresolved |
 | EXP-DEV20-007 | `pydicom__pydicom-1139` | 21 | 353,071 | 2,521 | applied | RESOLVED_PARTIAL |
 | EXP-DEV20-008 | `pydicom__pydicom-1256` | 21 | 248,681 | 2,580 | applied | RESOLVED_FULL |
+| EXP-DEV20-009 | `pydicom__pydicom-1413` | 20 | 249,072 | 5,460 | applied | RESOLVED_PARTIAL |
 
 当前累计：
 
-- 已评测：9/20；
+- 已评测：10/20；
 - resolved：4；
-- 未 resolved：5；
-- 暂时 resolve rate：44.44%。
+- 未 resolved：6；
+- 暂时 resolve rate：40.0%。
 
 当前样本仍未完成，不报告置信区间，也不用于模型间比较。至少完成冻结的 20 个实例后再计算主指标与 bootstrap 置信区间。
 
@@ -149,6 +150,24 @@ EOF 通信竞态修复后，`EXP-DEV20-006` 正常进入 Agent。模型首个计
 - 正式判定：`RESOLVED_FULL`。
 
 累计 9 个正式实例为 4 个完全解决、1 个部分解决和 4 个无有效解决，主 resolve rate 为 44.44%。
+
+## pydicom 1413 正式结果
+
+模型发现 `DataElement` 对包含反斜杠字节的二进制值执行多值拆分，并把 `OL` 加入不拆分的 VR 列表，同时添加 OL 写入回归测试。Agent 先修正了一次不存在的 `apply_patch` 命令，最终目标测试 1/1、完整 `test_filewriter.py` 164/164 通过。
+
+正式 evaluator 表明修复方向正确但覆盖不完整：
+
+- FAIL_TO_PASS：1/3 通过；
+- PASS_TO_PASS：301/301 通过；
+- 总目标测试：302/304 通过；
+- 未解决 VR：`OD`、`OV`；
+- API 调用：20；
+- 输入 token：249,072；
+- 输出 token：5,460；
+- agent 步骤：18；
+- 正式判定：`RESOLVED_PARTIAL`。
+
+模型只把 `OL` 加入排除列表，没有从问题的一般规律归纳到同为二进制数值 VR 的 `OD` 与 `OV`。该实例不计为完全解决，但保留为第二个部分解决样本。
 
 ## Marshmallow 成功案例
 
