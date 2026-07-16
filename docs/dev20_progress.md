@@ -29,13 +29,14 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 | EXP-DEV20-010 | `pydicom__pydicom-1694` | 25 | 312,767 | 3,346 | apply failed | unresolved |
 | EXP-DEV20-011 | `pydicom__pydicom-901` | 25 | 287,071 | 3,485 | applied | RESOLVED_NO |
 | EXP-DEV20-012 | `pylint-dev__astroid-1196` | 25 | 289,720 | 3,862 | apply failed | unresolved |
+| EXP-DEV20-013 | `pylint-dev__astroid-1268` | 20 | 210,496 | 2,509 | applied | RESOLVED_NO |
 
 当前累计：
 
-- 已评测：13/20；
+- 已评测：14/20；
 - resolved：4；
-- 未 resolved：9；
-- 暂时 resolve rate：30.77%。
+- 未 resolved：10；
+- 暂时 resolve rate：28.57%。
 
 当前样本仍未完成，不报告置信区间，也不用于模型间比较。至少完成冻结的 20 个实例后再计算主指标与 bootstrap 置信区间。
 
@@ -217,6 +218,22 @@ Python 3.6 / pytest 6.2.5 兼容修复后，模型尝试解决“库导入不应
 - 正式判定：`PATCH_APPLY_FAILED` / unresolved。
 
 这是第三个因模型提交测试修改而在正式应用顺序中冲突的实例，且本例还把临时复现脚本包含在提交中。冻结基线不净化补丁，后续改进组可分别评估移除测试文件和临时文件的效果。
+
+## astroid 1268 正式结果
+
+问题是 `AsStringVisitor` 缺少 `visit_unknown`。模型正确增加 visitor 方法，但返回 `node.name`，并用自建测试断言结果为 `"Unknown"`。冻结 benchmark 的目标语义明确要求两个构造形式都返回 `"Unknown.Unknown()"`。
+
+正式 evaluator 成功应用两份补丁，PASS_TO_PASS 92/92 全部通过，唯一 FAIL_TO_PASS 失败：
+
+- FAIL_TO_PASS：0/1；
+- PASS_TO_PASS：92/92；
+- API 调用：20；
+- 输入 token：210,496；
+- 输出 token：2,509；
+- agent 步骤：18；
+- 正式判定：`RESOLVED_NO`。
+
+模型解决了缺失 visitor 导致的异常，但自行选择了错误的规范字符串；这是功能接近但目标语义不一致，不计为部分解决，因为唯一 FAIL_TO_PASS 未通过。
 
 ## Marshmallow 成功案例
 

@@ -587,6 +587,28 @@ Python 3.6 evaluator 成功安装 pytest 6.2.5，benchmark test patch 和 predic
 
 `COMPLETE`：resolved=0，失败类型为 `PATCH_APPLY_FAILED`。dev20 累计 4/13 完全解决，主 resolve rate 为 30.77%。
 
+## 2026-07-16 — EXP-DEV20-013：astroid 1268 Unknown 字符串表示
+
+### 推理过程
+
+模型定位 `AsStringVisitor` 缺少 `visit_unknown()`，新增方法返回 `node.name`，并在 `tests/unittest_nodes.py` 添加自建测试，期望 `nodes.Unknown().as_string()` 为 `"Unknown"`。Agent 运行 `AsStringTest` 后在第 20 次调用主动提交。
+
+### 正式判分
+
+benchmark test patch 与 prediction patch 均应用成功。92 个 PASS_TO_PASS 全部通过，但 benchmark 的唯一目标测试要求 `nodes.Unknown()` 以及带位置参数的构造均返回规范字符串 `"Unknown.Unknown()"`，候选实现返回 `"Unknown"`，因此 FAIL_TO_PASS 为 0/1。
+
+- API 调用：20；
+- 输入 token：210,496；
+- 输出 token：2,509；
+- agent 步骤：18；
+- scorecard：`RESOLVED_NO`。
+
+模型修复了 AttributeError 路径，却没有从 Unknown 节点的语义确定目标表示，自建测试反而固化了错误输出。
+
+### 状态
+
+`COMPLETE`：resolved=0。dev20 累计 4/14 完全解决，主 resolve rate 为 28.57%。
+
 ## 2026-07-15 — EXP-DEV20-003B：pvlib 1154 镜像 clone 停滞
 
 ### 失败位置
