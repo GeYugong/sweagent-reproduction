@@ -27,13 +27,14 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 | EXP-DEV20-008 | `pydicom__pydicom-1256` | 21 | 248,681 | 2,580 | applied | RESOLVED_FULL |
 | EXP-DEV20-009 | `pydicom__pydicom-1413` | 20 | 249,072 | 5,460 | applied | RESOLVED_PARTIAL |
 | EXP-DEV20-010 | `pydicom__pydicom-1694` | 25 | 312,767 | 3,346 | apply failed | unresolved |
+| EXP-DEV20-011 | `pydicom__pydicom-901` | 25 | 287,071 | 3,485 | applied | RESOLVED_NO |
 
 当前累计：
 
-- 已评测：11/20；
+- 已评测：12/20；
 - resolved：4；
-- 未 resolved：7；
-- 暂时 resolve rate：36.36%。
+- 未 resolved：8；
+- 暂时 resolve rate：33.33%。
 
 当前样本仍未完成，不报告置信区间，也不用于模型间比较。至少完成冻结的 20 个实例后再计算主指标与 bootstrap 置信区间。
 
@@ -184,6 +185,22 @@ EOF 通信竞态修复后，`EXP-DEV20-006` 正常进入 Agent。模型首个计
 - 正式判定：`PATCH_APPLY_FAILED` / unresolved。
 
 这是 dev20 中第二个因模型同时修改测试而与 benchmark test patch 冲突的实例，进一步支持在后续改进组评估“提交时仅保留生产代码”的独立策略。
+
+## pydicom 901 正式结果
+
+Python 3.6 / pytest 6.2.5 兼容修复后，模型尝试解决“库导入不应配置应用日志”的问题。候选补丁删除模块导入时创建的 `StreamHandler` 和 `debug(False)`，并增加子进程导入测试；达到 25 次调用上限后提交。
+
+正式 evaluator 成功应用 benchmark test patch 和 prediction patch，但五个 FAIL_TO_PASS 全部失败：删除全局 `handler` 使四个 debug 测试在 fixture/setup 阶段出错，默认状态测试也观察到一个 handler 而非预期的零个。该方案直接移除既有调试接口所依赖的对象，没有按 benchmark 期望重构 handler 生命周期。
+
+- FAIL_TO_PASS：0/5 通过；
+- API 调用：25；
+- 输入 token：287,071；
+- 输出 token：3,485；
+- agent 步骤：24；
+- exit status：`submitted (exit_cost)`；
+- 正式判定：`RESOLVED_NO`。
+
+该实例未出现 PASS_TO_PASS 回归计数，但目标修复测试全部失败，因此明确计为 unresolved。
 
 ## Marshmallow 成功案例
 

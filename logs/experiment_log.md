@@ -539,6 +539,30 @@ benchmark test patch 与 prediction patch 均应用成功。PASS_TO_PASS 为 301
 
 `INFRA_FAILURE`：零调用失败单独登记，等待相同模型配置重试。
 
+## 2026-07-16 — EXP-DEV20-011：pydicom 901 导入时日志配置
+
+### 推理过程
+
+模型围绕“库不应在导入时配置日志 handler”修改 `pydicom/config.py`：删除全局 `StreamHandler`、formatter、`logger.addHandler()` 和模块末尾的 `debug(False)`，并在 `test_misc.py` 添加子进程导入断言。Agent 运行了 misc 目标文件与全套 pytest，达到 25 次调用上限后以 `submitted (exit_cost)` 保存补丁。
+
+### 推理统计
+
+- API 调用：25；
+- 输入 token：287,071；
+- 输出 token：3,485；
+- agent 步骤：24。
+
+### 正式判分
+
+Python 3.6 evaluator 成功安装 pytest 6.2.5，benchmark test patch 和 prediction patch 均应用成功。五个 FAIL_TO_PASS 全部失败：四个 handler 相关测试因补丁完全删除 `config.handler` 而在 setup/fixture 中报错，默认状态测试也得到 handler 数量 1 而非 0。目标行为需要保留 debug API 所依赖的 handler 对象并调整何时附加，而不是删除该对象。
+
+- FAIL_TO_PASS：0/5；
+- scorecard：`RESOLVED_NO`。
+
+### 状态
+
+`COMPLETE`：resolved=0。dev20 累计 4/12 完全解决，主 resolve rate 为 33.33%。
+
 ## 2026-07-15 — EXP-DEV20-003B：pvlib 1154 镜像 clone 停滞
 
 ### 失败位置
