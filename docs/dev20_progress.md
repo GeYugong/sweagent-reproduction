@@ -20,13 +20,14 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 | EXP-DEV20-001 | `marshmallow-code__marshmallow-1343` | 22 | 243,975 | 2,750 | applied | RESOLVED_FULL |
 | EXP-DEV20-002 | `marshmallow-code__marshmallow-1359` | 23 | 299,097 | 5,405 | applied | RESOLVED_FULL |
 | EXP-DEV20-003 | `pvlib__pvlib-python-1154` | 23 | 363,417 | 5,377 | apply failed | unresolved |
+| EXP-DEV20-004 | `pvlib__pvlib-python-1606` | 4 | 55,879 | 632 | not generated | unresolved |
 
 当前累计：
 
-- 已评测：4/20；
+- 已评测：5/20；
 - resolved：2；
-- 未 resolved：2；
-- 暂时 resolve rate：50.0%。
+- 未 resolved：3；
+- 暂时 resolve rate：40.0%。
 
 该比例只有三个样本，不报告置信区间，也不用于模型间比较。至少完成冻结的 20 个实例后再计算主指标与 bootstrap 置信区间。
 
@@ -62,6 +63,20 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 正式 evaluator 先成功应用 benchmark 测试补丁，随后预测补丁在同一测试断言处发生上下文冲突。生产代码 hunk 能单独应用，但正式协议要求整份预测补丁可应用，因此 scorecard 只有 `generated`、没有 `applied`，该实例计为 unresolved。该失败揭示了一个可用于改进实验的方向：提交前自动剔除测试文件改动，避免正确的生产代码修复因测试 hunk 冲突而失效。
 
 首次恢复批处理时发现续跑判断只将含 `RESOLVED_*` 状态的 scorecard 视为已评测，因而对该 `generated`-only 结果重复执行了一次 evaluator。重复判分没有调用模型、没有改变 scorecard，也不作为新实例计数。续跑规则已改为：冻结实例只要出现在任一正式 `scorecards.json` 中，无论 applied 或 resolved 状态如何，均直接跳过。
+
+## pvlib 1606 正式结果
+
+`EXP-DEV20-004` 在 Agent 的首个动作前退出。模型返回的意图和命令本身合理，但把命令围栏写成 `` ```bash ``；论文快照 ACI 的严格解析器只接受没有语言标签的三反引号围栏。连续三次格式纠正仍保留语言标签，第四次 API 调用后触发 malformat limit：
+
+- API 调用：4；
+- 输入 token：55,879；
+- 输出 token：632；
+- 实际工具动作：0；
+- patch：未生成；
+- exit status：`exit_format`；
+- scorecard：`not_generated`。
+
+该实例按正式协议计为 unresolved。它进一步说明现代模型与 2024 年论文 ACI 之间存在语法接口漂移，可在完成基线后将“允许代码围栏语言标签”作为独立兼容改进，而不能在当前 dev20 基线中途启用。
 
 ## Marshmallow 成功案例
 
