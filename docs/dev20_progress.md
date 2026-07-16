@@ -23,13 +23,14 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 | EXP-DEV20-004 | `pvlib__pvlib-python-1606` | 4 | 55,879 | 632 | not generated | unresolved |
 | EXP-DEV20-005 | `pvlib__pvlib-python-1707` | 21 | 361,753 | 4,612 | applied | RESOLVED_FULL |
 | EXP-DEV20-006 | `pvlib__pvlib-python-1854` | 4 | 51,333 | 1,269 | not generated | unresolved |
+| EXP-DEV20-007 | `pydicom__pydicom-1139` | 21 | 353,071 | 2,521 | applied | RESOLVED_PARTIAL |
 
 当前累计：
 
-- 已评测：7/20；
+- 已评测：8/20；
 - resolved：3；
-- 未 resolved：4；
-- 暂时 resolve rate：42.9%。
+- 未 resolved：5；
+- 暂时 resolve rate：37.5%。
 
 该比例只有三个样本，不报告置信区间，也不用于模型间比较。至少完成冻结的 20 个实例后再计算主指标与 bootstrap 置信区间。
 
@@ -110,6 +111,26 @@ EOF 通信竞态修复后，`EXP-DEV20-006` 正常进入 Agent。模型首个计
 - 正式判定：unresolved。
 
 这与 1606 的语言标签失败构成第二个独立样本，但 1854 还包含响应块重复，后续改进组需要分别统计“仅允许语言标签”能否恢复，而不能假设所有格式失败均由单一原因造成。
+
+## pydicom 1139 正式结果
+
+首次运行缺少 pytest，第二次运行安装 pytest 8.4.2 后又因旧式 nose `setup(self)` 不执行而使两个 PASS_TO_PASS 失败，两次均标记为环境无效。兼容性矩阵在同一冻结提交上验证：
+
+- pytest 6.2.5：目标旧式 setup 测试 2/2 通过；
+- pytest 7.4.4：目标测试 2/2 通过，并明确警告 nose setup 支持将在 pytest 8 移除。
+
+保留第二次运行的原始 21-call 预测，在 pytest 7.4.4 evaluator 中重新判分：
+
+- patch apply：成功；
+- FAIL_TO_PASS：2/3 通过；
+- PASS_TO_PASS：38/38 通过；
+- 总目标测试：40/41 通过；
+- API 调用：21；
+- 输入 token：353,071；
+- 输出 token：2,521；
+- 正式判定：`RESOLVED_PARTIAL`。
+
+模型实现 `PersonName.__iter__`，修复 iterator 与 contains，但没有实现 Python 2 风格的 `.next()`，所以剩余 FAIL_TO_PASS `test_next` 合理失败。主 resolve rate 只把 `RESOLVED_FULL` 计为成功，因此该实例记为 unresolved；部分修复率单独保留。
 
 ## Marshmallow 成功案例
 
