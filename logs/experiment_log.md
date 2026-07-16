@@ -1510,3 +1510,60 @@ Requests、Pylint 和 Django 的主动提交 model patch 均可逐字核验。Sy
 ### 状态
 
 `COMPLETE_A13_A14_ARTIFACT_AUDIT_WITH_RUNTIME_PROMPT_VARIANTS`：A13 的全部公开 action、gold patch 和结果已核验；A14 的全部公开 GPT-4 prompt、命令实现和论文界面资产已审计。发现并冻结两个 system prompt 变体以及无法映射到单一 Git 提交的混合配置。该状态不代表论文模型重新推理、缺失消融运行或全量 evaluator 容器重评已经完成。
+
+## 2026-07-17 — EXP-ARTIFACT-009：逐仓库 gold 环境验证预注册
+
+### 目标
+
+满足 evaluator 门槛中“论文期每个支持仓库至少执行一个未修改 gold patch”的覆盖要求。该实验只验证环境构建、patch 应用、测试执行与日志解析，不调用模型，不把 gold 结果计为代理解决率。
+
+### 支持仓库边界
+
+冻结 Lite `81ad348` 和 Full `283547a` 分别含 300 与 2,294 个实例，但两者的仓库集合完全相同，均为 12 个。`SWE-bench@cfb20092` 常量中还存在后续扩展仓库和 HumanEval 项目；由于它们不在论文 Full/Lite 数据中，不进入本实验分母。
+
+### 执行前选择规则
+
+每个仓库优先在官方 `20240402_sweagent_gpt4` 的 resolved 集合中，选择 `len(FAIL_TO_PASS) + len(PASS_TO_PASS)` 最小的 Lite 实例；若该仓库没有官方 resolved 实例，则从全部 Lite 实例选择最小者。依次使用 gold patch 字节数和 instance ID 打破平局。规则在新环境执行前写入脚本和机器清单，不根据后续构建成功与否更换实例。
+
+固定实例为：
+
+| 仓库 | instance | version | F2P/P2P | 来源 |
+|---|---|---:|---:|---|
+| astropy/astropy | `astropy__astropy-14995` | 5.2 | 1/179 | resolved |
+| django/django | `django__django-13447` | 4.0 | 1/5 | resolved |
+| matplotlib/matplotlib | `matplotlib__matplotlib-23964` | 3.6 | 1/16 | resolved |
+| mwaskom/seaborn | `mwaskom__seaborn-3010` | 0.12 | 1/2 | resolved |
+| pallets/flask | `pallets__flask-4992` | 2.3 | 1/18 | Lite 最小；无 resolved |
+| psf/requests | `psf__requests-2317` | 2.4 | 8/133 | resolved |
+| pydata/xarray | `pydata__xarray-4248` | 0.12 | 1/18 | Lite 最小；无 resolved |
+| pylint-dev/pylint | `pylint-dev__pylint-5859` | 2.13 | 1/10 | resolved |
+| pytest-dev/pytest | `pytest-dev__pytest-5227` | 4.4 | 3/34 | resolved；复用 EXP-ARTIFACT-006 |
+| scikit-learn/scikit-learn | `scikit-learn__scikit-learn-13584` | 0.21 | 6/3 | resolved |
+| sphinx-doc/sphinx | `sphinx-doc__sphinx-8713` | 4.0 | 1/45 | resolved |
+| sympy/sympy | `sympy__sympy-24152` | 1.12 | 1/6 | resolved |
+
+10 个选择具有可对照的官方 resolved 日志；Flask 与 xarray 的官方 GPT-4 Lite 运行没有 resolved 实例，因此只按最小引用规则选择。
+
+### 冻结输入与实现
+
+- SWE-agent evaluator：`658eb2842e8a8b00069b301338bc342b70538f7a`；
+- SWE-bench evaluator/runtime：`cfb20092bbbee9683176177b2f59b85f522e7f27`；
+- Lite 数据：`81ad348adcaf3368691f4db2907f8fc97a8f7526`，Parquet SHA-256 `2c0969b6fb6920f9425015563419901a4fe7fd078d143a3457fa1997b52365b1`；
+- experiments：`a5d52722965c791c0c04d18135f906b44f716d39`；
+- runner：`scripts/official_gold_repository_replay.py` 与 `scripts/run_local_evaluation.py`。
+
+prepare 从冻结 Parquet 直接复制 gold patch，不做行尾、路径或最小 patch 改写。`data/manifests/official_gold_repository_selection.json` 保存每个 base commit、gold/test patch SHA-256、任务与 prediction JSONL SHA-256、官方日志 blob 和选择来源。静态核验得到仓库 12/12、选择 12/12、官方 resolved 日志 10/10、待新建环境 11、复用环境 1、字面 API 密钥 0。
+
+### 运行隔离与重试协议
+
+11 个新环境按仓库顺序、单进程执行；每个进程只含一个 repo/version，使用历史 evaluator 的对应 Miniconda 选择和 900 秒任务超时。Git clone 固定为进程级 HTTP/1.1，以规避已经观察到的 HTTP/2 early EOF；不修改账户级或全局 Git 配置。
+
+runner 在子进程启动前移除继承环境中的 OpenAI、Anthropic 和 Claude 端点/凭据变量，使模型 API 调用在机制上保持 0。每个尝试保存完整 stdout/stderr、scorecard、results、eval log、时间、return code 与 SHA-256。失败后保留原尝试，再根据日志判断是冻结协议失败还是 2026 依赖/传输漂移；任何兼容修正必须实例作用域最小化并另行记录。
+
+### 验收条件
+
+每仓库必须满足：gold SHA-256 与预注册值相同；scorecard 为 `generated, applied, RESOLVED_FULL`；所有 F2P/P2P 引用通过。对具有官方 resolved 日志的实例，新 gold report 还必须与官方 report 完整一致。pytest 的既有 gold 运行已满足这些条件，不能重复计作新实验。
+
+### 预注册状态
+
+`PREPARED_SELECTION_AND_INPUT_HASHES_FROZEN`：选择、输入和验收规则已冻结，尚未读取其余 11 个新环境的结果。模型 API、GPU和远程服务器使用均为 0；本地 WSL 根文件系统可用空间约 944 GB，满足逐仓库临时环境构建需求。

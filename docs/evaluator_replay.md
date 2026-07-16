@@ -163,6 +163,33 @@ wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
 - `data/manifests/official_empty_duplicate_replay.json`：三行 scorecard 的逐行对照；
 - `data/manifests/official_gold_no_apply_replay.json`：新 evaluator 日志、应用标记与 gold 全测试判定。
 
+### 6.3 逐仓库 gold 环境验证预注册
+
+论文期 Lite 与 Full 均只包含同一组 12 个仓库。当前 `SWE-bench@cfb20092` 虽还带有后续扩展仓库常量，但不把数据集中不存在的仓库加入论文覆盖分母。
+
+在执行新环境前固定以下选择规则：对每个仓库，优先在官方 GPT-4 Lite `resolved` 实例中选择 `FAIL_TO_PASS + PASS_TO_PASS` 引用最少者；若该仓库没有官方 resolved 实例，则在全部 Lite 实例中选择引用最少者；并依次以 gold patch 字节数和 instance ID 打破平局。该规则得到：
+
+| 仓库 | 固定实例 | version | F2P + P2P | 选择来源 |
+|---|---|---:|---:|---|
+| astropy/astropy | `astropy__astropy-14995` | 5.2 | 1 + 179 | 官方 resolved |
+| django/django | `django__django-13447` | 4.0 | 1 + 5 | 官方 resolved |
+| matplotlib/matplotlib | `matplotlib__matplotlib-23964` | 3.6 | 1 + 16 | 官方 resolved |
+| mwaskom/seaborn | `mwaskom__seaborn-3010` | 0.12 | 1 + 2 | 官方 resolved |
+| pallets/flask | `pallets__flask-4992` | 2.3 | 1 + 18 | Lite 最小；无官方 resolved |
+| psf/requests | `psf__requests-2317` | 2.4 | 8 + 133 | 官方 resolved |
+| pydata/xarray | `pydata__xarray-4248` | 0.12 | 1 + 18 | Lite 最小；无官方 resolved |
+| pylint-dev/pylint | `pylint-dev__pylint-5859` | 2.13 | 1 + 10 | 官方 resolved |
+| pytest-dev/pytest | `pytest-dev__pytest-5227` | 4.4 | 3 + 34 | 官方 resolved；复用 EXP-ARTIFACT-006 gold |
+| scikit-learn/scikit-learn | `scikit-learn__scikit-learn-13584` | 0.21 | 6 + 3 | 官方 resolved |
+| sphinx-doc/sphinx | `sphinx-doc__sphinx-8713` | 4.0 | 1 + 45 | 官方 resolved |
+| sympy/sympy | `sympy__sympy-24152` | 1.12 | 1 + 6 | 官方 resolved |
+
+`scripts/official_gold_repository_replay.py prepare` 从固定 Parquet 直接写入未修改 gold patch 和完整任务行。选择清单 `data/manifests/official_gold_repository_selection.json` 记录数据/代码 revision、base commit、gold/test patch SHA-256、输入 JSONL SHA-256 和 10 份可对照的官方 resolved 日志 blob。
+
+执行采用每仓库一个独立 evaluator 进程，避免单个依赖安装失败终止其余仓库。每次使用论文期 SWE-agent evaluator、`SWE-bench@cfb20092`、900 秒任务超时和本地临时 Miniconda；Git 仅在该进程中固定 HTTP/1.1，不修改全局配置。runner 显式移除继承环境中的模型端点与凭据变量，模型 API 调用固定为 0。每个失败尝试单独保存完整 runner 日志、scorecard、eval log、开始/结束时间和哈希，不覆盖历史尝试。
+
+验收要求为每个 gold patch 均得到 `generated, applied, RESOLVED_FULL`，F2P/P2P 引用全部通过；10 个有官方 resolved 日志的实例还要求新 gold report 与官方 report 完整相等。pytest 已满足要求，其余 11 个仓库在预注册提交后执行。
+
 ## 7. 当前完成边界
 
 已完成：
@@ -173,11 +200,12 @@ wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
 - 后续数据 revision 引起的 resolved 漂移定位。
 - 一个官方 resolved 和一个官方 applied-unresolved 预测的真实容器重放，逐测试结果 `2/2` 完全一致。
 - gold、官方 patch-apply failure、空字符串、null 和重复行的代表边界验证，逐行状态 `5/5` 完全一致。
+- 12 个论文期支持仓库的 gold 实例、选择规则和输入哈希已在执行前冻结；pytest 的既有 gold 证据可复用。
 
 尚未完成：
 
 - 全量 2,294/300 实例从 patch 开始的容器重评；
-- 每个 SWE-bench 支持仓库至少一个 gold patch 的环境验证；
+- 其余 11 个 SWE-bench 支持仓库的 gold patch 环境验证；
 - 严格原模型重新推理。
 
 因此 `G_EVALUATOR_REPLAY` 更新为“聚合层和代表核心/边界分支完成”，但仍不等于全量容器重评，更不能标为整个严格复现完成。

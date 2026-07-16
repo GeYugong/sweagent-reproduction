@@ -73,8 +73,8 @@ gates:
     status: BLOCKED_CAPACITY
     evidence: Artifact-history recovery left approximately 78 GB free on D, below the 120 GB formal-run threshold.
   - id: G_EVALUATOR_REPLAY
-    status: PARTIAL_AGGREGATION_AND_REPRESENTATIVE_BRANCHES_COMPLETE
-    evidence: The pinned historical get_model_report plus paper-era Lite/Full dataset revisions reproduces all ten category lists for all eight official SWE-agent/RAG runs exactly, including order and duplicates. Fresh pytest 4.4 testbeds reproduced one official RESOLVED_FULL and one applied RESOLVED_NO prediction with exact per-test outcomes; an unmodified gold patch and an official no-apply patch also matched exactly. Empty-string, null, and duplicate-line scorecard branches matched 3/3 without creating a testbed. Full 300/2294-instance container replay and one gold environment check per supported repository remain pending.
+    status: IN_PROGRESS_12_REPOSITORY_GOLD_SELECTION_FROZEN
+    evidence: The pinned historical get_model_report plus paper-era Lite/Full dataset revisions reproduces all ten category lists for all eight official SWE-agent/RAG runs exactly, including order and duplicates. Fresh pytest 4.4 testbeds reproduced one official RESOLVED_FULL and one applied RESOLVED_NO prediction with exact per-test outcomes; an unmodified gold patch and an official no-apply patch also matched exactly. Empty-string, null, and duplicate-line scorecard branches matched 3/3 without creating a testbed. The 12 paper-repository gold selection and input hashes are preregistered; pytest is complete and 11 fresh environments are pending. Full 300/2294-instance container replay remains a higher-cost validation.
 
 episode_accounting:
   main_full_default: 4588
@@ -437,6 +437,20 @@ artifact_reproduction_runs:
       - data/derived/official_prompt_instance_template.txt
       - scripts/reproduce_official_qualitative_interface.py
       - docs/official_qualitative_interface_audit.md
+  - id: EXP-ARTIFACT-009
+    evidence: artifact
+    sweagent_evaluator_revision: 658eb2842e8a8b00069b301338bc342b70538f7a
+    swebench_runtime_revision: cfb20092bbbee9683176177b2f59b85f522e7f27
+    dataset_revision: 81ad348adcaf3368691f4db2907f8fc97a8f7526
+    scope: one_unmodified_gold_patch_per_paper_repository
+    repositories: 12
+    fresh_environments: 11
+    reused_environments: 1
+    status: PREPARED_SELECTION_AND_INPUT_HASHES_FROZEN
+    outputs:
+      - data/manifests/official_gold_repository_selection.json
+      - scripts/official_gold_repository_replay.py
+      - docs/evaluator_replay.md
 
 existing_non_exact_runs:
   - id: EXP-DEV20

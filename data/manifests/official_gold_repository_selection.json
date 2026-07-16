@@ -1,0 +1,372 @@
+{
+  "schema_version": 1,
+  "status": "PREPARED_12_REPOSITORIES_11_PENDING_1_REUSED",
+  "prepared_at_utc": "2026-07-16T18:35:34.385567+00:00",
+  "selection_policy": "For each paper Lite repository, choose the instance with the fewest F2P+P2P references among official GPT-4 resolved instances. If the run has no resolved instance for that repository, choose the minimum over all Lite instances. Break ties by gold-patch bytes then instance ID.",
+  "paper_repositories": [
+    "astropy/astropy",
+    "django/django",
+    "matplotlib/matplotlib",
+    "mwaskom/seaborn",
+    "pallets/flask",
+    "psf/requests",
+    "pydata/xarray",
+    "pylint-dev/pylint",
+    "pytest-dev/pytest",
+    "scikit-learn/scikit-learn",
+    "sphinx-doc/sphinx",
+    "sympy/sympy"
+  ],
+  "dataset": {
+    "repository": "princeton-nlp/SWE-bench_Lite",
+    "revision": "81ad348adcaf3368691f4db2907f8fc97a8f7526",
+    "sha256": "2c0969b6fb6920f9425015563419901a4fe7fd078d143a3457fa1997b52365b1",
+    "rows": 300
+  },
+  "official_experiments_revision": "a5d52722965c791c0c04d18135f906b44f716d39",
+  "official_run": "20240402_sweagent_gpt4",
+  "swe_agent_revision": "658eb2842e8a8b00069b301338bc342b70538f7a",
+  "swe_bench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+  "transport_policy": "process-scoped Git HTTP/1.1; no global Git mutation",
+  "model_api_calls": 0,
+  "instances": [
+    {
+      "repository": "astropy/astropy",
+      "repository_key": "astropy__astropy",
+      "instance_id": "astropy__astropy-14995",
+      "version": "5.2",
+      "base_commit": "b16c7d12ccbc7b2d20364b89fb44285bcbfede54",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/astropy__astropy-14995.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "cef3c3f9d4af913eb16926ce555fa5235f7028b9",
+        "sha256": "4396edfa2d379573ab1c6877c57769ae6cebbf52738c88dccac19ede218d0490"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 179,
+      "gold_patch_bytes": 869,
+      "gold_patch_sha256": "370b3ff97b3a0627c29b74cf0b60bae46fe75edcd35a8d121c2dbe0f0421899a",
+      "test_patch_sha256": "e3bb402eed057015fbbf5c551110ea264e7fc449174fa11c5c66136c74f5a0a7",
+      "model_alias": "paper_replay_gold_astropy_astropy",
+      "input_directory": "inputs/astropy__astropy",
+      "predictions_sha256": "5a73a5a5c66ed68a6b9c01ee5bc4a1aa324e70e00f9938bb7eb410189a3bc545",
+      "tasks_sha256": "8ba2f093cf8c709b89cda8f890f0d835f984c75011907e3325ee8dc4f79c671a",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "django/django",
+      "repository_key": "django__django",
+      "instance_id": "django__django-13447",
+      "version": "4.0",
+      "base_commit": "0456d3e42795481a186db05719300691fe2a1029",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/django__django-13447.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "5aeb4543dc62f2e7adb82636261a2252b8e8b7b7",
+        "sha256": "413aad57328124457d4f6ab257ea49b91978ae909aa1944c23df8f5f5bad0aa0"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 5,
+      "gold_patch_bytes": 492,
+      "gold_patch_sha256": "4405b13629dde0bd48cf8441f4f4c4a23cc702c0a120a018f05183706ee36037",
+      "test_patch_sha256": "2f10fb3fa9652e6ac7471249bd35ef2d9a0d0e23d9de84b7c52ac1783b13826e",
+      "model_alias": "paper_replay_gold_django_django",
+      "input_directory": "inputs/django__django",
+      "predictions_sha256": "42d10dcaf515f5d1c5313a4464b5798ba9160ebc8799cd804ef8608f11668ad0",
+      "tasks_sha256": "017033948a244f4137f081967d35323e5b51cc84b227423780936fe8d1e3b1a2",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "matplotlib/matplotlib",
+      "repository_key": "matplotlib__matplotlib",
+      "instance_id": "matplotlib__matplotlib-23964",
+      "version": "3.6",
+      "base_commit": "269c0b94b4fcf8b1135011c1556eac29dc09de15",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/matplotlib__matplotlib-23964.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "290f3b1ad8b4face69e80f59b808d1659a8a1062",
+        "sha256": "2cb25afe9a83c102cc4ad173b8314d200eb8a62982c8a78434709cbb4afba6a7"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 16,
+      "gold_patch_bytes": 648,
+      "gold_patch_sha256": "d05240c2e660bc12358a3b2cd366c8f0af2fdc6e70696e61584c9dbc9132cad9",
+      "test_patch_sha256": "521afd09edbe9a624a46a0d129abfc2e4bdb9fe8536c71f5f801774274ddd359",
+      "model_alias": "paper_replay_gold_matplotlib_matplotlib",
+      "input_directory": "inputs/matplotlib__matplotlib",
+      "predictions_sha256": "981ba3cd1bc4fa048ec9d1ec5828d015288128b88223ff2847bdd4f3f9bb1ce0",
+      "tasks_sha256": "aab1f3a17060b7a8bd01e4000d6e231067380bbf369cbfd9c8a7a6446f6b9ba7",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "mwaskom/seaborn",
+      "repository_key": "mwaskom__seaborn",
+      "instance_id": "mwaskom__seaborn-3010",
+      "version": "0.12",
+      "base_commit": "0f5a013e2cf43562deec3b879458e59a73853813",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/mwaskom__seaborn-3010.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "b7f566beba1ecd87217d2c469845691ea12088dc",
+        "sha256": "2420c7ae7557ccbd6f39b9c94ba795619ed8640a108b60b2a16197bed2b05cc4"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 2,
+      "gold_patch_bytes": 444,
+      "gold_patch_sha256": "2d282a78db2b88dc42330fea5dc78b0551629b7d15c6d5b22f20c57a2ee3d1d7",
+      "test_patch_sha256": "1ba4f740fddbe1d3e1b82f09cf4dc724bd0d65eeed3a108f0892519b0ec8761b",
+      "model_alias": "paper_replay_gold_mwaskom_seaborn",
+      "input_directory": "inputs/mwaskom__seaborn",
+      "predictions_sha256": "2cc6f3bd73e8a57183c8bd0758bcafb2b754b05c9ee760c84ca4d44cd2a7404f",
+      "tasks_sha256": "6a61e8c447d6914a7219936059220a39bcab1453f0c05f037e7d96d341f676cd",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "pallets/flask",
+      "repository_key": "pallets__flask",
+      "instance_id": "pallets__flask-4992",
+      "version": "2.3",
+      "base_commit": "4c288bc97ea371817199908d0d9b12de9dae327e",
+      "selection_policy": "minimum_reference_tests_no_official_gpt4_resolved_available",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied"
+      ],
+      "official_resolved_log": null,
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 18,
+      "gold_patch_bytes": 1664,
+      "gold_patch_sha256": "db912cc1331807c9b0715766eb45a5fac8c4036a99dd54c9ce998b675d0d8697",
+      "test_patch_sha256": "851c94393511592a1e3b65ea1d909b73b342ef55388819c6bd9632edb71ad304",
+      "model_alias": "paper_replay_gold_pallets_flask",
+      "input_directory": "inputs/pallets__flask",
+      "predictions_sha256": "6833e5331e5f88c10fa6f03ef3edff351dad19b898a3e12325f3ee5f24eb819e",
+      "tasks_sha256": "851dc5c9ff063323aced02b2dd08032d6b64425dcf11838d62f9e2736a9c4356",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "psf/requests",
+      "repository_key": "psf__requests",
+      "instance_id": "psf__requests-2317",
+      "version": "2.4",
+      "base_commit": "091991be0da19de9108dbe5e3752917fea3d7fdc",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/psf__requests-2317.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "603ce553a29995e4560f90061756bd8f2c1fe583",
+        "sha256": "065729ff52b21cf54d5bcbabdd210120096ac73e1efd6375d8f393773b9c1aa8"
+      },
+      "fail_to_pass_count": 8,
+      "pass_to_pass_count": 133,
+      "gold_patch_bytes": 763,
+      "gold_patch_sha256": "e6f1e63850e2a5eefcfe6b4bbc6ba39038372415633a328ba7afea001fcbd50e",
+      "test_patch_sha256": "ff283039874db19ea594bda54c2aa6812eb25fea9881e2517c4a143805cdb552",
+      "model_alias": "paper_replay_gold_psf_requests",
+      "input_directory": "inputs/psf__requests",
+      "predictions_sha256": "e201a1699484d94d81f0f8db33de8ecd2ee495305ea8b0bb95fb691c504fb8c3",
+      "tasks_sha256": "bb91c1224475d54a9c2d60c9af33520e5f14699cc943494cd4a1301930809df7",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "pydata/xarray",
+      "repository_key": "pydata__xarray",
+      "instance_id": "pydata__xarray-4248",
+      "version": "0.12",
+      "base_commit": "98dc1f4ea18738492e074e9e51ddfed5cd30ab94",
+      "selection_policy": "minimum_reference_tests_no_official_gpt4_resolved_available",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied"
+      ],
+      "official_resolved_log": null,
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 18,
+      "gold_patch_bytes": 578,
+      "gold_patch_sha256": "cb60278c84b3245408864d4fde2f83e88229e920e6345b0f64ed74092b8f02d2",
+      "test_patch_sha256": "c295e6acb9392b7f9b5a89b45bc53049472ed16319c5626198653d0e77ac5fc6",
+      "model_alias": "paper_replay_gold_pydata_xarray",
+      "input_directory": "inputs/pydata__xarray",
+      "predictions_sha256": "797164e6f6ad13c08ef111601014cbec87dcb1aebbded6d7cbd910c5dc96412d",
+      "tasks_sha256": "eadbdd243a34c5a95a6991fbaad8868c0acac6cd537ad1cfb2475cd12d160ffd",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "pylint-dev/pylint",
+      "repository_key": "pylint-dev__pylint",
+      "instance_id": "pylint-dev__pylint-5859",
+      "version": "2.13",
+      "base_commit": "182cc539b8154c0710fcea7e522267e42eba8899",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/pylint-dev__pylint-5859.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "489fe7882772d97372e60c946779b33179ccc08a",
+        "sha256": "8289c930ea4ea3452645c75382089d7deb56dda52c635a5fff46c57d73b29eef"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 10,
+      "gold_patch_bytes": 612,
+      "gold_patch_sha256": "e7ec647093f251ba84dc511728af0ac5e7afafb0206bc826c343922d7afccebb",
+      "test_patch_sha256": "fe4a17f367335844b29ea0b9b4a7cea04bd17435c5ff0911a22ceb550dc9ecb6",
+      "model_alias": "paper_replay_gold_pylint-dev_pylint",
+      "input_directory": "inputs/pylint-dev__pylint",
+      "predictions_sha256": "eb9091da9e4c0a8db6c6f3cc3b8d819cda406d3f08d0e83b57f5f814a49bb131",
+      "tasks_sha256": "a4218ac5e13e68ce5c38bb2a12fe89b62c7155fd5e435804f700e5f4dd3e453f",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "pytest-dev/pytest",
+      "repository_key": "pytest-dev__pytest",
+      "instance_id": "pytest-dev__pytest-5227",
+      "version": "4.4",
+      "base_commit": "2051e30b9b596e944524ccb787ed20f9f5be93e3",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/pytest-dev__pytest-5227.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "3dac4bfdbc4f7622ca8e09339e02ba9ca7b3774d",
+        "sha256": "26d6ecdad9ed50285839cb8561f526c1302914326e7def5466c45827e8ba746c"
+      },
+      "fail_to_pass_count": 3,
+      "pass_to_pass_count": 34,
+      "gold_patch_bytes": 431,
+      "gold_patch_sha256": "e8193ea0dee0989323f0f7756f492d73cdc2e584b61f9142b8695d9ed2737893",
+      "test_patch_sha256": "2f0dbf3bd56d91379bef155a0663119a8a7f4e97d5a4501dcd7d8fdc9320d786",
+      "model_alias": "paper_replay_gold_pytest-dev_pytest",
+      "input_directory": "inputs/pytest-dev__pytest",
+      "predictions_sha256": "b89b31b9a028513f2c2899d3b40828d0b7e1f44307fb14e11f6be549827ab1ca",
+      "tasks_sha256": "55aa1837c5c510bf6867a832eae74ad71ef5e89444e175497f39681741570b2c",
+      "execution": "reuse_EXP-ARTIFACT-006_gold"
+    },
+    {
+      "repository": "scikit-learn/scikit-learn",
+      "repository_key": "scikit-learn__scikit-learn",
+      "instance_id": "scikit-learn__scikit-learn-13584",
+      "version": "0.21",
+      "base_commit": "0e3c1879b06d839171b7d0a607d71bbb19a966a9",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/scikit-learn__scikit-learn-13584.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "b3e6719a48d7a8a5e615a2c455d8868216051e88",
+        "sha256": "d9b68e41cf0d735c1f35866a2fab8c9d9b28ea3b1a7b37ff29a5c01c8d9a4274"
+      },
+      "fail_to_pass_count": 6,
+      "pass_to_pass_count": 3,
+      "gold_patch_bytes": 567,
+      "gold_patch_sha256": "acb1af9f4aff9be141c13e5b2e0143f5abc78e56f8e585e8b2407f1254b875ef",
+      "test_patch_sha256": "22446b7b57524d79a06c07b89b49087ca26f2a3ffb8028bd104ded3003331c87",
+      "model_alias": "paper_replay_gold_scikit-learn_scikit-learn",
+      "input_directory": "inputs/scikit-learn__scikit-learn",
+      "predictions_sha256": "6e56636f4994584bb4e569ace87dea6cad7a239aed65c1ef599db30a94d7c474",
+      "tasks_sha256": "be54a3e0734d6667d85d70f79b2b418d83677c53fc31dcbe850db8dad85bd8b4",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "sphinx-doc/sphinx",
+      "repository_key": "sphinx-doc__sphinx",
+      "instance_id": "sphinx-doc__sphinx-8713",
+      "version": "4.0",
+      "base_commit": "3ed7590ed411bd93b26098faab4f23619cdb2267",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/sphinx-doc__sphinx-8713.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "7c98aaab3f6f445c8ae8f433d73297bfa883b2e5",
+        "sha256": "92d2a3ad6078b817fa722584fd419779b1d70ff704b706abdfff12db636b09a5"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 45,
+      "gold_patch_bytes": 954,
+      "gold_patch_sha256": "790ea5dc9611d778d1147d4eeb2945d413961932546340f910c9c0b41846ee8d",
+      "test_patch_sha256": "12177bcae59fb9803f6e41aed9593877c863558472af25696fb0e73f9c7126ff",
+      "model_alias": "paper_replay_gold_sphinx-doc_sphinx",
+      "input_directory": "inputs/sphinx-doc__sphinx",
+      "predictions_sha256": "54daef0e910258430fe3bb18de81f8ef80e67094b9c8a23eb5f5660f4b504bfe",
+      "tasks_sha256": "d3e856d0925627d6037cce1a62743dc13bbb09b3b26ca4a94d61ec65124589cf",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "sympy/sympy",
+      "repository_key": "sympy__sympy",
+      "instance_id": "sympy__sympy-24152",
+      "version": "1.12",
+      "base_commit": "b9af885473ad7e34b5b0826cb424dd26d8934670",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/sympy__sympy-24152.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "6a6fe4ef2663fae03c3f73155b1501205239f8e7",
+        "sha256": "a9cae10badfa669c1e57686fa2ce20add4f3245b23f9121e20a4cb4ad505c650"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 6,
+      "gold_patch_bytes": 1075,
+      "gold_patch_sha256": "42b4c8e39f5e1798c46f6d7bac8f01a9d48a5e7a5e629832c89f1b1a0bace5be",
+      "test_patch_sha256": "ddb9acbf0a784f78b53cbe97bc5d679b31e042bd671fc5fa99dc807532ee8bf0",
+      "model_alias": "paper_replay_gold_sympy_sympy",
+      "input_directory": "inputs/sympy__sympy",
+      "predictions_sha256": "b6bee79317ab4cc4fb576e57a797e768088c508bb36dbc5be08bb8f78508d041",
+      "tasks_sha256": "041c064b33997e39c7e607dc67da9f2a67a8693b69a107812eb1d75fe09e03e5",
+      "execution": "pending_local_paper_evaluator"
+    }
+  ]
+}
