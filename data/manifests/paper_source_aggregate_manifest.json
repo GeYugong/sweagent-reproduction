@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-07-16",
+  "evidence_type": "paper_source_aggregate",
+  "paper": {
+    "arxiv_id": "2405.15793",
+    "version": "v3",
+    "source": {
+      "path": "paper/2405.15793_source.tar.gz",
+      "bytes": 4825857,
+      "sha256": "3d2bafc2fd9e104fd204f7d4582260817c48b15133f7c1cf668dd081c2fbc1ab"
+    },
+    "members": {
+      "aci": {
+        "path": "tables/results_main.tex",
+        "bytes": 4317,
+        "sha256": "1ad050c63404738ddd9f6a5870a35cd5b3bda15b2f44e0caf56c318fb69af382"
+      },
+      "hyperparameters": {
+        "path": "appx_tables/hyperparam_sweep.tex",
+        "bytes": 1496,
+        "sha256": "3013f970a19c54c9beabab6812ff32052c4fcac67f89a7ad95f9d7dddb419f77"
+      },
+      "pass_at_k": {
+        "path": "appx_tables/pass_at_k.tex",
+        "bytes": 1706,
+        "sha256": "47f1d0d48656d5df0d73c16e1084fc11baae7516597d8bbb6e25f073173f436e"
+      },
+      "failure_description": {
+        "path": "appx/analyses/failure_modes.tex",
+        "bytes": 1849,
+        "sha256": "78004d65e37b8784e3d61ffb3ae8b462ed74a0662b2cf4f84ad26c1a6b6bbadc"
+      },
+      "failure_categories": {
+        "path": "appx_tables/failure_mode_categories.tex",
+        "bytes": 1600,
+        "sha256": "b23c7d3170e8d3f9ed880ecc18fd6501b63f387576f1f36a9f1da495512607a3"
+      },
+      "failure_figure": {
+        "path": "figures/failure_modes_pie.pdf",
+        "bytes": 51706,
+        "sha256": "5e6dd0f1ee603a07571be5b6a96bfe8da9e93680dbaf5e8cf996e80682972631"
+      }
+    }
+  },
+  "recovered": {
+    "aci_table_rows": 12,
+    "aci_nondefault_ablations": 8,
+    "hyperparameter_configurations": 16,
+    "pass_at_k_points": 6,
+    "failure_category_schema_size": 9,
+    "failure_nonzero_categories": 8,
+    "failure_instances": 248
+  },
+  "limitations": [
+    "ACI ablation trajectories, predictions, and evaluation logs are not present in the paper package.",
+    "The random 37-instance dev subset and all hyperparameter-sweep raw runs are not present.",
+    "The six pass@k prediction sets and per-instance resolution matrix are not present.",
+    "The 248 model-generated failure labels, 15 validation IDs, and hand labels are not present.",
+    "The zero-count Other failure category is inferred because the appendix defines nine categories while the vector figure shows eight nonzero slices summing to 248."
+  ],
+  "outputs": [
+    {
+      "path": "data/derived/paper_aci_ablation_results.csv",
+      "bytes": 786,
+      "sha256": "e301c11853f0c2d07f9aa989b995c43a13b02fb2d38b153a427535c9b80fab07"
+    },
+    {
+      "path": "data/derived/paper_hyperparameter_sweep.csv",
+      "bytes": 909,
+      "sha256": "e588554cb21831599ae91f13152dba0b51042b67b9dbc86eeec24062829c8b98"
+    },
+    {
+      "path": "data/derived/paper_pass_at_k.csv",
+      "bytes": 341,
+      "sha256": "faef22a42410173b5da84e1157ba2d48ae9ffd1f5130d5fdfa988b3277bd4635"
+    },
+    {
+      "path": "data/derived/paper_failure_mode_counts.csv",
+      "bytes": 646,
+      "sha256": "7a681cbb4937c6eed43e72658ac0b53e2d4534f3d52410b00fe7482704b8e4ff"
+    },
+    {
+      "path": "output/pdf/pass_at_k_source_aggregate.pdf",
+      "bytes": 9560,
+      "sha256": "846dc422622c3f99a5456cbaa4593273d367557e661d87e958600c6bb8fc50a0"
+    },
+    {
+      "path": "output/pdf/failure_modes_source_aggregate.pdf",
+      "bytes": 13189,
+      "sha256": "3470699737b87ef5d1206582852385f1f61f70b61b7273c71fbb02adb9a9ab13"
+    }
+  ]
+}

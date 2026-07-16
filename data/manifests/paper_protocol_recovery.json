@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-07-16",
+  "scope": "SWE-agent paper-era protocol and missing-artifact audit",
+  "paper": {
+    "arxiv_id": "2405.15793",
+    "version": "v3",
+    "source_sha256": "3d2bafc2fd9e104fd204f7d4582260817c48b15133f7c1cf668dd081c2fbc1ab"
+  },
+  "official_sources": {
+    "sweagent": {
+      "repository": "https://github.com/SWE-agent/SWE-agent.git",
+      "frozen_revision": "658eb2842e8a8b00069b301338bc342b70538f7a",
+      "initial_revision": "5b143857cb7af8b22fd421a103429f76f5259f08",
+      "last5_config_revision": "08e66863ac8ccf3cf8b740c243e74af15119f7b8",
+      "all_pull_request_heads_audited": 822,
+      "paper_period_pull_request_heads_audited": 309,
+      "paper_period_definition": "pull request number <= 621, covering public PRs through June 2024",
+      "searched_paths": [
+        "config/**",
+        "trajectories/**",
+        "evaluation/**",
+        "analysis/**",
+        "results/**"
+      ],
+      "searched_content": [
+        "WINDOW: 30",
+        "window30",
+        "shell-only",
+        "iterative search",
+        "next()/prev() search functions",
+        "dev37",
+        "Failed Edit Recovery"
+      ]
+    },
+    "swebench_experiments": {
+      "repository": "https://github.com/SWE-bench/experiments.git",
+      "current_revision": "2f15350cd32becc4569e0d826361048555b605c0",
+      "paper_artifact_revision": "a5d52722965c791c0c04d18135f906b44f716d39",
+      "paper_artifact_local_ref": "refs/paper/sweagent-artifacts",
+      "all_pull_request_heads_listed": 370,
+      "pull_requests_before_2024_07_01_audited": 24,
+      "public_bucket": "s3://swe-bench-submissions",
+      "paper_era_sweagent_prefixes": [
+        "lite/20240402_sweagent_gpt4/",
+        "lite/20240402_sweagent_claude3opus/",
+        "test/20240402_sweagent_gpt4/",
+        "test/20240402_sweagent_claude3opus/"
+      ],
+      "paper_era_rag_prefixes": [
+        "lite/20240402_rag_gpt4/",
+        "lite/20240402_rag_claude3opus/",
+        "test/20240402_rag_gpt4/",
+        "test/20240402_rag_claude3opus/"
+      ],
+      "analysis_output_inventory": [
+        "gpt-4-0125-preview__full__dev__has_reproduction_code.jsonl",
+        "gpt-4-turbo-2024-04-09__full__test__has_reproduction_code.jsonl",
+        "gpt-4-turbo-2024-04-09__lite__test__has_reproduction_code.jsonl"
+      ]
+    }
+  },
+  "protocol_components": [
+    {
+      "id": "default_aci",
+      "status": "RECOVERED",
+      "evidence": "Frozen default config contains WINDOW=100, Last5Observations, summarized search, linting editor, and one demonstration."
+    },
+    {
+      "id": "full_history",
+      "status": "RECOVERED_CONFIG_ONLY",
+      "evidence": "Full-history configuration is present at the frozen revision; paper-run predictions and trajectories are absent."
+    },
+    {
+      "id": "window_200",
+      "status": "RECOVERED_PARAMETER_IMPLEMENTATION_ONLY",
+      "evidence": "Cursor-viewer configurations contain WINDOW=200 despite window100 in their filenames; run-to-table mapping and raw sweep outputs are absent."
+    },
+    {
+      "id": "no_demonstration",
+      "status": "INFERABLE_NOT_RELEASED",
+      "evidence": "The configuration schema permits an empty demonstrations list, but no exact paper-run config or raw outputs were found."
+    },
+    {
+      "id": "no_search",
+      "status": "INFERABLE_NOT_RELEASED",
+      "evidence": "The summarized search command can be removed from a config, but no exact paper-run config or outputs were found."
+    },
+    {
+      "id": "no_edit",
+      "status": "INFERABLE_NOT_RELEASED",
+      "evidence": "The editor command can be removed from a config, but no exact paper-run config or outputs were found."
+    },
+    {
+      "id": "window_30",
+      "status": "INFERABLE_NOT_RELEASED",
+      "evidence": "WINDOW is configurable, but no WINDOW=30 file, commit, PR head, trajectory, or result was found."
+    },
+    {
+      "id": "full_file_view",
+      "status": "BLOCKED_MISSING_OFFICIAL_IMPLEMENTATION",
+      "evidence": "The paper describes the behavior, but no exact command implementation or config was found."
+    },
+    {
+      "id": "editor_without_linting",
+      "status": "BLOCKED_MISSING_OFFICIAL_IMPLEMENTATION",
+      "evidence": "Only linting editor command files occur in the paper-era public history and PR heads."
+    },
+    {
+      "id": "iterative_search",
+      "status": "BLOCKED_MISSING_OFFICIAL_IMPLEMENTATION",
+      "evidence": "No next/prev iterative-search implementation occurs in the paper-era public history or PR heads."
+    },
+    {
+      "id": "shell_only",
+      "status": "BLOCKED_MISSING_OFFICIAL_IMPLEMENTATION",
+      "evidence": "The paper identifies InterCode-Bash as the conceptual basis, but no exact Shell-only agent configuration, prompt, trajectories, or predictions were released."
+    }
+  ],
+  "result_assets": [
+    {
+      "id": "aci_ablation",
+      "status": "PAPER_AGGREGATE_RECOVERED_RAW_RUNS_MISSING",
+      "aggregate_rows": 12,
+      "nondefault_ablations": 8,
+      "derived": "data/derived/paper_aci_ablation_results.csv"
+    },
+    {
+      "id": "hyperparameter_sweep",
+      "status": "PAPER_AGGREGATE_RECOVERED_RAW_RUNS_AND_DEV37_MISSING",
+      "configurations": 16,
+      "samples_per_configuration": 5,
+      "derived": "data/derived/paper_hyperparameter_sweep.csv"
+    },
+    {
+      "id": "pass_at_k",
+      "status": "PAPER_AGGREGATE_RECOVERED_RAW_PREDICTIONS_MISSING",
+      "runs": 6,
+      "derived": "data/derived/paper_pass_at_k.csv",
+      "figure": "output/pdf/pass_at_k_source_aggregate.pdf"
+    },
+    {
+      "id": "failure_modes",
+      "status": "PAPER_AGGREGATE_RECOVERED_RAW_LABELS_MISSING",
+      "instances": 248,
+      "category_schema_size": 9,
+      "nonzero_categories": 8,
+      "validation_instances": 15,
+      "derived": "data/derived/paper_failure_mode_counts.csv",
+      "figure": "output/pdf/failure_modes_source_aggregate.pdf"
+    }
+  ],
+  "negative_findings": [
+    "No official dev-37 instance ID manifest was found.",
+    "No five-sample hyperparameter sweep trajectories, predictions, seeds, or evaluation logs were found.",
+    "No six-run pass@k prediction sets or per-instance resolution matrix were found.",
+    "No 248 generated failure labels, 15 validation IDs, or hand labels were found.",
+    "No Shell-only or Shell-only-without-demonstration raw run was found.",
+    "No raw outputs for the eight ACI single-factor ablations were found.",
+    "No additional paper-era ablation or pass@k run prefix appears in the public S3 bucket listing."
+  ],
+  "conclusion": "The P1 asset audit is complete. Missing official assets are explicit blockers for exact artifact replay; paper aggregates remain reproducible but cannot substitute for raw-run recomputation."
+}

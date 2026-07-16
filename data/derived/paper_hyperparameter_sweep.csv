@@ -1,0 +1,17 @@
+model,temperature,window_lines,history,mean_resolved_percent,samples_per_configuration,dev_subset_instances,raw_runs_available
+GPT-4 Turbo,0.0,100,Full,14.1,5,37,False
+GPT-4 Turbo,0.0,100,Last 5 observations,15.1,5,37,False
+GPT-4 Turbo,0.0,200,Full,9.2,5,37,False
+GPT-4 Turbo,0.0,200,Last 5 observations,10.8,5,37,False
+GPT-4 Turbo,0.2,100,Full,10.8,5,37,False
+GPT-4 Turbo,0.2,100,Last 5 observations,12.4,5,37,False
+GPT-4 Turbo,0.2,200,Full,8.7,5,37,False
+GPT-4 Turbo,0.2,200,Last 5 observations,10.8,5,37,False
+Claude 3 Opus,0.0,100,Full,5.4,5,37,False
+Claude 3 Opus,0.0,100,Last 5 observations,8.1,5,37,False
+Claude 3 Opus,0.0,200,Full,7.0,5,37,False
+Claude 3 Opus,0.0,200,Last 5 observations,7.1,5,37,False
+Claude 3 Opus,0.2,100,Full,7.4,5,37,False
+Claude 3 Opus,0.2,100,Last 5 observations,8.1,5,37,False
+Claude 3 Opus,0.2,200,Full,8.1,5,37,False
+Claude 3 Opus,0.2,200,Last 5 observations,6.8,5,37,False

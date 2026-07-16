@@ -47,7 +47,17 @@
 - 每次运行均记录代码哈希、配置、模型标识、时间、token、成本和退出状态；
 - 开发集在正式实验前冻结。
 
-完整方案见 [docs/full_paper_reproduction_plan.md](docs/full_paper_reproduction_plan.md)，官方工件追溯与已复算结果见 [docs/artifact_provenance.md](docs/artifact_provenance.md)，机器清单见 [conf/full_paper_matrix.yaml](conf/full_paper_matrix.yaml)，逐次记录见 [logs/experiment_log.md](logs/experiment_log.md)。
+完整方案见 [docs/full_paper_reproduction_plan.md](docs/full_paper_reproduction_plan.md)，官方工件追溯与已复算结果见 [docs/artifact_provenance.md](docs/artifact_provenance.md)，论文期协议与缺失资产边界见 [docs/protocol_recovery_audit.md](docs/protocol_recovery_audit.md)，机器清单见 [conf/full_paper_matrix.yaml](conf/full_paper_matrix.yaml)，逐次记录见 [logs/experiment_log.md](logs/experiment_log.md)。
+
+论文源码中的 ACI 消融、超参数、pass@k 与失败模式聚合值可用以下命令重建：
+
+```powershell
+wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
+  .venv-analysis/bin/python scripts/reproduce_paper_source_aggregates.py `
+  --pdftotext /mnt/d/texlive/2026/bin/windows/pdftotext.exe
+```
+
+这些输出明确标为 `paper_source_aggregate`。它们验证论文最终表图数据，不替代缺失的逐实例预测、轨迹、标签或精确重跑。
 
 ## 安全与数据规则
 

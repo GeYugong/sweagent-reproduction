@@ -52,10 +52,10 @@ gates:
     evidence: Current relay model catalog does not expose gpt-4o-2024-05-13.
   - id: G_OFFICIAL_ARTIFACTS
     status: PARTIALLY_RECOVERED
-    evidence: Official pre-reset Git history contains main GPT-4/Claude/RAG predictions, logs, trajectories, and results; HumanEvalFix has released logs and 492 trajectories. Shell-only, ablation, sweep, pass@k, and failure-label artifacts remain under audit.
+    evidence: Official pre-reset Git history contains main GPT-4/Claude/RAG predictions, logs, trajectories, and results; HumanEvalFix has released logs and 492 trajectories. An exhaustive source, Git/PR, analysis-tree, and public-S3 audit found no Shell-only, ablation, sweep, pass@k, or raw failure-label artifacts; these are now explicit missing-official blockers.
   - id: G_EXACT_ABLATION_CONFIGS
-    status: IN_PROGRESS
-    evidence: Default and some history configs are present; paper's full ablation and Shell-only run configs are not yet recovered.
+    status: BLOCKED_PARTIAL_RELEASE
+    evidence: Default and FullHistory configs plus 100/200-window parameter implementations are public. No official paper-era full-file viewer, no-lint editor, iterative search, Shell-only config, or raw ablation runs were found across 822 PR heads and official artifact storage.
   - id: G_DEV37_MANIFEST
     status: BLOCKED_MISSING_PROVENANCE
     evidence: Paper specifies a random 37-instance dev subset but does not list instance IDs in the source package.
@@ -288,16 +288,16 @@ baselines:
 
 analysis_artifacts:
   - {id: T_MAIN, name: main_results_table, status: ARTIFACT_PARTIAL_WITH_CLAUDE_INCONSISTENCY}
-  - {id: T_ABLATION, name: combined_aci_ablation_table, status: SOURCE_TARGET_FROZEN}
-  - {id: T_HYPERPARAM, name: hyperparameter_sweep_table, status: SOURCE_TARGET_FROZEN}
-  - {id: T_PASSK, name: pass_at_k_table, status: SOURCE_TARGET_FROZEN}
-  - {id: F_PASSK, name: pass_at_k_figure, status: SOURCE_TARGET_FROZEN}
+  - {id: T_ABLATION, name: combined_aci_ablation_table, status: PAPER_AGGREGATE_REPRODUCED_RAW_RUNS_MISSING}
+  - {id: T_HYPERPARAM, name: hyperparameter_sweep_table, status: PAPER_AGGREGATE_REPRODUCED_RAW_RUNS_AND_DEV37_MISSING}
+  - {id: T_PASSK, name: pass_at_k_table, status: PAPER_AGGREGATE_REPRODUCED_RAW_PREDICTIONS_MISSING}
+  - {id: F_PASSK, name: pass_at_k_figure, status: PAPER_AGGREGATE_REGENERATED_RAW_PREDICTIONS_MISSING}
   - {id: T_HUMANEVAL, name: humanevalfix_results_table, status: ARTIFACT_RECOMPUTED_WITH_NOTEBOOK_DENOMINATOR_BUG}
   - {id: A_REPO, name: performance_by_repository, status: SOURCE_TARGET_FROZEN}
   - {id: A_TEMPORAL, name: performance_by_year, status: SOURCE_TARGET_FROZEN}
   - {id: A_EXIT, name: exit_condition_counts, status: SOURCE_TARGET_FROZEN}
   - {id: A_TRAJECTORY, name: turn_cost_action_and_ngram_analysis, status: SOURCE_TARGET_FROZEN}
-  - {id: A_FAILURE, name: failure_mode_labels_and_figure, status: SOURCE_TARGET_FROZEN}
+  - {id: A_FAILURE, name: failure_mode_labels_and_figure, status: PAPER_AGGREGATE_REGENERATED_RAW_LABELS_MISSING}
   - {id: A_PATCH, name: patch_statistics, status: SOURCE_TARGET_FROZEN}
   - {id: A_LOCALIZATION, name: file_localization_f1, status: SOURCE_TARGET_FROZEN}
   - {id: F_HUMANEVAL_TURNS, name: humanevalfix_turn_distribution, status: ARTIFACT_RECOMPUTED_AND_RENDERED}
@@ -324,6 +324,20 @@ artifact_reproduction_runs:
       - data/derived/humanevalfix_instance_results.csv
       - data/derived/humanevalfix_histogram_bins.csv
       - output/pdf/humanevalfix_turns_artifact.pdf
+  - id: EXP-ARTIFACT-003
+    evidence: paper_source_aggregate
+    source_revision: arxiv_2405.15793v3
+    scope: aci_ablation_hyperparameter_passk_failure_mode_aggregates
+    status: COMPLETE_AGGREGATES_WITH_RAW_ASSETS_MISSING
+    outputs:
+      - data/manifests/paper_source_aggregate_manifest.json
+      - data/manifests/paper_protocol_recovery.json
+      - data/derived/paper_aci_ablation_results.csv
+      - data/derived/paper_hyperparameter_sweep.csv
+      - data/derived/paper_pass_at_k.csv
+      - data/derived/paper_failure_mode_counts.csv
+      - output/pdf/pass_at_k_source_aggregate.pdf
+      - output/pdf/failure_modes_source_aggregate.pdf
 
 existing_non_exact_runs:
   - id: EXP-DEV20

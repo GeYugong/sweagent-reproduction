@@ -182,6 +182,8 @@ GPU 不是 API 代理实验的必要条件。本地 CPU、内存、磁盘和 Doc
 
 退出条件：每项都有官方来源，或明确标为 `BLOCKED_MISSING_OFFICIAL_ARTIFACT` 并保存检索证据。
 
+当前状态（2026-07-16）：`COMPLETE_WITH_MISSING_OFFICIAL_BLOCKERS`。默认主运行与 HumanEvalFix 工件已恢复；全部官方 Git/PR、论文源码、分析目录和公开 S3 检索已经完成。Shell-only、八项消融原始运行、dev37 ID、pass@k 六次预测和失败标签未公开，均已在 `data/manifests/paper_protocol_recovery.json` 中登记，不再保持模糊的“仍在检索”状态。
+
 ### P2：评测器与分析器重放
 
 1. 使用 gold patch、空 patch、已知失败 patch 做 evaluator 单元验证；

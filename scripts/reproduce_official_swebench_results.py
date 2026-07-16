@@ -76,6 +76,17 @@ def git_blob(repo: Path, revision: str, path: str) -> bytes:
     return git(repo, "show", f"{revision}:{path}")  # type: ignore[return-value]
 
 
+def commit_exists(repo: Path, revision: str) -> bool:
+    proc = subprocess.run(
+        ["git", "cat-file", "-e", f"{revision}^{{commit}}"],
+        cwd=repo,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False,
+    )
+    return proc.returncode == 0
+
+
 def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
@@ -241,6 +252,11 @@ def main() -> int:
     parser.add_argument("--repo", type=Path, default=project_root / "code" / "SWE-bench-experiments")
     parser.add_argument("--revision", default=OFFICIAL_REVISION)
     parser.add_argument(
+        "--fetch-missing",
+        action="store_true",
+        help="Fetch the paper-era commit by SHA and pin a local ref if it is absent",
+    )
+    parser.add_argument(
         "--output-json",
         type=Path,
         default=project_root / "data" / "manifests" / "official_swebench_artifacts.json",
@@ -253,6 +269,17 @@ def main() -> int:
     args = parser.parse_args()
 
     repo = args.repo.resolve()
+    if not commit_exists(repo, args.revision):
+        if not args.fetch_missing:
+            raise RuntimeError(
+                f"Revision {args.revision} is not available locally. Re-run with --fetch-missing "
+                "to retrieve it from the official origin."
+            )
+        git(repo, "fetch", "--no-tags", "origin", args.revision)
+    if not commit_exists(repo, args.revision):
+        raise RuntimeError(f"Revision {args.revision} is still unavailable after fetch")
+    if args.fetch_missing and args.revision == OFFICIAL_REVISION:
+        git(repo, "update-ref", "refs/paper/sweagent-artifacts", args.revision)
     try:
         repo_display = repo.relative_to(project_root).as_posix()
     except ValueError:

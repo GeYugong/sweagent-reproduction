@@ -1109,3 +1109,46 @@ evaluator 报告 FAIL_TO_PASS 1/1 和 PASS_TO_PASS 30/30 全部失败，但 pyte
 ### 状态
 
 `COMPLETE`：resolved=1。
+
+## 2026-07-16 — EXP-ARTIFACT-003：论文源码聚合与协议恢复审计
+
+### 输入与检索范围
+
+- arXiv：`2405.15793v3` 源码包，SHA-256 `3d2bafc2fd9e104fd204f7d4582260817c48b15133f7c1cf668dd081c2fbc1ab`；
+- SWE-agent：冻结提交 `658eb2842e8a8b00069b301338bc342b70538f7a`、全部 822 个公开 PR head、论文期 309 个 PR head；
+- SWE-bench experiments：当前提交、论文工件提交 `a5d52722965c791c0c04d18135f906b44f716d39`、2024-07-01 前 24 个 PR、公共 S3 bucket；
+- 内容检索：30 行窗口、Shell-only、InterCode、iterative/next/prev、no lint、no edit、no search、dev37、pass@k 与失败类别名。
+
+### 协议恢复结果
+
+默认 ACI、FullHistory 配置、Last5Observations 和 100/200 行参数实现可从官方历史定位。无演示、无搜索、无编辑和 30 行窗口可依据配置机制推导，但没有论文实际运行配置或工件。全文 viewer、无 lint editor、next/prev 式迭代搜索和 Shell-only 的官方精确实现未找到。
+
+论文主工件提交此前没有命名引用，Git 清理后会成为不可用悬空对象。该提交已从官方远端按 SHA 重新获取并固定为 `refs/paper/sweagent-artifacts`。重新检查后对象库为 0 garbage，主工件脚本输入恢复稳定。
+
+### 聚合复现
+
+新增脚本直接读取 arXiv tar 包，生成：
+
+- ACI：12 个表行，其中 8 个非默认消融；
+- 超参：16 个设置，每项论文口径为 37 个实例、5 个 sample；
+- pass@k：六次 resolved 数分别为 52、54、54、56、52、55，论文均值 17.94、标准差 0.49，pass@6 为 32.67；
+- 失败模式：9 类 schema 中 8 个非零类别，计数 99、30、58、32、5、6、12、6，Other=0，总计 248。
+
+Other=0 由 9 类 appendix schema 与 8 个非零向量图切片已经覆盖 248 个实例共同约束，标记为推断值，不冒充逐实例标签复算。
+
+### PDF 验证
+
+pass@k 与 failure-mode PDF 连续两次生成哈希一致，分别为：
+
+- `846dc422622c3f99a5456cbaa4593273d367557e661d87e958600c6bb8fc50a0`；
+- `3470699737b87ef5d1206582852385f1f61f70b61b7273c71fbb02adb9a9ab13`。
+
+两张图均为 PDF 1.4、单页、无加密。160 DPI 渲染检查确认坐标、点、扇区、比例和图例无裁切或重叠。
+
+### 缺失资产结论
+
+没有找到 dev37 实例 ID、80 组超参原始运行、六次 pass@k 预测矩阵、248 条失败标签、15 个验证样本与人工标签、Shell-only 原始运行或八个消融原始工件。P1 资产追溯完成，但严格实验与实例级工件复算仍未完成。
+
+### 状态
+
+`COMPLETE_AGGREGATES_RAW_ASSETS_MISSING`：论文最终聚合值和图可重建；缺失官方原始资产已登记为 blocker，不能替代 exact 重跑。

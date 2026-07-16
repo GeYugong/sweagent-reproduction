@@ -1,0 +1,10 @@
+category,figure_label,count,percent,shown_in_figure,raw_instance_labels_available
+Incorrect Implementation,Incorrect Implementation,99,39.9,True,False
+Overly Specific Implementation,Overly Specific Implementation,30,12.1,True,False
+Failed Edit Recovery,Failed to Recover from Edit,58,23.4,True,False
+Failed to Find Edit Location,Failed to Find Edit Location,32,12.9,True,False
+Failed to Find Relevant File,Failed to Find Relevant File,5,2.0,True,False
+Gave Up Prematurely,Gave Up Prematurely,6,2.4,True,False
+Failed to Reproduce,Can’t Reproduce,12,4.8,True,False
+Ran Out of Budget,Ran Out of Time,6,2.4,True,False
+Other,Other,0,0.0,False,False

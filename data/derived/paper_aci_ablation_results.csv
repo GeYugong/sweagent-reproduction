@@ -1,0 +1,13 @@
+component,variant,paper_label,resolved_percent,absolute_drop_points,is_paper_default,raw_run_available
+editor,edit_without_linting,edit action,15.0,3.0,False,False
+editor,default_with_linting,edit action with linting,18.0,0.0,True,False
+editor,no_edit,No edit,10.3,7.7,False,False
+search,default_summarized,Summarized,18.0,0.0,True,False
+search,iterative,Iterative,12.0,6.0,False,False
+search,no_search,No search,15.7,2.3,False,False
+file_viewer,window_30,30 lines,14.3,3.7,False,False
+file_viewer,default_window_100,100 lines,18.0,0.0,True,False
+file_viewer,full_file,Full file,12.7,5.3,False,False
+context,default_last_5,Last 5 observations,18.0,0.0,True,False
+context,full_history,Full history,15.0,3.0,False,False
+context,no_demonstration,Without demonstration,16.3,1.7,False,False
