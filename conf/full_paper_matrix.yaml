@@ -73,8 +73,8 @@ gates:
     status: BLOCKED_CAPACITY
     evidence: Artifact-history recovery left approximately 78 GB free on D, below the 120 GB formal-run threshold.
   - id: G_EVALUATOR_REPLAY
-    status: PARTIAL_AGGREGATION_COMPLETE_CONTAINER_PENDING
-    evidence: The pinned historical get_model_report plus paper-era Lite/Full dataset revisions reproduces all ten category lists for all eight official SWE-agent/RAG runs exactly, including order and duplicates. Representative patch-to-container re-execution remains pending.
+    status: PARTIAL_AGGREGATION_AND_CORE_CONTAINER_COMPLETE
+    evidence: The pinned historical get_model_report plus paper-era Lite/Full dataset revisions reproduces all ten category lists for all eight official SWE-agent/RAG runs exactly, including order and duplicates. One official RESOLVED_FULL and one applied RESOLVED_NO pytest 4.4 prediction were re-executed in a fresh testbed with exact per-test outcomes. Gold, no-apply, empty, and duplicate edge branches remain pending.
 
 episode_accounting:
   main_full_default: 4588
@@ -353,6 +353,19 @@ artifact_reproduction_runs:
     status: COMPLETE_8_OF_8_FULL_REPORT_MATCH
     outputs:
       - data/manifests/official_evaluator_replay.json
+      - docs/evaluator_replay.md
+  - id: EXP-ARTIFACT-005
+    evidence: artifact
+    source_revision: a5d52722965c791c0c04d18135f906b44f716d39
+    sweagent_evaluator_revision: 658eb2842e8a8b00069b301338bc342b70538f7a
+    swebench_runtime_version: 1.0.2
+    dataset_revision: 81ad348adcaf3368691f4db2907f8fc97a8f7526
+    scope: official_pytest44_resolved_and_unresolved_container_replay
+    instances: [pytest-dev__pytest-5227, pytest-dev__pytest-5221]
+    status: COMPLETE_2_OF_2_EXACT_TEST_OUTCOMES
+    outputs:
+      - data/manifests/official_container_replay.json
+      - scripts/official_container_replay.py
       - docs/evaluator_replay.md
 
 existing_non_exact_runs:

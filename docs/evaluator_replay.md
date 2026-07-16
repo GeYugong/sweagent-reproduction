@@ -83,6 +83,41 @@ wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
 - 每个官方类别的条目数、唯一实例数及完整列表比较；
 - 论文 revision 与 2025 revision 的逐实例判分差异。
 
+### 6.1 代表实例的容器级重新执行
+
+在聚合层通过后，固定 pytest 4.4 的两个官方 GPT-4 Lite 预测作为最小核心分支集：
+
+| 实例 | 官方状态 | 目标测试 | 容器重放 | 逐测试列表 |
+|---|---|---:|---|---|
+| `pytest-dev__pytest-5227` | `RESOLVED_FULL` | F2P 3，P2P 34 | `RESOLVED_FULL` | 完全相同 |
+| `pytest-dev__pytest-5221` | `RESOLVED_NO` | F2P 2，P2P 170 | `RESOLVED_NO` | 完全相同 |
+
+两个实例来自同一 `pytest-dev/pytest` 4.4 环境，在一次 testbed 构建中顺序执行。evaluator 对两个基线提交分别完成 reset、`pred_try` 检查与回退、项目安装、benchmark test patch、prediction patch 和测试命令。所有步骤成功，新的 FAIL_TO_PASS / PASS_TO_PASS 成功与失败列表均和官方历史日志完全相同，最终状态为 `2/2` exact outcome match。
+
+实际容器运行墙钟时间 607.6 秒，其中 Miniconda 下载、仓库 clone、环境创建和首次安装约占 529 秒；两个测试命令分别约 1.6 秒和 6.1 秒。没有模型调用或 GPU。执行命令：
+
+```powershell
+wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
+  /home/gugabobo/.venvs/swebench-paper-eval/bin/python `
+  scripts/official_container_replay.py prepare
+
+wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
+  /home/gugabobo/.venvs/swebench-paper-eval/bin/python `
+  scripts/run_local_evaluation.py `
+  outputs/evaluation/official_container_replay/pytest44_sweagent_gpt4/all_preds.jsonl `
+  --dataset outputs/evaluation/official_container_replay/pytest44_sweagent_gpt4/tasks.jsonl `
+  --results outputs/evaluation/official_container_replay/results `
+  --testbed /home/gugabobo/sb `
+  --timeout 900 `
+  --model-alias paper_replay_pytest44_gpt4
+
+wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
+  /home/gugabobo/.venvs/swebench-paper-eval/bin/python `
+  scripts/official_container_replay.py collect
+```
+
+机器清单为 `data/manifests/official_container_replay.json`。原始新日志、scorecard、冻结预测和两行完整任务数据位于 Git 忽略的 `outputs/evaluation/official_container_replay/`；清单记录其 SHA-256 和解析后判定。
+
 ## 7. 当前完成边界
 
 已完成：
@@ -91,11 +126,12 @@ wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
 - 论文期 evaluator 源码和数据 revision 的精确定位；
 - 重复预测、空补丁、缺失实例与类别分母语义恢复；
 - 后续数据 revision 引起的 resolved 漂移定位。
+- 一个官方 resolved 和一个官方 applied-unresolved 预测的真实容器重放，逐测试结果 `2/2` 完全一致。
 
 尚未完成：
 
-- 选定 gold、resolved、unresolved、patch-apply failure、空 patch 和重复预测代表实例的容器级重新执行；
+- gold、patch-apply failure、空 patch 和重复预测代表分支的容器/单元验证；
 - 全量 2,294/300 实例从 patch 开始的容器重评；
 - 严格原模型重新推理。
 
-因此 `G_EVALUATOR_REPLAY` 保持“聚合层完成、容器层进行中”，不能提前标为整个严格复现完成。
+因此 `G_EVALUATOR_REPLAY` 保持“聚合层完成、核心容器分支通过、边界分支进行中”，不能提前标为整个严格复现完成。

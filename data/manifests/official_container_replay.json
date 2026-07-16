@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "status": "COMPLETE_EXACT",
+  "prepared_at_utc": "2026-07-16T16:59:48.493005+00:00",
+  "selection_policy": "Two official GPT-4 Lite predictions from the same pytest 4.4 environment: one RESOLVED_FULL and one applied RESOLVED_NO.",
+  "official_experiments_revision": "a5d52722965c791c0c04d18135f906b44f716d39",
+  "official_run": "20240402_sweagent_gpt4",
+  "dataset": {
+    "repository": "princeton-nlp/SWE-bench_Lite",
+    "revision": "81ad348adcaf3368691f4db2907f8fc97a8f7526",
+    "parquet_sha256": "2c0969b6fb6920f9425015563419901a4fe7fd078d143a3457fa1997b52365b1"
+  },
+  "model_alias": "paper_replay_pytest44_gpt4",
+  "predictions": {
+    "path": "/mnt/d/0code/Research/05/outputs/evaluation/official_container_replay/pytest44_sweagent_gpt4/all_preds.jsonl",
+    "sha256": "17b1a531540e119a13f2477e2245f3acc835fbea12a3b8d226275eec93e0773c"
+  },
+  "tasks": {
+    "path": "/mnt/d/0code/Research/05/outputs/evaluation/official_container_replay/pytest44_sweagent_gpt4/tasks.jsonl",
+    "sha256": "e28d5ea6b1dcab4479a05aec0dbdf5802571869931e7086cc92847ee47ee37ac"
+  },
+  "instances": [
+    {
+      "instance_id": "pytest-dev__pytest-5227",
+      "repo": "pytest-dev/pytest",
+      "version": "4.4",
+      "base_commit": "2051e30b9b596e944524ccb787ed20f9f5be93e3",
+      "fail_to_pass_count": 3,
+      "pass_to_pass_count": 34,
+      "prediction_patch_sha256": "ab5ed5c1f874e5af84e7ad31fa9914ad43255f4e781eca354e78a57aaf31f160",
+      "prediction_patch_bytes": 1617,
+      "official_log_sha256": "26d6ecdad9ed50285839cb8561f526c1302914326e7def5466c45827e8ba746c",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolution": "RESOLVED_FULL",
+      "observed_resolution": "RESOLVED_FULL",
+      "official_patch_applied": true,
+      "observed_patch_applied": true,
+      "test_report_exact_match": true,
+      "scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "expected_scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "observed_log_sha256": "7bbfd91364ee008583205a3e06ac5d284843289582d95b3baf1690aacb32daa1",
+      "exact_outcome_match": true
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5221",
+      "repo": "pytest-dev/pytest",
+      "version": "4.4",
+      "base_commit": "4a2fdce62b73944030cff9b3e52862868ca9584d",
+      "fail_to_pass_count": 2,
+      "pass_to_pass_count": 170,
+      "prediction_patch_sha256": "aa6de278c599fd9af814954071eff4d02a5748c8d7393162ef3c7af6488b4421",
+      "prediction_patch_bytes": 587,
+      "official_log_sha256": "2586ffa6e92d92601f61e3b75481bd1216c32b212e78dc693c31b2be85a36b10",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied"
+      ],
+      "official_resolution": "RESOLVED_NO",
+      "observed_resolution": "RESOLVED_NO",
+      "official_patch_applied": true,
+      "observed_patch_applied": true,
+      "test_report_exact_match": true,
+      "scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_NO"
+      ],
+      "expected_scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_NO"
+      ],
+      "observed_log_sha256": "9e0b3292e6f2222284a27bcef0ec4531504f7f8dbe417469a5665a48bc0ea0e4",
+      "exact_outcome_match": true
+    }
+  ],
+  "collected_at_utc": "2026-07-16T17:10:23.323163+00:00",
+  "runtime": {
+    "python": "3.9.25",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "docker": "Docker version 29.6.1, build 8900f1d"
+  },
+  "results_directory": "/mnt/d/0code/Research/05/outputs/evaluation/official_container_replay/results",
+  "summary": {
+    "instance_count": 2,
+    "exact_outcome_match_count": 2,
+    "all_exact": true
+  }
+}

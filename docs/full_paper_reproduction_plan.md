@@ -193,7 +193,7 @@ GPU 不是 API 代理实验的必要条件。本地 CPU、内存、磁盘和 Doc
 
 退出条件：工件复算的所有可得表图精确一致；不可得项不伪造。
 
-当前状态（2026-07-17）：`IN_PROGRESS_AGGREGATION_COMPLETE_CONTAINER_PENDING`。官方主预测已经在论文期 `SWE-bench@cfb20092`、Lite 数据 `81ad348` 和 Full 数据 `283547a` 上重放，八组十类别完整列表均与官方 `results.json` 相同；后续数据 revision 导致的三项 SymPy resolved 漂移也已定位。HumanEvalFix、论文源码聚合表图和主表计数均已复算。剩余关键项是代表实例的 patch-to-container 重新执行，以及仍有官方原始输入的 A01–A10 分析脚本与表图重建。
+当前状态（2026-07-17）：`IN_PROGRESS_AGGREGATION_AND_CORE_CONTAINER_COMPLETE`。官方主预测已经在论文期 `SWE-bench@cfb20092`、Lite 数据 `81ad348` 和 Full 数据 `283547a` 上重放，八组十类别完整列表均与官方 `results.json` 相同；后续数据 revision 导致的三项 SymPy resolved 漂移也已定位。pytest 4.4 的一个官方 `RESOLVED_FULL` 和一个 applied-`RESOLVED_NO` prediction 已完成新容器重放，完整测试列表 `2/2` 与历史日志一致。HumanEvalFix、论文源码聚合表图和主表计数均已复算。剩余关键项是 gold/no-apply/空 patch/重复预测边界分支，以及仍有官方原始输入的 A01–A10 分析脚本与表图重建。
 
 ### P3：小样本严格重跑预检
 

@@ -1217,3 +1217,54 @@ pass@k 与 failure-mode PDF 连续两次生成哈希一致，分别为：
 ### 状态
 
 `COMPLETE_8_OF_8_AGGREGATION_MATCH`：历史日志到官方结果的聚合层通过。prediction patch 到新容器的代表实例重新执行尚未完成，因此总门槛保持 `PARTIAL_AGGREGATION_COMPLETE_CONTAINER_PENDING`。
+
+## 2026-07-17 — EXP-ARTIFACT-005：pytest 4.4 官方 prediction 容器重放
+
+### 样本冻结
+
+从 Lite GPT-4 官方运行 `20240402_sweagent_gpt4` 选择同一 pytest 4.4 环境中的两个实例：
+
+- `pytest-dev__pytest-5227`：官方 `RESOLVED_FULL`，F2P 3 项、P2P 34 项；
+- `pytest-dev__pytest-5221`：官方 prediction 可应用但 `RESOLVED_NO`，F2P 2 项、P2P 170 项。
+
+选择规则是在一次环境构建中同时覆盖 resolved 与 applied-unresolved 两个核心分支。预测直接从 experiments `a5d5272` 读取，任务行来自 Lite `81ad348`，未修改 model patch、test patch、base commit 或测试参考。`scripts/official_container_replay.py prepare` 生成受 Git 忽略的两行任务文件、两条原预测、官方日志和输入哈希。
+
+### 运行环境
+
+- 本地 WSL2；
+- Docker 29.6.1；
+- SWE-agent evaluator 快照 `658eb2842e8a8b00069b301338bc342b70538f7a`；
+- SWE-bench runtime 1.0.2；
+- Miniconda `Miniconda3-py39_23.10.0-1`；
+- task environment：Python 3.9，`pip install -e .`；
+- 单环境、单进程、单实例超时 900 秒；
+- 模型调用 0，API 费用 0，GPU 未使用。
+
+pytest 两个实例没有触发 pvlib、pydicom 或 pyvista 的兼容约束，因此本次 testbed 没有实例特定依赖修正。
+
+### 执行轨迹
+
+总墙钟时间 607.6 秒：
+
+1. 01:00:09 开始构建 testbed；
+2. 01:02:03 Miniconda 可用；
+3. 01:04:08 完成 pytest 仓库 clone；
+4. 01:05:26 完成 Python 3.9 环境创建；
+5. 对 5227 reset 到 `2051e30b...`，`pred_try` 应用/回退成功，安装成功，test patch 与 prediction patch 应用成功，测试命令约 1.6 秒；
+6. 对 5221 reset 到 `4a2fdce6...`，相同步骤成功，测试命令约 6.1 秒；
+7. 01:10:13 完成测试并清理临时 testbed。
+
+### 逐测试比对
+
+`scripts/official_container_replay.py collect` 使用同一冻结任务参考分别解析官方历史日志和新日志，再比较四个测试结果列表与 scorecard：
+
+| 实例 | 官方 | 新容器 | F2P/P2P 列表 | scorecard |
+|---|---|---|---|---|
+| 5227 | `RESOLVED_FULL` | `RESOLVED_FULL` | 完全相同 | `generated, applied, RESOLVED_FULL` |
+| 5221 | `RESOLVED_NO` | `RESOLVED_NO` | 完全相同 | `generated, applied, RESOLVED_NO` |
+
+结果为 `2/2` exact outcome match。论文快照 evaluator 最后打印的 reference report 来自 runtime 1.0.2 的旧式按仓库嵌套结构，不能用该摘要行代替论文期十类别聚合器；最终验收直接使用新旧日志的逐测试报告和已经单独通过的 `cfb20092` 聚合重放。
+
+### 状态
+
+`COMPLETE_2_OF_2_EXACT_TEST_OUTCOMES`：resolved 与 applied-unresolved 核心容器分支通过。gold、官方 no-apply、空 patch 和重复预测边界分支继续保留，因此总门槛更新为 `PARTIAL_AGGREGATION_AND_CORE_CONTAINER_COMPLETE`。

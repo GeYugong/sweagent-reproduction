@@ -71,6 +71,8 @@ wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
 
 论文期代码与数据 revision 得到 `8/8` 完整类别列表一致；固定的 2025 数据 revision 只得到 `6/8`，证明正式论文口径不能使用浮动的最新数据集。
 
+在聚合重放之上，pytest 4.4 的一个官方 resolved 和一个官方 applied-unresolved prediction 已从原 patch 重新构建容器；两者完整测试结果 `2/2` 与历史日志相同。输入准备、运行和收集命令见 [docs/evaluator_replay.md](docs/evaluator_replay.md)。
+
 ## 安全与数据规则
 
 - API 密钥只通过环境变量或未跟踪的密钥文件提供。
