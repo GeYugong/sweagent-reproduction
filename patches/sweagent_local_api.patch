@@ -43,6 +43,23 @@ diff --git a/sweagent/environment/swe_env.py b/sweagent/environment/swe_env.py
 index 95278f8..684f6bd 100644
 --- a/sweagent/environment/swe_env.py
 +++ b/sweagent/environment/swe_env.py
+@@ -518,7 +518,15 @@ class SWEEnv(gym.Env):
+             self.container.stdin.write("echo $?\n")
+             time.sleep(0.1)
+             self.container.stdin.flush()
+-            exit_code = read_with_timeout(self.container, self.get_pids, 5).strip()
++            try:
++                exit_code = read_with_timeout(self.container, self.get_pids, 5).strip()
++            except TimeoutError as error:
++                buffered_exit = getattr(error, "buffer", b"").decode().strip()
++                if not getattr(error, "pids", ["unknown"]) and buffered_exit.isdigit():
++                    self.logger.info("Accepted buffered exit code after PID polling timeout")
++                    exit_code = buffered_exit
++                else:
++                    raise
+         except Exception as e:
+             self.logger.error(f"Read with timeout failed on input:\n---\n{input}\n---")
+             raise e
 @@ -674,5 +674,11 @@ class SWEEnv(gym.Env):
                  )
                  raise ValueError(msg) from e
@@ -94,6 +111,18 @@ index 789087f..b5a7f4c 100644
          else:
              # No more data to read
              break
+@@ -156,5 +158,10 @@ def read_with_timeout(container, pid_func, timeout_duration):
+     if container.poll() is not None:
+         raise RuntimeError("Subprocess exited unexpectedly.\nCurrent buffer: {}".format(buffer.decode()))
+     if time.time() >= end_time:
+-        raise TimeoutError("Timeout reached while reading from subprocess.\nCurrent buffer: {}\nRunning PIDs: {}".format(buffer.decode(), pids))
++        error = TimeoutError(
++            "Timeout reached while reading from subprocess.\nCurrent buffer: {}\nRunning PIDs: {}".format(buffer.decode(), pids)
++        )
++        error.buffer = buffer
++        error.pids = pids
++        raise error
+     return buffer.decode()
 @@ -238,6 +238,33 @@ def get_background_pids(container_obj):
      return bash_pids, other_pids
  

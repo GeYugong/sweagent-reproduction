@@ -144,6 +144,12 @@ Marshmallow 评测又暴露两个旧 harness 问题：
 
 `pvlib__pvlib-python-1854` 首次初始化时，容器命令已返回退出码 `0` 且后台 PID 列表为空，但旧 `read_with_timeout()` 在 `select()` 可读后得到空字节仍继续循环，最终把成功命令误报为 5 秒超时。适配补丁按 pipe EOF 语义在空读取时立即结束；已有缓冲区中的退出码随后正常解析。失败早于 Agent 初始化，API 调用为 0。
 
+### Docker 退出码截止时间竞态
+
+`pydicom__pydicom-1256` 初始化时出现与 pipe EOF 不同的边界情形：第二次读取已经得到退出码 `0`，最终后台 PID 列表为空，但读取后的固定退让使时钟恰好越过 5 秒截止点，旧实现因此丢弃有效退出码并抛出超时。日志中的 `Current buffer: 0` 与 `Running PIDs: []` 共同证明命令已完成。
+
+适配层在 `TimeoutError` 上保留缓冲区和 PID 快照，并且只在 `SWEEnv._communicate()` 的退出码读取阶段接受“纯数字缓冲区且无运行 PID”的结果。首段命令输出读取没有恢复分支，仍有 PID、空缓冲区或非数字内容时也继续抛出，因此不会掩盖真实命令超时。该失败早于 Agent 初始化，API 调用为 0。
+
 ### pydicom 缺失 pytest
 
 `swebench 1.0.x` 对 pydicom 2.0 的安装映射只有 Python 3.8 与 NumPy，没有测试运行器。当前 SWE-agent 镜像与 evaluator 的临时 Miniconda 均不预装 pytest：Agent 的自测命令报 `pytest: command not found`，evaluator 也在执行任何目标测试前以相同错误退出。
