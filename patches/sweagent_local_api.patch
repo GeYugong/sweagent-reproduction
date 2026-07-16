@@ -74,7 +74,7 @@ index 95278f8..684f6bd 100644
          # Create environment if does not exist yet
          env_name = f"{self._repo_name}__{self.record['version']}"
          env_check = self.communicate(
-@@ -696,6 +704,12 @@ class SWEEnv(gym.Env):
+@@ -696,6 +704,16 @@ class SWEEnv(gym.Env):
                  )
                  # Write reqs to requirements.txt in docker container
                  content_reqs = get_requirements(self.record)
@@ -84,10 +84,14 @@ index 95278f8..684f6bd 100644
 +                        "types-setuptools",
 +                    )
 +                    self.logger.info("Replaced yanked types-pkg_resources with types-setuptools")
++                if self.record["repo"] == "pyvista/pyvista":
++                    req_lines = [line for line in content_reqs.splitlines() if line.strip() != "vtk"]
++                    req_lines.append("vtk<9.3")
++                    content_reqs = "\n".join(req_lines) + "\n"
                  copy_file_to_container(self.container_obj, content_reqs, PATH_TO_REQS)
                  # Create conda environment + install reqs
                  self.communicate_with_handling(
-@@ -744,8 +758,11 @@ class SWEEnv(gym.Env):
+@@ -744,8 +762,11 @@ class SWEEnv(gym.Env):
                  )
              # Install extra pip packages if specified
              if install_configs.get("pip_packages", False):

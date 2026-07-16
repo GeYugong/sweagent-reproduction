@@ -159,3 +159,9 @@ Marshmallow 评测又暴露两个旧 harness 问题：
 第二次运行最初安装了 pytest 8.4.2。目标 PersonName 测试能够运行，但完整文件中的旧式 `setup(self)` 不再执行，导致两个 PASS_TO_PASS 因 fixture 属性未初始化而失败。pydicom 自身 Git 历史在 2022-11-15 的提交 `8de0a15ef` 明确说明：因 pytest 7.2 开始弃用 `setup`/`teardown`，项目才改为 `setup_method`/`teardown_method`；冻结 benchmark 提交早于该迁移。因此选择最后一个 pytest 7 版本 7.4.4，而不是使用 2026 年最新版。
 
 `pydicom__pydicom-901` 使用更早的 Python 3.6 环境，pytest 7.4.4 的 `Requires-Python >=3.7` 使安装在推理前失败。既有兼容矩阵已在冻结 pydicom 上验证 pytest 6.2.5 能执行旧式 setup 测试，因此适配规则按 Python 版本选择：3.6 使用 pytest 6.2.5，3.7 及以上使用 pytest 7.4.4。Agent 与 evaluator 使用同一选择规则；失败尝试 API 调用为 0。
+
+### PyVista 0.39 与 VTK 9.6
+
+`pyvista__pyvista-4315` 的未约束 requirements 在当前索引解析到 VTK 9.6.2。冻结 PyVista 0.39 导入 `_vtk.py` 时仍引用 `vtkCompositePolyDataMapper2`，而该类在当前 VTK wheel 中不存在，导致 Agent 自测与 evaluator 均在 pytest 插件加载阶段、目标测试收集之前失败。首次 14-call 轨迹受缺失测试反馈影响，标记为 Agent 环境无效并归档。
+
+兼容层只对 `pyvista/pyvista` requirements 中的裸 `vtk` 改写为 `vtk<9.3`，使 resolver 选择仍提供该 API 的 VTK 9.2 系列。Agent 与 evaluator 使用同一约束；其他依赖、任务代码、benchmark patch 与测试集合不变。必须在修正环境中重新推理，不能只重判原预测。

@@ -20,6 +20,14 @@ def install_requirements_compatibility() -> None:
     original = context_manager.get_requirements
     original_exec = context_manager.ExecWrapper.__call__
 
+    def normalize_requirements(content: str, instance: dict) -> str:
+        content = content.replace("types-pkg_resources", "types-setuptools")
+        if instance.get("repo") == "pyvista/pyvista":
+            lines = [line for line in content.splitlines() if line.strip() != "vtk"]
+            lines.append("vtk<9.3")
+            content = "\n".join(lines) + "\n"
+        return content
+
     def get_requirements_compat(instance: dict, save_path: Optional[str] = None):
         result = original(instance, save_path)
         if save_path is not None:
@@ -28,13 +36,10 @@ def install_requirements_compatibility() -> None:
             candidate = None
         if candidate is not None and candidate.is_file():
             content = candidate.read_text(encoding="utf-8")
-            candidate.write_text(
-                content.replace("types-pkg_resources", "types-setuptools"),
-                encoding="utf-8",
-            )
+            candidate.write_text(normalize_requirements(content, instance), encoding="utf-8")
             return result
         if isinstance(result, str):
-            return result.replace("types-pkg_resources", "types-setuptools")
+            return normalize_requirements(result, instance)
         return result
 
     context_manager.get_requirements = get_requirements_compat
@@ -70,6 +75,8 @@ def configure_pip_constraints(predictions: Path, staging_dir: Path) -> Optional[
     constraints = []
     if any(instance_id.startswith("pvlib__pvlib-python-") for instance_id in instance_ids):
         constraints.append("numpy<2")
+    if any(instance_id.startswith("pyvista__pyvista-") for instance_id in instance_ids):
+        constraints.append("vtk<9.3")
     if not constraints:
         os.environ.pop("PIP_CONSTRAINT", None)
         return None
