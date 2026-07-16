@@ -61,6 +61,8 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 
 正式 evaluator 先成功应用 benchmark 测试补丁，随后预测补丁在同一测试断言处发生上下文冲突。生产代码 hunk 能单独应用，但正式协议要求整份预测补丁可应用，因此 scorecard 只有 `generated`、没有 `applied`，该实例计为 unresolved。该失败揭示了一个可用于改进实验的方向：提交前自动剔除测试文件改动，避免正确的生产代码修复因测试 hunk 冲突而失效。
 
+首次恢复批处理时发现续跑判断只将含 `RESOLVED_*` 状态的 scorecard 视为已评测，因而对该 `generated`-only 结果重复执行了一次 evaluator。重复判分没有调用模型、没有改变 scorecard，也不作为新实例计数。续跑规则已改为：冻结实例只要出现在任一正式 `scorecards.json` 中，无论 applied 或 resolved 状态如何，均直接跳过。
+
 ## Marshmallow 成功案例
 
 模型首先用最小脚本复现 nested schema 输入类型错误与 field validator 的交互，随后定位 `BaseSchema._do_load()`。候选修复只在 `result is not None` 时调用 field validators，并添加回归测试。

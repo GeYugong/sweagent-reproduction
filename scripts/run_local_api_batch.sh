@@ -46,10 +46,7 @@ import sys
 
 for path in pathlib.Path(sys.argv[1]).glob("*/scorecards.json"):
     for card in json.loads(path.read_text(encoding="utf-8")):
-        statuses = card.get("statuses", [])
-        if card.get("instance_id") == sys.argv[2] and any(
-            status.startswith("RESOLVED_") for status in statuses
-        ):
+        if card.get("instance_id") == sys.argv[2]:
             raise SystemExit(0)
 raise SystemExit(1)
 PY

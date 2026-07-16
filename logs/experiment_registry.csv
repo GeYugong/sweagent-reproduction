@@ -17,3 +17,4 @@ EXP-DEV20-003C,2026-07-16,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,pvlib__
 EXP-DEV20-003D,2026-07-16,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,pvlib__pvlib-python-1154,42,ABORTED_KEY_ROTATION,,0,"Stopped during Conda setup for credential rotation; zero API calls; timestamped log retained"
 EXP-API-002,2026-07-16,P0,api_compatibility,gpt-5.6-terra,none,key_rotation,42,COMPLETE,,0,"Replacement credential returned HTTP 200 and exact OK; 4398 total tokens"
 EXP-DEV20-003,2026-07-16,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,pvlib__pvlib-python-1154,42,COMPLETE,0,1,"23 calls; 363417 input and 5377 output tokens; local 98/98 tests; prediction patch conflicted with benchmark test patch"
+EXP-DEV20-003E,2026-07-16,P1,batch_resume,none,SWE-bench_Lite,pvlib__pvlib-python-1154,42,DUPLICATE_EVALUATION,,0,"Generated-only scorecard was not skipped; evaluator repeated with zero API calls; skip rule fixed"
