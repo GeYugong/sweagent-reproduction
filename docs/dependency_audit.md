@@ -133,3 +133,9 @@ Marshmallow 评测又暴露两个旧 harness 问题：
 2. `MAP_VERSION_TO_INSTALL` 未提供 `packages` 时，1.0.2 harness 用 `split(" ")` 生成空命令参数，Conda 报无效 MatchSpec。运行时 wrapper 只过滤参数列表中的空字符串。
 
 两项兼容均属于 testbed 启动修复，不改变预测 patch、官方 test patch、FAIL_TO_PASS 或 PASS_TO_PASS 集合。
+
+### NumPy 2.x 与冻结 pvlib
+
+`pvlib__pvlib-python-1707` 的首次 evaluator 环境从当前包索引安装了 NumPy 2.0.2。冻结提交仍在模块导入时引用 `np.Inf`，而 NumPy 2 已移除该别名，导致 FAIL_TO_PASS 与全部 PASS_TO_PASS 在 pytest 收集前统一失败。Agent 容器中的同一测试文件为 30/30 通过，说明这不是候选 patch 引入的回归。
+
+论文实验早于该破坏性依赖组合，因而 evaluator wrapper 对 pvlib 实例写入并导出 `PIP_CONSTRAINT=numpy<2`。约束只作用于 evaluator 建立的隔离环境，不修改任务仓库、预测 patch、benchmark test patch 或测试集合；其他仓库不设置该约束。初次 NumPy 2 判分标记为无效评测，使用完全相同的预测重新判分。

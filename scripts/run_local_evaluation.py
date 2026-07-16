@@ -59,6 +59,26 @@ def configure_conda_downloads() -> None:
         os.environ.setdefault(name, value)
 
 
+def configure_pip_constraints(predictions: Path, staging_dir: Path) -> Optional[Path]:
+    """Constrain packages whose post-paper releases break frozen repositories."""
+    instance_ids = set()
+    with predictions.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            if line.strip():
+                record = json.loads(line)
+                instance_ids.add(record.get("instance_id", ""))
+    constraints = []
+    if any(instance_id.startswith("pvlib__pvlib-python-") for instance_id in instance_ids):
+        constraints.append("numpy<2")
+    if not constraints:
+        os.environ.pop("PIP_CONSTRAINT", None)
+        return None
+    constraint_path = staging_dir / "pip-constraints.txt"
+    constraint_path.write_text("\n".join(constraints) + "\n", encoding="utf-8")
+    os.environ["PIP_CONSTRAINT"] = str(constraint_path.resolve())
+    return constraint_path
+
+
 def load_paper_evaluator(repo_root: Path):
     evaluator_path = repo_root / "code" / "SWE-agent" / "evaluation" / "evaluation.py"
     spec = importlib.util.spec_from_file_location("paper_evaluation", evaluator_path)
@@ -103,6 +123,7 @@ def main() -> int:
             stale_path.unlink()
 
     configure_conda_downloads()
+    configure_pip_constraints(predictions, staging_dir)
     install_requirements_compatibility()
     evaluator = load_paper_evaluator(repo_root)
     evaluator.main(
