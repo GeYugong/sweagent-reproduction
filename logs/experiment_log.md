@@ -1423,3 +1423,90 @@ Poppler 渲染第一版后，轨迹、转移与失败 edit 图均通过；动作
 ### 状态
 
 `COMPLETE_AVAILABLE_INPUTS_7_COMPLETE_3_DOCUMENTED_GAPS`：A01–A10 的全部公开输入均已重放。A01/A02/A05/A06/A07/A09/A10 完成，A03/A04/A08 的剩余差异已经定位为公开轨迹缺失或论文内部不一致。A11、A13、A14、逐仓库 gold 验证、全量容器重评和论文原模型严格重跑仍未完成。
+
+## 2026-07-17 — EXP-ARTIFACT-008：A13 定性案例与 A14 Prompt/ACI 运行工件审计
+
+### 目标
+
+验证论文附录四个定性案例是否逐项来自公开 GPT-4 Lite 运行，并恢复主 GPT-4 Full/Lite 运行实际收到的 system prompt、demonstration、instance message 和命令文档。审计明确区分模型运行时文本、SWE-agent Git 历史实现与论文排版资产，避免把时间对齐快照或说明图误用为逐字运行配置。
+
+该实验属于 `artifact reproduction`。不执行模型推理，不改变任何 prediction，不把公开工件核验记为原模型严格重跑。
+
+### 冻结输入
+
+- arXiv：`2405.15793v3`，源码 SHA-256 `3d2bafc2fd9e104fd204f7d4582260817c48b15133f7c1cf668dd081c2fbc1ab`；
+- experiments：`a5d52722965c791c0c04d18135f906b44f716d39`；
+- SWE-agent 初始提交：`5b143857cb7af8b22fd421a103429f76f5259f08`；
+- Last-5 提交：`08e66863ac8ccf3cf8b740c243e74af15119f7b8`；
+- 论文时间快照：`658eb2842e8a8b00069b301338bc342b70538f7a`；
+- Lite：`81ad348adcaf3368691f4db2907f8fc97a8f7526`；
+- Full：`283547aced6224d4adbe55c678b4c9c43fe7d501`。
+
+### 环境与实现
+
+新增 `scripts/reproduce_official_qualitative_interface.py`。脚本在本地 WSL2 的 `.venv-analysis` 中运行，使用 `git cat-file --batch` 从固定历史读取 2,568 条轨迹，不检出含 Windows 超长路径的旧工件树。脚本同时读取冻结 Parquet、arXiv tar 成员和 SWE-agent Git blob，输出逐案例、逐 action、逐 prompt 变体与逐命令表，并在 JSON 清单中记录全部输入和输出哈希。
+
+一次完整运行墙钟约 22–27 秒。模型 API 调用 0、费用 0、GPU 未使用、远程服务器未使用。
+
+### A13：四个定性案例
+
+论文选择的案例为：
+
+- 成功：`psf__requests-2317`、`pylint-dev__pylint-5859`；
+- 失败：`sympy__sympy-21614`、`django__django-14411`。
+
+四条公开轨迹、prediction、评测日志和结果均存在。论文 TeX 中 72 个 `agentbox` action 与官方 `.traj` action 达到 72/72 逐字相等；四份 `goldpatchbox` 与冻结 Lite gold patch 达到 4/4 逐字相等；两条 resolved 与两条 applied-unresolved 结果达到 4/4 一致。
+
+Requests、Pylint 和 Django 的主动提交 model patch 均可逐字核验。SymPy 没有主动 `submit`，最后 action 为 `exit_cost`；环境状态为 `submitted (exit_cost)`，并自动提交了当时存在的 `reproduce_issue.py` patch。论文只展示 `Exited` 并描述为未提交，因此省略的是自动提交语义，而不是不存在 prediction。最终 observation 只有 2/4 逐字一致：除 SymPy 省略外，Requests 的论文展示在 patch 后额外附加 shell state。这两处属于展示层差异，不改变 action、patch 或判分。
+
+实例级行为统计进一步确认：Requests 为 10 turns/10 calls、Pylint 为 13/13、SymPy 为 33/33、Django 为 16/16。SymPy 轨迹含 22 次 `scroll_down`，唯一源码树修改是复现脚本；Django 第一次 edit 被 lint 拒绝，第二次应用后未运行测试即提交。这些证据支持论文的成功与失败定性分析。
+
+### A14：实际运行 Prompt
+
+遍历 GPT-4 Full 2,268 条和 Lite 300 条轨迹后，system prompt 存在两个 SHA-256 变体：
+
+- required 版本：Full 1,753、Lite 249，合计 2,002；SHA-256 `bcf072797e41fd3f9111b36416fdd32269c98a830fe850324e68560883641e7d`；
+- optional 版本：Full 515、Lite 51，合计 566；SHA-256 `a4d3de50b84779d8b77c453db17183352e5c9b29280d12050504542dd9771db4`。
+
+两个版本只在 `open.line_number`、`search_dir.dir`、`search_file.file` 和 `find_file.dir` 的详细参数标签上不同。命令 signature 在两版中都用方括号表示这些参数可选。初始提交的 config 与命令元数据可以逐字生成 optional 版本；把四个标签替换为 required 后可以逐字生成另一版本。变体按仓库分片集中出现，不能当作单条轨迹噪声。
+
+全部 2,568 条 instance message 都与 `5b143857:config/default.yaml` 的模板逐字一致。全部轨迹还共享同一 demonstration message，SHA-256 为 `55f076f087bbe380ae06c6f8b624cceb56e7afa1c8589bbdfc91de0949e8e529`。`658eb284` 已改动初始模板拼写和空白，不能生成逐字运行输入。
+
+名义运行目录包含 `last_5_history`，但 Last-5 处理器直到 `08e66863` 才公开提交。实际 prompt 仍保留初始提交的旧拼写、旧命令文档和两个标签变体。因此没有单一公开提交完整代表实际工作树；后续严格重跑需要冻结本实验导出的文本及实例到变体映射。
+
+### ACI 实现与论文说明差异
+
+论文命令表的 10 个命令均定位到初始提交实现。审计保留三组差异：
+
+1. 实现中的 `scroll_down` 增加行号、`scroll_up` 减少行号，论文命令表把方向说明反写；运行时 `scroll_up` 文档本身还误写成 `scroll_down`。
+2. 论文正文称搜索最多返回 50 个结果；初始 `search_file` 在超过 100 个匹配行时拒绝输出，`search_dir` 在超过 100 个匹配文件时拒绝输出，`find_file` 没有显式上限。
+3. 论文 linting 图使用轨迹期旧报错首句；时间快照已改写首句，但拒绝错误 edit、展示拟应用/原始代码并恢复文件的核心语义相同。
+
+论文 system/instance prompt 图是编辑后的说明资产，不是逐字运行文本。system 图用占位符代替完整命令文档，instance 图省略无输出复现脚本应打印成功消息的建议。
+
+### 界面 PDF 验证
+
+机器清单记录 21 个 prompt/interface TeX 或 PDF 资产的字节数与 SHA-256。从冻结 tar 临时提取 ACI/UI、prompt flow、components、file viewer、file editor、search comparison 和 edit comparison 七份 PDF；均为单页、未加密。Poppler 以 140 DPI 渲染后，标题、箭头、命令、代码、三栏对比和页面边界均清晰，无裁切、重叠或缺字。临时文件位于 Git 忽略目录，不重复提交论文资产。
+
+### 确定性与实现修正
+
+四个 CSV 与四个精确 prompt 文本连续两次生成，8/8 SHA-256 均未变化。脚本通过 `py_compile`，CSV 行数、状态计数、输入对象和清单输出均由独立校验读取。
+
+开发期间一次只读诊断命令因遗漏 `pyarrow` 命名空间触发 `NameError`，在生成任何受管输出、调用 API 或启动容器之前终止；补全导入后确认 Full instance message 为 2,268/2,268 精确。正式脚本不含该错误，冻结输入未改变。
+
+### 输出
+
+- `data/manifests/official_qualitative_interface.json`；
+- `data/derived/official_qualitative_cases.csv`；
+- `data/derived/official_qualitative_actions.csv`；
+- `data/derived/official_prompt_runtime_variants.csv`；
+- `data/derived/official_command_interface_audit.csv`；
+- `data/derived/official_prompt_system_required.txt`；
+- `data/derived/official_prompt_system_optional.txt`；
+- `data/derived/official_prompt_demonstration.txt`；
+- `data/derived/official_prompt_instance_template.txt`；
+- `docs/official_qualitative_interface_audit.md`。
+
+### 状态
+
+`COMPLETE_A13_A14_ARTIFACT_AUDIT_WITH_RUNTIME_PROMPT_VARIANTS`：A13 的全部公开 action、gold patch 和结果已核验；A14 的全部公开 GPT-4 prompt、命令实现和论文界面资产已审计。发现并冻结两个 system prompt 变体以及无法映射到单一 Git 提交的混合配置。该状态不代表论文模型重新推理、缺失消融运行或全量 evaluator 容器重评已经完成。

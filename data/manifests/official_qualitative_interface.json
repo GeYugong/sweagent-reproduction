@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "status": "COMPLETE_A13_A14_ARTIFACT_AUDIT_WITH_RUNTIME_PROMPT_VARIANTS",
+  "generated_at_utc": "2026-07-16T18:26:29.673272+00:00",
+  "paper": {
+    "arxiv_id": "2405.15793v3",
+    "source_path": "paper/2405.15793_source.tar.gz",
+    "source_sha256": "3d2bafc2fd9e104fd204f7d4582260817c48b15133f7c1cf668dd081c2fbc1ab"
+  },
+  "frozen_inputs": {
+    "experiments_revision": "a5d52722965c791c0c04d18135f906b44f716d39",
+    "sweagent_initial_revision": "5b143857cb7af8b22fd421a103429f76f5259f08",
+    "sweagent_last5_revision": "08e66863ac8ccf3cf8b740c243e74af15119f7b8",
+    "sweagent_paper_snapshot": "658eb2842e8a8b00069b301338bc342b70538f7a",
+    "lite_dataset_revision": "81ad348adcaf3368691f4db2907f8fc97a8f7526",
+    "lite_dataset_sha256": "2c0969b6fb6920f9425015563419901a4fe7fd078d143a3457fa1997b52365b1",
+    "full_dataset_revision": "283547aced6224d4adbe55c678b4c9c43fe7d501",
+    "full_dataset_sha256": "831728617f006e70c9de546e15cbdb49ce27b6fe8a8e4c4cd8035e8da3de3020",
+    "initial_config_blob": "14b69181457c45e77b2a6fbefebe058691a6f113",
+    "last5_config_blob": "cbba930615e51c8c81bbdda899bfe2740c41b882"
+  },
+  "runtime": {
+    "python": "3.11.15",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "pyarrow": "21.0.0",
+    "PyYAML": "6.0.2"
+  },
+  "A13_qualitative_cases": {
+    "status": "COMPLETE_EXACT_ACTIONS_RESULTS_AND_GOLD_WITH_PRESENTATION_DIFFERENCES",
+    "cases": 4,
+    "successful": 2,
+    "unsuccessful": 2,
+    "result_labels_exact": 4,
+    "paper_actions": 72,
+    "paper_actions_exact": 72,
+    "gold_patches_exact": 4,
+    "model_patches_shown_verbatim": 3,
+    "final_observations_exact": 2,
+    "sympy_runtime_exit": "submitted (exit_cost)",
+    "sympy_paper_exit_observation": "Exited",
+    "sympy_autosubmitted_patch_omitted_from_paper": true
+  },
+  "A14_prompts_commands_interface": {
+    "status": "COMPLETE_RUNTIME_ASSETS_RECOVERED_WITH_DOCUMENTED_PAPER_CODE_DRIFT",
+    "public_gpt4_trajectories": 2568,
+    "instance_template_exact": 2568,
+    "system_variants": {
+      "required": {
+        "sha256": "bcf072797e41fd3f9111b36416fdd32269c98a830fe850324e68560883641e7d",
+        "full": 1753,
+        "lite": 249,
+        "total": 2002
+      },
+      "optional": {
+        "sha256": "a4d3de50b84779d8b77c453db17183352e5c9b29280d12050504542dd9771db4",
+        "full": 515,
+        "lite": 51,
+        "total": 566
+      }
+    },
+    "demonstration": {
+      "sha256": "55f076f087bbe380ae06c6f8b624cceb56e7afa1c8589bbdfc91de0949e8e529",
+      "exact_count": 2568
+    },
+    "paper_snapshot_system_changed_lines": {
+      "versus_runtime_optional": 2,
+      "versus_runtime_required": 6
+    },
+    "trajectory_trees": {
+      "full": "9c9fee3591ee9a65fc3e1eede61f7018f75bc3d1",
+      "lite": "043a824469ff2817ec19c9d16ddedae946432d63"
+    },
+    "commands_mapped": 10,
+    "paper_interface_assets": {
+      "appx/01_interface.tex": {
+        "bytes": 23310,
+        "sha256": "c87d7ac6c1869e1d300f9bb641ad893294a748eb0848039f7f5015887efe8b23"
+      },
+      "appx/03_prompts.tex": {
+        "bytes": 11507,
+        "sha256": "883f84a0f9262f65c5a98ebb6e23d45df2de935266d11607fd68f60d602ac080"
+      },
+      "appx/04_qualitative_analysis.tex": {
+        "bytes": 10813,
+        "sha256": "41d418af1563bfe087182e0a75ac07cb5d2e2d403a0e4753df964799a5dad397"
+      },
+      "appx_tables/commands.tex": {
+        "bytes": 2847,
+        "sha256": "a55c44389d326eae7ccd0484290e191fcaeb9188dd5c4c767dfaf0b4b4792ed0"
+      },
+      "figures/prompts/system.tex": {
+        "bytes": 2340,
+        "sha256": "67d6331604cbe8d6610228e9f8569fd4d4b52d6238a75bf4530600e01726dd45"
+      },
+      "figures/prompts/instance.tex": {
+        "bytes": 3339,
+        "sha256": "461cb85fd479a64ed59ab789bdaa41dab24a6b833d952b80f8fe7e5aaef9cb17"
+      },
+      "figures/prompts/next_step.tex": {
+        "bytes": 406,
+        "sha256": "1e5ddc60b076360fa77b10affb2eb29fb6296b162e367773aa02b88673b201fe"
+      },
+      "figures/prompts/error.tex": {
+        "bytes": 687,
+        "sha256": "3fec52bb439da12456c3f57a43e842a35f2918552fdf357ac9d524fe78154f42"
+      },
+      "figures/prompts/linting.tex": {
+        "bytes": 2641,
+        "sha256": "e463ccafeab9714ab527c8b378f3407a8c05db0e577d1cce2e37027a60313110"
+      },
+      "figures/prompts/collapsed_obs.tex": {
+        "bytes": 334,
+        "sha256": "303a39aa5ed402bcb181d1339f07ac49aad648540e587f6c56bc04ee920d55af"
+      },
+      "figures/prompts/demonstration.tex": {
+        "bytes": 1760,
+        "sha256": "4cf87b642888e24ac895af291b21e98c80b3ed45f6e9af38a55e279ba91af254"
+      },
+      "figures/interface/command_skeleton.tex": {
+        "bytes": 855,
+        "sha256": "3787d90db7c7478ca8fcd34500f45b2ee1a0fc9eea4d7515232b40efa0bbc00b"
+      },
+      "figures/interface/file_viewer.tex": {
+        "bytes": 1621,
+        "sha256": "96dcea6a5b509c3d5a61380e6a17d7a05065222199be0cb7f0937e5619e65356"
+      },
+      "figures/interface/search.tex": {
+        "bytes": 889,
+        "sha256": "71e7f5b2f2427446ab4829b8bf114ee086bf4c7b1ce4002c1609a0b2e865acf1"
+      },
+      "figures/aci-ui.pdf": {
+        "bytes": 306667,
+        "sha256": "1bdd66d925f1bac6dff60089c5faa55dd965cb48fbe2457c869bc9ec7e7589cb"
+      },
+      "figures/appx/prompt_flow.pdf": {
+        "bytes": 293828,
+        "sha256": "b7fe85e371ba59cbf4c65c841b9248249c374a580f83e4634c06f4d19865d0c2"
+      },
+      "figures/appx/swe-agent-components.pdf": {
+        "bytes": 642083,
+        "sha256": "32ab8b4694b831486bbfff9f555ac6b98f72a5262a702176939064da6dff8406"
+      },
+      "figures/file_editor_example.pdf": {
+        "bytes": 111377,
+        "sha256": "1b03b106563d600fed2a892b5d74c1046efb839603b8edd2adb711d0ad10b8a8"
+      },
+      "figures/file_viewer_example.pdf": {
+        "bytes": 140592,
+        "sha256": "9f4ac8870d4031b7b097dbb91b62214d7bb8fa75cfeeeea7c9c76020dcf0a610"
+      },
+      "figures/edit_comparison.pdf": {
+        "bytes": 676455,
+        "sha256": "5e20e06eeab98f8acb6429e95eb842249559441964dc70b509e261f8c4d623fe"
+      },
+      "figures/search_comparison.pdf": {
+        "bytes": 1013999,
+        "sha256": "844b3c758b15658917026a9727a7ba2acb08031af614e23d51d391f285b4f973"
+      }
+    },
+    "documented_differences": [
+      "The nominal GPT-4 run contains two system-prompt variants that differ only in four optional-argument labels.",
+      "All 2,568 public GPT-4 instance messages exactly match the initial SWE-agent config, not the paper-time snapshot.",
+      "The runtime scroll_up documentation exposes the signature scroll_down and describes movement in the wrong direction.",
+      "The paper command table reverses the scroll direction descriptions relative to implementation semantics.",
+      "The paper prose states a 50-result search cap; search_file rejects more than 100 matched lines, search_dir rejects more than 100 matched files, and find_file has no explicit cap.",
+      "Paper prompt figures are edited presentation artifacts rather than byte-exact runtime prompts."
+    ]
+  },
+  "outputs": {
+    "qualitative_cases": {
+      "path": "data/derived/official_qualitative_cases.csv",
+      "bytes": 2450,
+      "sha256": "90c8353d1d1c047b663edbc6690b33c326a7ef446abaf8f3338dfa8dfc6ce480"
+    },
+    "qualitative_actions": {
+      "path": "data/derived/official_qualitative_actions.csv",
+      "bytes": 11223,
+      "sha256": "9a8ddabdea86505e0e7c7dc3787ad12114ddf579ec1c82021d6954342bda927d"
+    },
+    "prompt_runtime_variants": {
+      "path": "data/derived/official_prompt_runtime_variants.csv",
+      "bytes": 2416,
+      "sha256": "a057dab96dfa7ceb9e46d80fe69362b5f8b1e9eefef412c7c9900629c0b25845"
+    },
+    "command_interface_audit": {
+      "path": "data/derived/official_command_interface_audit.csv",
+      "bytes": 3139,
+      "sha256": "d53403c995cf3803e85e0284f34eb83cca4947dffd30e14ccdc751ddab890e7a"
+    },
+    "system_prompt_required": {
+      "path": "data/derived/official_prompt_system_required.txt",
+      "bytes": 4876,
+      "sha256": "bcf072797e41fd3f9111b36416fdd32269c98a830fe850324e68560883641e7d"
+    },
+    "system_prompt_optional": {
+      "path": "data/derived/official_prompt_system_optional.txt",
+      "bytes": 4876,
+      "sha256": "a4d3de50b84779d8b77c453db17183352e5c9b29280d12050504542dd9771db4"
+    },
+    "demonstration_prompt": {
+      "path": "data/derived/official_prompt_demonstration.txt",
+      "bytes": 19388,
+      "sha256": "55f076f087bbe380ae06c6f8b624cceb56e7afa1c8589bbdfc91de0949e8e529"
+    },
+    "instance_template": {
+      "path": "data/derived/official_prompt_instance_template.txt",
+      "bytes": 3151,
+      "sha256": "9b3b3526b2a8c95028095f59f88ed32c0f5886413f86ae710b2076564787fdb0"
+    }
+  },
+  "summary": {
+    "api_calls": 0,
+    "gpu_used": false,
+    "server_used": false
+  }
+}

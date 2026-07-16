@@ -149,7 +149,19 @@ wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
 
 同一输入连续运行后，17 个新生成 CSV/PDF 的 SHA-256 均未变化。四份 PDF 共 12 页、无加密，文本与逐页渲染检查均通过。机器清单为 `data/manifests/official_instance_analyses.json`，完整算法、差异和输出说明见 `docs/official_instance_analyses.md`。
 
-## 6. Claude API 可用性审计
+## 6. A13 定性案例与 A14 Prompt/ACI 审计
+
+`scripts/reproduce_official_qualitative_interface.py` 对 arXiv 源码、experiments `a5d5272` 的 GPT-4 Full/Lite 轨迹、冻结 Lite/Full 数据与 SWE-agent Git 历史做联合审计。模型 API、GPU 和服务器使用均为 0。
+
+A13 的四个论文案例均找到公开轨迹、预测和评测结果。论文 TeX 中 72 个 action 与 `.traj` 达到 72/72 逐字相等，四份 gold patch 与 Lite 数据达到 4/4 逐字相等，成功/失败标签也达到 4/4 一致。SymPy 案例的模型没有主动 `submit`，但成本退出时环境自动提交了复现脚本 patch；论文展示省略该运行时语义。Requests 的最终 observation 还包含一处排版层扩展。这两处不改变 action、model patch 或判分。
+
+A14 遍历 GPT-4 Full 2,268 条和 Lite 300 条公开轨迹，恢复两个 system prompt：2,002 条轨迹使用四个详细参数标为 `required` 的版本，566 条使用 `optional` 版本。全部 2,568 条 instance message 都与初始提交 `5b143857` 的模板逐字一致，并共享同一 demonstration。名义运行虽包含 `last_5_history`，该处理器直到 `08e66863` 才公开提交；论文时间快照 `658eb284` 又不能逐字生成实际 prompt。因此，公开运行是可从轨迹恢复但不能由单一 Git checkout 表示的混合配置。
+
+10 个论文 ACI 命令均定位到初始实现，同时保留三类文档差异：论文反写 `scroll_up`/`scroll_down` 方向，论文“每次搜索最多 50 个结果”与实现的 100 行/100 文件/无显式上限规则不一致，linting 图使用时间快照之前的报错首句。七份论文界面 PDF 完成逐页渲染检查，无裁切、重叠或缺字。
+
+连续两次运行后，四个 CSV 与四个精确 prompt 文本的 8/8 SHA-256 均不变。机器清单为 `data/manifests/official_qualitative_interface.json`，完整证据见 `docs/official_qualitative_interface_audit.md`。
+
+## 7. Claude API 可用性审计
 
 Anthropic Messages 端点完成最小协议验证：
 
@@ -160,7 +172,7 @@ Anthropic Messages 端点完成最小协议验证：
 
 凭据只保存在 Git 忽略的 `secrets/anthropic.env`，ACL 与现有密钥文件一致，仅当前 Windows 账户拥有 FullControl。任何受 Git 管理的日志、清单和提交均不包含密钥值。
 
-## 7. 当前完成边界
+## 8. 当前完成边界
 
 已完成：
 
@@ -168,8 +180,9 @@ Anthropic Messages 端点完成最小协议验证：
 2. 主运行预测、日志和轨迹覆盖审计；
 3. HumanEvalFix 实际语言确认、论文数字复算、分母缺陷定位；
 4. HumanEvalFix 492 个实例级结果、resolved-turn 数据与 PDF 图生成；
-5. 精确 Claude 3 Opus 不可用性实测。
-6. A01–A10 的全部公开实例级输入重放，其中 7 项完成、3 项保留明确的公开工件缺口。
+5. 精确 Claude 3 Opus 不可用性实测；
+6. A01–A10 的全部公开实例级输入重放，其中 7 项完成、3 项保留明确的公开工件缺口；
+7. A13 四个定性案例的 action/gold/result 核验，以及 A14 全部公开 GPT-4 prompt、命令实现和界面资产审计。
 
 尚未完成：
 
@@ -184,7 +197,7 @@ Anthropic Messages 端点完成最小协议验证：
 
 这些未完成项继续保留在全论文矩阵中，不能由本次工件复算自动标记为严格复现完成。
 
-## 8. 论文源码聚合与协议负检索
+## 9. 论文源码聚合与协议负检索
 
 对 SWE-agent 全部 822 个公开 PR head、论文期 309 个 PR head、SWE-bench experiments 的论文期 PR 元数据、公开 S3 前缀和 arXiv 源码包完成交叉审计。默认 ACI、FullHistory 以及 100/200 窗口参数实现可以定位；Shell-only、全文 viewer、无 lint editor、迭代搜索、dev37 实例 ID、六次 pass@k 预测和失败模式逐实例标签没有公开工件。
 

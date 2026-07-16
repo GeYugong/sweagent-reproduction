@@ -1,0 +1,142 @@
+instance_id,turn,action_name,action,action_sha256,paper_action_exact
+psf__requests-2317,1,find_file,"find_file ""sessions.py""",ba3b526c657fe6bff0f0274f371d3bfde600fad1698d26df883287b370cd364d,True
+psf__requests-2317,2,open,open requests/sessions.py,09d0d8461939fcf8de56965786da2e41769dada1dce1d9aa2d036219d607bf5b,True
+psf__requests-2317,3,search_file,"search_file ""builtin_str""",5111c59a6d8de52366811545932d6c0783b33dbd641571f02616fcd67fb73779,True
+psf__requests-2317,4,goto,goto 428,5355dae7a3e7ac8efa0e7179c23344f49b5732569e2ee335960e91bec23b3ae2,True
+psf__requests-2317,5,edit,"edit 428:428
+        # Ensure method is a string, decode if it's a binary string
+        if isinstance(method, bytes):
+            method = method.decode('ascii')
+        method = builtin_str(method)
+end_of_edit",2bcf3f1d080ce782a0a8526ce69c62919a7eaa8aa769f4e522b9908190bfa268,True
+psf__requests-2317,6,create,create reproduce_issue.py,98f8d45673ea447331f9cec1d939d2d0ccb6a00fbe32af03d01de17c59b1c2c2,True
+psf__requests-2317,7,edit,"edit 1:1
+import requests
+
+# Define a binary method string
+method = b'GET'
+
+# Test URL (example)
+url = 'https://httpbin.org/get'
+
+# Attempt to send a request with a binary method
+response = requests.request(method, url)
+
+# Print the response status code
+print('Response status code:', response.status_code)
+
+# Print a success message if the script completes
+print(""Script completed successfully, no errors."")
+end_of_edit",208f12e10b46e7495308866d784bca28d9a2ace5991253c2ea5da14469991016,True
+psf__requests-2317,8,python,python reproduce_issue.py,0e557e2abf644304fa0faea812daaae426bc007ebe3761ede1485592124aa2c1,True
+psf__requests-2317,9,rm,rm reproduce_issue.py,d895cb6479ec3548a749602775650f7f5154778354326bd5473ded067f10a1e6,True
+psf__requests-2317,10,submit,submit,75490bd7b93e6fa7d18cfdea90cc6bcb983d5f3ea326249d2709ca6c94bc07ba,True
+pylint-dev__pylint-5859,1,create,create test.py,9e6537a61a1bf03578576c3f70ef8f691becd5402ec831c257fe4a47d988ad33,True
+pylint-dev__pylint-5859,2,edit,"edit 1:1
+# YES: yes
+# ???: no
+end_of_edit",7ae7e9101812bd9fb72681da85d4302e6983b7b5c922d94d4631737f88a18c7f,True
+pylint-dev__pylint-5859,3,pylint,"pylint test.py --notes=""YES,???""",e70656d795c6c709f670331e5178772376e97f05cc6601337cc37c08e3fad79c,True
+pylint-dev__pylint-5859,4,search_dir,"search_dir ""--notes""",233c0d487356730ec4327d82265c7dc2f423e90155dede8d6f68744336199194,True
+pylint-dev__pylint-5859,5,search_dir,"search_dir ""--notes""",233c0d487356730ec4327d82265c7dc2f423e90155dede8d6f68744336199194,True
+pylint-dev__pylint-5859,6,search_dir,"search_dir ""notes""",e260550e191814ba6d24347cd7d06e4b6af4a445559ad8fea9357dacec5b2fce,True
+pylint-dev__pylint-5859,7,open,open pylint/checkers/misc.py,23ab4d2ab7b7dae41ee2bba5f6600f9c63648b835f6c44c26778b80b19bfe707,True
+pylint-dev__pylint-5859,8,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+pylint-dev__pylint-5859,9,goto,goto 122,04cb44059615bacf9632f1e863c2e511dd05df3e064e516e78bf58d8c756ba26,True
+pylint-dev__pylint-5859,10,edit,"edit 124:126
+            regex_string = rf""#\s*({notes}|{self.config.notes_rgx})(?=\W|$)""
+        else:
+            regex_string = rf""#\s*({notes})(?=\W|$)""
+end_of_edit",0a54157a0d4887662a812282f2c0be2dd2b23422e9bc630158faca7cd89b5f89,True
+pylint-dev__pylint-5859,11,pylint,"pylint test.py --notes=""YES,???""",e70656d795c6c709f670331e5178772376e97f05cc6601337cc37c08e3fad79c,True
+pylint-dev__pylint-5859,12,rm,rm test.py,fb8909d35daaf86e378f70c16ee565f007ec1acf8edd3166a5b7cd9937645928,True
+pylint-dev__pylint-5859,13,submit,submit,75490bd7b93e6fa7d18cfdea90cc6bcb983d5f3ea326249d2709ca6c94bc07ba,True
+sympy__sympy-21614,1,create,create reproduce_issue.py,98f8d45673ea447331f9cec1d939d2d0ccb6a00fbe32af03d01de17c59b1c2c2,True
+sympy__sympy-21614,2,edit,"edit 1:1
+from sympy import Integral, Derivative
+from sympy import MatrixSymbol
+from sympy.abc import x
+A = MatrixSymbol('A', 2, 2)
+d = Derivative(A, x)
+print(d.kind)
+# Expected: MatrixKind(NumberKind), but getting UndefinedKind
+end_of_edit",fa56c9dc47a6e18c8fd0ab6de88a79d94141ea419501285ef4169b35f71b41c0,True
+sympy__sympy-21614,3,python,python reproduce_issue.py,0e557e2abf644304fa0faea812daaae426bc007ebe3761ede1485592124aa2c1,True
+sympy__sympy-21614,4,find_file,"find_file ""derivative.py""",f32fa9d23e2e2f2ecaae86d5a7f47d9b849f9bf83d020b71d091e3a2ac16b550,True
+sympy__sympy-21614,5,search_dir,"search_dir ""Derivative"" .",879d155004c9c390091af81ad8ca61de05aa719f623471eb4ef06f847da89f90,True
+sympy__sympy-21614,6,find_file,"find_file ""core.py""",d0e987f3115ecbd420b4061bd4b8b0f671edd29058bc5ae4306afd06e061e211,True
+sympy__sympy-21614,7,open,open sympy/core/core.py,d1d15d4b2d0c26c02ead3499eaf0e12a33f5364f50d127636aecf8b263496195,True
+sympy__sympy-21614,8,find_file,"find_file ""function.py"" sympy/core",d767df00c5a52138b0140f9fa3ec7d77898d2d33810494699a871b35779d843d,True
+sympy__sympy-21614,9,open,open sympy/core/function.py,19b2819fc846e4a3f801071c243218aca5094abb5c4fa9d88a2b78cc07900a6c,True
+sympy__sympy-21614,10,search_file,"search_file ""class Derivative""",542a91fc5cbaf3b9ac63bcb1593d253f5e13732bd433a827cb430cc0ffeccc42,True
+sympy__sympy-21614,11,goto,goto 1053,9fe3942e763434fe86533608f1d2dc79334fa17592d89b23829acd88c127e114,True
+sympy__sympy-21614,12,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,13,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,14,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,15,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,16,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,17,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,18,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,19,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,20,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,21,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,22,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,23,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,24,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,25,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,26,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,27,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,28,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,29,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,30,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,31,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,32,scroll_down,scroll_down,02cb58415a97c7e53949c72d305051584e21d3da0ebf770a8a51a6a7525da64a,True
+sympy__sympy-21614,33,exit_cost,exit_cost,d36c74f184b7045f728d8665bc2012a47b1858a49c6316d331c292236c12b4c3,True
+django__django-14411,1,find_file,"find_file ""ReadOnlyPasswordHashWidget""",5ef3c822e41d7f6f8beb7ffefb8eb3d71a3e2875d658ef3a08a994db43090c03,True
+django__django-14411,2,search_dir,"search_dir ""ReadOnlyPasswordHashWidget""",56636c1ce99d75e3f7f5dccb03287ac288e12fad81abc4fe66e11ad197a763ea,True
+django__django-14411,3,open,open django/contrib/admin/helpers.py,f52bcc966096ba2bb421ea29c21cba3ed74d587b9588c1d85a7f125de3e9273c,True
+django__django-14411,4,search_file,"search_file ""ReadOnlyPasswordHashWidget""",d37813b2f8ede28d477da1c4f02ce3773e969116e49876dc7a289ecd9cb9c72a,True
+django__django-14411,5,goto,goto 215,eeb54afd070064b0013c28649b7fca1b5b17d6a0880dc003671e7e6097673821,True
+django__django-14411,6,search_file,"search_file ""label""",9ebf8caa7932627e71c9d0ea1c8487636c36be3c4a5beccda19cfca94594cdf4,True
+django__django-14411,7,goto,goto 191,1a39063572e3e77bd86717bb58e1fa5e99a0c2f85eab6858b16529e3f153e201,True
+django__django-14411,8,open,open django/contrib/auth/forms.py,75f01059c0f6d367a88f95bba71e82924722f6d3d6b91795f7dc151498f842c2,True
+django__django-14411,9,find_file,"find_file ""read_only_password_hash.html""",ffc9ce9693b66c367072fcc225725786ded9aecbbc59e3235bbdd220c2252194,True
+django__django-14411,10,open,open django/contrib/auth/templates/auth/widgets/read_only_password_hash.html,43e7f7010bf424ef22ea9931ad0d169446b09aaa793aee5f61f2c89d8b3d5d02,True
+django__django-14411,11,open,open django/contrib/auth/forms.py,75f01059c0f6d367a88f95bba71e82924722f6d3d6b91795f7dc151498f842c2,True
+django__django-14411,12,search_file,"search_file ""ReadOnlyPasswordHashField""",eec5293fb502966d7c9ba50e81c9b61f79f797e9473c2aaac1e4c7436ba92fde,True
+django__django-14411,13,goto,goto 136,67cabf92f0098c4ee47af236acb38eebf2b2c1b592b27ac2704b73a5f5019d9f,True
+django__django-14411,14,edit,"edit 54:60
+class ReadOnlyPasswordHashField(forms.Field):
+    widget = ReadOnlyPasswordHashWidget
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault(""required"", False)
+        kwargs.setdefault('disabled', True)
+        super().__init__(*args, **kwargs)
+
+    def label_tag(self, contents=None, attrs=None, label_suffix=None):
+        contents = contents or self.label
+        if label_suffix is not None and label_suffix not in contents:
+            contents += label_suffix
+        widget = self.widget
+        id_ = widget.attrs.get('id') or ''
+        return format_html('<label{}>{}</label>', format_html_join('', ' {}=""{}""', sorted(attrs.items()) if attrs else ()), contents)
+end_of_edit",e9d7dafbeeb10b3241a2c62d360c8a934d0b583111cb3afebe1e98b6d916b7f3,True
+django__django-14411,15,edit,"edit 54:60
+from django.utils.html import format_html, format_html_join
+
+class ReadOnlyPasswordHashField(forms.Field):
+    widget = ReadOnlyPasswordHashWidget
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault(""required"", False)
+        kwargs.setdefault('disabled', True)
+        super().__init__(*args, **kwargs)
+
+    def label_tag(self, contents=None, attrs=None, label_suffix=None):
+        contents = contents or self.label
+        if label_suffix is not None and label_suffix not in contents:
+            contents += label_suffix
+        return format_html('<label>{}</label>', contents)
+end_of_edit",1020358ac3f83ec8478e6e0931181b0c069e116feea84589ef2a6bb06f9ffa30,True
+django__django-14411,16,submit,submit,75490bd7b93e6fa7d18cfdea90cc6bcb983d5f3ea326249d2709ca6c94bc07ba,True

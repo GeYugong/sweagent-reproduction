@@ -305,8 +305,8 @@ analysis_artifacts:
   - {id: A_PATCH, name: patch_statistics, status: ARTIFACT_RECOMPUTED_EXACT_32_OF_32}
   - {id: A_LOCALIZATION, name: file_localization_f1, status: ARTIFACT_RECOMPUTED_EXACT_2_OF_2}
   - {id: F_HUMANEVAL_TURNS, name: humanevalfix_turn_distribution, status: ARTIFACT_RECOMPUTED_AND_RENDERED}
-  - {id: A_QUALITATIVE, name: four_qualitative_cases, status: SOURCE_TARGET_FROZEN}
-  - {id: A_PROMPTS_INTERFACE, name: prompts_commands_and_interface_assets, status: SOURCE_TARGET_FROZEN}
+  - {id: A_QUALITATIVE, name: four_qualitative_cases, status: ARTIFACT_RECOMPUTED_ACTIONS_72_OF_72_GOLD_AND_RESULTS_4_OF_4_WITH_PRESENTATION_DIFFERENCES}
+  - {id: A_PROMPTS_INTERFACE, name: prompts_commands_and_interface_assets, status: ARTIFACT_AUDITED_2568_PROMPTS_TWO_RUNTIME_VARIANTS_AND_10_COMMANDS}
 
 artifact_reproduction_runs:
   - id: EXP-ARTIFACT-001
@@ -412,6 +412,31 @@ artifact_reproduction_runs:
       - output/pdf/official_failed_edits_artifact.pdf
       - scripts/reproduce_official_instance_analyses.py
       - docs/official_instance_analyses.md
+  - id: EXP-ARTIFACT-008
+    evidence: artifact
+    source_revision: a5d52722965c791c0c04d18135f906b44f716d39
+    sweagent_revisions:
+      initial: 5b143857cb7af8b22fd421a103429f76f5259f08
+      last5: 08e66863ac8ccf3cf8b740c243e74af15119f7b8
+      paper_time_snapshot: 658eb2842e8a8b00069b301338bc342b70538f7a
+    dataset_revisions:
+      lite: 81ad348adcaf3368691f4db2907f8fc97a8f7526
+      full: 283547aced6224d4adbe55c678b4c9c43fe7d501
+    paper_revision: arxiv_2405.15793v3
+    scope: official_qualitative_cases_and_runtime_prompt_aci_audit
+    status: COMPLETE_A13_A14_ARTIFACT_AUDIT_WITH_RUNTIME_PROMPT_VARIANTS
+    outputs:
+      - data/manifests/official_qualitative_interface.json
+      - data/derived/official_qualitative_cases.csv
+      - data/derived/official_qualitative_actions.csv
+      - data/derived/official_prompt_runtime_variants.csv
+      - data/derived/official_command_interface_audit.csv
+      - data/derived/official_prompt_system_required.txt
+      - data/derived/official_prompt_system_optional.txt
+      - data/derived/official_prompt_demonstration.txt
+      - data/derived/official_prompt_instance_template.txt
+      - scripts/reproduce_official_qualitative_interface.py
+      - docs/official_qualitative_interface_audit.md
 
 existing_non_exact_runs:
   - id: EXP-DEV20

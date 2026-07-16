@@ -31,13 +31,13 @@
 ## 版本冻结
 
 - 论文：arXiv `2405.15793v3`，NeurIPS 2024。
-- 论文版代码快照：SWE-agent commit `658eb2842e8a8b00069b301338bc342b70538f7a`。
+- 论文时间对齐代码快照：SWE-agent commit `658eb2842e8a8b00069b301338bc342b70538f7a`。
 - 论文期评测聚合器：SWE-bench commit `cfb20092bbbee9683176177b2f59b85f522e7f27`。
 - 论文期数据：Lite `81ad348adcaf3368691f4db2907f8fc97a8f7526`，Full `283547aced6224d4adbe55c678b4c9c43fe7d501`。
 - SWE-agent 选择依据：`658eb284` 是 arXiv 初次提交时间 `2024-05-06 17:41:33 UTC` 之前的最后一个上游提交。
 - 默认论文配置：temperature `0.0`、文件窗口 `100` 行、历史处理器 `Last5Observations`。
 
-代码快照用于最大程度贴近论文提交时状态，但上游未在论文中声明唯一提交哈希，因此该映射属于可审计的时间对齐选择，而不是官方保证。
+代码快照用于最大程度贴近论文提交时状态，但上游未在论文中声明唯一提交哈希，因此该映射属于可审计的时间对齐选择，而不是官方保证。公开 GPT-4 轨迹进一步表明，实际 prompt 由初始提交模板、Last-5 历史处理器和两个 system prompt 参数标签变体组成，不能由单一公开提交逐字生成。
 
 ## 复现门槛
 
@@ -49,7 +49,7 @@
 - 每次运行均记录代码哈希、配置、模型标识、时间、token、成本和退出状态；
 - 开发集在正式实验前冻结。
 
-完整方案见 [docs/full_paper_reproduction_plan.md](docs/full_paper_reproduction_plan.md)，官方工件追溯与已复算结果见 [docs/artifact_provenance.md](docs/artifact_provenance.md)，A01–A10 实例级分析见 [docs/official_instance_analyses.md](docs/official_instance_analyses.md)，历史评测聚合器验证见 [docs/evaluator_replay.md](docs/evaluator_replay.md)，论文期协议与缺失资产边界见 [docs/protocol_recovery_audit.md](docs/protocol_recovery_audit.md)，机器清单见 [conf/full_paper_matrix.yaml](conf/full_paper_matrix.yaml)，逐次记录见 [logs/experiment_log.md](logs/experiment_log.md)。
+完整方案见 [docs/full_paper_reproduction_plan.md](docs/full_paper_reproduction_plan.md)，官方工件追溯与已复算结果见 [docs/artifact_provenance.md](docs/artifact_provenance.md)，A01–A10 实例级分析见 [docs/official_instance_analyses.md](docs/official_instance_analyses.md)，A13/A14 定性案例与运行时 prompt/ACI 审计见 [docs/official_qualitative_interface_audit.md](docs/official_qualitative_interface_audit.md)，历史评测聚合器验证见 [docs/evaluator_replay.md](docs/evaluator_replay.md)，论文期协议与缺失资产边界见 [docs/protocol_recovery_audit.md](docs/protocol_recovery_audit.md)，机器清单见 [conf/full_paper_matrix.yaml](conf/full_paper_matrix.yaml)，逐次记录见 [logs/experiment_log.md](logs/experiment_log.md)。
 
 论文源码中的 ACI 消融、超参数、pass@k 与失败模式聚合值可用以下命令重建：
 
@@ -69,6 +69,15 @@ wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
 ```
 
 该命令生成 13 个 CSV 和 4 份 PDF。A01、A02、A06、A09、A10 精确匹配，A05 与 A07 完成公开轨迹重放；A03、A04、A08 的公开轨迹缺口和论文内部不一致单独保留，不能视为精确重跑。
+
+论文四个定性案例与公开 GPT-4 运行时 prompt/ACI 可用以下命令审计：
+
+```powershell
+wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
+  .venv-analysis/bin/python scripts/reproduce_official_qualitative_interface.py
+```
+
+该命令核验 72/72 个论文 action、4/4 个 gold patch 与结果标签，并遍历 Full/Lite 共 2,568 条轨迹恢复两个 system prompt 变体、统一 demonstration、instance template 和 10 个命令实现。输出属于公开运行工件审计，不替代原模型重新推理。
 
 八组官方主预测的历史聚合报告可用以下命令重放：
 
