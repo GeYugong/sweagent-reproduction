@@ -10,8 +10,13 @@ import json
 import os
 import re
 import shutil
+import sys
 from pathlib import Path
 from typing import Optional
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+SWE_BENCH_SOURCE = PROJECT_ROOT / "code" / "SWE-bench"
+sys.path.insert(0, str(SWE_BENCH_SOURCE))
 
 from swebench.harness import context_manager
 
@@ -19,6 +24,7 @@ from swebench.harness import context_manager
 def install_requirements_compatibility() -> None:
     original = context_manager.get_requirements
     original_exec = context_manager.ExecWrapper.__call__
+    original_task_init = context_manager.TaskEnvContextManager.__init__
 
     def normalize_requirements(content: str, instance: dict) -> str:
         content = content.replace("types-pkg_resources", "types-setuptools")
@@ -47,9 +53,31 @@ def install_requirements_compatibility() -> None:
     def exec_compat(self, cmd, raise_error=True, **kwargs):
         if isinstance(cmd, list):
             cmd = [part for part in cmd if part != ""]
+        elif isinstance(cmd, str):
+            cmd = re.sub(
+                r"\. (?P<root>\S+)/bin/activate (?P<env>\S+) &&",
+                (
+                    r". \g<root>/etc/profile.d/conda.sh && "
+                    r"conda activate \g<env> &&"
+                ),
+                cmd,
+            )
         return original_exec(self, cmd, raise_error=raise_error, **kwargs)
 
     context_manager.ExecWrapper.__call__ = exec_compat
+
+    def task_init_compat(self, *args, **kwargs):
+        original_task_init(self, *args, **kwargs)
+        self.cmd_activate = (
+            f". {self.conda_path}/etc/profile.d/conda.sh && "
+            f"conda activate {self.venv} && echo 'activate successful'"
+        )
+        if os.environ.get("PIP_CONSTRAINT"):
+            self.exec.subprocess_args["env"]["PIP_CONSTRAINT"] = os.environ[
+                "PIP_CONSTRAINT"
+            ]
+
+    context_manager.TaskEnvContextManager.__init__ = task_init_compat
 
 
 def configure_conda_downloads() -> None:
@@ -77,6 +105,8 @@ def configure_pip_constraints(predictions: Path, staging_dir: Path) -> Optional[
         constraints.append("numpy<2")
     if any(instance_id.startswith("pyvista__pyvista-") for instance_id in instance_ids):
         constraints.append("vtk<9.3")
+    if any(instance_id.startswith("astropy__astropy-") for instance_id in instance_ids):
+        constraints.append("setuptools==68.0.0")
     if not constraints:
         os.environ.pop("PIP_CONSTRAINT", None)
         return None
@@ -96,12 +126,13 @@ def install_test_runner_compatibility(predictions: Path) -> None:
     if not any(instance_id.startswith("pydicom__pydicom-") for instance_id in instance_ids):
         return
     for install_config in context_manager.MAP_VERSION_TO_INSTALL["pydicom/pydicom"].values():
-        pip_packages = install_config.get("pip_packages", "").split()
+        configured = install_config.get("pip_packages", [])
+        pip_packages = configured.split() if isinstance(configured, str) else list(configured)
         python_version = str(install_config.get("python", ""))
         pytest_version = "6.2.5" if python_version.startswith("3.6") else "7.4.4"
         if not any(package.startswith("pytest") for package in pip_packages):
             pip_packages.append(f"pytest=={pytest_version}")
-        install_config["pip_packages"] = " ".join(pip_packages)
+        install_config["pip_packages"] = pip_packages
 
 
 def load_paper_evaluator(repo_root: Path):
@@ -124,7 +155,12 @@ def main() -> int:
     parser.add_argument("--model-alias")
     args = parser.parse_args()
 
-    repo_root = Path(__file__).resolve().parents[1]
+    repo_root = PROJECT_ROOT
+    imported_context = Path(context_manager.__file__).resolve()
+    if SWE_BENCH_SOURCE.resolve() not in imported_context.parents:
+        raise RuntimeError(
+            f"Expected frozen SWE-bench source, imported {imported_context}"
+        )
     original_predictions = args.predictions.resolve()
     if not original_predictions.is_file():
         raise FileNotFoundError(original_predictions)

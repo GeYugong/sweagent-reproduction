@@ -295,14 +295,20 @@ def prepare(
     return 0
 
 
-def expected_scorecard_present(path: Path, instance_id: str) -> bool:
+def expected_scorecard_present(
+    path: Path, instance_id: str, input_dir: Path, source_path: Path
+) -> bool:
     if not path.is_file():
         return False
     cards = json.loads(path.read_text(encoding="utf-8"))
-    return (
+    attempt = latest_attempt(input_dir)
+    return bool(
         len(cards) == 1
         and cards[0].get("instance_id") == instance_id
         and cards[0].get("statuses") == ["generated", "applied", "RESOLVED_FULL"]
+        and attempt is not None
+        and attempt.get("protocol_valid") is True
+        and attempt.get("swebench_import_source") == str(source_path)
     )
 
 
@@ -335,6 +341,7 @@ def run_selected(
             "GIT_CONFIG_COUNT": "1",
             "GIT_CONFIG_KEY_0": "http.version",
             "GIT_CONFIG_VALUE_0": "HTTP/1.1",
+            "PYTHONPATH": str(project_root / "code" / "SWE-bench"),
         }
     )
 
@@ -347,11 +354,36 @@ def run_selected(
             continue
         input_dir = output_dir / row["input_directory"]
         scorecards_path = input_dir / "scorecards.json"
-        if not force and expected_scorecard_present(scorecards_path, row["instance_id"]):
+        source_path = project_root / "code" / "SWE-bench"
+        if not force and expected_scorecard_present(
+            scorecards_path, row["instance_id"], input_dir, source_path
+        ):
             print(f"[{repository}] skip=existing_RESOLVED_FULL", flush=True)
             continue
 
         attempts_dir = input_dir / "attempts"
+        for incomplete in sorted(attempts_dir.glob("attempt_*")):
+            incomplete_manifest = incomplete / "attempt.json"
+            if incomplete_manifest.exists():
+                continue
+            runner_log = incomplete / "runner.log"
+            recovered = {
+                "schema_version": 1,
+                "repository": repository,
+                "instance_id": row["instance_id"],
+                "attempt": int(incomplete.name.rsplit("_", 1)[-1]),
+                "status": "INTERRUPTED_OUTER_RUNNER_NO_RETURN_CODE",
+                "detected_at_utc": utc_now(),
+                "return_code": None,
+                "scorecard_statuses": None,
+                "success": False,
+                "protocol_valid": False,
+                "model_api_calls": 0,
+                "runner_log_sha256": (
+                    sha256_file(runner_log) if runner_log.is_file() else None
+                ),
+            }
+            write_json(incomplete_manifest, recovered)
         attempt_number = len(list(attempts_dir.glob("attempt_*"))) + 1
         attempt_dir = attempts_dir / f"attempt_{attempt_number:03d}"
         attempt_dir.mkdir(parents=True)
@@ -446,8 +478,16 @@ def run_selected(
             "return_code": return_code,
             "scorecard_statuses": statuses,
             "success": success,
+            "protocol_valid": True,
+            "swebench_revision": SWE_BENCH_REVISION,
             "timeout_seconds": timeout,
             "git_transport": "HTTP/1.1 process scope",
+            "swebench_import_source": str(source_path),
+            "compatibility": [
+                "source checkout forced through PYTHONPATH",
+                "conda activation uses etc/profile.d/conda.sh",
+                "instance-scoped package constraints from run_local_evaluation.py",
+            ],
             "credential_variables_scrubbed": sorted(scrubbed),
             "model_api_calls": 0,
             "artifacts": artifacts,
@@ -489,6 +529,9 @@ def collect(
     output_dir: Path,
     manifest_path: Path,
 ) -> int:
+    source_path = str(project_root / "code" / "SWE-bench")
+    if source_path not in sys.path:
+        sys.path.insert(0, source_path)
     from swebench import get_eval_refs, get_eval_report, get_logs_eval, get_resolution_status
 
     ensure_output_path(output_dir, project_root)
@@ -573,6 +616,7 @@ def collect(
             official_map, official_applied = get_logs_eval(str(official_log))
             official_report = get_eval_report(official_map, reference)
             official_report_exact = official_applied and official_report == report
+        attempt = latest_attempt(input_dir)
         exact = (
             len(cards) == 1
             and card.get("instance_id") == source["instance_id"]
@@ -581,6 +625,9 @@ def collect(
             and resolution == "RESOLVED_FULL"
             and report == expected
             and (official_report_exact is not False)
+            and attempt is not None
+            and attempt.get("protocol_valid") is True
+            and attempt.get("swebench_revision") == SWE_BENCH_REVISION
         )
         observation.update(
             {
