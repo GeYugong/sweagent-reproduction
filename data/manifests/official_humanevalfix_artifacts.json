@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-07-16T15:28:58.068707+00:00",
+  "source": {
+    "repository": "https://github.com/SWE-agent/humanevalfix-results",
+    "local_path": "code/humanevalfix-results",
+    "revision": "bbd565c9035f873ba5ee2c1bd1d65c5ee2d85d1a",
+    "notebook": "view_results.ipynb",
+    "pass_marker": ">>>>> All Tests Passed"
+  },
+  "language_resolution": {
+    "paper_main_table": [
+      "python",
+      "js",
+      "java"
+    ],
+    "paper_appendix_typo": "go",
+    "official_run_directories": [
+      "python",
+      "js",
+      "java"
+    ],
+    "conclusion": "The executed third language was Java; the appendix reference to Go is inconsistent with the released artifacts."
+  },
+  "metric_audit": {
+    "notebook_behavior": "The released notebook globs every *.log file, so one testbed environment log per language is counted as a failed task.",
+    "python_release_gap": "The Git release contains 162 Python evaluation logs for 164 trajectories; the missing instance IDs are recorded per run.",
+    "reporting_policy": "Report the paper/notebook metric and the fixed 164-instance metric side by side."
+  },
+  "figure": {
+    "bytes": 14099,
+    "sha256": "b96d4ee168b8b5ed1354227b84f69fe8da0eae68db2b457566affab21fd3d61a",
+    "matplotlib_version": "3.8.4",
+    "numpy_version": "1.26.4",
+    "bins": "numpy.arange(0, 40, 2)",
+    "language_order": [
+      "js",
+      "java",
+      "python"
+    ],
+    "path": "output/pdf/humanevalfix_turns_artifact.pdf"
+  },
+  "runs": [
+    {
+      "language": "python",
+      "run": "gpt4-turbo__swe-bench-HumanEvalFix-python__default__t-0.00__p-0.95__c-4.00__install-1",
+      "passes": 143,
+      "paper_notebook_reproduction": {
+        "denominator_all_log_files": 163,
+        "failures_by_notebook_definition": 20,
+        "percent": 87.73006134969326,
+        "rounded_1": 87.7,
+        "glob": "*.log",
+        "includes_testbed_log_as_failure": true
+      },
+      "benchmark_corrected": {
+        "denominator_instances": 164,
+        "unresolved_instances": 21,
+        "percent": 87.1951219512195,
+        "rounded_1": 87.2,
+        "policy": "Use the declared 164 tasks; instances with missing evaluation logs remain unresolved/unevaluated."
+      },
+      "resolved_turns": {
+        "count": 143,
+        "min": 5,
+        "max": 20,
+        "mean": 6.090909090909091,
+        "median": 5
+      },
+      "configuration": {
+        "model_alias": "gpt4-turbo",
+        "temperature": "0.0",
+        "top_p": "0.95",
+        "per_instance_cost_limit": "4.0",
+        "install_variant": "install-1",
+        "args_path": "trajs/gpt4-turbo__swe-bench-HumanEvalFix-python__default__t-0.00__p-0.95__c-4.00__install-1/args.yaml",
+        "args_sha256": "82425979dc84cbe01cb0370d5b4b1c5cd3eed2c04fbab14f9e2445ccb4a5c2bd"
+      },
+      "predictions": {
+        "path": "trajs/gpt4-turbo__swe-bench-HumanEvalFix-python__default__t-0.00__p-0.95__c-4.00__install-1/all_preds.jsonl",
+        "sha256": "30346f5e399154ece038d54758db581e896133977ebd60f7551cf28e5b62d01c",
+        "nonempty_lines": 164
+      },
+      "evaluation_log_count": 162,
+      "testbed_log_count": 1,
+      "all_log_file_count": 163,
+      "missing_evaluation_log_instance_ids": [
+        "humanevalfix-python-135",
+        "humanevalfix-python-80"
+      ],
+      "trajectory_count": 164
+    },
+    {
+      "language": "js",
+      "run": "gpt4-turbo__swe-bench-HumanEvalFix-js__default__t-0.00__p-0.95__c-4.00__install-0",
+      "passes": 148,
+      "paper_notebook_reproduction": {
+        "denominator_all_log_files": 165,
+        "failures_by_notebook_definition": 17,
+        "percent": 89.6969696969697,
+        "rounded_1": 89.7,
+        "glob": "*.log",
+        "includes_testbed_log_as_failure": true
+      },
+      "benchmark_corrected": {
+        "denominator_instances": 164,
+        "unresolved_instances": 16,
+        "percent": 90.2439024390244,
+        "rounded_1": 90.2,
+        "policy": "Use the declared 164 tasks; instances with missing evaluation logs remain unresolved/unevaluated."
+      },
+      "resolved_turns": {
+        "count": 148,
+        "min": 5,
+        "max": 32,
+        "mean": 6.574324324324325,
+        "median": 6.0
+      },
+      "configuration": {
+        "model_alias": "gpt4-turbo",
+        "temperature": "0.0",
+        "top_p": "0.95",
+        "per_instance_cost_limit": "4.0",
+        "install_variant": "install-0",
+        "args_path": "trajs/gpt4-turbo__swe-bench-HumanEvalFix-js__default__t-0.00__p-0.95__c-4.00__install-0/args.yaml",
+        "args_sha256": "a6023f181bce4e7b64481d6a39029d03d8d10e5930e0661184267b60f4fec28c"
+      },
+      "predictions": {
+        "path": "trajs/gpt4-turbo__swe-bench-HumanEvalFix-js__default__t-0.00__p-0.95__c-4.00__install-0/all_preds.jsonl",
+        "sha256": "5b77296a67152b0c9a0f4e83b98a54003dfc6bb5fefcf070c761a7515051bcf1",
+        "nonempty_lines": 164
+      },
+      "evaluation_log_count": 164,
+      "testbed_log_count": 1,
+      "all_log_file_count": 165,
+      "missing_evaluation_log_instance_ids": [],
+      "trajectory_count": 164
+    },
+    {
+      "language": "java",
+      "run": "gpt4-turbo__swe-bench-HumanEvalFix-java__default__t-0.00__p-0.95__c-4.00__install-0",
+      "passes": 145,
+      "paper_notebook_reproduction": {
+        "denominator_all_log_files": 165,
+        "failures_by_notebook_definition": 20,
+        "percent": 87.87878787878788,
+        "rounded_1": 87.9,
+        "glob": "*.log",
+        "includes_testbed_log_as_failure": true
+      },
+      "benchmark_corrected": {
+        "denominator_instances": 164,
+        "unresolved_instances": 19,
+        "percent": 88.41463414634147,
+        "rounded_1": 88.4,
+        "policy": "Use the declared 164 tasks; instances with missing evaluation logs remain unresolved/unevaluated."
+      },
+      "resolved_turns": {
+        "count": 145,
+        "min": 4,
+        "max": 27,
+        "mean": 7.393103448275862,
+        "median": 6
+      },
+      "configuration": {
+        "model_alias": "gpt4-turbo",
+        "temperature": "0.0",
+        "top_p": "0.95",
+        "per_instance_cost_limit": "4.0",
+        "install_variant": "install-0",
+        "args_path": "trajs/gpt4-turbo__swe-bench-HumanEvalFix-java__default__t-0.00__p-0.95__c-4.00__install-0/args.yaml",
+        "args_sha256": "a9cd4da3735e9ba0d38c9704f689750bac7fbda67a5e0ded5beb66c9d616f4f5"
+      },
+      "predictions": {
+        "path": "trajs/gpt4-turbo__swe-bench-HumanEvalFix-java__default__t-0.00__p-0.95__c-4.00__install-0/all_preds.jsonl",
+        "sha256": "6f2d4673b5c30f6ba505a3939dfbacf1437436e5fc42fe6fcb2fd5a749b111d4",
+        "nonempty_lines": 164
+      },
+      "evaluation_log_count": 164,
+      "testbed_log_count": 1,
+      "all_log_file_count": 165,
+      "missing_evaluation_log_instance_ids": [],
+      "trajectory_count": 164
+    }
+  ]
+}

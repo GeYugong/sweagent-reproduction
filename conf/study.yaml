@@ -15,6 +15,13 @@ upstream:
   paper_snapshot: 658eb2842e8a8b00069b301338bc342b70538f7a
   reference_release: v0.7.0
 
+official_artifacts:
+  swebench_experiments_repository: https://github.com/SWE-bench/experiments
+  swebench_current_commit: 2f15350cd32becc4569e0d826361048555b605c0
+  swebench_paper_history_commit: a5d52722965c791c0c04d18135f906b44f716d39
+  humanevalfix_repository: https://github.com/SWE-bench/humanevalfix-results
+  humanevalfix_commit: bbd565c9035f873ba5ee2c1bd1d65c5ee2d85d1a
+
 paper_configuration:
   model: gpt-4-1106-preview
   temperature: 0.0
@@ -30,6 +37,13 @@ paper_models:
   claude_3_opus: claude-3-opus-20240229
   failure_labeler: gpt-4o-2024-05-13
   exact_models_available_from_current_relay: false
+
+anthropic_relay_audit:
+  api_style: messages
+  exact_paper_model_status: model_not_found
+  available_models: [claude-opus-4-6, claude-opus-4-7, claude-opus-4-8, claude-sonnet-4-6]
+  credentials_file: secrets/anthropic.env
+  pricing: unknown
 
 resources:
   primary_execution: local_wsl2
@@ -78,6 +92,9 @@ full_reproduction:
   evidence_types: [artifact, exact, modern, exploratory]
   relay_pricing_required_before_scale_up: true
   minimum_free_disk_gb_before_formal_scale_up: 120
+  artifact_reproduction:
+    swebench_main_rows: complete_with_claude_paper_inconsistency
+    humanevalfix: complete_with_notebook_denominator_bug
 
 tracking:
   registry: logs/experiment_registry.csv

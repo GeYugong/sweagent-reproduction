@@ -1,0 +1,734 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-07-16T15:36:03.991678+00:00",
+  "source": {
+    "repository": "https://github.com/SWE-bench/experiments",
+    "local_path": "code/SWE-bench-experiments",
+    "revision": "a5d52722965c791c0c04d18135f906b44f716d39",
+    "author_date": "2024-05-14T13:23:59-04:00",
+    "commit_date": "2024-05-14T13:23:59-04:00",
+    "subject": "Add SWE-agent Claude 3 Opus results",
+    "access_method": "git blobs from pre-reset official history"
+  },
+  "interpretation": {
+    "paper_main_table_mismatches": [
+      "Claude 3 Opus Lite: paper main table says 13.00% (39/300 implied), official artifacts and paper exit table contain 35/300.",
+      "Claude 3 Opus Full: paper main table says 10.46% (240/2294 implied), official artifacts and paper exit table contain 241/2294."
+    ],
+    "mismatch_policy": "Preserve both published table values and artifact-recomputed values; do not overwrite either."
+  },
+  "runs": [
+    {
+      "split": "lite",
+      "run": "20240402_sweagent_gpt4",
+      "path": "evaluation/lite/20240402_sweagent_gpt4",
+      "system": "SWE-agent",
+      "model": "gpt-4-1106-preview",
+      "denominator": 300,
+      "official_artifact": {
+        "resolved_entries": 54,
+        "resolved_unique_instances": 54,
+        "percent": 18.0,
+        "percent_rounded_2": 18.0
+      },
+      "paper_main_table": {
+        "percent": 18.0,
+        "implied_count": 54,
+        "count_delta_from_artifact": 0,
+        "matches_artifact_after_2dp_rounding": true
+      },
+      "paper_exit_condition_table": {
+        "resolved_count": 54,
+        "matches_artifact": true
+      },
+      "results_categories": {
+        "no_generation": {
+          "entries": 18,
+          "unique_instances": 17
+        },
+        "generated": {
+          "entries": 284,
+          "unique_instances": 284
+        },
+        "with_logs": {
+          "entries": 284,
+          "unique_instances": 284
+        },
+        "install_fail": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "reset_failed": {
+          "entries": 1,
+          "unique_instances": 1
+        },
+        "no_apply": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "applied": {
+          "entries": 281,
+          "unique_instances": 281
+        },
+        "test_errored": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "test_timeout": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "resolved": {
+          "entries": 54,
+          "unique_instances": 54
+        }
+      },
+      "predictions": {
+        "line_count": 302,
+        "unique_instance_count": 299,
+        "duplicate_instance_count": 3,
+        "null_or_empty_patch_count": 18,
+        "malformed_line_count": 0,
+        "path": "evaluation/lite/20240402_sweagent_gpt4/all_preds.jsonl",
+        "bytes": 615872,
+        "sha256": "628f7b629fb87ebd9ef6e7af509527b3f2ac06fa6bb168d10312ff17d9b0db04"
+      },
+      "results_file": {
+        "path": "evaluation/lite/20240402_sweagent_gpt4/results/results.json",
+        "bytes": 27313,
+        "sha256": "ffb306d5423a791a2d9e783c6182d6d6b4422ab878f2efbba6aa12f5843280b7"
+      },
+      "tree_inventory": {
+        "file_count": 589,
+        "total_bytes": 79515663,
+        "log_count": 284,
+        "trajectory_count": 300,
+        "prediction_file_count": 1,
+        "results_file_count": 1
+      }
+    },
+    {
+      "split": "lite",
+      "run": "20240402_sweagent_claude3opus",
+      "path": "evaluation/lite/20240402_sweagent_claude3opus",
+      "system": "SWE-agent",
+      "model": "claude-3-opus-20240229",
+      "denominator": 300,
+      "official_artifact": {
+        "resolved_entries": 35,
+        "resolved_unique_instances": 35,
+        "percent": 11.666666666666666,
+        "percent_rounded_2": 11.67
+      },
+      "paper_main_table": {
+        "percent": 13.0,
+        "implied_count": 39,
+        "count_delta_from_artifact": -4,
+        "matches_artifact_after_2dp_rounding": false
+      },
+      "paper_exit_condition_table": {
+        "resolved_count": 35,
+        "matches_artifact": true
+      },
+      "results_categories": {
+        "no_generation": {
+          "entries": 29,
+          "unique_instances": 29
+        },
+        "generated": {
+          "entries": 271,
+          "unique_instances": 271
+        },
+        "with_logs": {
+          "entries": 271,
+          "unique_instances": 271
+        },
+        "install_fail": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "reset_failed": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "no_apply": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "applied": {
+          "entries": 268,
+          "unique_instances": 268
+        },
+        "test_errored": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "test_timeout": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "resolved": {
+          "entries": 35,
+          "unique_instances": 35
+        }
+      },
+      "predictions": {
+        "line_count": 300,
+        "unique_instance_count": 300,
+        "duplicate_instance_count": 0,
+        "null_or_empty_patch_count": 29,
+        "malformed_line_count": 0,
+        "path": "evaluation/lite/20240402_sweagent_claude3opus/all_preds.jsonl",
+        "bytes": 1889334,
+        "sha256": "d5e523c93171bfd5437d15909f96318cdf93b83b456d5c538595a7f58e9089fd"
+      },
+      "results_file": {
+        "path": "evaluation/lite/20240402_sweagent_claude3opus/results/results.json",
+        "bytes": 25891,
+        "sha256": "45c067d32cfa6234e4c47b65b713c8adcf7d6ea26aa40dd448462a475b47203f"
+      },
+      "tree_inventory": {
+        "file_count": 638,
+        "total_bytes": 77821188,
+        "log_count": 333,
+        "trajectory_count": 300,
+        "prediction_file_count": 1,
+        "results_file_count": 1
+      }
+    },
+    {
+      "split": "lite",
+      "run": "20240402_rag_gpt4",
+      "path": "evaluation/lite/20240402_rag_gpt4",
+      "system": "RAG",
+      "model": "gpt-4-1106-preview",
+      "denominator": 300,
+      "official_artifact": {
+        "resolved_entries": 8,
+        "resolved_unique_instances": 8,
+        "percent": 2.6666666666666665,
+        "percent_rounded_2": 2.67
+      },
+      "paper_main_table": {
+        "percent": 2.67,
+        "implied_count": 8,
+        "count_delta_from_artifact": 0,
+        "matches_artifact_after_2dp_rounding": true
+      },
+      "paper_exit_condition_table": {
+        "resolved_count": null,
+        "matches_artifact": null
+      },
+      "results_categories": {
+        "no_generation": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "generated": {
+          "entries": 300,
+          "unique_instances": 300
+        },
+        "with_logs": {
+          "entries": 300,
+          "unique_instances": 300
+        },
+        "install_fail": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "reset_failed": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "no_apply": {
+          "entries": 210,
+          "unique_instances": 210
+        },
+        "applied": {
+          "entries": 89,
+          "unique_instances": 89
+        },
+        "test_errored": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "test_timeout": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "resolved": {
+          "entries": 8,
+          "unique_instances": 8
+        }
+      },
+      "predictions": {
+        "line_count": 300,
+        "unique_instance_count": 300,
+        "duplicate_instance_count": 0,
+        "null_or_empty_patch_count": 0,
+        "malformed_line_count": 0,
+        "path": "evaluation/lite/20240402_rag_gpt4/all_preds.jsonl",
+        "bytes": 299229,
+        "sha256": "35a67d92e3129a8367d6033824c7d81c64da84faa693668aaa0df1b88d037bce"
+      },
+      "results_file": {
+        "path": "evaluation/lite/20240402_rag_gpt4/results/results.json",
+        "bytes": 26868,
+        "sha256": "79c222673fdaea1128b17b15a67b94601077613f347b91045466c3ff94ae06ee"
+      },
+      "tree_inventory": {
+        "file_count": 305,
+        "total_bytes": 16202182,
+        "log_count": 300,
+        "trajectory_count": 0,
+        "prediction_file_count": 1,
+        "results_file_count": 1
+      }
+    },
+    {
+      "split": "lite",
+      "run": "20240402_rag_claude3opus",
+      "path": "evaluation/lite/20240402_rag_claude3opus",
+      "system": "RAG",
+      "model": "claude-3-opus-20240229",
+      "denominator": 300,
+      "official_artifact": {
+        "resolved_entries": 13,
+        "resolved_unique_instances": 13,
+        "percent": 4.333333333333333,
+        "percent_rounded_2": 4.33
+      },
+      "paper_main_table": {
+        "percent": 4.33,
+        "implied_count": 13,
+        "count_delta_from_artifact": 0,
+        "matches_artifact_after_2dp_rounding": true
+      },
+      "paper_exit_condition_table": {
+        "resolved_count": null,
+        "matches_artifact": null
+      },
+      "results_categories": {
+        "no_generation": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "generated": {
+          "entries": 300,
+          "unique_instances": 300
+        },
+        "with_logs": {
+          "entries": 300,
+          "unique_instances": 300
+        },
+        "install_fail": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "reset_failed": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "no_apply": {
+          "entries": 144,
+          "unique_instances": 144
+        },
+        "applied": {
+          "entries": 155,
+          "unique_instances": 155
+        },
+        "test_errored": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "test_timeout": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "resolved": {
+          "entries": 13,
+          "unique_instances": 13
+        }
+      },
+      "predictions": {
+        "line_count": 300,
+        "unique_instance_count": 300,
+        "duplicate_instance_count": 0,
+        "null_or_empty_patch_count": 0,
+        "malformed_line_count": 0,
+        "path": "evaluation/lite/20240402_rag_claude3opus/all_preds.jsonl",
+        "bytes": 386324,
+        "sha256": "676a0a611906dead50e785ce3ce15d0e7e53227391137f540ee26ac79175af04"
+      },
+      "results_file": {
+        "path": "evaluation/lite/20240402_rag_claude3opus/results/results.json",
+        "bytes": 27026,
+        "sha256": "45ed177bc2b38959d88756ae727344266aac49e36e01586dc9f6d18b56eb3f46"
+      },
+      "tree_inventory": {
+        "file_count": 305,
+        "total_bytes": 11909437,
+        "log_count": 300,
+        "trajectory_count": 0,
+        "prediction_file_count": 1,
+        "results_file_count": 1
+      }
+    },
+    {
+      "split": "test",
+      "run": "20240402_sweagent_gpt4",
+      "path": "evaluation/test/20240402_sweagent_gpt4",
+      "system": "SWE-agent",
+      "model": "gpt-4-1106-preview",
+      "denominator": 2294,
+      "official_artifact": {
+        "resolved_entries": 286,
+        "resolved_unique_instances": 286,
+        "percent": 12.467306015693113,
+        "percent_rounded_2": 12.47
+      },
+      "paper_main_table": {
+        "percent": 12.47,
+        "implied_count": 286,
+        "count_delta_from_artifact": 0,
+        "matches_artifact_after_2dp_rounding": true
+      },
+      "paper_exit_condition_table": {
+        "resolved_count": 286,
+        "matches_artifact": true
+      },
+      "results_categories": {
+        "no_generation": {
+          "entries": 154,
+          "unique_instances": 146
+        },
+        "generated": {
+          "entries": 2129,
+          "unique_instances": 2129
+        },
+        "with_logs": {
+          "entries": 2129,
+          "unique_instances": 2129
+        },
+        "install_fail": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "reset_failed": {
+          "entries": 1,
+          "unique_instances": 1
+        },
+        "no_apply": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "applied": {
+          "entries": 2087,
+          "unique_instances": 2087
+        },
+        "test_errored": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "test_timeout": {
+          "entries": 2,
+          "unique_instances": 2
+        },
+        "resolved": {
+          "entries": 286,
+          "unique_instances": 286
+        }
+      },
+      "predictions": {
+        "line_count": 2283,
+        "unique_instance_count": 2266,
+        "duplicate_instance_count": 17,
+        "null_or_empty_patch_count": 154,
+        "malformed_line_count": 0,
+        "path": "evaluation/test/20240402_sweagent_gpt4/all_preds.jsonl",
+        "bytes": 5846189,
+        "sha256": "6e52cd019f515f4d27e766a09198734a5e97b9dc0267811c4165800c443f7617"
+      },
+      "results_file": {
+        "path": "evaluation/test/20240402_sweagent_gpt4/results/results.json",
+        "bytes": 203705,
+        "sha256": "e8082bc952b8e41364c2cf5e48741f2f6779860677cc0cff9d173a1297ddb5e2"
+      },
+      "tree_inventory": {
+        "file_count": 4516,
+        "total_bytes": 675107304,
+        "log_count": 2243,
+        "trajectory_count": 2268,
+        "prediction_file_count": 1,
+        "results_file_count": 1
+      }
+    },
+    {
+      "split": "test",
+      "run": "20240402_sweagent_claude3opus",
+      "path": "evaluation/test/20240402_sweagent_claude3opus",
+      "system": "SWE-agent",
+      "model": "claude-3-opus-20240229",
+      "denominator": 2294,
+      "official_artifact": {
+        "resolved_entries": 241,
+        "resolved_unique_instances": 213,
+        "percent": 10.50566695727986,
+        "percent_rounded_2": 10.51
+      },
+      "paper_main_table": {
+        "percent": 10.46,
+        "implied_count": 240,
+        "count_delta_from_artifact": 1,
+        "matches_artifact_after_2dp_rounding": false
+      },
+      "paper_exit_condition_table": {
+        "resolved_count": 241,
+        "matches_artifact": true
+      },
+      "results_categories": {
+        "no_generation": {
+          "entries": 233,
+          "unique_instances": 204
+        },
+        "generated": {
+          "entries": 2343,
+          "unique_instances": 2063
+        },
+        "with_logs": {
+          "entries": 2343,
+          "unique_instances": 2063
+        },
+        "install_fail": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "reset_failed": {
+          "entries": 7,
+          "unique_instances": 7
+        },
+        "no_apply": {
+          "entries": 163,
+          "unique_instances": 151
+        },
+        "applied": {
+          "entries": 2014,
+          "unique_instances": 1762
+        },
+        "test_errored": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "test_timeout": {
+          "entries": 4,
+          "unique_instances": 4
+        },
+        "resolved": {
+          "entries": 241,
+          "unique_instances": 213
+        }
+      },
+      "predictions": {
+        "line_count": 2576,
+        "unique_instance_count": 2266,
+        "duplicate_instance_count": 310,
+        "null_or_empty_patch_count": 233,
+        "malformed_line_count": 0,
+        "path": "evaluation/test/20240402_sweagent_claude3opus/all_preds.jsonl",
+        "bytes": 20330874,
+        "sha256": "8bfd7bd67050662fff00c6f010c94fc76cfbd57a3f5e46c38bee84da484e4fcc"
+      },
+      "results_file": {
+        "path": "evaluation/test/20240402_sweagent_claude3opus/results/results.json",
+        "bytes": 219924,
+        "sha256": "8fdbed3c59e0c5f09b427132e3d0dfe7ba8c472bd93daf743a224aa75c32b93e"
+      },
+      "tree_inventory": {
+        "file_count": 4196,
+        "total_bytes": 559768433,
+        "log_count": 2178,
+        "trajectory_count": 2013,
+        "prediction_file_count": 1,
+        "results_file_count": 1
+      }
+    },
+    {
+      "split": "test",
+      "run": "20240402_rag_gpt4",
+      "path": "evaluation/test/20240402_rag_gpt4",
+      "system": "RAG",
+      "model": "gpt-4-1106-preview",
+      "denominator": 2294,
+      "official_artifact": {
+        "resolved_entries": 30,
+        "resolved_unique_instances": 30,
+        "percent": 1.3077593722755012,
+        "percent_rounded_2": 1.31
+      },
+      "paper_main_table": {
+        "percent": 1.31,
+        "implied_count": 30,
+        "count_delta_from_artifact": 0,
+        "matches_artifact_after_2dp_rounding": true
+      },
+      "paper_exit_condition_table": {
+        "resolved_count": null,
+        "matches_artifact": null
+      },
+      "results_categories": {
+        "no_generation": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "generated": {
+          "entries": 2294,
+          "unique_instances": 2294
+        },
+        "with_logs": {
+          "entries": 2294,
+          "unique_instances": 2294
+        },
+        "install_fail": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "reset_failed": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "no_apply": {
+          "entries": 1675,
+          "unique_instances": 1675
+        },
+        "applied": {
+          "entries": 617,
+          "unique_instances": 617
+        },
+        "test_errored": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "test_timeout": {
+          "entries": 2,
+          "unique_instances": 2
+        },
+        "resolved": {
+          "entries": 30,
+          "unique_instances": 30
+        }
+      },
+      "predictions": {
+        "line_count": 2294,
+        "unique_instance_count": 2294,
+        "duplicate_instance_count": 0,
+        "null_or_empty_patch_count": 0,
+        "malformed_line_count": 0,
+        "path": "evaluation/test/20240402_rag_gpt4/all_preds.jsonl",
+        "bytes": 2643797,
+        "sha256": "5c9dca64e71204ff2791cb7e07226f90314429e041353863f7e3663266786626"
+      },
+      "results_file": {
+        "path": "evaluation/test/20240402_rag_gpt4/results/results.json",
+        "bytes": 207469,
+        "sha256": "180531746b032f1d9e912c8a350b70b0d7da6e9c9f03223188cbd01a41b93701"
+      },
+      "tree_inventory": {
+        "file_count": 2425,
+        "total_bytes": 192833391,
+        "log_count": 2420,
+        "trajectory_count": 0,
+        "prediction_file_count": 1,
+        "results_file_count": 1
+      }
+    },
+    {
+      "split": "test",
+      "run": "20240402_rag_claude3opus",
+      "path": "evaluation/test/20240402_rag_claude3opus",
+      "system": "RAG",
+      "model": "claude-3-opus-20240229",
+      "denominator": 2294,
+      "official_artifact": {
+        "resolved_entries": 87,
+        "resolved_unique_instances": 87,
+        "percent": 3.7925021795989537,
+        "percent_rounded_2": 3.79
+      },
+      "paper_main_table": {
+        "percent": 3.79,
+        "implied_count": 87,
+        "count_delta_from_artifact": 0,
+        "matches_artifact_after_2dp_rounding": true
+      },
+      "paper_exit_condition_table": {
+        "resolved_count": null,
+        "matches_artifact": null
+      },
+      "results_categories": {
+        "no_generation": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "generated": {
+          "entries": 2287,
+          "unique_instances": 2287
+        },
+        "with_logs": {
+          "entries": 2287,
+          "unique_instances": 2287
+        },
+        "install_fail": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "reset_failed": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "no_apply": {
+          "entries": 1217,
+          "unique_instances": 1217
+        },
+        "applied": {
+          "entries": 1068,
+          "unique_instances": 1068
+        },
+        "test_errored": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "test_timeout": {
+          "entries": 0,
+          "unique_instances": 0
+        },
+        "resolved": {
+          "entries": 87,
+          "unique_instances": 87
+        }
+      },
+      "predictions": {
+        "line_count": 2287,
+        "unique_instance_count": 2287,
+        "duplicate_instance_count": 0,
+        "null_or_empty_patch_count": 0,
+        "malformed_line_count": 0,
+        "path": "evaluation/test/20240402_rag_claude3opus/all_preds.jsonl",
+        "bytes": 3424699,
+        "sha256": "172cc8446ee465ef8c14a739288b62fc1a19a3c4c67fdbccae5f448f6c2f0e5d"
+      },
+      "results_file": {
+        "path": "evaluation/test/20240402_rag_claude3opus/results/results.json",
+        "bytes": 208582,
+        "sha256": "fbd94a34ce48de8e2bbad0b4628c7ba1e3d10fa039c26e3843cbecf5344bb678"
+      },
+      "tree_inventory": {
+        "file_count": 2418,
+        "total_bytes": 219487670,
+        "log_count": 2413,
+        "trajectory_count": 0,
+        "prediction_file_count": 1,
+        "results_file_count": 1
+      }
+    }
+  ]
+}

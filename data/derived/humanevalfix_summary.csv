@@ -1,0 +1,4 @@
+language,passes,paper_notebook_denominator,paper_notebook_percent,paper_notebook_rounded_1,corrected_denominator,corrected_percent,corrected_rounded_1,evaluation_logs,testbed_logs,missing_evaluation_logs
+python,143,163,87.73006135,87.7,164,87.19512195,87.2,162,1,humanevalfix-python-135;humanevalfix-python-80
+js,148,165,89.69696970,89.7,164,90.24390244,90.2,164,1,
+java,145,165,87.87878788,87.9,164,88.41463415,88.4,164,1,

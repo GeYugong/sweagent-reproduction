@@ -369,6 +369,106 @@ SWE-bench 1.0.2 对 Marshmallow 2.20 未配置额外 Conda packages。旧 harnes
 
 `COMPLETE`：resolved=1。
 
+## 2026-07-16 — EXP-API-CLAUDE-001：Anthropic Messages 协议与当前模型目录
+
+### 凭据处理
+
+Anthropic 凭据写入 Git 忽略的 `secrets/anthropic.env`。该文件继承 `secrets/openai.env` 的保护 ACL：禁用继承，仅当前 Windows 账户拥有 FullControl。受 Git 管理的配置、命令输出和实验清单均不包含密钥值。
+
+### 目录与最小请求
+
+`GET /v1/models` 返回四个模型：
+
+- `claude-opus-4-6`；
+- `claude-opus-4-7`；
+- `claude-opus-4-8`；
+- `claude-sonnet-4-6`。
+
+使用 Anthropic Messages 协议向 `claude-sonnet-4-6` 发出一次确定性最小请求。响应为 HTTP 200，返回模型 ID 与请求一致，文本精确为 `OK`，stop reason 为 `end_turn`，usage 为 3 input tokens、1 output token，cache creation/read 均为 0。该调用只验证协议，不属于 benchmark。
+
+目录响应没有 token 单价或请求费用字段，因此批量调用的预算门槛保持未解除。
+
+### 状态
+
+`COMPLETE_WITH_LIMITATIONS`：现代 Claude Messages API 可用，价格未知。
+
+## 2026-07-16 — EXP-API-CLAUDE-002：论文 Claude 3 Opus 精确模型探测
+
+对论文模型 ID `claude-3-opus-20240229` 发出 `max_tokens=1` 的直接 Messages 请求，以排除“目录未列出但仍可调用”的情形。端点返回 HTTP 404、错误类型 `model_not_found`，说明该模型不受当前账户组支持；响应没有 usage，未产生模型 token。
+
+当前 Claude 端点只能用于现代模型复验，不能用于 E02/E04/E15 的严格原模型运行。
+
+### 状态
+
+`BLOCKED_EXACT_MODEL`：精确 Claude 3 Opus 不可用。
+
+## 2026-07-16 — EXP-ARTIFACT-001：官方 SWE-bench 主运行历史恢复与复算
+
+### 来源恢复
+
+新增官方 `SWE-bench/experiments` 子模块并固定当前主分支 commit `2f15350cd32becc4569e0d826361048555b605c0`。当前主分支在 2024 年 10 月重置历史并把大型预测、日志和轨迹迁移到 S3。通过官方早期 pull request 的 base/history 追溯，恢复论文发布前提交 `a5d52722965c791c0c04d18135f906b44f716d39`。
+
+该提交包含 GPT-4、Claude 3 Opus、RAG 的 Full/Lite `all_preds.jsonl`、评测日志、SWE-agent 轨迹和 `results/results.json`。历史对象 pack 约 681.5 MiB。为避免 Windows 超长路径，复算只读取 Git blob，不检出历史树。
+
+### 复算结果
+
+`scripts/reproduce_official_swebench_results.py` 从固定 revision 重新统计 resolved 集合、预测唯一实例、空 patch、重复行、日志和轨迹覆盖，并生成 SHA-256 清单。八行中六行与论文主表完全一致：
+
+- GPT-4 SWE-agent：Lite 54/300，Full 286/2294；
+- GPT-4 RAG：Lite 8/300，Full 30/2294；
+- Claude RAG：Lite 13/300，Full 87/2294。
+
+Claude SWE-agent 存在论文内部不一致：
+
+- Lite 官方工件为 35/300，论文退出条件表也为 35；主表为 13.00%，隐含 39/300；
+- Full 官方工件为 241/2294，论文退出条件表也为 241；主表 10.46% 隐含 240/2294。
+
+该差异不通过改写工件或修改分母消除。派生 CSV 同时保存论文值、工件值和差值。
+
+### 输出
+
+- `data/manifests/official_swebench_artifacts.json`；
+- `data/derived/official_swebench_main_results.csv`；
+- `docs/artifact_provenance.md`。
+
+### 状态
+
+`COMPLETE_WITH_PAPER_INCONSISTENCY`：主 GPT-4/Claude/RAG 工件复算完成；Shell-only、消融和重复运行仍未纳入本项。
+
+## 2026-07-16 — EXP-ARTIFACT-002：HumanEvalFix 表格与轮数分布复算
+
+### 来源与语言确认
+
+新增官方 `SWE-bench/humanevalfix-results` 子模块，固定 commit `bbd565c9035f873ba5ee2c1bd1d65c5ee2d85d1a`。发布工件包含 Python、JavaScript、Java 各 164 条轨迹和对应预测，没有 Go 目录。因此论文附录中的 Go 是笔误，严格设置固定为 Java。
+
+### notebook 分母审计
+
+原 `view_results.ipynb` 使用 `*.log` glob。每种语言目录中的 testbed 环境日志没有通过标记，却被计为一次失败。Python 目录还缺少实例 80、135 的评测日志，仅有 162 个实例评测日志。由此精确复现论文数字：
+
+- Python：143/163 = 87.73006%；
+- JavaScript：148/165 = 89.69697%；
+- Java：145/165 = 87.87879%。
+
+按声明的每语言 164 个任务修正分母后分别为 87.19512%、90.24390%、88.41463%。两套结果并列保留。
+
+### 轨迹与 PDF
+
+`scripts/reproduce_humanevalfix.py` 使用 `git cat-file --batch` 读取 492 条轨迹，将通过日志与实例 ID 关联，生成实例级 CSV 和原 notebook 的 2-turn bins。PDF 采用 Matplotlib 3.8.4、NumPy 1.26.4 与固定元数据时间戳；连续两次生成的 SHA-256 均为 `b96d4ee168b8b5ed1354227b84f69fe8da0eae68db2b457566affab21fd3d61a`。
+
+Poppler 检查结果：单页、870.81 x 280.598 pt、PDF 1.4、无加密。160 DPI 渲染图经视觉检查，三个标题、坐标轴、刻度、柱形和页边界均完整，无裁切、重叠或不可读元素。
+
+### 输出
+
+- `data/manifests/official_humanevalfix_artifacts.json`；
+- `data/derived/humanevalfix_summary.csv`；
+- `data/derived/humanevalfix_instance_results.csv`；
+- `data/derived/humanevalfix_histogram_bins.csv`；
+- `output/pdf/humanevalfix_turns_artifact.pdf`。
+
+### 状态
+
+`COMPLETE_WITH_NOTEBOOK_METRIC_BUG`：论文表格算法、修正指标和轮数图均已工件复算；精确模型重新推理仍未执行。
+
 ## 2026-07-16 — EXP-DEV20-006A：pvlib 1854 容器 EOF 竞态
 
 第七个实例在 Agent 初始化前终止。触发命令只是对 `export SEARCH_RESULTS=()` 执行 Bash 语法检查；日志显示后台 PID 为空，退出码读取缓冲区已经包含 `0`，但第二次读取仍等待满 5 秒并抛出 TimeoutError。

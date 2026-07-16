@@ -10,6 +10,7 @@ secrets/
 **/.mypy_cache/
 **/.ruff_cache/
 .venv/
+.venv-analysis/
 venv/
 .cache/
 
@@ -23,6 +24,7 @@ outputs/figures/*
 outputs/summary/*
 data/cache/
 data/docker/
+data/official_artifacts/
 tmp/
 
 # Keep output directory structure

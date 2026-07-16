@@ -1,0 +1,9 @@
+split,run,system,model,denominator,artifact_resolved,artifact_percent,paper_main_implied_count,paper_main_percent,count_delta,paper_main_match,paper_exit_count,paper_exit_match,prediction_instances,logs,trajectories
+lite,20240402_sweagent_gpt4,SWE-agent,gpt-4-1106-preview,300,54,18.00000000,54,18.00,0,True,54,True,299,284,300
+lite,20240402_sweagent_claude3opus,SWE-agent,claude-3-opus-20240229,300,35,11.66666667,39,13.00,-4,False,35,True,300,333,300
+lite,20240402_rag_gpt4,RAG,gpt-4-1106-preview,300,8,2.66666667,8,2.67,0,True,,,300,300,0
+lite,20240402_rag_claude3opus,RAG,claude-3-opus-20240229,300,13,4.33333333,13,4.33,0,True,,,300,300,0
+test,20240402_sweagent_gpt4,SWE-agent,gpt-4-1106-preview,2294,286,12.46730602,286,12.47,0,True,286,True,2266,2243,2268
+test,20240402_sweagent_claude3opus,SWE-agent,claude-3-opus-20240229,2294,241,10.50566696,240,10.46,1,False,241,True,2266,2178,2013
+test,20240402_rag_gpt4,RAG,gpt-4-1106-preview,2294,30,1.30775937,30,1.31,0,True,,,2294,2420,0
+test,20240402_rag_claude3opus,RAG,claude-3-opus-20240229,2294,87,3.79250218,87,3.79,0,True,,,2287,2413,0

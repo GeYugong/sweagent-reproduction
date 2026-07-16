@@ -18,10 +18,12 @@
 05/
 ├── code/                 # 固定版本的第三方实现
 ├── conf/                 # 研究与实验配置
-├── data/manifests/       # 数据子集清单，不存放大型缓存
+├── data/manifests/       # 数据与官方工件清单，不存放大型缓存
+├── data/derived/         # 可由脚本重建的表格与图形底层数据
 ├── docs/                 # 方案、论文笔记、环境与复现协议
 ├── logs/                 # 受 Git 管理的实验台账与摘要
 ├── outputs/              # 原始轨迹、补丁、结果和图表，默认不进入 Git
+├── output/pdf/           # 经过渲染检查的最终 PDF 工件
 ├── paper/                # 论文 PDF 与 arXiv 源码
 └── scripts/              # 环境审计与实验辅助脚本
 ```
@@ -45,7 +47,7 @@
 - 每次运行均记录代码哈希、配置、模型标识、时间、token、成本和退出状态；
 - 开发集在正式实验前冻结。
 
-完整方案见 [docs/full_paper_reproduction_plan.md](docs/full_paper_reproduction_plan.md)，机器清单见 [conf/full_paper_matrix.yaml](conf/full_paper_matrix.yaml)，逐次记录见 [logs/experiment_log.md](logs/experiment_log.md)。
+完整方案见 [docs/full_paper_reproduction_plan.md](docs/full_paper_reproduction_plan.md)，官方工件追溯与已复算结果见 [docs/artifact_provenance.md](docs/artifact_provenance.md)，机器清单见 [conf/full_paper_matrix.yaml](conf/full_paper_matrix.yaml)，逐次记录见 [logs/experiment_log.md](logs/experiment_log.md)。
 
 ## 安全与数据规则
 

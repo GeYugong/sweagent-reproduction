@@ -27,6 +27,12 @@ frozen_inputs:
     gpt4_turbo: gpt-4-1106-preview
     claude_3_opus: claude-3-opus-20240229
     failure_labeler: gpt-4o-2024-05-13
+  official_artifacts:
+    swebench_repository: https://github.com/SWE-bench/experiments
+    swebench_current_commit: 2f15350cd32becc4569e0d826361048555b605c0
+    swebench_paper_history_commit: a5d52722965c791c0c04d18135f906b44f716d39
+    humanevalfix_repository: https://github.com/SWE-bench/humanevalfix-results
+    humanevalfix_commit: bbd565c9035f873ba5ee2c1bd1d65c5ee2d85d1a
   datasets:
     swebench_full_test: 2294
     swebench_lite_test: 300
@@ -40,13 +46,13 @@ gates:
     evidence: Current relay model catalog does not expose gpt-4-1106-preview.
   - id: G_MODEL_CLAUDE_3_OPUS
     status: BLOCKED_UNAVAILABLE
-    evidence: Current relay model catalog does not expose claude-3-opus-20240229.
+    evidence: Anthropic Messages probe returned model_not_found for claude-3-opus-20240229; the current catalog exposes only Claude Opus 4.6/4.7/4.8 and Sonnet 4.6.
   - id: G_MODEL_FAILURE_LABELER
     status: BLOCKED_UNAVAILABLE
     evidence: Current relay model catalog does not expose gpt-4o-2024-05-13.
   - id: G_OFFICIAL_ARTIFACTS
-    status: IN_PROGRESS
-    evidence: Paper promises full artifacts; official releases have no assets and the paper snapshot contains only demos/test traces.
+    status: PARTIALLY_RECOVERED
+    evidence: Official pre-reset Git history contains main GPT-4/Claude/RAG predictions, logs, trajectories, and results; HumanEvalFix has released logs and 492 trajectories. Shell-only, ablation, sweep, pass@k, and failure-label artifacts remain under audit.
   - id: G_EXACT_ABLATION_CONFIGS
     status: IN_PROGRESS
     evidence: Default and some history configs are present; paper's full ablation and Shell-only run configs are not yet recovered.
@@ -54,14 +60,14 @@ gates:
     status: BLOCKED_MISSING_PROVENANCE
     evidence: Paper specifies a random 37-instance dev subset but does not list instance IDs in the source package.
   - id: G_HUMANEVAL_LANGUAGE
-    status: BLOCKED_PAPER_INCONSISTENCY
-    evidence: Main table says Java; appendix dataset table says Go.
+    status: COMPLETE
+    evidence: Official release contains exactly 164 trajectories for Python, JavaScript, and Java and no Go run; the appendix Go reference is a typo.
   - id: G_API_PRICING_AND_BUDGET
     status: BLOCKED_UNKNOWN_PRICE
     evidence: Relay pricing is unknown; unknown price is not treated as zero.
   - id: G_FORMAL_DISK
     status: BLOCKED_CAPACITY
-    evidence: Last audit found approximately 85 GB free on D, below the 120 GB formal-run threshold.
+    evidence: Artifact-history recovery left approximately 78 GB free on D, below the 120 GB formal-run threshold.
   - id: G_EVALUATOR_REPLAY
     status: IN_PROGRESS
     evidence: Dev20 evaluation works; published official prediction replay has not yet been validated.
@@ -252,8 +258,9 @@ experiments:
     evidence: exact
     model: gpt-4-1106-preview
     dataset: humanevalfix
+    languages: [python, js, java]
     episodes: 492
-    target: "87.7/89.7/87.9"
+    target: "paper notebook 87.7/89.7/87.9; corrected fixed-denominator 87.2/90.2/88.4"
     artifacts: [T_HUMANEVAL, F_HUMANEVAL_TURNS]
     requires: [G_MODEL_GPT4_TURBO, G_HUMANEVAL_LANGUAGE, G_API_PRICING_AND_BUDGET, G_EVALUATOR_REPLAY]
     status: NOT_STARTED
@@ -280,12 +287,12 @@ baselines:
     status: NOT_STARTED
 
 analysis_artifacts:
-  - {id: T_MAIN, name: main_results_table, status: SOURCE_TARGET_FROZEN}
+  - {id: T_MAIN, name: main_results_table, status: ARTIFACT_PARTIAL_WITH_CLAUDE_INCONSISTENCY}
   - {id: T_ABLATION, name: combined_aci_ablation_table, status: SOURCE_TARGET_FROZEN}
   - {id: T_HYPERPARAM, name: hyperparameter_sweep_table, status: SOURCE_TARGET_FROZEN}
   - {id: T_PASSK, name: pass_at_k_table, status: SOURCE_TARGET_FROZEN}
   - {id: F_PASSK, name: pass_at_k_figure, status: SOURCE_TARGET_FROZEN}
-  - {id: T_HUMANEVAL, name: humanevalfix_results_table, status: BLOCKED_PAPER_INCONSISTENCY}
+  - {id: T_HUMANEVAL, name: humanevalfix_results_table, status: ARTIFACT_RECOMPUTED_WITH_NOTEBOOK_DENOMINATOR_BUG}
   - {id: A_REPO, name: performance_by_repository, status: SOURCE_TARGET_FROZEN}
   - {id: A_TEMPORAL, name: performance_by_year, status: SOURCE_TARGET_FROZEN}
   - {id: A_EXIT, name: exit_condition_counts, status: SOURCE_TARGET_FROZEN}
@@ -293,9 +300,30 @@ analysis_artifacts:
   - {id: A_FAILURE, name: failure_mode_labels_and_figure, status: SOURCE_TARGET_FROZEN}
   - {id: A_PATCH, name: patch_statistics, status: SOURCE_TARGET_FROZEN}
   - {id: A_LOCALIZATION, name: file_localization_f1, status: SOURCE_TARGET_FROZEN}
-  - {id: F_HUMANEVAL_TURNS, name: humanevalfix_turn_distribution, status: SOURCE_TARGET_FROZEN}
+  - {id: F_HUMANEVAL_TURNS, name: humanevalfix_turn_distribution, status: ARTIFACT_RECOMPUTED_AND_RENDERED}
   - {id: A_QUALITATIVE, name: four_qualitative_cases, status: SOURCE_TARGET_FROZEN}
   - {id: A_PROMPTS_INTERFACE, name: prompts_commands_and_interface_assets, status: SOURCE_TARGET_FROZEN}
+
+artifact_reproduction_runs:
+  - id: EXP-ARTIFACT-001
+    evidence: artifact
+    source_revision: a5d52722965c791c0c04d18135f906b44f716d39
+    scope: main_swebench_and_rag_rows
+    status: COMPLETE_WITH_PAPER_INCONSISTENCY
+    outputs:
+      - data/manifests/official_swebench_artifacts.json
+      - data/derived/official_swebench_main_results.csv
+  - id: EXP-ARTIFACT-002
+    evidence: artifact
+    source_revision: bbd565c9035f873ba5ee2c1bd1d65c5ee2d85d1a
+    scope: humanevalfix_table_and_turn_distribution
+    status: COMPLETE_WITH_NOTEBOOK_METRIC_BUG
+    outputs:
+      - data/manifests/official_humanevalfix_artifacts.json
+      - data/derived/humanevalfix_summary.csv
+      - data/derived/humanevalfix_instance_results.csv
+      - data/derived/humanevalfix_histogram_bins.csv
+      - output/pdf/humanevalfix_turns_artifact.pdf
 
 existing_non_exact_runs:
   - id: EXP-DEV20
