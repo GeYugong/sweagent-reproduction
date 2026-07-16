@@ -20,3 +20,4 @@ EXP-DEV20-003,2026-07-16,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,pvlib__p
 EXP-DEV20-003E,2026-07-16,P1,batch_resume,none,SWE-bench_Lite,pvlib__pvlib-python-1154,42,DUPLICATE_EVALUATION,,0,"Generated-only scorecard was not skipped; evaluator repeated with zero API calls; skip rule fixed"
 EXP-DEV20-004,2026-07-16,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,pvlib__pvlib-python-1606,42,COMPLETE,0,1,"4 calls; 55879 input and 632 output tokens; three markdown-language-tag format failures; NOT_GENERATED"
 EXP-DEV20-005A,2026-07-16,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,pvlib__pvlib-python-1707,42,EVAL_INVALID,,0,"Prediction generated with 21 calls; evaluator imported NumPy 2.0.2 and all target tests failed before collection"
+EXP-DEV20-005,2026-07-16,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,pvlib__pvlib-python-1707,42,COMPLETE,1,1,"21 calls; 361753 input and 4612 output tokens; numpy<2 compatibility re-evaluation passed 31/31 target tests"

@@ -596,3 +596,18 @@ evaluator 报告 FAIL_TO_PASS 1/1 和 PASS_TO_PASS 30/30 全部失败，但 pyte
 ### 状态
 
 `EVAL_INVALID`：等待同一预测在兼容评测环境中重新判分，API 不重跑。
+
+## 2026-07-16 — EXP-DEV20-005：pvlib 1707 正式兼容重判
+
+同一 `all_preds.jsonl` 在 `PIP_CONSTRAINT=numpy<2` 的新隔离 testbed 中重新评测。安装日志显示项目与依赖安装成功，benchmark test patch 和 prediction patch 均成功应用。pytest 实际收集并执行 31 个目标测试：
+
+- FAIL_TO_PASS：1/1 通过；
+- PASS_TO_PASS：30/30 通过；
+- 总目标测试：31/31 通过；
+- evaluator 判定：`RESOLVED_FULL`。
+
+推理统计沿用原轨迹：21 次 API 调用、361,753 输入 token、4,612 输出 token、19 个 agent 步骤。兼容重判没有模型调用。
+
+### 状态
+
+`COMPLETE`：resolved=1。

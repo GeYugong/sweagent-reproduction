@@ -21,13 +21,14 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 | EXP-DEV20-002 | `marshmallow-code__marshmallow-1359` | 23 | 299,097 | 5,405 | applied | RESOLVED_FULL |
 | EXP-DEV20-003 | `pvlib__pvlib-python-1154` | 23 | 363,417 | 5,377 | apply failed | unresolved |
 | EXP-DEV20-004 | `pvlib__pvlib-python-1606` | 4 | 55,879 | 632 | not generated | unresolved |
+| EXP-DEV20-005 | `pvlib__pvlib-python-1707` | 21 | 361,753 | 4,612 | applied | RESOLVED_FULL |
 
 当前累计：
 
-- 已评测：5/20；
-- resolved：2；
+- 已评测：6/20；
+- resolved：3；
 - 未 resolved：3；
-- 暂时 resolve rate：40.0%。
+- 暂时 resolve rate：50.0%。
 
 该比例只有三个样本，不报告置信区间，也不用于模型间比较。至少完成冻结的 20 个实例后再计算主指标与 bootstrap 置信区间。
 
@@ -77,6 +78,23 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 - scorecard：`not_generated`。
 
 该实例按正式协议计为 unresolved。它进一步说明现代模型与 2024 年论文 ACI 之间存在语法接口漂移，可在完成基线后将“允许代码围栏语言标签”作为独立兼容改进，而不能在当前 dev20 基线中途启用。
+
+## pvlib 1707 正式结果
+
+模型在 `physical()` 的 IAM 计算后将绝对入射角不小于 90 度的结果置为 0，并恢复 pandas Series 的索引类型；Agent 侧 `test_iam.py` 为 30/30 通过。首次 evaluator 使用 NumPy 2.0.2，冻结代码在收集阶段因 `np.Inf` 被移除而使全部测试失败，该 scorecard 已标记为无效。
+
+同一预测在仅增加 `numpy<2` 约束的隔离 evaluator 中重新判分：
+
+- patch apply：成功；
+- FAIL_TO_PASS：1/1；
+- PASS_TO_PASS：30/30；
+- 总目标测试：31/31；
+- API 调用：21；
+- 输入 token：361,753；
+- 输出 token：4,612；
+- 正式判定：`RESOLVED_FULL`。
+
+重判没有再次调用模型，预测 patch、benchmark test patch 和测试集合均未改变。
 
 ## Marshmallow 成功案例
 
