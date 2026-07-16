@@ -1,5 +1,5 @@
 schema_version: 1
-as_of: "2026-07-16"
+as_of: "2026-07-17"
 objective: full_paper_reproduction
 
 evidence_types:
@@ -31,11 +31,15 @@ frozen_inputs:
     swebench_repository: https://github.com/SWE-bench/experiments
     swebench_current_commit: 2f15350cd32becc4569e0d826361048555b605c0
     swebench_paper_history_commit: a5d52722965c791c0c04d18135f906b44f716d39
+    swebench_evaluator_repository: https://github.com/SWE-bench/SWE-bench
+    swebench_evaluator_commit: cfb20092bbbee9683176177b2f59b85f522e7f27
     humanevalfix_repository: https://github.com/SWE-bench/humanevalfix-results
     humanevalfix_commit: bbd565c9035f873ba5ee2c1bd1d65c5ee2d85d1a
   datasets:
     swebench_full_test: 2294
+    swebench_full_paper_revision: 283547aced6224d4adbe55c678b4c9c43fe7d501
     swebench_lite_test: 300
+    swebench_lite_paper_revision: 81ad348adcaf3368691f4db2907f8fc97a8f7526
     swebench_dev_sweep: 37
     humanevalfix_per_language: 164
   per_instance_budget_usd: 4.0
@@ -69,8 +73,8 @@ gates:
     status: BLOCKED_CAPACITY
     evidence: Artifact-history recovery left approximately 78 GB free on D, below the 120 GB formal-run threshold.
   - id: G_EVALUATOR_REPLAY
-    status: IN_PROGRESS
-    evidence: Dev20 evaluation works; published official prediction replay has not yet been validated.
+    status: PARTIAL_AGGREGATION_COMPLETE_CONTAINER_PENDING
+    evidence: The pinned historical get_model_report plus paper-era Lite/Full dataset revisions reproduces all ten category lists for all eight official SWE-agent/RAG runs exactly, including order and duplicates. Representative patch-to-container re-execution remains pending.
 
 episode_accounting:
   main_full_default: 4588
@@ -284,10 +288,10 @@ baselines:
     target: "Full 1.31/3.79; Lite 2.67/4.33"
     artifacts: [T_MAIN, A_REPO, A_TEMPORAL, A_LOCALIZATION]
     requires: [G_OFFICIAL_ARTIFACTS, G_EVALUATOR_REPLAY]
-    status: NOT_STARTED
+    status: ARTIFACT_AGGREGATION_REPLAYED_CONTAINER_PENDING
 
 analysis_artifacts:
-  - {id: T_MAIN, name: main_results_table, status: ARTIFACT_PARTIAL_WITH_CLAUDE_INCONSISTENCY}
+  - {id: T_MAIN, name: main_results_table, status: ARTIFACT_RECOMPUTED_EVALUATOR_VERIFIED_WITH_CLAUDE_INCONSISTENCY}
   - {id: T_ABLATION, name: combined_aci_ablation_table, status: PAPER_AGGREGATE_REPRODUCED_RAW_RUNS_MISSING}
   - {id: T_HYPERPARAM, name: hyperparameter_sweep_table, status: PAPER_AGGREGATE_REPRODUCED_RAW_RUNS_AND_DEV37_MISSING}
   - {id: T_PASSK, name: pass_at_k_table, status: PAPER_AGGREGATE_REPRODUCED_RAW_PREDICTIONS_MISSING}
@@ -338,6 +342,18 @@ artifact_reproduction_runs:
       - data/derived/paper_failure_mode_counts.csv
       - output/pdf/pass_at_k_source_aggregate.pdf
       - output/pdf/failure_modes_source_aggregate.pdf
+  - id: EXP-ARTIFACT-004
+    evidence: artifact
+    source_revision: a5d52722965c791c0c04d18135f906b44f716d39
+    evaluator_revision: cfb20092bbbee9683176177b2f59b85f522e7f27
+    dataset_revisions:
+      lite: 81ad348adcaf3368691f4db2907f8fc97a8f7526
+      full: 283547aced6224d4adbe55c678b4c9c43fe7d501
+    scope: official_swebench_historical_result_aggregation
+    status: COMPLETE_8_OF_8_FULL_REPORT_MATCH
+    outputs:
+      - data/manifests/official_evaluator_replay.json
+      - docs/evaluator_replay.md
 
 existing_non_exact_runs:
   - id: EXP-DEV20

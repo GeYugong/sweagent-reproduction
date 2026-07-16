@@ -7,3 +7,6 @@
 [submodule "code/humanevalfix-results"]
 	path = code/humanevalfix-results
 	url = https://github.com/SWE-bench/humanevalfix-results.git
+[submodule "code/SWE-bench"]
+	path = code/SWE-bench
+	url = https://github.com/SWE-bench/SWE-bench.git

@@ -32,7 +32,9 @@
 
 - 论文：arXiv `2405.15793v3`，NeurIPS 2024。
 - 论文版代码快照：SWE-agent commit `658eb2842e8a8b00069b301338bc342b70538f7a`。
-- 选择依据：该提交是 arXiv 初次提交时间 `2024-05-06 17:41:33 UTC` 之前的最后一个上游提交。
+- 论文期评测聚合器：SWE-bench commit `cfb20092bbbee9683176177b2f59b85f522e7f27`。
+- 论文期数据：Lite `81ad348adcaf3368691f4db2907f8fc97a8f7526`，Full `283547aced6224d4adbe55c678b4c9c43fe7d501`。
+- SWE-agent 选择依据：`658eb284` 是 arXiv 初次提交时间 `2024-05-06 17:41:33 UTC` 之前的最后一个上游提交。
 - 默认论文配置：temperature `0.0`、文件窗口 `100` 行、历史处理器 `Last5Observations`。
 
 代码快照用于最大程度贴近论文提交时状态，但上游未在论文中声明唯一提交哈希，因此该映射属于可审计的时间对齐选择，而不是官方保证。
@@ -47,7 +49,7 @@
 - 每次运行均记录代码哈希、配置、模型标识、时间、token、成本和退出状态；
 - 开发集在正式实验前冻结。
 
-完整方案见 [docs/full_paper_reproduction_plan.md](docs/full_paper_reproduction_plan.md)，官方工件追溯与已复算结果见 [docs/artifact_provenance.md](docs/artifact_provenance.md)，论文期协议与缺失资产边界见 [docs/protocol_recovery_audit.md](docs/protocol_recovery_audit.md)，机器清单见 [conf/full_paper_matrix.yaml](conf/full_paper_matrix.yaml)，逐次记录见 [logs/experiment_log.md](logs/experiment_log.md)。
+完整方案见 [docs/full_paper_reproduction_plan.md](docs/full_paper_reproduction_plan.md)，官方工件追溯与已复算结果见 [docs/artifact_provenance.md](docs/artifact_provenance.md)，历史评测聚合器验证见 [docs/evaluator_replay.md](docs/evaluator_replay.md)，论文期协议与缺失资产边界见 [docs/protocol_recovery_audit.md](docs/protocol_recovery_audit.md)，机器清单见 [conf/full_paper_matrix.yaml](conf/full_paper_matrix.yaml)，逐次记录见 [logs/experiment_log.md](logs/experiment_log.md)。
 
 论文源码中的 ACI 消融、超参数、pass@k 与失败模式聚合值可用以下命令重建：
 
@@ -58,6 +60,16 @@ wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
 ```
 
 这些输出明确标为 `paper_source_aggregate`。它们验证论文最终表图数据，不替代缺失的逐实例预测、轨迹、标签或精确重跑。
+
+八组官方主预测的历史聚合报告可用以下命令重放：
+
+```powershell
+wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
+  /home/gugabobo/.venvs/swebench-paper-eval/bin/python `
+  scripts/replay_official_evaluator.py
+```
+
+论文期代码与数据 revision 得到 `8/8` 完整类别列表一致；固定的 2025 数据 revision 只得到 `6/8`，证明正式论文口径不能使用浮动的最新数据集。
 
 ## 安全与数据规则
 

@@ -1152,3 +1152,68 @@ pass@k 与 failure-mode PDF 连续两次生成哈希一致，分别为：
 ### 状态
 
 `COMPLETE_AGGREGATES_RAW_ASSETS_MISSING`：论文最终聚合值和图可重建；缺失官方原始资产已登记为 blocker，不能替代 exact 重跑。
+
+## 2026-07-17 — EXP-ARTIFACT-004：官方 evaluator 历史聚合重放
+
+### 目标
+
+从论文期官方 `all_preds.jsonl` 和评测日志重新生成八组 `results.json`，要求十个类别的完整列表、顺序与重复次数均一致；只比较 resolved 数不构成通过。实验不调用模型，API 调用与费用均为 0。
+
+### 历史源码定位
+
+论文快照只声明 `swebench>=1.0.1`，不能唯一确定聚合语义。PyPI 1.0.1/1.0.2 的 `get_model_report` 仍返回较早的仓库嵌套结构，而官方结果使用 `no_generation/generated/with_logs/install_fail/reset_failed/no_apply/applied/test_errored/test_timeout/resolved` 十类平面结构。对 SWE-bench 官方 Git 历史逐提交比对后，定位到：
+
+- evaluator：`cfb20092bbbee9683176177b2f59b85f522e7f27`，主题 `Add empty patch case in eval`；
+- 版本字符串：`1.1.0`，但该提交晚于 1.1.0 release 提交，因此包版本本身不足以复原源码；
+- `get_model_report` 源码 SHA-256：`c41a4bcfb734793ff1352439e4e10de87e3c10a1714c4d7ff6ae90c8eced8173`。
+
+该 revision 已作为 `code/SWE-bench` 子模块固定。
+
+### 数据 revision 定位
+
+用 Hugging Face 当前数据回放时，Claude Full 得到 243 而非 241，RAG GPT-4 Full 得到 32 而非 30。差异只出现在 resolved，其他九个类别完整一致，说明预测和日志读取路径正确，测试参考发生了漂移。
+
+检索官方数据仓库历史后固定：
+
+- Lite：`81ad348adcaf3368691f4db2907f8fc97a8f7526`，Parquet 1,176,783 bytes，SHA-256 `2c0969b6fb6920f9425015563419901a4fe7fd078d143a3457fa1997b52365b1`；
+- Full：`283547aced6224d4adbe55c678b4c9c43fe7d501`，Parquet 12,102,802 bytes，SHA-256 `831728617f006e70c9de546e15cbdb49ce27b6fe8a8e4c4cd8035e8da3de3020`。
+
+两者均为 2024-04-15 的 `revalidate tests` revision，早于官方 experiments 首次提交。
+
+### 历史行语义
+
+完整列表比对确认原聚合器不按实例去重：
+
+- GPT-4 Lite：302 行、299 个唯一实例；
+- GPT-4 Full：2,283 行、2,266 个唯一实例；
+- Claude Full：2,576 行、2,266 个唯一实例，其中 310 个重复行；
+- Claude Full 官方 resolved 为 241 个条目、213 个唯一实例。
+
+`null` 与空白字符串均归入 `no_generation`。重复行复用同一个实例日志，但每次都向类别列表追加实例 ID。`pred_try` 或 `pred_minimal_try` 任一失败即归入 `no_apply`。此前“先按实例 ID 去重”的假设不符合历史代码，已从工件说明中撤销。
+
+### 冷启动正式重放
+
+新增 `scripts/replay_official_evaluator.py`：
+
+1. 下载四个固定 revision 的论文期/后论文期 Parquet 并校验 LFS SHA-256；
+2. 从 experiments 旧提交通过 `git cat-file --batch` 只读取预测实际请求的唯一日志；
+3. 每组分别使用论文期与 2025 数据参考运行固定源码；
+4. 对所有类别执行完整列表比较；
+5. 处理一组后清理临时日志，保留受 Git 忽略的哈希缓存。
+
+冷缓存端到端墙钟时间 540.6 秒。运行发生在本地 WSL2，使用 CPU 和磁盘；GPU、远程服务器和模型 API 均未使用。
+
+### 结果
+
+- 论文期数据：8/8 报告完整相等；
+- 固定 2025-03-03 数据：6/8 报告完整相等；
+- Lite 数据有 12 个实例的测试参考变化，Full 有 81 个；
+- Claude Full 新增 `sympy__sympy-11384`、`sympy__sympy-12906`；
+- RAG GPT-4 Full 新增 `sympy__sympy-12906`、`sympy__sympy-13001`；
+- 三个实际判分漂移实例均涉及 `PASS_TO_PASS` 参考变化。
+
+机器清单保存于 `data/manifests/official_evaluator_replay.json`，完整方法保存于 `docs/evaluator_replay.md`。
+
+### 状态
+
+`COMPLETE_8_OF_8_AGGREGATION_MATCH`：历史日志到官方结果的聚合层通过。prediction patch 到新容器的代表实例重新执行尚未完成，因此总门槛保持 `PARTIAL_AGGREGATION_COMPLETE_CONTAINER_PENDING`。
