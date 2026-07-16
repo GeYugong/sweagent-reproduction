@@ -1,0 +1,317 @@
+schema_version: 1
+as_of: "2026-07-16"
+objective: full_paper_reproduction
+
+evidence_types:
+  artifact:
+    description: Recompute published results from authors' original artifacts.
+    substitutes_for_exact_run: false
+  exact:
+    description: Rerun with the paper model, code, data, configuration, and budget.
+    substitutes_for_artifact: false
+  modern:
+    description: Re-test paper claims with a currently available model.
+    substitutes_for_exact_run: false
+  exploratory:
+    description: Debugging or non-paper-aligned experiment excluded from primary results.
+    substitutes_for_exact_run: false
+
+frozen_inputs:
+  paper:
+    arxiv_id: "2405.15793"
+    version: v3
+    pdf: paper/2405.15793_SWE-agent.pdf
+    source: paper/2405.15793_source.tar.gz
+  sweagent_commit: 658eb2842e8a8b00069b301338bc342b70538f7a
+  paper_models:
+    gpt4_turbo: gpt-4-1106-preview
+    claude_3_opus: claude-3-opus-20240229
+    failure_labeler: gpt-4o-2024-05-13
+  datasets:
+    swebench_full_test: 2294
+    swebench_lite_test: 300
+    swebench_dev_sweep: 37
+    humanevalfix_per_language: 164
+  per_instance_budget_usd: 4.0
+
+gates:
+  - id: G_MODEL_GPT4_TURBO
+    status: BLOCKED_UNAVAILABLE
+    evidence: Current relay model catalog does not expose gpt-4-1106-preview.
+  - id: G_MODEL_CLAUDE_3_OPUS
+    status: BLOCKED_UNAVAILABLE
+    evidence: Current relay model catalog does not expose claude-3-opus-20240229.
+  - id: G_MODEL_FAILURE_LABELER
+    status: BLOCKED_UNAVAILABLE
+    evidence: Current relay model catalog does not expose gpt-4o-2024-05-13.
+  - id: G_OFFICIAL_ARTIFACTS
+    status: IN_PROGRESS
+    evidence: Paper promises full artifacts; official releases have no assets and the paper snapshot contains only demos/test traces.
+  - id: G_EXACT_ABLATION_CONFIGS
+    status: IN_PROGRESS
+    evidence: Default and some history configs are present; paper's full ablation and Shell-only run configs are not yet recovered.
+  - id: G_DEV37_MANIFEST
+    status: BLOCKED_MISSING_PROVENANCE
+    evidence: Paper specifies a random 37-instance dev subset but does not list instance IDs in the source package.
+  - id: G_HUMANEVAL_LANGUAGE
+    status: BLOCKED_PAPER_INCONSISTENCY
+    evidence: Main table says Java; appendix dataset table says Go.
+  - id: G_API_PRICING_AND_BUDGET
+    status: BLOCKED_UNKNOWN_PRICE
+    evidence: Relay pricing is unknown; unknown price is not treated as zero.
+  - id: G_FORMAL_DISK
+    status: BLOCKED_CAPACITY
+    evidence: Last audit found approximately 85 GB free on D, below the 120 GB formal-run threshold.
+  - id: G_EVALUATOR_REPLAY
+    status: IN_PROGRESS
+    evidence: Dev20 evaluation works; published official prediction replay has not yet been validated.
+
+episode_accounting:
+  main_full_default: 4588
+  main_lite_default: 600
+  shell_only_and_no_demo: 600
+  eight_lite_ablations: 2400
+  hyperparameter_sweep: 2960
+  pass_at_k_total: 1800
+  pass_at_k_increment_if_main_lite_reused: 1500
+  humanevalfix: 492
+  minimum_unique_agent_episodes: 13140
+  maximum_without_proven_reuse: 13440
+  rag_if_regenerated: 4588
+  failure_label_requests: 248
+  dev20_projection_for_minimum_unique:
+    api_calls: 260829
+    input_tokens: 3611494179
+    output_tokens: 46256085
+    sequential_days_at_10_minutes: 91.2
+    paper_budget_ceiling_usd: 52560
+
+experiments:
+  - id: E01
+    name: sweagent_gpt4_full
+    evidence: exact
+    model: gpt-4-1106-preview
+    dataset: swebench_full_test
+    episodes: 2294
+    target: "12.47% (286/2294), cost 1.59"
+    artifacts: [T_MAIN, A_REPO, A_TEMPORAL, A_EXIT, A_TRAJECTORY, A_PATCH, A_LOCALIZATION]
+    requires: [G_MODEL_GPT4_TURBO, G_API_PRICING_AND_BUDGET, G_FORMAL_DISK, G_EVALUATOR_REPLAY]
+    status: NOT_STARTED
+  - id: E02
+    name: sweagent_claude_full
+    evidence: exact
+    model: claude-3-opus-20240229
+    dataset: swebench_full_test
+    episodes: 2294
+    target: "10.46%, cost 2.59"
+    artifacts: [T_MAIN, A_REPO, A_TEMPORAL, A_EXIT, A_TRAJECTORY, A_PATCH]
+    requires: [G_MODEL_CLAUDE_3_OPUS, G_API_PRICING_AND_BUDGET, G_FORMAL_DISK, G_EVALUATOR_REPLAY]
+    status: NOT_STARTED
+  - id: E03
+    name: sweagent_gpt4_lite
+    evidence: exact
+    model: gpt-4-1106-preview
+    dataset: swebench_lite_test
+    episodes: 300
+    target: "18.00% (54/300), cost 1.67"
+    artifacts: [T_MAIN, T_ABLATION, T_PASSK, A_FAILURE]
+    requires: [G_MODEL_GPT4_TURBO, G_API_PRICING_AND_BUDGET, G_FORMAL_DISK, G_EVALUATOR_REPLAY]
+    status: NOT_STARTED
+  - id: E04
+    name: sweagent_claude_lite
+    evidence: exact
+    model: claude-3-opus-20240229
+    dataset: swebench_lite_test
+    episodes: 300
+    target: "13.00%, cost 2.18"
+    artifacts: [T_MAIN, A_REPO, A_TEMPORAL, A_EXIT]
+    requires: [G_MODEL_CLAUDE_3_OPUS, G_API_PRICING_AND_BUDGET, G_FORMAL_DISK, G_EVALUATOR_REPLAY]
+    status: NOT_STARTED
+  - id: E05
+    name: shell_only_gpt4_lite
+    evidence: exact
+    model: gpt-4-1106-preview
+    dataset: swebench_lite_test
+    episodes: 300
+    target: "11.00%, cost 1.46"
+    artifacts: [T_MAIN]
+    requires: [G_MODEL_GPT4_TURBO, G_EXACT_ABLATION_CONFIGS, G_API_PRICING_AND_BUDGET, G_FORMAL_DISK]
+    status: NOT_STARTED
+  - id: E06
+    name: shell_only_no_demo_gpt4_lite
+    evidence: exact
+    model: gpt-4-1106-preview
+    dataset: swebench_lite_test
+    episodes: 300
+    target: "7.33%, cost 0.79"
+    artifacts: [T_MAIN]
+    requires: [G_MODEL_GPT4_TURBO, G_EXACT_ABLATION_CONFIGS, G_API_PRICING_AND_BUDGET, G_FORMAL_DISK]
+    status: NOT_STARTED
+  - id: E07
+    name: editor_without_linting
+    evidence: exact
+    model: gpt-4-1106-preview
+    dataset: swebench_lite_test
+    episodes: 300
+    target: "15.0%"
+    artifacts: [T_ABLATION]
+    requires: [G_MODEL_GPT4_TURBO, G_EXACT_ABLATION_CONFIGS, G_API_PRICING_AND_BUDGET, G_FORMAL_DISK]
+    status: NOT_STARTED
+  - id: E08
+    name: no_edit
+    evidence: exact
+    model: gpt-4-1106-preview
+    dataset: swebench_lite_test
+    episodes: 300
+    target: "10.3%"
+    artifacts: [T_ABLATION]
+    requires: [G_MODEL_GPT4_TURBO, G_EXACT_ABLATION_CONFIGS, G_API_PRICING_AND_BUDGET, G_FORMAL_DISK]
+    status: NOT_STARTED
+  - id: E09
+    name: iterative_search
+    evidence: exact
+    model: gpt-4-1106-preview
+    dataset: swebench_lite_test
+    episodes: 300
+    target: "12.0%"
+    artifacts: [T_ABLATION]
+    requires: [G_MODEL_GPT4_TURBO, G_EXACT_ABLATION_CONFIGS, G_API_PRICING_AND_BUDGET, G_FORMAL_DISK]
+    status: NOT_STARTED
+  - id: E10
+    name: no_search
+    evidence: exact
+    model: gpt-4-1106-preview
+    dataset: swebench_lite_test
+    episodes: 300
+    target: "15.7%"
+    artifacts: [T_ABLATION]
+    requires: [G_MODEL_GPT4_TURBO, G_EXACT_ABLATION_CONFIGS, G_API_PRICING_AND_BUDGET, G_FORMAL_DISK]
+    status: NOT_STARTED
+  - id: E11
+    name: window_30
+    evidence: exact
+    model: gpt-4-1106-preview
+    dataset: swebench_lite_test
+    episodes: 300
+    target: "14.3%"
+    artifacts: [T_ABLATION]
+    requires: [G_MODEL_GPT4_TURBO, G_EXACT_ABLATION_CONFIGS, G_API_PRICING_AND_BUDGET, G_FORMAL_DISK]
+    status: NOT_STARTED
+  - id: E12
+    name: full_file_view
+    evidence: exact
+    model: gpt-4-1106-preview
+    dataset: swebench_lite_test
+    episodes: 300
+    target: "12.7%"
+    artifacts: [T_ABLATION]
+    requires: [G_MODEL_GPT4_TURBO, G_EXACT_ABLATION_CONFIGS, G_API_PRICING_AND_BUDGET, G_FORMAL_DISK]
+    status: NOT_STARTED
+  - id: E13
+    name: full_history
+    evidence: exact
+    model: gpt-4-1106-preview
+    dataset: swebench_lite_test
+    episodes: 300
+    target: "15.0%"
+    artifacts: [T_ABLATION]
+    requires: [G_MODEL_GPT4_TURBO, G_EXACT_ABLATION_CONFIGS, G_API_PRICING_AND_BUDGET, G_FORMAL_DISK]
+    status: NOT_STARTED
+  - id: E14
+    name: no_demonstration
+    evidence: exact
+    model: gpt-4-1106-preview
+    dataset: swebench_lite_test
+    episodes: 300
+    target: "16.3%"
+    artifacts: [T_ABLATION]
+    requires: [G_MODEL_GPT4_TURBO, G_EXACT_ABLATION_CONFIGS, G_API_PRICING_AND_BUDGET, G_FORMAL_DISK]
+    status: NOT_STARTED
+  - id: E15
+    name: hyperparameter_sweep
+    evidence: exact
+    models: [gpt-4-1106-preview, claude-3-opus-20240229]
+    dataset: swebench_dev_37
+    episodes: 2960
+    target: "16 configurations, mean across five samples"
+    artifacts: [T_HYPERPARAM]
+    requires: [G_MODEL_GPT4_TURBO, G_MODEL_CLAUDE_3_OPUS, G_DEV37_MANIFEST, G_API_PRICING_AND_BUDGET]
+    status: NOT_STARTED
+  - id: E16
+    name: pass_at_k_six_runs
+    evidence: exact
+    model: gpt-4-1106-preview
+    dataset: swebench_lite_test
+    episodes: 1800
+    target: "17.33/18.00/18.00/18.67/17.33/18.33; pass@6 32.67"
+    artifacts: [T_PASSK, F_PASSK]
+    requires: [G_MODEL_GPT4_TURBO, G_API_PRICING_AND_BUDGET, G_FORMAL_DISK, G_EVALUATOR_REPLAY]
+    status: NOT_STARTED
+  - id: E17
+    name: humanevalfix_three_languages
+    evidence: exact
+    model: gpt-4-1106-preview
+    dataset: humanevalfix
+    episodes: 492
+    target: "87.7/89.7/87.9"
+    artifacts: [T_HUMANEVAL, F_HUMANEVAL_TURNS]
+    requires: [G_MODEL_GPT4_TURBO, G_HUMANEVAL_LANGUAGE, G_API_PRICING_AND_BUDGET, G_EVALUATOR_REPLAY]
+    status: NOT_STARTED
+  - id: E18
+    name: unresolved_failure_classification
+    evidence: exact
+    model: gpt-4o-2024-05-13
+    dataset: gpt4_lite_unresolved_248
+    requests: 248
+    target: "87% agreement on 15 hand-labeled cases"
+    artifacts: [A_FAILURE]
+    requires: [G_MODEL_FAILURE_LABELER, G_OFFICIAL_ARTIFACTS]
+    status: NOT_STARTED
+
+baselines:
+  - id: B01
+    name: swebench_rag_predictions
+    evidence: artifact
+    models: [gpt-4-1106-preview, claude-3-opus-20240229]
+    dataset: swebench_full_and_lite
+    target: "Full 1.31/3.79; Lite 2.67/4.33"
+    artifacts: [T_MAIN, A_REPO, A_TEMPORAL, A_LOCALIZATION]
+    requires: [G_OFFICIAL_ARTIFACTS, G_EVALUATOR_REPLAY]
+    status: NOT_STARTED
+
+analysis_artifacts:
+  - {id: T_MAIN, name: main_results_table, status: SOURCE_TARGET_FROZEN}
+  - {id: T_ABLATION, name: combined_aci_ablation_table, status: SOURCE_TARGET_FROZEN}
+  - {id: T_HYPERPARAM, name: hyperparameter_sweep_table, status: SOURCE_TARGET_FROZEN}
+  - {id: T_PASSK, name: pass_at_k_table, status: SOURCE_TARGET_FROZEN}
+  - {id: F_PASSK, name: pass_at_k_figure, status: SOURCE_TARGET_FROZEN}
+  - {id: T_HUMANEVAL, name: humanevalfix_results_table, status: BLOCKED_PAPER_INCONSISTENCY}
+  - {id: A_REPO, name: performance_by_repository, status: SOURCE_TARGET_FROZEN}
+  - {id: A_TEMPORAL, name: performance_by_year, status: SOURCE_TARGET_FROZEN}
+  - {id: A_EXIT, name: exit_condition_counts, status: SOURCE_TARGET_FROZEN}
+  - {id: A_TRAJECTORY, name: turn_cost_action_and_ngram_analysis, status: SOURCE_TARGET_FROZEN}
+  - {id: A_FAILURE, name: failure_mode_labels_and_figure, status: SOURCE_TARGET_FROZEN}
+  - {id: A_PATCH, name: patch_statistics, status: SOURCE_TARGET_FROZEN}
+  - {id: A_LOCALIZATION, name: file_localization_f1, status: SOURCE_TARGET_FROZEN}
+  - {id: F_HUMANEVAL_TURNS, name: humanevalfix_turn_distribution, status: SOURCE_TARGET_FROZEN}
+  - {id: A_QUALITATIVE, name: four_qualitative_cases, status: SOURCE_TARGET_FROZEN}
+  - {id: A_PROMPTS_INTERFACE, name: prompts_commands_and_interface_assets, status: SOURCE_TARGET_FROZEN}
+
+existing_non_exact_runs:
+  - id: EXP-DEV20
+    evidence: modern
+    model: gpt-5.6-terra
+    dataset: frozen_dev20
+    variant: paper_snapshot_default_aci
+    status: COMPLETE
+    resolved: 4
+    instances: 20
+  - id: EXP-WEAKACI-001-002
+    evidence: exploratory
+    model: gpt-5.6-terra
+    dataset: frozen_dev20_first_two
+    variant: custom_no_search_plus_no_editor
+    status: STOPPED_AFTER_REPLAN
+    resolved: 0
+    instances: 2
+    paper_aligned: false

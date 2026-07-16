@@ -1,5 +1,6 @@
 project:
   name: sweagent-reproduction
+  objective: full_paper_reproduction
   local_root: D:/0code/Research/05
   server_root: /public/home/mty/GeYugong/05_sweagent_repro_ser
 
@@ -22,6 +23,13 @@ paper_configuration:
   demonstration: true
   linting_editor: true
   summarized_search: true
+  per_instance_budget_usd: 4.0
+
+paper_models:
+  gpt4_turbo: gpt-4-1106-preview
+  claude_3_opus: claude-3-opus-20240229
+  failure_labeler: gpt-4o-2024-05-13
+  exact_models_available_from_current_relay: false
 
 resources:
   primary_execution: local_wsl2
@@ -40,9 +48,11 @@ modern_replication:
   accounting: tokens_and_api_calls
   max_api_calls_per_instance: 25
 
-weak_aci_control:
-  variant: no_search_editor
+exploratory_combined_ablation:
+  variant: custom_no_search_plus_no_editor
   config_source: conf/weak_aci_no_search_editor.yaml
+  paper_aligned: false
+  include_in_paper_primary_results: false
   unchanged: [model, temperature, top_p, max_api_calls, window, history_processor, demonstrations]
   removed_command_files: [config/commands/search.sh, config/commands/edit_linting.sh]
 
@@ -52,8 +62,22 @@ evaluation:
   dev_instances: 20
   dev_manifest: data/manifests/swebench_lite_dev20_seed42.json
   formal_instances: 300
+  full_instances: 2294
+  hyperparameter_dev_instances: 37
+  hyperparameter_configurations: 16
+  hyperparameter_samples: 5
+  pass_at_k_runs: 6
+  humanevalfix_instances_per_language: 164
   seed: 42
   retry_policy: no_automatic_retry
+
+full_reproduction:
+  plan: docs/full_paper_reproduction_plan.md
+  matrix: conf/full_paper_matrix.yaml
+  minimum_unique_agent_episodes: 13140
+  evidence_types: [artifact, exact, modern, exploratory]
+  relay_pricing_required_before_scale_up: true
+  minimum_free_disk_gb_before_formal_scale_up: 120
 
 tracking:
   registry: logs/experiment_registry.csv

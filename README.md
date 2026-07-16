@@ -1,16 +1,16 @@
 # SWE-agent 论文复现研究
 
-本仓库用于复现与扩展研究《SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering》。研究目标是建立可审计的论文版基线，比较现代代理实现与本地模型，并在严格控制变量的前提下验证一项 ACI 改进。
+本仓库用于完整复现与扩展研究《SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering》。研究目标是从作者工件复算、论文精确模型重跑和现代模型复验三条独立证据链，重新生成论文全部经验结果、消融和轨迹分析。
 
 ## 研究范围
 
-研究分为三个阶段：
+研究分为三个证据层：
 
-1. 论文版部分复现：在固定代码、配置和数据子集上跑通端到端轨迹、补丁生成与判分。
-2. 现代对照实验：比较论文版 SWE-agent、现代实现、API 模型与本地代码模型。
-3. 单因素改进：从上下文压缩、错误恢复或工具调用约束中选择一个因素进行消融。
+1. 工件复算：从作者预测、轨迹和判分日志重新生成论文表图。
+2. 严格重跑：使用论文指定模型、代码、数据、配置和预算完成全部正式实验。
+3. 现代复验：在严格隔离的命名空间中比较当前模型并验证 ACI 结论。
 
-第一阶段不直接运行完整 SWE-bench。必须先完成环境检查、单实例重放和小型开发集验证。
+正式规模至少包含 13,140 个论文对齐代理 episode。扩大实验前必须先完成版本、资产、精确配置、模型可用性、预算和 evaluator 重放门槛。
 
 ## 仓库结构
 
@@ -45,7 +45,7 @@
 - 每次运行均记录代码哈希、配置、模型标识、时间、token、成本和退出状态；
 - 开发集在正式实验前冻结。
 
-详细方案见 [docs/research_plan.md](docs/research_plan.md)，逐次记录见 [logs/experiment_log.md](logs/experiment_log.md)。
+完整方案见 [docs/full_paper_reproduction_plan.md](docs/full_paper_reproduction_plan.md)，机器清单见 [conf/full_paper_matrix.yaml](conf/full_paper_matrix.yaml)，逐次记录见 [logs/experiment_log.md](logs/experiment_log.md)。
 
 ## 安全与数据规则
 
