@@ -35,15 +35,16 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 | EXP-DEV20-016 | `sqlfluff__sqlfluff-1517` | 17 | 279,449 | 3,105 | not generated | unresolved |
 | EXP-DEV20-017 | `sqlfluff__sqlfluff-1733` | 25 | 472,317 | 8,425 | applied | RESOLVED_NO |
 | EXP-DEV20-018 | `sqlfluff__sqlfluff-1763` | 25 | 459,480 | 4,819 | not generated | unresolved |
+| EXP-DEV20-019 | `sqlfluff__sqlfluff-2419` | 23 | 352,492 | 3,465 | apply failed | unresolved |
 
 当前累计：
 
-- 已评测：19/20；
+- 已评测：20/20；
 - resolved：4；
-- 未 resolved：15；
-- 暂时 resolve rate：21.05%。
+- 未 resolved：16；
+- 最终 resolve rate：20.00%。
 
-当前样本仍未完成，不报告置信区间，也不用于模型间比较。至少完成冻结的 20 个实例后再计算主指标与 bootstrap 置信区间。
+冻结的 20 个实例均已完成。自动汇总以最终轨迹中持久化的模型统计为准：397 次 API 调用、5,496,947 input tokens、70,405 output tokens。1763 在第 25 次、未持久化的格式纠正请求后失败，故资源审计为 25 次调用，而自动轨迹汇总为 24 次。
 
 ## 未计入正式结果的尝试
 
