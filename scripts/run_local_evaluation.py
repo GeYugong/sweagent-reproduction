@@ -90,8 +90,8 @@ def install_test_runner_compatibility(predictions: Path) -> None:
         return
     for install_config in context_manager.MAP_VERSION_TO_INSTALL["pydicom/pydicom"].values():
         pip_packages = install_config.get("pip_packages", "").split()
-        if "pytest" not in pip_packages:
-            pip_packages.append("pytest")
+        if not any(package.startswith("pytest") for package in pip_packages):
+            pip_packages.append("pytest==7.4.4")
         install_config["pip_packages"] = " ".join(pip_packages)
 
 

@@ -49,8 +49,8 @@ index 95278f8..684f6bd 100644
 +        if self.record["repo"] == "pydicom/pydicom":
 +            install_configs = dict(install_configs)
 +            pip_packages = install_configs.get("pip_packages", "").split()
-+            if "pytest" not in pip_packages:
-+                pip_packages.append("pytest")
++            if not any(package.startswith("pytest") for package in pip_packages):
++                pip_packages.append("pytest==7.4.4")
 +            install_configs["pip_packages"] = pip_packages
          # Create environment if does not exist yet
          env_name = f"{self._repo_name}__{self.record['version']}"
