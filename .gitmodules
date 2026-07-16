@@ -1,3 +1,9 @@
 [submodule "code/SWE-agent"]
 	path = code/SWE-agent
 	url = https://github.com/SWE-agent/SWE-agent.git
+[submodule "code/SWE-bench-experiments"]
+	path = code/SWE-bench-experiments
+	url = https://github.com/SWE-bench/experiments.git
+[submodule "code/humanevalfix-results"]
+	path = code/humanevalfix-results
+	url = https://github.com/SWE-bench/humanevalfix-results.git
