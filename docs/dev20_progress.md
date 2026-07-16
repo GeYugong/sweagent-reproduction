@@ -19,13 +19,14 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 | EXP-API-BASELINE-001 | `sqlfluff__sqlfluff-1625` | 25 | 270,910 | 3,248 | applied | RESOLVED_NO |
 | EXP-DEV20-001 | `marshmallow-code__marshmallow-1343` | 22 | 243,975 | 2,750 | applied | RESOLVED_FULL |
 | EXP-DEV20-002 | `marshmallow-code__marshmallow-1359` | 23 | 299,097 | 5,405 | applied | RESOLVED_FULL |
+| EXP-DEV20-003 | `pvlib__pvlib-python-1154` | 23 | 363,417 | 5,377 | apply failed | unresolved |
 
 当前累计：
 
-- 已评测：3/20；
+- 已评测：4/20；
 - resolved：2；
-- 未 resolved：1；
-- 暂时 resolve rate：66.7%。
+- 未 resolved：2；
+- 暂时 resolve rate：50.0%。
 
 该比例只有三个样本，不报告置信区间，也不用于模型间比较。至少完成冻结的 20 个实例后再计算主指标与 bootstrap 置信区间。
 
@@ -44,6 +45,21 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 后续两次重试仍均在推理前终止。`EXP-DEV20-003B` 中镜像仓库 clone 遇到瞬时网络停滞，超过论文快照固定的 500 秒长任务超时；同一容器随后完整 clone 实测为 31.8 秒、177 MB，因此保留原始超时，不改变实验配置。`EXP-DEV20-003C` 进入依赖安装后暴露旧版类型兼容问题：`swebench 1.0.1` 将 `pip_packages` 提供为字符串，论文快照却按列表执行 `join`，导致首先尝试安装单字符包 `j`。兼容层只对字符串执行空白切分，依赖集合保持不变。两次失败的 API 调用均为 0，均不计入 dev20 分母。
 
 为保证重试审计，实例运行器从此为每次尝试保留 UTC 时间戳日志，并同步一份无时间戳的最新日志。相同 run ID 的失败记录不再被下一次重试覆盖。
+
+`EXP-DEV20-003D` 在替换 API 凭据时于 Conda 环境创建阶段主动终止。时间戳日志确认 agent 尚未初始化，API 调用为 0；该尝试不计入 dev20 分母。新凭据随后以最小 Chat Completions 请求验证，`gpt-5.6-terra` 返回 HTTP 200 和精确 `OK`，共消耗 4,398 token。探测只验证认证与协议，不计入正式实验。
+
+## pvlib 1154 正式结果
+
+兼容修正后的 `EXP-DEV20-003` 完成了推理与正式 evaluator。模型将 `HB / ghi` 改为带 `where=ghi != 0` 的 `np.divide`，并把既有测试在零 GHI 时的期望值从 `np.nan` 改为 `0`。模型侧验证结果：
+
+- 单个目标测试：1/1 通过；
+- `pvlib/tests/test_irradiance.py`：98/98 通过；
+- API 调用：23；
+- 输入 token：363,417；
+- 输出 token：5,377；
+- exit status：`submitted`。
+
+正式 evaluator 先成功应用 benchmark 测试补丁，随后预测补丁在同一测试断言处发生上下文冲突。生产代码 hunk 能单独应用，但正式协议要求整份预测补丁可应用，因此 scorecard 只有 `generated`、没有 `applied`，该实例计为 unresolved。该失败揭示了一个可用于改进实验的方向：提交前自动剔除测试文件改动，避免正确的生产代码修复因测试 hunk 冲突而失效。
 
 ## Marshmallow 成功案例
 

@@ -47,6 +47,8 @@ def collect_runs(trace_root: Path, selected: set[str]) -> list[dict[str, Any]]:
                 (status for status in reversed(statuses) if status.startswith("RESOLVED_")),
                 "UNKNOWN",
             )
+            if outcome == "UNKNOWN" and "generated" in statuses and "applied" not in statuses:
+                outcome = "PATCH_APPLY_FAILED"
             trajectory_path = find_trajectory(run_dir, instance_id)
             model_stats: dict[str, Any] = {}
             if trajectory_path is not None:
