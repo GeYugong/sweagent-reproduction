@@ -45,9 +45,12 @@ runtime_root="${repo_root}/tmp/runtime/SWE-agent-local-${patch_id}"
 log_dir="${repo_root}/outputs/logs"
 trace_dir="${repo_root}/outputs/traces/${run_id}"
 setup_log="${log_dir}/${run_id}_runtime_setup.log"
-run_log="${log_dir}/${run_id}.log"
+attempt_stamp="$(date -u +%Y%m%dT%H%M%SZ)"
+run_log="${log_dir}/${run_id}_${attempt_stamp}.log"
+latest_run_log="${log_dir}/${run_id}.log"
 
 mkdir -p "${log_dir}" "${trace_dir}"
+trap 'if [[ -f "${run_log}" ]]; then cp -f "${run_log}" "${latest_run_log}"; fi' EXIT
 "${repo_root}/scripts/prepare_local_runtime.sh" "${runtime_root}" >"${setup_log}" 2>&1
 
 umask 077

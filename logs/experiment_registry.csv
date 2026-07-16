@@ -12,3 +12,5 @@ EXP-API-BASELINE-001,2026-07-15,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,s
 EXP-DEV20-001,2026-07-15,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,marshmallow-code__marshmallow-1343,42,COMPLETE,1,1,"22 calls; 243975 input and 2750 output tokens; 25/25 target tests passed; RESOLVED_FULL"
 EXP-DEV20-002,2026-07-15,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,marshmallow-code__marshmallow-1359,42,COMPLETE,1,1,"23 calls; 299097 input and 5405 output tokens; 77/77 target tests passed; RESOLVED_FULL"
 EXP-DEV20-003A,2026-07-15,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,pvlib__pvlib-python-1154,42,INFRA_FAILURE,,0,"Container Conda proxy timeout before inference; zero API calls; retry pending"
+EXP-DEV20-003B,2026-07-15,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,pvlib__pvlib-python-1154,42,INFRA_FAILURE,,0,"Mirror git clone stalled beyond 500-second snapshot timeout; zero API calls"
+EXP-DEV20-003C,2026-07-16,P1,paper_snapshot,gpt-5.6-terra,SWE-bench_Lite,pvlib__pvlib-python-1154,42,INFRA_FAILURE,,0,"Legacy string pip_packages parsed as characters; zero API calls; compatibility fix prepared"

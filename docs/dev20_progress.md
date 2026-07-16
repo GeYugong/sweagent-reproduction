@@ -41,6 +41,10 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 
 运行适配补丁已向实验容器注入单线程下载、60 秒连接超时、180 秒读取超时、10 次重试和 classic solver。运行器也已改为必须同时检测到实例 `.traj` 与 `all_preds.jsonl`，避免把只有 `args.yaml` 的目录误判为推理成功。
 
+后续两次重试仍均在推理前终止。`EXP-DEV20-003B` 中镜像仓库 clone 遇到瞬时网络停滞，超过论文快照固定的 500 秒长任务超时；同一容器随后完整 clone 实测为 31.8 秒、177 MB，因此保留原始超时，不改变实验配置。`EXP-DEV20-003C` 进入依赖安装后暴露旧版类型兼容问题：`swebench 1.0.1` 将 `pip_packages` 提供为字符串，论文快照却按列表执行 `join`，导致首先尝试安装单字符包 `j`。兼容层只对字符串执行空白切分，依赖集合保持不变。两次失败的 API 调用均为 0，均不计入 dev20 分母。
+
+为保证重试审计，实例运行器从此为每次尝试保留 UTC 时间戳日志，并同步一份无时间戳的最新日志。相同 run ID 的失败记录不再被下一次重试覆盖。
+
 ## Marshmallow 成功案例
 
 模型首先用最小脚本复现 nested schema 输入类型错误与 field validator 的交互，随后定位 `BaseSchema._do_load()`。候选修复只在 `result is not None` 时调用 field validators，并添加回归测试。

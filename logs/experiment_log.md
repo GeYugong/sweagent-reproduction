@@ -369,6 +369,54 @@ SWE-bench 1.0.2 对 Marshmallow 2.20 未配置额外 Conda packages。旧 harnes
 
 `COMPLETE`：resolved=1。
 
+## 2026-07-15 — EXP-DEV20-003B：pvlib 1154 镜像 clone 停滞
+
+### 失败位置
+
+WSL 访问恢复后按原配置重试。容器已启动，但执行
+`git clone https://github.com/swe-bench/pvlib__pvlib-python.git` 时持续无输出，超过论文快照 `LONG_TIMEOUT=500` 秒。退出时仍存在 `git`、`git-remote-http` 进程。
+
+失败发生在 Conda 环境与 agent 初始化之前：API 调用 0、轨迹未生成、预测未生成、正式 evaluator 未启动，因而不计入 dev20 分母。
+
+### 诊断
+
+主机与同一 Docker 镜像内的 `git ls-remote` 均成功。随后在相同网络、代理和镜像条件下完整 clone 实测耗时 31.8 秒、目录 177 MB，远低于 500 秒上限。该现象判定为瞬时网络停滞，不修改论文快照超时，也不改变实验路线。
+
+### 状态
+
+`INFRA_FAILURE`：零 API 调用，按原配置重试。
+
+## 2026-07-16 — EXP-DEV20-003C：pvlib 1154 pip_packages 类型兼容
+
+### 失败位置
+
+镜像仓库 clone 与 Conda 基础环境创建成功。额外 pip 依赖安装立即失败，错误为 `No matching distribution found for j`。
+
+### 根因
+
+当前冻结环境中的 `swebench 1.0.1` 为 pvlib 0.8 返回：
+
+```python
+{
+    "python": "3.9",
+    "install": "pip install -e .[all]",
+    "packages": "pandas scipy",
+    "pip_packages": "jupyter ipython matplotlib pytest flake8",
+}
+```
+
+论文 SWE-agent 快照假定 `pip_packages` 为列表并直接执行 `' '.join(...)`。当输入是字符串时，结果被拆为字符序列，pip 首先尝试安装单字符包 `j`。这是旧快照与冻结依赖之间的类型接口漂移，不是任务本身失败。
+
+### 修正与验证
+
+兼容层在 `pip_packages` 为字符串时先执行 `split()`，列表输入保持不变。因此实际安装集合仍为 jupyter、ipython、matplotlib、pytest、flake8，没有增加或删除实验依赖。新 patch-hash 运行副本为 `0086fb70737e`，补丁可应用且 `swe_env.py` 通过 `py_compile`。
+
+运行器同时改为每次尝试保存 UTC 时间戳日志，并在无时间戳路径保留最新副本，避免相同 run ID 重试覆盖失败证据。
+
+### 状态
+
+`INFRA_FAILURE`：零 API 调用；兼容修正完成，等待按相同正式配置重试。
+
 ## 2026-07-15 — EXP-DEV20-003A：pvlib 1154 环境失败
 
 ### 目标
