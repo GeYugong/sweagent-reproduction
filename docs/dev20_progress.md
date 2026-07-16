@@ -22,13 +22,14 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 | EXP-DEV20-003 | `pvlib__pvlib-python-1154` | 23 | 363,417 | 5,377 | apply failed | unresolved |
 | EXP-DEV20-004 | `pvlib__pvlib-python-1606` | 4 | 55,879 | 632 | not generated | unresolved |
 | EXP-DEV20-005 | `pvlib__pvlib-python-1707` | 21 | 361,753 | 4,612 | applied | RESOLVED_FULL |
+| EXP-DEV20-006 | `pvlib__pvlib-python-1854` | 4 | 51,333 | 1,269 | not generated | unresolved |
 
 当前累计：
 
-- 已评测：6/20；
+- 已评测：7/20；
 - resolved：3；
-- 未 resolved：3；
-- 暂时 resolve rate：50.0%。
+- 未 resolved：4；
+- 暂时 resolve rate：42.9%。
 
 该比例只有三个样本，不报告置信区间，也不用于模型间比较。至少完成冻结的 20 个实例后再计算主指标与 bootstrap 置信区间。
 
@@ -95,6 +96,20 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 - 正式判定：`RESOLVED_FULL`。
 
 重判没有再次调用模型，预测 patch、benchmark test patch 和测试集合均未改变。
+
+## pvlib 1854 正式结果
+
+EOF 通信竞态修复后，`EXP-DEV20-006` 正常进入 Agent。模型首个计划是用最小示例复现 `PVSystem(arrays=array)` 构造失败，但响应既使用 `` ```sh `` 语言标签，又重复了整段 DISCUSSION 与命令块。严格 ACI 解析器连续拒绝格式，达到 malformat limit：
+
+- API 调用：4；
+- 输入 token：51,333；
+- 输出 token：1,269；
+- 工具动作：0；
+- model patch：null；
+- scorecard：`not_generated`；
+- 正式判定：unresolved。
+
+这与 1606 的语言标签失败构成第二个独立样本，但 1854 还包含响应块重复，后续改进组需要分别统计“仅允许语言标签”能否恢复，而不能假设所有格式失败均由单一原因造成。
 
 ## Marshmallow 成功案例
 

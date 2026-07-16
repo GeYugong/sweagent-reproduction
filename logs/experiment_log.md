@@ -381,6 +381,16 @@ SWE-bench 1.0.2 对 Marshmallow 2.20 未配置额外 Conda packages。旧 harnes
 
 `INFRA_FAILURE`：容器通信兼容修正完成，等待原配置重试。
 
+## 2026-07-16 — EXP-DEV20-006：pvlib 1854 ACI 格式退出
+
+EOF 修正后的重试成功完成环境初始化。模型计划通过最小 `PVSystem(arrays=array)` 示例复现构造错误，但首轮响应使用 `` ```sh `` 围栏并把 DISCUSSION/命令块完整重复两次。论文 ACI 要求恰好一段 discussion 和一个无语言标签的 command block，三次纠错后仍未获得可解析响应。
+
+统计：4 次 API 调用、51,333 输入 token、1,269 输出 token、0 个实际工具动作。轨迹只有 `exit_format`，预测为 null，scorecard 为 `not_generated`。
+
+### 状态
+
+`COMPLETE`：resolved=0，失败类型为 `NOT_GENERATED/EXIT_FORMAT`。
+
 ## 2026-07-15 — EXP-DEV20-003B：pvlib 1154 镜像 clone 停滞
 
 ### 失败位置
