@@ -20,6 +20,7 @@ outputs/patches/*
 outputs/results/*
 outputs/evaluation/*
 outputs/figures/*
+outputs/summary/*
 data/cache/
 data/docker/
 tmp/
@@ -31,6 +32,7 @@ tmp/
 !outputs/results/.gitkeep
 !outputs/evaluation/.gitkeep
 !outputs/figures/.gitkeep
+!outputs/summary/.gitkeep
 
 # Editor and operating system files
 .DS_Store
