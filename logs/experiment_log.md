@@ -529,6 +529,16 @@ benchmark test patch 与 prediction patch 均应用成功。PASS_TO_PASS 为 301
 
 `COMPLETE`：resolved=0，失败类型为 `PATCH_APPLY_FAILED`。dev20 累计 4/11 完全解决，主 resolve rate 为 36.36%。
 
+## 2026-07-16 — EXP-DEV20-011A：pydicom 901 Python 3.6 测试运行器边界
+
+实例安装映射指定 Python 3.6。统一的 pydicom 兼容规则尝试安装 pytest 7.4.4，但该版本声明 `Requires-Python >=3.7`，pip 在 Agent 初始化前报告没有兼容分发。没有模型 HTTP POST、token 统计、轨迹或预测，API 调用为 0，不计入 dev20 分母。
+
+此前版本矩阵已经验证 pytest 6.2.5 在冻结 pydicom 上能够执行 nose 风格 `setup(self)`。因此 Agent 与 evaluator 的选择规则同步改为：Python 3.6 固定 pytest 6.2.5，其他版本固定 pytest 7.4.4。该调整只恢复测试运行器兼容性，不改变任务代码、benchmark patch 或测试集合。
+
+### 状态
+
+`INFRA_FAILURE`：零调用失败单独登记，等待相同模型配置重试。
+
 ## 2026-07-15 — EXP-DEV20-003B：pvlib 1154 镜像 clone 停滞
 
 ### 失败位置

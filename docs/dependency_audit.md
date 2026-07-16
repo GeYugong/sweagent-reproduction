@@ -157,3 +157,5 @@ Marshmallow 评测又暴露两个旧 harness 问题：
 适配层只对 `pydicom/pydicom` 的安装配置补充 `pytest==7.4.4`，同时作用于 Agent 与 evaluator；其他仓库不变。首次 1139 推理在缺少预期测试能力的环境中完成，因此轨迹与判分标记为无效并完整归档，随后在修正环境中重新运行。
 
 第二次运行最初安装了 pytest 8.4.2。目标 PersonName 测试能够运行，但完整文件中的旧式 `setup(self)` 不再执行，导致两个 PASS_TO_PASS 因 fixture 属性未初始化而失败。pydicom 自身 Git 历史在 2022-11-15 的提交 `8de0a15ef` 明确说明：因 pytest 7.2 开始弃用 `setup`/`teardown`，项目才改为 `setup_method`/`teardown_method`；冻结 benchmark 提交早于该迁移。因此选择最后一个 pytest 7 版本 7.4.4，而不是使用 2026 年最新版。
+
+`pydicom__pydicom-901` 使用更早的 Python 3.6 环境，pytest 7.4.4 的 `Requires-Python >=3.7` 使安装在推理前失败。既有兼容矩阵已在冻结 pydicom 上验证 pytest 6.2.5 能执行旧式 setup 测试，因此适配规则按 Python 版本选择：3.6 使用 pytest 6.2.5，3.7 及以上使用 pytest 7.4.4。Agent 与 evaluator 使用同一选择规则；失败尝试 API 调用为 0。
