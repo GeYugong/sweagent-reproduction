@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "status": "COMPLETE_5_OF_5_EXACT_EDGE_OUTCOMES",
+  "scope": "Representative historical evaluator edge branches: empty string, null, duplicate prediction line, unmodified gold patch, and official patch-apply failure.",
+  "frozen_inputs": {
+    "official_experiments_revision": "a5d52722965c791c0c04d18135f906b44f716d39",
+    "dataset_revision": "81ad348adcaf3368691f4db2907f8fc97a8f7526",
+    "dataset_sha256": "2c0969b6fb6920f9425015563419901a4fe7fd078d143a3457fa1997b52365b1",
+    "empty_duplicate_predictions_sha256": "206e5523f006c9fb2b0b38a0a5f987aaab4f19e6ef5dc9458e159584f5ea4eb3",
+    "empty_duplicate_tasks_sha256": "88de582dd903cee9af255060bd51bbee42861cd1fc66b5f0bdd0221f086004b5",
+    "gold_no_apply_predictions_sha256": "8bef07a49c11b2bc6e5dd259c71078f19120c8a05ac686849b903ea3a6cff0ec",
+    "gold_no_apply_tasks_sha256": "e28d5ea6b1dcab4479a05aec0dbdf5802571869931e7086cc92847ee47ee37ac"
+  },
+  "formal_attempts": [
+    {
+      "attempt_id": "EXP-ARTIFACT-006A",
+      "profile": "empty_duplicate",
+      "wall_seconds": 2.7,
+      "prediction_lines": 3,
+      "evaluated_in_testbed": 0,
+      "exact_outcome_matches": 3,
+      "api_calls": 0,
+      "gpu_used": false,
+      "manifest": "data/manifests/official_empty_duplicate_replay.json"
+    },
+    {
+      "attempt_id": "EXP-ARTIFACT-006B-B",
+      "profile": "gold_no_apply",
+      "wall_seconds": 48.7,
+      "prediction_lines": 2,
+      "evaluated_in_testbed": 2,
+      "exact_outcome_matches": 2,
+      "temporary_transport_override": "git http.version=HTTP/1.1",
+      "api_calls": 0,
+      "gpu_used": false,
+      "manifest": "data/manifests/official_gold_no_apply_replay.json"
+    }
+  ],
+  "invalid_infrastructure_attempts": [
+    {
+      "attempt_id": "EXP-ARTIFACT-006B-A",
+      "started_at_local": "2026-07-17T01:15:35+08:00",
+      "wall_seconds": 410.8,
+      "profile": "gold_no_apply",
+      "failure_stage": "repository_clone_before_environment_creation_or_patch_application",
+      "failure_type": "git_http2_rpc_early_eof",
+      "failure_evidence": [
+        "RPC failed; curl 92 HTTP/2 stream was not closed cleanly: CANCEL",
+        "early EOF",
+        "invalid index-pack output"
+      ],
+      "predictions_sha256": "8bef07a49c11b2bc6e5dd259c71078f19120c8a05ac686849b903ea3a6cff0ec",
+      "tasks_sha256": "e28d5ea6b1dcab4479a05aec0dbdf5802571869931e7086cc92847ee47ee37ac",
+      "patches_applied": 0,
+      "tests_executed": 0,
+      "api_calls": 0,
+      "included_in_formal_denominator": false,
+      "archive": "outputs/evaluation/official_container_replay/invalid_attempts/gold_no_apply_clone_rpc_20260717T011535Z"
+    }
+  ],
+  "summary": {
+    "formal_prediction_lines": 5,
+    "exact_outcome_match_count": 5,
+    "all_exact": true,
+    "covered_branches": [
+      "empty_string",
+      "null",
+      "duplicate_prediction_line",
+      "gold_patch_resolved_full",
+      "official_patch_apply_failure"
+    ],
+    "api_calls": 0,
+    "gpu_used": false
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "profile": "gold_no_apply",
+  "status": "COMPLETE_EXACT",
+  "prepared_at_utc": "2026-07-16T17:25:14.290237+00:00",
+  "description": "One gold patch plus one official RAG no-apply patch in pytest 4.4.",
+  "official_experiments_revision": "a5d52722965c791c0c04d18135f906b44f716d39",
+  "dataset_revision": "81ad348adcaf3368691f4db2907f8fc97a8f7526",
+  "dataset_sha256": "2c0969b6fb6920f9425015563419901a4fe7fd078d143a3457fa1997b52365b1",
+  "model_alias": "paper_replay_gold_no_apply",
+  "predictions_sha256": "8bef07a49c11b2bc6e5dd259c71078f19120c8a05ac686849b903ea3a6cff0ec",
+  "tasks_sha256": "e28d5ea6b1dcab4479a05aec0dbdf5802571869931e7086cc92847ee47ee37ac",
+  "prediction_lines": [
+    {
+      "line_index": 1,
+      "instance_id": "pytest-dev__pytest-5227",
+      "source": "SWE-bench_Lite@81ad348adcaf3368691f4db2907f8fc97a8f7526:patch",
+      "patch_state": "gold",
+      "patch_sha256": "e8193ea0dee0989323f0f7756f492d73cdc2e584b61f9142b8695d9ed2737893",
+      "expected_resolution": "RESOLVED_FULL",
+      "expected_scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ]
+    },
+    {
+      "line_index": 2,
+      "instance_id": "pytest-dev__pytest-5221",
+      "source": "20240402_rag_gpt4/all_preds.jsonl",
+      "patch_state": "official_rag_no_apply",
+      "patch_sha256": "18ce60d3cce3fe43a9e593439092509ea4f0b4b32c013ae6a7705c27689cda47",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "no_apply"
+      ],
+      "expected_scorecard_statuses": [
+        "generated"
+      ]
+    }
+  ],
+  "collected_at_utc": "2026-07-16T17:28:46.384254+00:00",
+  "runtime": {
+    "python": "3.9.25",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "docker": "Docker version 29.6.1, build 8900f1d"
+  },
+  "results_directory": "/mnt/d/0code/Research/05/outputs/evaluation/official_container_replay/results",
+  "observations": [
+    {
+      "line_index": 1,
+      "instance_id": "pytest-dev__pytest-5227",
+      "source": "SWE-bench_Lite@81ad348adcaf3368691f4db2907f8fc97a8f7526:patch",
+      "patch_state": "gold",
+      "patch_sha256": "e8193ea0dee0989323f0f7756f492d73cdc2e584b61f9142b8695d9ed2737893",
+      "expected_resolution": "RESOLVED_FULL",
+      "expected_scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "observed_patch_applied": true,
+      "observed_resolution": "RESOLVED_FULL",
+      "all_reference_tests_passed": true,
+      "observed_scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "observed_log_sha256": "80e493581889be8d4a205306002b73287e035040838577bddb2177fc9cdb5716",
+      "exact_outcome_match": true
+    },
+    {
+      "line_index": 2,
+      "instance_id": "pytest-dev__pytest-5221",
+      "source": "20240402_rag_gpt4/all_preds.jsonl",
+      "patch_state": "official_rag_no_apply",
+      "patch_sha256": "18ce60d3cce3fe43a9e593439092509ea4f0b4b32c013ae6a7705c27689cda47",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "no_apply"
+      ],
+      "expected_scorecard_statuses": [
+        "generated"
+      ],
+      "observed_patch_applied": false,
+      "observed_apply_failure_markers": [
+        ">>>>> Patch Apply Failed; (pred_try)",
+        ">>>>> Patch Apply Failed; (pred_minimal_try)"
+      ],
+      "observed_scorecard_statuses": [
+        "generated"
+      ],
+      "observed_log_sha256": "f9f1e104170dce98c36547653670e68eb3abc4369f4fc89eda23c6f50287f1de",
+      "exact_outcome_match": true
+    }
+  ],
+  "summary": {
+    "expected_line_count": 2,
+    "exact_outcome_match_count": 2,
+    "all_exact": true
+  }
+}

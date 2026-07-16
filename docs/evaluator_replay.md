@@ -8,7 +8,7 @@
 - Full：SWE-agent GPT-4、SWE-agent Claude 3 Opus、RAG GPT-4、RAG Claude 3 Opus；
 - 验收结果：`8/8` full-report exact match。
 
-这项结果证明官方工件可以在不重新调用模型的情况下稳定重建，也定位了论文期 evaluator 与后续数据 revision 之间的判分漂移。它属于**历史日志与结果聚合重放**，尚不等同于从 prediction patch 重新创建 2,594 个容器并执行全部测试；小样本容器级重放仍作为下一层验证单独执行。
+这项结果证明官方工件可以在不重新调用模型的情况下稳定重建，也定位了论文期 evaluator 与后续数据 revision 之间的判分漂移。它属于**历史日志与结果聚合重放**，尚不等同于从 prediction patch 重新创建全部容器并执行全部测试。下一层代表性验证已覆盖两个核心容器结果和五条边界输入：核心逐测试结果 `2/2` 完全相同，gold、no-apply、空字符串、null 与重复行状态 `5/5` 完全相同。
 
 ## 2. 冻结输入
 
@@ -118,6 +118,51 @@ wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
 
 机器清单为 `data/manifests/official_container_replay.json`。原始新日志、scorecard、冻结预测和两行完整任务数据位于 Git 忽略的 `outputs/evaluation/official_container_replay/`；清单记录其 SHA-256 和解析后判定。
 
+### 6.2 evaluator 边界分支
+
+边界集由官方历史输入和论文期 Lite 数据直接构造，不改写 patch 内容：
+
+| Profile / 输入 | 行数 | testbed 中执行 | 预期状态 | 结果 |
+|---|---:|---:|---|---|
+| 空字符串 `django__django-13964` | 1 | 0 | `not_generated` | 精确匹配 |
+| null `psf__requests-863` | 2（重复行） | 0 | 两行均为 `not_generated` | 精确匹配，重复保留 |
+| gold `pytest-dev__pytest-5227` | 1 | 1 | `generated, applied, RESOLVED_FULL` | 精确匹配，全部 F2P/P2P 通过 |
+| RAG no-apply `pytest-dev__pytest-5221` | 1 | 1 | `generated` | 精确匹配，两条 patch 应用路径均失败 |
+
+空/null profile 由 wrapper 在进入 testbed 前产生三个 scorecard，墙钟 2.7 秒；输出保持两个相同 `psf__requests-863` 行，没有去重，也没有生成评测日志。gold/no-apply profile 在同一个 pytest 4.4 testbed 中依次执行：gold patch 完成 reset、安装、test patch、prediction patch 和测试，判为 `RESOLVED_FULL`；官方 RAG patch 在 `pred_try` 与 `pred_minimal_try` 均出现应用失败标记，scorecard 只保留 `generated`。正式重试墙钟 48.7 秒。
+
+gold/no-apply 的首次尝试在 Git clone 阶段因 HTTP/2 RPC early EOF 终止，发生在环境创建、补丁应用和测试之前，模型调用为 0。该尝试按协议标为 `EXP-ARTIFACT-006B-A`，不进入正式分母，原输入和失败 scorecard 保存在 Git 忽略的 `outputs/evaluation/official_container_replay/invalid_attempts/`。随后保持 prediction 与 task SHA-256 不变，仅为 Git 子进程临时设置 `http.version=HTTP/1.1`，`EXP-ARTIFACT-006B-B` 成功。没有修改全局 Git 配置。
+
+执行命令：
+
+```powershell
+wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
+  /home/gugabobo/.venvs/swebench-paper-eval/bin/python `
+  scripts/official_evaluator_edge_replay.py prepare empty_duplicate
+
+wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
+  /home/gugabobo/.venvs/swebench-paper-eval/bin/python `
+  scripts/run_local_evaluation.py `
+  outputs/evaluation/official_container_replay/empty_duplicate/all_preds.jsonl `
+  --dataset outputs/evaluation/official_container_replay/empty_duplicate/tasks.jsonl `
+  --results outputs/evaluation/official_container_replay/results `
+  --testbed /home/gugabobo/sb `
+  --timeout 900 `
+  --model-alias paper_replay_empty_duplicate
+
+wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
+  /home/gugabobo/.venvs/swebench-paper-eval/bin/python `
+  scripts/official_evaluator_edge_replay.py collect empty_duplicate
+```
+
+`gold_no_apply` 使用相同三步，把 profile 与 model alias 分别替换为 `gold_no_apply` 和 `paper_replay_gold_no_apply`。若 clone 端点再次出现 HTTP/2 传输错误，只对该次零模型响应的基础设施尝试使用进程级 `GIT_CONFIG_COUNT=1`、`GIT_CONFIG_KEY_0=http.version`、`GIT_CONFIG_VALUE_0=HTTP/1.1`，并保留失败尝试。
+
+机器可读证据为：
+
+- `data/manifests/official_evaluator_edge_replay.json`：正式/无效尝试、冻结哈希、分支覆盖与总验收；
+- `data/manifests/official_empty_duplicate_replay.json`：三行 scorecard 的逐行对照；
+- `data/manifests/official_gold_no_apply_replay.json`：新 evaluator 日志、应用标记与 gold 全测试判定。
+
 ## 7. 当前完成边界
 
 已完成：
@@ -127,11 +172,12 @@ wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
 - 重复预测、空补丁、缺失实例与类别分母语义恢复；
 - 后续数据 revision 引起的 resolved 漂移定位。
 - 一个官方 resolved 和一个官方 applied-unresolved 预测的真实容器重放，逐测试结果 `2/2` 完全一致。
+- gold、官方 patch-apply failure、空字符串、null 和重复行的代表边界验证，逐行状态 `5/5` 完全一致。
 
 尚未完成：
 
-- gold、patch-apply failure、空 patch 和重复预测代表分支的容器/单元验证；
 - 全量 2,294/300 实例从 patch 开始的容器重评；
+- 每个 SWE-bench 支持仓库至少一个 gold patch 的环境验证；
 - 严格原模型重新推理。
 
-因此 `G_EVALUATOR_REPLAY` 保持“聚合层完成、核心容器分支通过、边界分支进行中”，不能提前标为整个严格复现完成。
+因此 `G_EVALUATOR_REPLAY` 更新为“聚合层和代表核心/边界分支完成”，但仍不等于全量容器重评，更不能标为整个严格复现完成。

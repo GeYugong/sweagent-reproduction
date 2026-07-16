@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "profile": "empty_duplicate",
+  "status": "COMPLETE_EXACT",
+  "prepared_at_utc": "2026-07-16T17:14:56.204719+00:00",
+  "description": "One official empty-string line plus two duplicate null lines; no testbed.",
+  "official_experiments_revision": "a5d52722965c791c0c04d18135f906b44f716d39",
+  "dataset_revision": "81ad348adcaf3368691f4db2907f8fc97a8f7526",
+  "dataset_sha256": "2c0969b6fb6920f9425015563419901a4fe7fd078d143a3457fa1997b52365b1",
+  "model_alias": "paper_replay_empty_duplicate",
+  "predictions_sha256": "206e5523f006c9fb2b0b38a0a5f987aaab4f19e6ef5dc9458e159584f5ea4eb3",
+  "tasks_sha256": "88de582dd903cee9af255060bd51bbee42861cd1fc66b5f0bdd0221f086004b5",
+  "prediction_lines": [
+    {
+      "line_index": 1,
+      "instance_id": "django__django-13964",
+      "source": "20240402_sweagent_gpt4/all_preds.jsonl",
+      "patch_state": "empty_string",
+      "expected_scorecard_statuses": [
+        "not_generated"
+      ]
+    },
+    {
+      "line_index": 2,
+      "instance_id": "psf__requests-863",
+      "source": "20240402_sweagent_gpt4/all_preds.jsonl",
+      "patch_state": "null",
+      "expected_scorecard_statuses": [
+        "not_generated"
+      ]
+    },
+    {
+      "line_index": 3,
+      "instance_id": "psf__requests-863",
+      "source": "20240402_sweagent_gpt4/all_preds.jsonl",
+      "patch_state": "null",
+      "expected_scorecard_statuses": [
+        "not_generated"
+      ]
+    }
+  ],
+  "collected_at_utc": "2026-07-16T17:28:43.651559+00:00",
+  "runtime": {
+    "python": "3.9.25",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "docker": "Docker version 29.6.1, build 8900f1d"
+  },
+  "results_directory": "/mnt/d/0code/Research/05/outputs/evaluation/official_container_replay/results",
+  "observations": [
+    {
+      "line_index": 1,
+      "instance_id": "django__django-13964",
+      "source": "20240402_sweagent_gpt4/all_preds.jsonl",
+      "patch_state": "empty_string",
+      "expected_scorecard_statuses": [
+        "not_generated"
+      ],
+      "observed_instance_id": "django__django-13964",
+      "observed_scorecard_statuses": [
+        "not_generated"
+      ],
+      "exact_outcome_match": true
+    },
+    {
+      "line_index": 2,
+      "instance_id": "psf__requests-863",
+      "source": "20240402_sweagent_gpt4/all_preds.jsonl",
+      "patch_state": "null",
+      "expected_scorecard_statuses": [
+        "not_generated"
+      ],
+      "observed_instance_id": "psf__requests-863",
+      "observed_scorecard_statuses": [
+        "not_generated"
+      ],
+      "exact_outcome_match": true
+    },
+    {
+      "line_index": 3,
+      "instance_id": "psf__requests-863",
+      "source": "20240402_sweagent_gpt4/all_preds.jsonl",
+      "patch_state": "null",
+      "expected_scorecard_statuses": [
+        "not_generated"
+      ],
+      "observed_instance_id": "psf__requests-863",
+      "observed_scorecard_statuses": [
+        "not_generated"
+      ],
+      "exact_outcome_match": true
+    }
+  ],
+  "summary": {
+    "expected_line_count": 3,
+    "exact_outcome_match_count": 3,
+    "all_exact": true
+  }
+}

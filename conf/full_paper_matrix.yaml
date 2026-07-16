@@ -73,8 +73,8 @@ gates:
     status: BLOCKED_CAPACITY
     evidence: Artifact-history recovery left approximately 78 GB free on D, below the 120 GB formal-run threshold.
   - id: G_EVALUATOR_REPLAY
-    status: PARTIAL_AGGREGATION_AND_CORE_CONTAINER_COMPLETE
-    evidence: The pinned historical get_model_report plus paper-era Lite/Full dataset revisions reproduces all ten category lists for all eight official SWE-agent/RAG runs exactly, including order and duplicates. One official RESOLVED_FULL and one applied RESOLVED_NO pytest 4.4 prediction were re-executed in a fresh testbed with exact per-test outcomes. Gold, no-apply, empty, and duplicate edge branches remain pending.
+    status: PARTIAL_AGGREGATION_AND_REPRESENTATIVE_BRANCHES_COMPLETE
+    evidence: The pinned historical get_model_report plus paper-era Lite/Full dataset revisions reproduces all ten category lists for all eight official SWE-agent/RAG runs exactly, including order and duplicates. Fresh pytest 4.4 testbeds reproduced one official RESOLVED_FULL and one applied RESOLVED_NO prediction with exact per-test outcomes; an unmodified gold patch and an official no-apply patch also matched exactly. Empty-string, null, and duplicate-line scorecard branches matched 3/3 without creating a testbed. Full 300/2294-instance container replay and one gold environment check per supported repository remain pending.
 
 episode_accounting:
   main_full_default: 4588
@@ -288,7 +288,7 @@ baselines:
     target: "Full 1.31/3.79; Lite 2.67/4.33"
     artifacts: [T_MAIN, A_REPO, A_TEMPORAL, A_LOCALIZATION]
     requires: [G_OFFICIAL_ARTIFACTS, G_EVALUATOR_REPLAY]
-    status: ARTIFACT_AGGREGATION_REPLAYED_CONTAINER_PENDING
+    status: ARTIFACT_AGGREGATION_AND_REPRESENTATIVE_CONTAINER_REPLAYED
 
 analysis_artifacts:
   - {id: T_MAIN, name: main_results_table, status: ARTIFACT_RECOMPUTED_EVALUATOR_VERIFIED_WITH_CLAUDE_INCONSISTENCY}
@@ -366,6 +366,21 @@ artifact_reproduction_runs:
     outputs:
       - data/manifests/official_container_replay.json
       - scripts/official_container_replay.py
+      - docs/evaluator_replay.md
+  - id: EXP-ARTIFACT-006
+    evidence: artifact
+    source_revision: a5d52722965c791c0c04d18135f906b44f716d39
+    sweagent_evaluator_revision: 658eb2842e8a8b00069b301338bc342b70538f7a
+    swebench_runtime_version: 1.0.2
+    dataset_revision: 81ad348adcaf3368691f4db2907f8fc97a8f7526
+    scope: evaluator_empty_duplicate_gold_and_no_apply_edge_replay
+    instances: [django__django-13964, psf__requests-863, pytest-dev__pytest-5227, pytest-dev__pytest-5221]
+    status: COMPLETE_5_OF_5_EXACT_EDGE_OUTCOMES
+    outputs:
+      - data/manifests/official_evaluator_edge_replay.json
+      - data/manifests/official_empty_duplicate_replay.json
+      - data/manifests/official_gold_no_apply_replay.json
+      - scripts/official_evaluator_edge_replay.py
       - docs/evaluator_replay.md
 
 existing_non_exact_runs:
