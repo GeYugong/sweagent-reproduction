@@ -1,0 +1,606 @@
+schema_version: 1
+as_of: "2026-07-17"
+paper: arxiv_2405.15793v3
+source_archive: paper/2405.15793_source.tar.gz
+
+status_semantics:
+  SOURCE_ASSET_VERIFIED: Published source member is present and can be reconstructed, but no independent raw-run claim is implied.
+  SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED: Published aggregate is regenerated from source values while instance-level inputs are not public.
+  ARTIFACT_RECOMPUTED_EXACT: Author-released instance artifacts reproduce the published data exactly.
+  ARTIFACT_RECOMPUTED_WITH_DOCUMENTED_GAP: Available author artifacts were replayed and every known missing record or paper inconsistency is quantified.
+  ARTIFACT_AUDITED: Runtime prompts or interface implementations were exhaustively compared with the paper presentation.
+
+outputs:
+  - id: O01
+    kind: empirical_table
+    paper_label: "table:main-results"
+    source_members: [tables/results_main.tex]
+    matrix_artifacts: [T_MAIN, A_LOCALIZATION]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_WITH_DOCUMENTED_GAP
+    generated_artifacts: [data/derived/official_swebench_main_results.csv]
+    requires: [G_OFFICIAL_ARTIFACTS, G_EVALUATOR_REPLAY]
+    acceptance: Recompute every released SWE-agent and RAG row and retain the two Claude paper/artifact inconsistencies.
+
+  - id: O02
+    kind: empirical_table
+    paper_label: "tab.benchmark_humanevalfix"
+    source_members: [tables/results_main.tex]
+    matrix_artifacts: [T_HUMANEVAL]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_WITH_DOCUMENTED_GAP
+    generated_artifacts: [data/derived/humanevalfix_summary.csv, data/derived/humanevalfix_instance_results.csv]
+    requires: [G_OFFICIAL_ARTIFACTS, G_HUMANEVAL_LANGUAGE]
+    acceptance: Reproduce notebook percentages and the corrected fixed-164 denominators for Python, JavaScript, and Java.
+
+  - id: O03
+    kind: empirical_figure
+    paper_label: "fig:pass_at_k"
+    source_members: [figures/pass_at_k.pdf, tables/results_main.tex]
+    matrix_artifacts: [F_PASSK]
+    evidence_lanes: [source]
+    status: SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED
+    generated_artifacts: [data/derived/paper_pass_at_k.csv, output/pdf/pass_at_k_source_aggregate.pdf]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Regenerate plotted points exactly and keep the six unreleased prediction sets as a blocker.
+
+  - id: O04
+    kind: empirical_table
+    paper_label: "tab:combined_ablations_summary"
+    source_members: [tables/results_main.tex]
+    matrix_artifacts: [T_ABLATION]
+    evidence_lanes: [source]
+    status: SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED
+    generated_artifacts: [data/derived/paper_aci_ablation_results.csv]
+    requires: [G_EXACT_ABLATION_CONFIGS, G_OFFICIAL_ARTIFACTS]
+    acceptance: Rebuild all default, Shell-only, and eight ACI ablation aggregates; raw runs remain independently blocked.
+
+  - id: O05
+    kind: empirical_figure
+    paper_label: "fig.search.comparison"
+    source_members: [figures/search_comparison.pdf, sections/05_analysis.tex]
+    matrix_artifacts: [T_ABLATION]
+    evidence_lanes: [source]
+    status: SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED
+    generated_artifacts: [data/derived/paper_aci_ablation_results.csv]
+    requires: [G_EXACT_ABLATION_CONFIGS]
+    acceptance: Recover the default, iterative-search, and no-search values and preserve the missing raw trajectories.
+
+  - id: O06
+    kind: empirical_figure
+    paper_label: "fig.edit.comparison"
+    source_members: [figures/edit_comparison.pdf, sections/05_analysis.tex]
+    matrix_artifacts: [T_ABLATION]
+    evidence_lanes: [source]
+    status: SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED
+    generated_artifacts: [data/derived/paper_aci_ablation_results.csv]
+    requires: [G_EXACT_ABLATION_CONFIGS]
+    acceptance: Recover the default, no-lint, and no-editor values and preserve the missing raw trajectories.
+
+  - id: O07
+    kind: empirical_figure
+    paper_label: "fig:actions_per_turn"
+    source_members: [figures/actions_per_turn.pdf, sections/05_analysis.tex]
+    matrix_artifacts: [A_TRAJECTORY]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/official_actions_per_turn.csv, output/pdf/official_action_analyses_artifact.pdf]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Recompute action counts per turn from every released GPT-4 trajectory.
+
+  - id: O08
+    kind: empirical_figure
+    paper_label: "fig:failure_modes_pie"
+    source_members: [figures/failure_modes_pie.pdf, sections/05_analysis.tex]
+    matrix_artifacts: [A_FAILURE]
+    evidence_lanes: [source]
+    status: SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED
+    generated_artifacts: [data/derived/paper_failure_mode_counts.csv, output/pdf/failure_modes_source_aggregate.pdf]
+    requires: [G_MODEL_FAILURE_LABELER, G_OFFICIAL_ARTIFACTS]
+    acceptance: Regenerate category counts and chart exactly; retain missing per-instance classifier labels as a blocker.
+
+  - id: O09
+    kind: empirical_table
+    paper_label: "tab:appx:hyperparam_sweep"
+    source_members: [appx_tables/hyperparam_sweep.tex]
+    matrix_artifacts: [T_HYPERPARAM]
+    evidence_lanes: [source]
+    status: SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED
+    generated_artifacts: [data/derived/paper_hyperparameter_sweep.csv]
+    requires: [G_DEV37_MANIFEST, G_OFFICIAL_ARTIFACTS]
+    acceptance: Rebuild all 16 aggregate rows and retain the missing dev37 IDs and five-sample predictions as blockers.
+
+  - id: O10
+    kind: empirical_table
+    paper_label: "table.results_by_repo"
+    source_members: [appx_tables/performance_by_repo.tex]
+    matrix_artifacts: [A_REPO]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/official_performance_by_repo.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Match all 60 released repository cells after applying the paper dataset revisions.
+
+  - id: O11
+    kind: empirical_table
+    paper_label: "table.results_by_temporal"
+    source_members: [appx_tables/performance_by_temporal.tex]
+    matrix_artifacts: [A_TEMPORAL]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/official_performance_by_year.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Match all 25 released year/model cells after applying the paper dataset revisions.
+
+  - id: O12
+    kind: empirical_figure
+    paper_label: "fig.resolved_by_turn"
+    source_members: [figures/appx/resolved_by_turn_gpt4.pdf, figures/appx/resolved_by_turn_claude3opus.pdf]
+    matrix_artifacts: [A_TRAJECTORY]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_WITH_DOCUMENTED_GAP
+    generated_artifacts: [data/derived/official_trajectory_instances.csv, output/pdf/official_trajectory_distributions_artifact.pdf]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Recompute released trajectories and report the Claude/GPT trajectory coverage gaps separately.
+
+  - id: O13
+    kind: empirical_figure
+    paper_label: "fig:appx:steps_vs_cost_resolved"
+    source_members: [figures/appx/submitted_steps_x_resolved.pdf, figures/appx/submitted_cost_x_resolved.pdf]
+    matrix_artifacts: [A_TRAJECTORY]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_WITH_DOCUMENTED_GAP
+    generated_artifacts: [data/derived/official_trajectory_summary.csv, output/pdf/official_trajectory_distributions_artifact.pdf]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Recompute submitted step and cost distributions over the publicly released trajectories.
+
+  - id: O14
+    kind: empirical_table
+    paper_label: "tab:most_common_triples"
+    source_members: [appx_tables/most_common_triples.tex]
+    matrix_artifacts: [A_TRAJECTORY]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/official_action_triples.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Recompute the most common action triples using the paper action normalization.
+
+  - id: O15
+    kind: empirical_table
+    paper_label: "tab:most_common_triples_by_index"
+    source_members: [appx_tables/most_common_triples_by_index.tex]
+    matrix_artifacts: [A_TRAJECTORY]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/official_action_triples.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Recompute action triples by trajectory phase/index.
+
+  - id: O16
+    kind: empirical_figure
+    paper_label: "fig.pattern_categories_per_turns"
+    source_members: [figures/appx/categories_per_turns.pdf]
+    matrix_artifacts: [A_TRAJECTORY]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/official_action_patterns_by_turn.csv, output/pdf/official_action_analyses_artifact.pdf]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Recompute normalized action categories by turn.
+
+  - id: O17
+    kind: empirical_figure
+    paper_label: "fig.actions_per_turn_density"
+    source_members: [figures/appx/actions_per_turn_dist.pdf]
+    matrix_artifacts: [A_TRAJECTORY]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/official_actions_per_turn.csv, output/pdf/official_action_analyses_artifact.pdf]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Recompute action-density distributions from the released trajectories.
+
+  - id: O18
+    kind: empirical_figure
+    paper_label: "fig.actions_per_turn_norm"
+    source_members: [figures/appx/actions_per_turn_norm.pdf]
+    matrix_artifacts: [A_TRAJECTORY]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/official_actions_per_turn.csv, output/pdf/official_action_analyses_artifact.pdf]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Recompute normalized action frequencies by trajectory position.
+
+  - id: O19
+    kind: empirical_figure
+    paper_label: "fig.failed_edits_per_traj"
+    source_members: [figures/appx/failed_edits_per_trajectory.pdf, figures/appx/failed_edits_per_trajectory_resolved.pdf]
+    matrix_artifacts: [A_TRAJECTORY]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_WITH_DOCUMENTED_GAP
+    generated_artifacts: [data/derived/official_failed_edit_summary.csv, output/pdf/official_failed_edits_artifact.pdf]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Recompute all/resolved failed-edit distributions and preserve the paper percentage inconsistency.
+
+  - id: O20
+    kind: empirical_figure
+    paper_label: "fig.prob_good_edit_given_n_fails"
+    source_members: [figures/appx/prob_good_edit_given_n_fails.pdf]
+    matrix_artifacts: [A_TRAJECTORY]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/official_failed_edit_recovery.csv, output/pdf/official_failed_edits_artifact.pdf]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Recompute conditional successful-edit probability after consecutive failed edits.
+
+  - id: O21
+    kind: empirical_figure
+    paper_label: "fig:transition_probs"
+    source_members: [figures/appx/transition_probs.pdf]
+    matrix_artifacts: [A_TRAJECTORY]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_WITH_DOCUMENTED_GAP
+    generated_artifacts: [data/derived/official_transition_probabilities.csv, output/pdf/official_transition_probabilities_artifact.pdf]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Recompute one-step transitions and document source-figure versus prose differences.
+
+  - id: O22
+    kind: empirical_figure
+    paper_label: "fig:transition_probs_2gram"
+    source_members: [figures/appx/transition_probs_2gram.pdf]
+    matrix_artifacts: [A_TRAJECTORY]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/official_transition_probabilities.csv, output/pdf/official_transition_probabilities_artifact.pdf]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Recompute two-gram action transitions.
+
+  - id: O23
+    kind: empirical_figure
+    paper_label: "fig:transition_probs_3gram"
+    source_members: [figures/appx/transition_probs_3gram.pdf]
+    matrix_artifacts: [A_TRAJECTORY]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/official_transition_probabilities.csv, output/pdf/official_transition_probabilities_artifact.pdf]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Recompute three-gram action transitions.
+
+  - id: O24
+    kind: empirical_figure
+    paper_label: "fig:transition_probs_4gram"
+    source_members: [figures/appx/transition_probs_4gram.pdf]
+    matrix_artifacts: [A_TRAJECTORY]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/official_transition_probabilities.csv, output/pdf/official_transition_probabilities_artifact.pdf]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Recompute four-gram action transitions.
+
+  - id: O25
+    kind: empirical_table
+    paper_label: "tab:appx:failure_categories"
+    source_members: [appx_tables/failure_mode_categories.tex]
+    matrix_artifacts: [A_FAILURE]
+    evidence_lanes: [source]
+    status: SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED
+    generated_artifacts: [data/derived/paper_failure_mode_counts.csv]
+    requires: [G_MODEL_FAILURE_LABELER, G_OFFICIAL_ARTIFACTS]
+    acceptance: Recover category definitions and counts while preserving missing raw labels.
+
+  - id: O26
+    kind: empirical_table
+    paper_label: "tab:passk"
+    source_members: [appx_tables/pass_at_k.tex]
+    matrix_artifacts: [T_PASSK]
+    evidence_lanes: [source]
+    status: SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED
+    generated_artifacts: [data/derived/paper_pass_at_k.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Rebuild six run rates and pass-at-k values from published aggregates.
+
+  - id: O27
+    kind: empirical_table
+    paper_label: "tab.appx_tables.patch_stats_basic"
+    source_members: [appx_tables/patch_stats_basic.tex]
+    matrix_artifacts: [A_PATCH]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/official_patch_statistics.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Match all 32 published patch-statistic cells.
+
+  - id: O28
+    kind: empirical_figure
+    paper_label: "fig.humanevalfix_dist_of_turns"
+    source_members: [figures/appx/humanevalfix_turns.pdf]
+    matrix_artifacts: [F_HUMANEVAL_TURNS]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/humanevalfix_histogram_bins.csv, output/pdf/humanevalfix_turns_artifact.pdf]
+    requires: [G_OFFICIAL_ARTIFACTS, G_HUMANEVAL_LANGUAGE]
+    acceptance: Recompute the resolved-turn histogram for all three released languages.
+
+  - id: O29
+    kind: descriptive_table
+    paper_label: "tab:datasets_info"
+    source_members: [appx/analyses/datasets_info.tex]
+    matrix_artifacts: []
+    evidence_lanes: [source]
+    status: SOURCE_ASSET_VERIFIED
+    generated_artifacts: []
+    requires: []
+    acceptance: Verify dataset sizes, splits, and the HumanEvalFix language typo against released artifacts.
+
+  - id: O30
+    kind: empirical_table
+    paper_label: "tab:appx:exit_conditions"
+    source_members: [appx_tables/exit_conditions.tex]
+    matrix_artifacts: [A_EXIT]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_WITH_DOCUMENTED_GAP
+    generated_artifacts: [data/derived/official_exit_conditions.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Recompute available exit conditions and report missing Claude Full trajectories explicitly.
+
+  - id: O31
+    kind: interface_table
+    paper_label: "tab:commands"
+    source_members: [appx_tables/commands.tex]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_AUDITED
+    generated_artifacts: [data/derived/official_command_interface_audit.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Audit all ten paper commands against the paper-era implementations.
+
+  - id: O32
+    kind: interface_figure
+    paper_label: "fig.trajectory_overview"
+    source_members: [figures/trajectory_overview.pdf]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source]
+    status: SOURCE_ASSET_VERIFIED
+    generated_artifacts: []
+    requires: []
+    acceptance: Verify the released trajectory overview asset and its source inclusion.
+
+  - id: O33
+    kind: interface_figure
+    paper_label: "fig.appx.swe_agent_components"
+    source_members: [figures/appx/swe-agent-components.pdf]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source]
+    status: SOURCE_ASSET_VERIFIED
+    generated_artifacts: []
+    requires: []
+    acceptance: Verify the released component architecture asset.
+
+  - id: O34
+    kind: prompt_figure
+    paper_label: "fig.prompt_flow"
+    source_members: [figures/appx/prompt_flow.pdf]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source]
+    status: SOURCE_ASSET_VERIFIED
+    generated_artifacts: []
+    requires: []
+    acceptance: Verify the published prompt-flow asset.
+
+  - id: O35
+    kind: prompt_box
+    paper_label: "fig.prompts.linting"
+    source_members: [figures/prompts/linting.tex]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_AUDITED
+    generated_artifacts: [data/derived/official_command_interface_audit.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Compare the linting interaction example with the paper-era editor implementation.
+
+  - id: O36
+    kind: prompt_box
+    paper_label: "fig.prompts.example_configuration"
+    source_members: [figures/prompts/example_configuration.tex]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_AUDITED
+    generated_artifacts: [data/derived/official_prompt_runtime_variants.csv]
+    requires: [G_EXACT_RUNTIME_PROMPTS]
+    acceptance: Record the displayed configuration and distinguish it from the mixed runtime work tree.
+
+  - id: O37
+    kind: prompt_box
+    paper_label: "fig.prompts.system"
+    source_members: [figures/prompts/system.tex]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_AUDITED
+    generated_artifacts: [data/derived/official_prompt_system_required.txt, data/derived/official_prompt_system_optional.txt]
+    requires: [G_EXACT_RUNTIME_PROMPTS]
+    acceptance: Recover both runtime system-prompt variants and their trajectory counts.
+
+  - id: O38
+    kind: prompt_box
+    paper_label: "fig.prompts.demonstration"
+    source_members: [figures/prompts/demonstration.tex]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_AUDITED
+    generated_artifacts: [data/derived/official_prompt_demonstration.txt]
+    requires: [G_EXACT_RUNTIME_PROMPTS]
+    acceptance: Recover the exact demonstration carried by released trajectories.
+
+  - id: O39
+    kind: prompt_box
+    paper_label: "fig.prompts.instance"
+    source_members: [figures/prompts/instance.tex]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_AUDITED
+    generated_artifacts: [data/derived/official_prompt_instance_template.txt]
+    requires: [G_EXACT_RUNTIME_PROMPTS]
+    acceptance: Recover the exact instance template carried by released trajectories.
+
+  - id: O40
+    kind: prompt_box
+    paper_label: "fig.prompts.next_step"
+    source_members: [figures/prompts/next_step.tex]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source]
+    status: SOURCE_ASSET_VERIFIED
+    generated_artifacts: []
+    requires: []
+    acceptance: Verify the published next-step prompt example.
+
+  - id: O41
+    kind: prompt_box
+    paper_label: "fig.prompts.collapsed_obs"
+    source_members: [figures/prompts/collapsed_obs.tex]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_AUDITED
+    generated_artifacts: [data/derived/official_prompt_runtime_variants.csv]
+    requires: [G_EXACT_RUNTIME_PROMPTS]
+    acceptance: Verify collapsed-observation behavior against Last5Observations runtime evidence.
+
+  - id: O42
+    kind: prompt_box
+    paper_label: "fig.prompts.error"
+    source_members: [figures/prompts/error.tex]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source]
+    status: SOURCE_ASSET_VERIFIED
+    generated_artifacts: []
+    requires: []
+    acceptance: Verify the published format-error prompt example.
+
+  - id: O43
+    kind: interface_figure
+    paper_label: "fig.interface.command_skeleton"
+    source_members: [figures/interface/command_skeleton.tex]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_AUDITED
+    generated_artifacts: [data/derived/official_command_interface_audit.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Verify the command parser skeleton against the frozen implementation.
+
+  - id: O44
+    kind: interface_figure
+    paper_label: "fig:appx:file_viewer"
+    source_members: [figures/interface/file_viewer.tex]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_AUDITED
+    generated_artifacts: [data/derived/official_command_interface_audit.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Verify file-viewer pagination and window semantics against the frozen implementation.
+
+  - id: O45
+    kind: interface_figure
+    paper_label: "fig:appx:file_search"
+    source_members: [figures/interface/search.tex]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_AUDITED
+    generated_artifacts: [data/derived/official_command_interface_audit.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Verify summarized search semantics against the frozen implementation.
+
+  - id: O46
+    kind: qualitative_case
+    paper_label: "qualitative:psf__requests-2317"
+    source_members: [trajectories/psf__requests-2317.tex]
+    matrix_artifacts: [A_QUALITATIVE]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/official_qualitative_cases.csv, data/derived/official_qualitative_actions.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Match the action sequence, model patch, gold patch, and published result.
+
+  - id: O47
+    kind: qualitative_case
+    paper_label: "qualitative:pylint-dev__pylint-5859"
+    source_members: [trajectories/pylint-dev__pylint-5859.tex]
+    matrix_artifacts: [A_QUALITATIVE]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/official_qualitative_cases.csv, data/derived/official_qualitative_actions.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Match the action sequence, model patch, gold patch, and published result.
+
+  - id: O48
+    kind: qualitative_case
+    paper_label: "qualitative:sympy__sympy-21614"
+    source_members: [trajectories/sympy__sympy-21614.tex]
+    matrix_artifacts: [A_QUALITATIVE]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/official_qualitative_cases.csv, data/derived/official_qualitative_actions.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Match the action sequence, model patch, gold patch, and published result.
+
+  - id: O49
+    kind: qualitative_case
+    paper_label: "qualitative:django__django-14411"
+    source_members: [trajectories/django__django-14411.tex]
+    matrix_artifacts: [A_QUALITATIVE]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_RECOMPUTED_EXACT
+    generated_artifacts: [data/derived/official_qualitative_cases.csv, data/derived/official_qualitative_actions.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Match the action sequence, model patch, gold patch, and published result.
+
+  - id: O50
+    kind: conceptual_figure
+    paper_label: "fig:teaser"
+    source_members: [figures/swe_agent_overview.pdf]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source]
+    status: SOURCE_ASSET_VERIFIED
+    generated_artifacts: []
+    requires: []
+    acceptance: Verify the published SWE-agent overview asset.
+
+  - id: O51
+    kind: conceptual_figure
+    paper_label: "fig:aci-hci"
+    source_members: [figures/aci-ui.pdf]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source]
+    status: SOURCE_ASSET_VERIFIED
+    generated_artifacts: []
+    requires: []
+    acceptance: Verify the published ACI/HCI comparison asset.
+
+  - id: O52
+    kind: interface_subfigure
+    paper_label: "fig:sub_viewer"
+    source_members: [figures/file_viewer_example.pdf]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_AUDITED
+    generated_artifacts: [data/derived/official_command_interface_audit.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Verify the file-viewer example against command semantics.
+
+  - id: O53
+    kind: interface_subfigure
+    paper_label: "fig:sub_editor"
+    source_members: [figures/file_editor_example.pdf]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_AUDITED
+    generated_artifacts: [data/derived/official_command_interface_audit.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Verify the linting-editor example against command semantics.
+
+  - id: O54
+    kind: interface_figure
+    paper_label: "fig:viewer_and_editor"
+    source_members: [sections/03_sweagent.tex, figures/file_viewer_example.pdf, figures/file_editor_example.pdf]
+    matrix_artifacts: [A_PROMPTS_INTERFACE]
+    evidence_lanes: [source, artifact]
+    status: ARTIFACT_AUDITED
+    generated_artifacts: [data/derived/official_command_interface_audit.csv]
+    requires: [G_OFFICIAL_ARTIFACTS]
+    acceptance: Verify the combined viewer/editor presentation and both underlying interfaces.

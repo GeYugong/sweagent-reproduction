@@ -1,8 +1,23 @@
-schema_version: 1
+schema_version: 2
 as_of: "2026-07-17"
 objective: full_paper_reproduction
 
+completion_contract:
+  public_artifact_reproduction_complete: false
+  exact_model_rerun_complete: false
+  modern_replication_complete: false
+  strict_full_paper_reproduction_complete: false
+  strict_completion_rule: public_artifact_reproduction_complete AND exact_model_rerun_complete
+  output_inventory: conf/paper_output_inventory.yaml
+
+global_exact_requires:
+  - G_EXACT_RUNTIME_PROMPTS
+  - G_EXPERIMENT_BUDGET_AUTHORIZATION
+
 evidence_types:
+  source:
+    description: Reconstruct targets and released assets from the frozen paper source package.
+    substitutes_for_exact_run: false
   artifact:
     description: Recompute published results from authors' original artifacts.
     substitutes_for_exact_run: false
@@ -27,6 +42,11 @@ frozen_inputs:
     gpt4_turbo: gpt-4-1106-preview
     claude_3_opus: claude-3-opus-20240229
     failure_labeler: gpt-4o-2024-05-13
+  runtime_prompt_evidence:
+    initial_prompt_commit: 5b143857cb7af8b22fd421a103429f76f5259f08
+    last5_processor_commit: 08e66863ac8ccf3cf8b740c243e74af15119f7b8
+    audited_public_trajectories: 2568
+    system_prompt_variants: 2
   official_artifacts:
     swebench_repository: https://github.com/SWE-bench/experiments
     swebench_current_commit: 2f15350cd32becc4569e0d826361048555b605c0
@@ -60,6 +80,9 @@ gates:
   - id: G_EXACT_ABLATION_CONFIGS
     status: BLOCKED_PARTIAL_RELEASE
     evidence: Default and FullHistory configs plus 100/200-window parameter implementations are public. No official paper-era full-file viewer, no-lint editor, iterative search, Shell-only config, or raw ablation runs were found across 822 PR heads and official artifact storage.
+  - id: G_EXACT_RUNTIME_PROMPTS
+    status: BLOCKED_PARTIAL_RELEASE
+    evidence: Released trajectories recover one instance template, one demonstration, Last5Observations, and two system-prompt variants across 2,568 trajectories, but the exact per-run mixed work tree and 26 GPT-4 Full/Lite trajectory records are not public.
   - id: G_DEV37_MANIFEST
     status: BLOCKED_MISSING_PROVENANCE
     evidence: Paper specifies a random 37-instance dev subset but does not list instance IDs in the source package.
@@ -69,12 +92,29 @@ gates:
   - id: G_API_PRICING_AND_BUDGET
     status: BLOCKED_UNKNOWN_PRICE
     evidence: Relay pricing is unknown; unknown price is not treated as zero.
+  - id: G_EXPERIMENT_BUDGET_AUTHORIZATION
+    status: BLOCKED_NOT_AUTHORIZED
+    evidence: API credentials authorize authentication only. No explicit total-spend ceiling has been approved for the minimum 13,140 agent episodes; the paper protocol has a theoretical USD 52,560 ceiling.
   - id: G_FORMAL_DISK
     status: BLOCKED_CAPACITY
-    evidence: Artifact-history recovery left approximately 78 GB free on D, below the 120 GB formal-run threshold.
+    evidence: The 2026-07-17 host measurement is 64.07 GB free on D out of 651.64 GB, below the 120 GB formal-run threshold. WSL sparse-volume capacity is not counted as independent host storage.
+  - id: G_SERVER_RUNTIME
+    status: BLOCKED_NO_CONTAINER_RUNTIME
+    evidence: The scoped server directory exists under /public/home/mty/GeYugong/05_sweagent_repro_ser, but no usable container runtime has been validated. Server use is limited to controlled storage or API generation until a scoped gold-patch smoke passes.
   - id: G_EVALUATOR_REPLAY
-    status: IN_PROGRESS_12_REPOSITORY_GOLD_SELECTION_FROZEN
-    evidence: The pinned historical get_model_report plus paper-era Lite/Full dataset revisions reproduces all ten category lists for all eight official SWE-agent/RAG runs exactly, including order and duplicates. Fresh pytest 4.4 testbeds reproduced one official RESOLVED_FULL and one applied RESOLVED_NO prediction with exact per-test outcomes; an unmodified gold patch and an official no-apply patch also matched exactly. Empty-string, null, and duplicate-line scorecard branches matched 3/3 without creating a testbed. The 12 paper-repository gold selection and input hashes are preregistered; pytest is complete and 11 fresh environments are pending. Full 300/2294-instance container replay remains a higher-cost validation.
+    status: IN_PROGRESS_6_STRICT_1_SEMANTIC_5_PENDING
+    evidence: Historical reports and evaluator edge branches replay exactly. Astropy, Django, Flask, Matplotlib, Seaborn, and pytest gold patches pass with the frozen evaluator. Requests passes 140/141 public reference outcomes; its only external-network test is separately validated by a deterministic local cross-host redirect. xarray has no valid completed attempt; Pylint, scikit-learn, Sphinx, and SymPy remain pending.
+
+resource_measurements:
+  measured_at: "2026-07-17"
+  host_volume: D
+  total_gb: 651.64
+  free_gb: 64.07
+  formal_threshold_gb: 120
+  formal_scale_up_allowed: false
+  local_sequential_gold_replay_allowed: true
+  server_root: /public/home/mty/GeYugong/05_sweagent_repro_ser
+  server_evaluator_allowed: false
 
 episode_accounting:
   main_full_default: 4588
@@ -329,7 +369,7 @@ artifact_reproduction_runs:
       - data/derived/humanevalfix_histogram_bins.csv
       - output/pdf/humanevalfix_turns_artifact.pdf
   - id: EXP-ARTIFACT-003
-    evidence: paper_source_aggregate
+    evidence: source
     source_revision: arxiv_2405.15793v3
     scope: aci_ablation_hyperparameter_passk_failure_mode_aggregates
     status: COMPLETE_AGGREGATES_WITH_RAW_ASSETS_MISSING

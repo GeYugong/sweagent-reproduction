@@ -51,6 +51,12 @@ resources:
   max_gpus: 0
   container_backend: docker_engine_wsl2
   max_parallel_instances: 1
+  host_volume: D
+  measured_free_disk_gb: 64.07
+  formal_scale_up_disk_threshold_gb: 120
+  formal_scale_up_allowed: false
+  sequential_gold_replay_allowed: true
+  server_container_runtime_validated: false
 
 modern_replication:
   primary_model: gpt-5.6-terra
@@ -88,13 +94,18 @@ evaluation:
 full_reproduction:
   plan: docs/full_paper_reproduction_plan.md
   matrix: conf/full_paper_matrix.yaml
+  paper_output_inventory: conf/paper_output_inventory.yaml
   minimum_unique_agent_episodes: 13140
-  evidence_types: [artifact, exact, modern, exploratory]
+  evidence_types: [source, artifact, exact, modern, exploratory]
   relay_pricing_required_before_scale_up: true
+  explicit_total_budget_authorization_required_before_scale_up: true
+  explicit_total_budget_authorized: false
   minimum_free_disk_gb_before_formal_scale_up: 120
   artifact_reproduction:
     swebench_main_rows: complete_with_claude_paper_inconsistency
     humanevalfix: complete_with_notebook_denominator_bug
+    paper_output_inventory_entries: 54
+    evaluator_gold_replay: in_progress_6_strict_1_semantic_5_pending
 
 tracking:
   registry: logs/experiment_registry.csv
