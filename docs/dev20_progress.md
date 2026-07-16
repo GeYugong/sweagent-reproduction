@@ -24,15 +24,16 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 | EXP-DEV20-005 | `pvlib__pvlib-python-1707` | 21 | 361,753 | 4,612 | applied | RESOLVED_FULL |
 | EXP-DEV20-006 | `pvlib__pvlib-python-1854` | 4 | 51,333 | 1,269 | not generated | unresolved |
 | EXP-DEV20-007 | `pydicom__pydicom-1139` | 21 | 353,071 | 2,521 | applied | RESOLVED_PARTIAL |
+| EXP-DEV20-008 | `pydicom__pydicom-1256` | 21 | 248,681 | 2,580 | applied | RESOLVED_FULL |
 
 当前累计：
 
-- 已评测：8/20；
-- resolved：3；
+- 已评测：9/20；
+- resolved：4；
 - 未 resolved：5；
-- 暂时 resolve rate：37.5%。
+- 暂时 resolve rate：44.44%。
 
-该比例只有三个样本，不报告置信区间，也不用于模型间比较。至少完成冻结的 20 个实例后再计算主指标与 bootstrap 置信区间。
+当前样本仍未完成，不报告置信区间，也不用于模型间比较。至少完成冻结的 20 个实例后再计算主指标与 bootstrap 置信区间。
 
 ## 未计入正式结果的尝试
 
@@ -131,6 +132,23 @@ EOF 通信竞态修复后，`EXP-DEV20-006` 正常进入 Agent。模型首个计
 - 正式判定：`RESOLVED_PARTIAL`。
 
 模型实现 `PersonName.__iter__`，修复 iterator 与 contains，但没有实现 Python 2 风格的 `.next()`，所以剩余 FAIL_TO_PASS `test_next` 合理失败。主 resolve rate 只把 `RESOLVED_FULL` 计为成功，因此该实例记为 unresolved；部分修复率单独保留。
+
+## pydicom 1256 正式结果
+
+退出码截止时间竞态修复后，模型定位到嵌套 Sequence 反序列化路径没有继续传递 `bulk_data_element_handler`。候选补丁在递归 `DataElement.from_json()` 调用中加入该 handler，并为嵌套 `BulkDataURI` 增加回归测试。Agent 侧完整 `pydicom/tests/test_json.py` 为 23/23 通过。
+
+正式 evaluator 使用固定的 pytest 7.4.4，benchmark test patch 与 prediction patch 均成功应用：
+
+- FAIL_TO_PASS：1/1 通过；
+- PASS_TO_PASS：22/22 通过；
+- 总目标测试：23/23 通过；
+- API 调用：21；
+- 输入 token：248,681；
+- 输出 token：2,580；
+- agent 步骤：19；
+- 正式判定：`RESOLVED_FULL`。
+
+累计 9 个正式实例为 4 个完全解决、1 个部分解决和 4 个无有效解决，主 resolve rate 为 44.44%。
 
 ## Marshmallow 成功案例
 
