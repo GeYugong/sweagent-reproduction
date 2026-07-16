@@ -609,6 +609,25 @@ benchmark test patch 与 prediction patch 均应用成功。92 个 PASS_TO_PASS 
 
 `COMPLETE`：resolved=0。dev20 累计 4/14 完全解决，主 resolve rate 为 28.57%。
 
+## 2026-07-16 — EXP-DEV20-014：astroid 1333 搜索预算耗尽
+
+模型调查 implicit namespace package 在缺少 `__init__.py` 时的解析问题，主要使用 `grep`、`open`、`cd` 和一次清理命令检查模块路径代码。24 个 agent 步骤中没有 `edit` 或其他代码修改。第 23 次调用使用带 `bash` 语言标签的围栏，触发旧 ACI 格式纠正；后续仍未形成修复。
+
+### 统计与判分
+
+- API 调用：25；
+- 输入 token：303,979；
+- 输出 token：3,845；
+- model patch：null；
+- exit status：`exit_cost`；
+- scorecard：`not_generated`。
+
+evaluator 得到零个非空预测并跳过 testbed。该实例按正式协议计为 unresolved，不属于基础设施失败。
+
+### 状态
+
+`COMPLETE`：resolved=0，失败类型为 `NOT_GENERATED/EXIT_COST`。dev20 累计 4/15 完全解决，主 resolve rate 为 26.67%。
+
 ## 2026-07-15 — EXP-DEV20-003B：pvlib 1154 镜像 clone 停滞
 
 ### 失败位置

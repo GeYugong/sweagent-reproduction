@@ -30,13 +30,14 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 | EXP-DEV20-011 | `pydicom__pydicom-901` | 25 | 287,071 | 3,485 | applied | RESOLVED_NO |
 | EXP-DEV20-012 | `pylint-dev__astroid-1196` | 25 | 289,720 | 3,862 | apply failed | unresolved |
 | EXP-DEV20-013 | `pylint-dev__astroid-1268` | 20 | 210,496 | 2,509 | applied | RESOLVED_NO |
+| EXP-DEV20-014 | `pylint-dev__astroid-1333` | 25 | 303,979 | 3,845 | not generated | unresolved |
 
 当前累计：
 
-- 已评测：14/20；
+- 已评测：15/20；
 - resolved：4；
-- 未 resolved：10；
-- 暂时 resolve rate：28.57%。
+- 未 resolved：11；
+- 暂时 resolve rate：26.67%。
 
 当前样本仍未完成，不报告置信区间，也不用于模型间比较。至少完成冻结的 20 个实例后再计算主指标与 bootstrap 置信区间。
 
@@ -234,6 +235,21 @@ Python 3.6 / pytest 6.2.5 兼容修复后，模型尝试解决“库导入不应
 - 正式判定：`RESOLVED_NO`。
 
 模型解决了缺失 visitor 导致的异常，但自行选择了错误的规范字符串；这是功能接近但目标语义不一致，不计为部分解决，因为唯一 FAIL_TO_PASS 未通过。
+
+## astroid 1333 正式结果
+
+模型围绕 implicit namespace package 与缺失 `__init__.py` 的解析路径反复检查 `modutils.py` 等文件，但 24 个 agent 步骤中没有任何编辑动作。第 23 次调用还返回带 `` ```bash `` 标签的命令围栏，触发 ACI 格式纠正；达到 25 次调用上限时工作区没有 diff。
+
+- API 调用：25；
+- 输入 token：303,979；
+- 输出 token：3,845；
+- agent 步骤：24；
+- 编辑动作：0；
+- model patch：null；
+- exit status：`exit_cost`；
+- 正式判定：`NOT_GENERATED` / unresolved。
+
+evaluator 检测到零条非空预测并生成 `not_generated` scorecard，不启动测试任务。该失败属于搜索预算耗尽，而非环境或 patch apply 问题。
 
 ## Marshmallow 成功案例
 
