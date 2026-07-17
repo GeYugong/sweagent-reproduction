@@ -95,8 +95,13 @@ full_reproduction:
   plan: docs/full_paper_reproduction_plan.md
   matrix: conf/full_paper_matrix.yaml
   paper_output_inventory: conf/paper_output_inventory.yaml
+  coverage_manifest: data/manifests/full_reproduction_coverage.json
   minimum_unique_agent_episodes: 13140
   evidence_types: [source, artifact, exact, modern, exploratory]
+  public_artifact_reproduction_complete: true
+  exact_model_rerun_complete: false
+  modern_replication_complete: false
+  strict_full_paper_reproduction_complete: false
   relay_pricing_required_before_scale_up: true
   explicit_total_budget_authorization_required_before_scale_up: true
   explicit_total_budget_authorized: false
@@ -105,7 +110,9 @@ full_reproduction:
     swebench_main_rows: complete_with_claude_paper_inconsistency
     humanevalfix: complete_with_notebook_denominator_bug
     paper_output_inventory_entries: 54
+    paper_output_terminal_entries: 54
     evaluator_gold_replay: complete_11_full_reference_1_external_network_semantic
+    coverage_audit: complete_public_artifact_reproduction
 
 tracking:
   registry: logs/experiment_registry.csv

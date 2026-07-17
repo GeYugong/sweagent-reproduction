@@ -2,6 +2,8 @@
 
 本仓库用于完整复现与扩展研究《SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering》。研究目标是从作者工件复算、论文精确模型重跑和现代模型复验三条独立证据链，重新生成论文全部经验结果、消融和轨迹分析。
 
+当前状态（2026-07-17）：公开工件复现已完成，论文输出清单覆盖 54/54；论文原模型严格重跑为 0/18，受退役模型、未发布精确配置、预算和正式运行资源门槛阻塞。因此整篇论文严格复现尚未完成，现代模型结果也不计作原模型替代。
+
 ## 研究范围
 
 研究分为三个证据层：
@@ -49,7 +51,7 @@
 - 每次运行均记录代码哈希、配置、模型标识、时间、token、成本和退出状态；
 - 开发集在正式实验前冻结。
 
-完整方案见 [docs/full_paper_reproduction_plan.md](docs/full_paper_reproduction_plan.md)，官方工件追溯与已复算结果见 [docs/artifact_provenance.md](docs/artifact_provenance.md)，A01–A10 实例级分析见 [docs/official_instance_analyses.md](docs/official_instance_analyses.md)，A13/A14 定性案例与运行时 prompt/ACI 审计见 [docs/official_qualitative_interface_audit.md](docs/official_qualitative_interface_audit.md)，历史评测聚合器验证见 [docs/evaluator_replay.md](docs/evaluator_replay.md)，论文期协议与缺失资产边界见 [docs/protocol_recovery_audit.md](docs/protocol_recovery_audit.md)，机器清单见 [conf/full_paper_matrix.yaml](conf/full_paper_matrix.yaml)，逐次记录见 [logs/experiment_log.md](logs/experiment_log.md)。
+完整方案见 [docs/full_paper_reproduction_plan.md](docs/full_paper_reproduction_plan.md)，公开工件完成审计见 [docs/public_artifact_completion_audit.md](docs/public_artifact_completion_audit.md)，官方工件追溯与已复算结果见 [docs/artifact_provenance.md](docs/artifact_provenance.md)，A01–A10 实例级分析见 [docs/official_instance_analyses.md](docs/official_instance_analyses.md)，A13/A14 定性案例与运行时 prompt/ACI 审计见 [docs/official_qualitative_interface_audit.md](docs/official_qualitative_interface_audit.md)，历史评测聚合器验证见 [docs/evaluator_replay.md](docs/evaluator_replay.md)，论文期协议与缺失资产边界见 [docs/protocol_recovery_audit.md](docs/protocol_recovery_audit.md)，机器清单见 [conf/full_paper_matrix.yaml](conf/full_paper_matrix.yaml)，逐次记录见 [logs/experiment_log.md](logs/experiment_log.md)。
 
 论文源码中的 ACI 消融、超参数、pass@k 与失败模式聚合值可用以下命令重建：
 

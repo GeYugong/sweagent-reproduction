@@ -1647,3 +1647,59 @@ libmamba 在相同 `environment.yml` 上完成求解。冻结 harness 的 `numpy
 - `docs/evaluator_replay.md`：方法、结果和完成边界。
 
 最终状态为 `COMPLETE_11_FULL_REFERENCE_1_EXTERNAL_NETWORK_SEMANTIC`。该状态完成了论文仓库代表环境门槛，不代表全量 Lite/Full 容器重评、原模型推理或整篇论文严格复现完成。
+
+## 2026-07-17 — EXP-ARTIFACT-010：公开工件复现覆盖审计
+
+### 目标
+
+在不执行模型推理的条件下，对论文输出清单、arXiv 源码成员、全部派生文件、协议负检索终态和 evaluator 仓库覆盖做一次联合机器验收。审计只回答公开工件层是否完成，不把论文源码聚合值、现代模型结果或外部 blocker 计为原模型严格重跑。
+
+### 验收输入
+
+- `conf/paper_output_inventory.yaml`：54 个论文输出及其 source member、派生工件和验收口径；
+- `paper/2405.15793_source.tar.gz`：arXiv v3 源码包，SHA-256 与协议恢复清单一致；
+- `data/manifests/paper_protocol_recovery.json`：11 个协议组件、4 组缺失结果资产和 7 条负检索结论；
+- `data/manifests/official_gold_repository_replay.json`：11 个 full-reference outcome、1 个 Requests 外网语义替代验证；
+- `conf/full_paper_matrix.yaml`：13 个 gate、18 个 exact 实验和完成契约。
+
+### 机器验收规则
+
+1. 输出 ID 必须完整覆盖 O01–O54，状态必须属于清单定义的五种可审计终态；
+2. 每个 `source_members` 条目必须存在于固定源码包，并记录解包后字节数和 SHA-256；
+3. 每个 `generated_artifacts` 文件必须存在，并记录字节数和 SHA-256；
+4. 协议组件与缺失结果资产不得保留 `PENDING`、`SEARCHING`、`UNKNOWN` 或 `IN_PROGRESS`；
+5. 论文源码包 SHA-256 必须与协议清单一致；
+6. evaluator 仓库覆盖必须保持 11 full-reference、1 semantic、12 validated；
+7. 公开工件完成与原模型、现代模型和严格完成四个布尔状态必须独立保存。
+
+### 结果
+
+全部 54 个论文输出通过联合验收，共涉及 56 个唯一源码成员和 35 个唯一派生文件。状态分布为：
+
+| 状态 | 数量 |
+|---|---:|
+| `ARTIFACT_RECOMPUTED_EXACT` | 18 |
+| `ARTIFACT_RECOMPUTED_WITH_DOCUMENTED_GAP` | 7 |
+| `SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED` | 8 |
+| `SOURCE_ASSET_VERIFIED` | 8 |
+| `ARTIFACT_AUDITED` | 13 |
+
+15 个带缺口的输出均保留具体缺失原因，不把论文源码聚合重建写成逐实例原始运行复算。11 个协议组件和 4 组缺失结果资产均已进入恢复、可推导但未发布、或缺失官方实现的终态；7 条负检索证据保持不变。论文 source archive 哈希与协议清单一致，evaluator 仓库覆盖保持 12/12。
+
+### 完成状态拆分
+
+- `public_artifact_reproduction_complete=true`；
+- `exact_model_rerun_complete=false`，18 个 exact 实验均未启动；
+- `modern_replication_complete=false`，现有 dev20 只属于局部现代实验；
+- `strict_full_paper_reproduction_complete=false`，继续执行 `public AND exact` 规则。
+
+公开工件进度为 54/54，原模型严格重跑为 0/18。二者不合并成单一百分比。原模型、精确消融配置、dev37、失败标签、价格/预算、正式磁盘和服务器容器 runtime 门槛仍逐项保留。
+
+### 输出
+
+- `data/manifests/full_reproduction_coverage.json`：输入、source member、派生文件、逐输出 gate 和完成状态清单；
+- `data/derived/paper_output_coverage.csv`：O01–O54 逐项覆盖表；
+- `docs/public_artifact_completion_audit.md`：完成边界与严格重跑 blocker；
+- `scripts/audit_full_reproduction_coverage.py`：确定性覆盖审计入口。
+
+本阶段模型 API、GPU和远程服务器使用均为 0。最终状态为 `COMPLETE_PUBLIC_ARTIFACT_REPRODUCTION`；该状态不等于整篇论文严格复现完成。

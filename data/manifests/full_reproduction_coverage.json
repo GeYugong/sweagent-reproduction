@@ -1,0 +1,1956 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-07-17",
+  "generated_at_utc": "2026-07-17T01:10:24.032852+00:00",
+  "scope": "SWE-agent paper public-artifact completion audit",
+  "status": "COMPLETE_PUBLIC_ARTIFACT_REPRODUCTION",
+  "inputs": {
+    "matrix": {
+      "path": "conf/full_paper_matrix.yaml",
+      "bytes": 23482,
+      "sha256": "b6a4430235e95b0d05e372d462e1a723bd65898ea4f16b3882d558daf67256b2"
+    },
+    "inventory": {
+      "path": "conf/paper_output_inventory.yaml",
+      "bytes": 26264,
+      "sha256": "d1971ead0ce9405b2cdd6e3fc8795dff83b8f28164e3babf2fdfbf59bb28cfab"
+    },
+    "protocol_recovery": {
+      "path": "data/manifests/paper_protocol_recovery.json",
+      "bytes": 6735,
+      "sha256": "548c06d589f4ece12000bfd6576cc56f40c103f5239fc8f19c93d3d51318c207"
+    },
+    "gold_repository_replay": {
+      "path": "data/manifests/official_gold_repository_replay.json",
+      "bytes": 119226,
+      "sha256": "2c1776dd76038b4308639dbb4e826f1a1679f97ed1b57fd475efc904e289b642"
+    },
+    "paper_source": {
+      "path": "paper/2405.15793_source.tar.gz",
+      "bytes": 4825857,
+      "sha256": "3d2bafc2fd9e104fd204f7d4582260817c48b15133f7c1cf668dd081c2fbc1ab"
+    }
+  },
+  "source_members": [
+    {
+      "path": "appx/analyses/datasets_info.tex",
+      "bytes": 1240,
+      "sha256": "410b82104c2399f3394a0d1726cc6264a08fbe1a1693822cfb7dd575769c2bfa"
+    },
+    {
+      "path": "appx_tables/commands.tex",
+      "bytes": 2847,
+      "sha256": "a55c44389d326eae7ccd0484290e191fcaeb9188dd5c4c767dfaf0b4b4792ed0"
+    },
+    {
+      "path": "appx_tables/exit_conditions.tex",
+      "bytes": 1174,
+      "sha256": "0e784000e5b8a9840a5020f5f8e4488b2b66f3abff59c6251ac8a4df6a1af5c2"
+    },
+    {
+      "path": "appx_tables/failure_mode_categories.tex",
+      "bytes": 1600,
+      "sha256": "b23c7d3170e8d3f9ed880ecc18fd6501b63f387576f1f36a9f1da495512607a3"
+    },
+    {
+      "path": "appx_tables/hyperparam_sweep.tex",
+      "bytes": 1496,
+      "sha256": "3013f970a19c54c9beabab6812ff32052c4fcac67f89a7ad95f9d7dddb419f77"
+    },
+    {
+      "path": "appx_tables/most_common_triples.tex",
+      "bytes": 1092,
+      "sha256": "a47cf6baab0c6d27f8a780b32826a342a9b7eba56d80ff3aeb732d0557b0028c"
+    },
+    {
+      "path": "appx_tables/most_common_triples_by_index.tex",
+      "bytes": 4868,
+      "sha256": "c621716303ffa64df0062188e2d96ddc2b9da0108c4b35b01a72b08260f4cc59"
+    },
+    {
+      "path": "appx_tables/pass_at_k.tex",
+      "bytes": 1706,
+      "sha256": "47f1d0d48656d5df0d73c16e1084fc11baae7516597d8bbb6e25f073173f436e"
+    },
+    {
+      "path": "appx_tables/patch_stats_basic.tex",
+      "bytes": 1542,
+      "sha256": "24cb2fb9ba61b428910ff8f16ee1614e5cc16e1432e5ba0ddcf7895bac837ae5"
+    },
+    {
+      "path": "appx_tables/performance_by_repo.tex",
+      "bytes": 1977,
+      "sha256": "6802ea53e6df9517992978b9b8e4ec8762c947bf07f4d7270153f2cb358f0cc6"
+    },
+    {
+      "path": "appx_tables/performance_by_temporal.tex",
+      "bytes": 1111,
+      "sha256": "7429ef9f71552ec5d843519fa69571d6c51bf9b2cd498561560c2529dae970d7"
+    },
+    {
+      "path": "figures/aci-ui.pdf",
+      "bytes": 306667,
+      "sha256": "1bdd66d925f1bac6dff60089c5faa55dd965cb48fbe2457c869bc9ec7e7589cb"
+    },
+    {
+      "path": "figures/actions_per_turn.pdf",
+      "bytes": 27031,
+      "sha256": "88e57ecff6640c71ae68601286e4abf957bd8c6267eab6d47b7ac2bb0094dd28"
+    },
+    {
+      "path": "figures/appx/actions_per_turn_dist.pdf",
+      "bytes": 93515,
+      "sha256": "f55c1a8c9230694e670870b57f2129a91baf191f50fc77dd7be18c25d6bbb8ec"
+    },
+    {
+      "path": "figures/appx/actions_per_turn_norm.pdf",
+      "bytes": 95167,
+      "sha256": "4bcdfa662255f45feea528fb8e70a2244993e9e52274f14c9098aa69d3cdd499"
+    },
+    {
+      "path": "figures/appx/categories_per_turns.pdf",
+      "bytes": 22017,
+      "sha256": "2f62d91dbfc09aafb1382bbbdd1f868c78660d29a71b7c0110c23cd644711384"
+    },
+    {
+      "path": "figures/appx/failed_edits_per_trajectory.pdf",
+      "bytes": 17685,
+      "sha256": "30b1d6dd99d8ee9e035227ead41aad4da9d8fae562262804396378aa9f42621d"
+    },
+    {
+      "path": "figures/appx/failed_edits_per_trajectory_resolved.pdf",
+      "bytes": 17338,
+      "sha256": "f5de373518fd35531c7f9776d3acc2fe103da8bd12e7184ddfd59edcd8f6247d"
+    },
+    {
+      "path": "figures/appx/humanevalfix_turns.pdf",
+      "bytes": 17822,
+      "sha256": "3542ac22ae25ad741a09ae2176559e59aa321a8c69c1879b702a8d8049724b48"
+    },
+    {
+      "path": "figures/appx/prob_good_edit_given_n_fails.pdf",
+      "bytes": 22830,
+      "sha256": "a1ce938ef29c69b8136805553c9f7be97d96cae6490e058c6d2f8be3cae76de1"
+    },
+    {
+      "path": "figures/appx/prompt_flow.pdf",
+      "bytes": 293828,
+      "sha256": "b7fe85e371ba59cbf4c65c841b9248249c374a580f83e4634c06f4d19865d0c2"
+    },
+    {
+      "path": "figures/appx/resolved_by_turn_claude3opus.pdf",
+      "bytes": 14568,
+      "sha256": "05cbef35f79a95e03e182a66e18ab68003dc31e34ab90ddb027d120eca1a3201"
+    },
+    {
+      "path": "figures/appx/resolved_by_turn_gpt4.pdf",
+      "bytes": 14922,
+      "sha256": "7d5133dccdd9073e6c75f7d3027037095ab1d7e93cf1d6594a0daa35c468fdc6"
+    },
+    {
+      "path": "figures/appx/submitted_cost_x_resolved.pdf",
+      "bytes": 86219,
+      "sha256": "7027f3b090882f093fb65067531e075a4633bcd85758b11001f56864a0107589"
+    },
+    {
+      "path": "figures/appx/submitted_steps_x_resolved.pdf",
+      "bytes": 51521,
+      "sha256": "36491229891da29a96217e417e8b86b3b83c5b4a2168d56f3003ca8b436910af"
+    },
+    {
+      "path": "figures/appx/swe-agent-components.pdf",
+      "bytes": 642083,
+      "sha256": "32ab8b4694b831486bbfff9f555ac6b98f72a5262a702176939064da6dff8406"
+    },
+    {
+      "path": "figures/appx/transition_probs.pdf",
+      "bytes": 30029,
+      "sha256": "8a381b62b81e5c2b47e0ed3af77cc53cb8f40ff4eb8692a5b5940395113e6b9e"
+    },
+    {
+      "path": "figures/appx/transition_probs_2gram.pdf",
+      "bytes": 31362,
+      "sha256": "b4dc865a272704fd8aca95af213d4499f2bd129321de730379b1e479ec291b42"
+    },
+    {
+      "path": "figures/appx/transition_probs_3gram.pdf",
+      "bytes": 30270,
+      "sha256": "97fe56e79d02189738fd19e6d3c2dd62481cd34b0180a0d54c7b115f470add12"
+    },
+    {
+      "path": "figures/appx/transition_probs_4gram.pdf",
+      "bytes": 31346,
+      "sha256": "1587d8ba800da93bb76aa02367ee1e2b7ebe748338648bde3b005efe414c5f3f"
+    },
+    {
+      "path": "figures/edit_comparison.pdf",
+      "bytes": 676455,
+      "sha256": "5e20e06eeab98f8acb6429e95eb842249559441964dc70b509e261f8c4d623fe"
+    },
+    {
+      "path": "figures/failure_modes_pie.pdf",
+      "bytes": 51706,
+      "sha256": "5e6dd0f1ee603a07571be5b6a96bfe8da9e93680dbaf5e8cf996e80682972631"
+    },
+    {
+      "path": "figures/file_editor_example.pdf",
+      "bytes": 111377,
+      "sha256": "1b03b106563d600fed2a892b5d74c1046efb839603b8edd2adb711d0ad10b8a8"
+    },
+    {
+      "path": "figures/file_viewer_example.pdf",
+      "bytes": 140592,
+      "sha256": "9f4ac8870d4031b7b097dbb91b62214d7bb8fa75cfeeeea7c9c76020dcf0a610"
+    },
+    {
+      "path": "figures/interface/command_skeleton.tex",
+      "bytes": 855,
+      "sha256": "3787d90db7c7478ca8fcd34500f45b2ee1a0fc9eea4d7515232b40efa0bbc00b"
+    },
+    {
+      "path": "figures/interface/file_viewer.tex",
+      "bytes": 1621,
+      "sha256": "96dcea6a5b509c3d5a61380e6a17d7a05065222199be0cb7f0937e5619e65356"
+    },
+    {
+      "path": "figures/interface/search.tex",
+      "bytes": 889,
+      "sha256": "71e7f5b2f2427446ab4829b8bf114ee086bf4c7b1ce4002c1609a0b2e865acf1"
+    },
+    {
+      "path": "figures/pass_at_k.pdf",
+      "bytes": 10445,
+      "sha256": "4e49e7ac23e5a26c98aaa90947d1f7289073b40f53304232286984f5a8789242"
+    },
+    {
+      "path": "figures/prompts/collapsed_obs.tex",
+      "bytes": 334,
+      "sha256": "303a39aa5ed402bcb181d1339f07ac49aad648540e587f6c56bc04ee920d55af"
+    },
+    {
+      "path": "figures/prompts/demonstration.tex",
+      "bytes": 1760,
+      "sha256": "4cf87b642888e24ac895af291b21e98c80b3ed45f6e9af38a55e279ba91af254"
+    },
+    {
+      "path": "figures/prompts/error.tex",
+      "bytes": 687,
+      "sha256": "3fec52bb439da12456c3f57a43e842a35f2918552fdf357ac9d524fe78154f42"
+    },
+    {
+      "path": "figures/prompts/example_configuration.tex",
+      "bytes": 2380,
+      "sha256": "fee00d14333b23b7fccb040420e2a1bcb8d9d33c2c6bf899466255750bc3323a"
+    },
+    {
+      "path": "figures/prompts/instance.tex",
+      "bytes": 3339,
+      "sha256": "461cb85fd479a64ed59ab789bdaa41dab24a6b833d952b80f8fe7e5aaef9cb17"
+    },
+    {
+      "path": "figures/prompts/linting.tex",
+      "bytes": 2641,
+      "sha256": "e463ccafeab9714ab527c8b378f3407a8c05db0e577d1cce2e37027a60313110"
+    },
+    {
+      "path": "figures/prompts/next_step.tex",
+      "bytes": 406,
+      "sha256": "1e5ddc60b076360fa77b10affb2eb29fb6296b162e367773aa02b88673b201fe"
+    },
+    {
+      "path": "figures/prompts/system.tex",
+      "bytes": 2340,
+      "sha256": "67d6331604cbe8d6610228e9f8569fd4d4b52d6238a75bf4530600e01726dd45"
+    },
+    {
+      "path": "figures/search_comparison.pdf",
+      "bytes": 1013999,
+      "sha256": "844b3c758b15658917026a9727a7ba2acb08031af614e23d51d391f285b4f973"
+    },
+    {
+      "path": "figures/swe_agent_overview.pdf",
+      "bytes": 496362,
+      "sha256": "59104de5a10b28dce788336825d2ecf606a95aca72c824a509f50562f80cb555"
+    },
+    {
+      "path": "figures/trajectory_overview.pdf",
+      "bytes": 222784,
+      "sha256": "d01d96e1705852b864129a93a77a40c00b69ad44468fd18d6f06c660c459f028"
+    },
+    {
+      "path": "sections/03_sweagent.tex",
+      "bytes": 9714,
+      "sha256": "f4fba7a52bcc4fa2f8ad37a58246f79aae2a74f8a80982ba532540ec1a84c676"
+    },
+    {
+      "path": "sections/05_analysis.tex",
+      "bytes": 12482,
+      "sha256": "e83be7bcc52e648f481f188436af9b752c60830259fb677cd193da468c8a0c6f"
+    },
+    {
+      "path": "tables/results_main.tex",
+      "bytes": 4317,
+      "sha256": "1ad050c63404738ddd9f6a5870a35cd5b3bda15b2f44e0caf56c318fb69af382"
+    },
+    {
+      "path": "trajectories/django__django-14411.tex",
+      "bytes": 54166,
+      "sha256": "ec1d5471dc70f8afd9761c6ba2f9250fe3b8a93d403f85860459e5765ae170f7"
+    },
+    {
+      "path": "trajectories/psf__requests-2317.tex",
+      "bytes": 24444,
+      "sha256": "2dc8ca6005023c17c6c174f7cf3336b9b9e8e42eafcef3984dc1434fb0fef2fe"
+    },
+    {
+      "path": "trajectories/pylint-dev__pylint-5859.tex",
+      "bytes": 32497,
+      "sha256": "ab8828909498ef7cd41cdabf187a7b4366cd963fb8464fab143e03b2cf54d5e4"
+    },
+    {
+      "path": "trajectories/sympy__sympy-21614.tex",
+      "bytes": 42744,
+      "sha256": "893de56d9b18b1143024cf704cdabee8501665509bd0c646045f66069f958a0e"
+    }
+  ],
+  "generated_artifacts": [
+    {
+      "path": "data/derived/humanevalfix_histogram_bins.csv",
+      "bytes": 815,
+      "sha256": "659d710e5381e879af8f322255ad4965f624cbe46a95f25de09f6157ac3ee694"
+    },
+    {
+      "path": "data/derived/humanevalfix_instance_results.csv",
+      "bytes": 60818,
+      "sha256": "9568a5c21042d977450fa4844d546e9cf4e5c2875980e8736aff92bfa212ae73"
+    },
+    {
+      "path": "data/derived/humanevalfix_summary.csv",
+      "bytes": 428,
+      "sha256": "2c23ed436cc9275ffaf213413c911198e818d1fe4839d717087331fb93670953"
+    },
+    {
+      "path": "data/derived/official_action_patterns_by_turn.csv",
+      "bytes": 2568,
+      "sha256": "7f197583a1239c5fbbe46ed5e95cf388ef0af5e04ee54a8fe6126ae60479f391"
+    },
+    {
+      "path": "data/derived/official_action_triples.csv",
+      "bytes": 418,
+      "sha256": "98e0b0d374e94bb23bf0e519b7d259901c6a68cf471a2c29289bb38f3b1cb1f4"
+    },
+    {
+      "path": "data/derived/official_actions_per_turn.csv",
+      "bytes": 22474,
+      "sha256": "f320e8d6941eaf488445122b5759a6906da77290871076228fd5b64e0e5c9919"
+    },
+    {
+      "path": "data/derived/official_command_interface_audit.csv",
+      "bytes": 3139,
+      "sha256": "d53403c995cf3803e85e0284f34eb83cca4947dffd30e14ccdc751ddab890e7a"
+    },
+    {
+      "path": "data/derived/official_exit_conditions.csv",
+      "bytes": 2412,
+      "sha256": "58846a9c4a8b0f7e1ce292e72bd008bcd05ee098190d60b82d09d2f9f616ba5e"
+    },
+    {
+      "path": "data/derived/official_failed_edit_recovery.csv",
+      "bytes": 900,
+      "sha256": "06a3764533cf2b6e9f14ffbdae2a69e473ebd3526aee1745705eb274587bc6c9"
+    },
+    {
+      "path": "data/derived/official_failed_edit_summary.csv",
+      "bytes": 592,
+      "sha256": "fbb73c3a82f6017b4eae60a4cd4b5a504afb679bdafd5dd44297effb1f1c6e27"
+    },
+    {
+      "path": "data/derived/official_patch_statistics.csv",
+      "bytes": 2807,
+      "sha256": "763b670b725979676ca91fe307d8245bfdb79f23a031693e9bbc010bd498366b"
+    },
+    {
+      "path": "data/derived/official_performance_by_repo.csv",
+      "bytes": 3140,
+      "sha256": "960cb3cbdfacbc3cebce22916e241235c09681e8959e9f83200c80447499dd1a"
+    },
+    {
+      "path": "data/derived/official_performance_by_year.csv",
+      "bytes": 1107,
+      "sha256": "19e9e00d10bf100f7ffbad9d275ddaf2cf924bba9612994c2dbd2c3f6a83b280"
+    },
+    {
+      "path": "data/derived/official_prompt_demonstration.txt",
+      "bytes": 19388,
+      "sha256": "55f076f087bbe380ae06c6f8b624cceb56e7afa1c8589bbdfc91de0949e8e529"
+    },
+    {
+      "path": "data/derived/official_prompt_instance_template.txt",
+      "bytes": 3151,
+      "sha256": "9b3b3526b2a8c95028095f59f88ed32c0f5886413f86ae710b2076564787fdb0"
+    },
+    {
+      "path": "data/derived/official_prompt_runtime_variants.csv",
+      "bytes": 2416,
+      "sha256": "a057dab96dfa7ceb9e46d80fe69362b5f8b1e9eefef412c7c9900629c0b25845"
+    },
+    {
+      "path": "data/derived/official_prompt_system_optional.txt",
+      "bytes": 4876,
+      "sha256": "a4d3de50b84779d8b77c453db17183352e5c9b29280d12050504542dd9771db4"
+    },
+    {
+      "path": "data/derived/official_prompt_system_required.txt",
+      "bytes": 4876,
+      "sha256": "bcf072797e41fd3f9111b36416fdd32269c98a830fe850324e68560883641e7d"
+    },
+    {
+      "path": "data/derived/official_qualitative_actions.csv",
+      "bytes": 11223,
+      "sha256": "9a8ddabdea86505e0e7c7dc3787ad12114ddf579ec1c82021d6954342bda927d"
+    },
+    {
+      "path": "data/derived/official_qualitative_cases.csv",
+      "bytes": 2450,
+      "sha256": "90c8353d1d1c047b663edbc6690b33c326a7ef446abaf8f3338dfa8dfc6ce480"
+    },
+    {
+      "path": "data/derived/official_swebench_main_results.csv",
+      "bytes": 1102,
+      "sha256": "32a77fe72018769c2a7170491df6820b98ca5b76666307741c6cf5d66b723b74"
+    },
+    {
+      "path": "data/derived/official_trajectory_instances.csv",
+      "bytes": 443422,
+      "sha256": "97a1305f509599d5e39d9b03d1f8720843c8a1c6b36e489ad4cc3519e21c66c4"
+    },
+    {
+      "path": "data/derived/official_trajectory_summary.csv",
+      "bytes": 2708,
+      "sha256": "405d51a88a69ccab6bd6766d453c1d18f288f0cacec6754d99b439be1e39387e"
+    },
+    {
+      "path": "data/derived/official_transition_probabilities.csv",
+      "bytes": 41603,
+      "sha256": "2e60e63afa259b8d4ab899f2e2b8ceef09e79b85c3e6d7a070d260ecbeb33c5a"
+    },
+    {
+      "path": "data/derived/paper_aci_ablation_results.csv",
+      "bytes": 786,
+      "sha256": "e301c11853f0c2d07f9aa989b995c43a13b02fb2d38b153a427535c9b80fab07"
+    },
+    {
+      "path": "data/derived/paper_failure_mode_counts.csv",
+      "bytes": 646,
+      "sha256": "7a681cbb4937c6eed43e72658ac0b53e2d4534f3d52410b00fe7482704b8e4ff"
+    },
+    {
+      "path": "data/derived/paper_hyperparameter_sweep.csv",
+      "bytes": 909,
+      "sha256": "e588554cb21831599ae91f13152dba0b51042b67b9dbc86eeec24062829c8b98"
+    },
+    {
+      "path": "data/derived/paper_pass_at_k.csv",
+      "bytes": 341,
+      "sha256": "faef22a42410173b5da84e1157ba2d48ae9ffd1f5130d5fdfa988b3277bd4635"
+    },
+    {
+      "path": "output/pdf/failure_modes_source_aggregate.pdf",
+      "bytes": 13189,
+      "sha256": "3470699737b87ef5d1206582852385f1f61f70b61b7273c71fbb02adb9a9ab13"
+    },
+    {
+      "path": "output/pdf/humanevalfix_turns_artifact.pdf",
+      "bytes": 14099,
+      "sha256": "b96d4ee168b8b5ed1354227b84f69fe8da0eae68db2b457566affab21fd3d61a"
+    },
+    {
+      "path": "output/pdf/official_action_analyses_artifact.pdf",
+      "bytes": 44971,
+      "sha256": "4a310ee0bcdb4034bffdefa34b6e68ea0f62c7ca3181ab994b2ab6eaf7bc78d1"
+    },
+    {
+      "path": "output/pdf/official_failed_edits_artifact.pdf",
+      "bytes": 19115,
+      "sha256": "983033c95eb90cb08b6ed85b24595bb84811107b8b0112b250979bd325b15dd1"
+    },
+    {
+      "path": "output/pdf/official_trajectory_distributions_artifact.pdf",
+      "bytes": 23323,
+      "sha256": "9d830c61198d972dbe3a00f8b5e114d3f06f6d6c2af88adf311f520683aa957d"
+    },
+    {
+      "path": "output/pdf/official_transition_probabilities_artifact.pdf",
+      "bytes": 58734,
+      "sha256": "f8e1fc67a6cd8534508719ee1155599ef5da6a7300a09c471b0e90e028a0f8f0"
+    },
+    {
+      "path": "output/pdf/pass_at_k_source_aggregate.pdf",
+      "bytes": 9560,
+      "sha256": "846dc422622c3f99a5456cbaa4593273d367557e661d87e958600c6bb8fc50a0"
+    }
+  ],
+  "observations": [
+    {
+      "id": "O01",
+      "kind": "empirical_table",
+      "paper_label": "table:main-results",
+      "status": "ARTIFACT_RECOMPUTED_WITH_DOCUMENTED_GAP",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS",
+        "G_EVALUATOR_REPLAY"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED",
+        "G_EVALUATOR_REPLAY": "COMPLETE_11_FULL_REFERENCE_1_EXTERNAL_NETWORK_SEMANTIC"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O02",
+      "kind": "empirical_table",
+      "paper_label": "tab.benchmark_humanevalfix",
+      "status": "ARTIFACT_RECOMPUTED_WITH_DOCUMENTED_GAP",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS",
+        "G_HUMANEVAL_LANGUAGE"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED",
+        "G_HUMANEVAL_LANGUAGE": "COMPLETE"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O03",
+      "kind": "empirical_figure",
+      "paper_label": "fig:pass_at_k",
+      "status": "SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED",
+      "evidence_lanes": [
+        "source"
+      ],
+      "source_member_count": 2,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O04",
+      "kind": "empirical_table",
+      "paper_label": "tab:combined_ablations_summary",
+      "status": "SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED",
+      "evidence_lanes": [
+        "source"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_EXACT_ABLATION_CONFIGS",
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_EXACT_ABLATION_CONFIGS": "BLOCKED_PARTIAL_RELEASE",
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_EXACT_ABLATION_CONFIGS",
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O05",
+      "kind": "empirical_figure",
+      "paper_label": "fig.search.comparison",
+      "status": "SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED",
+      "evidence_lanes": [
+        "source"
+      ],
+      "source_member_count": 2,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_EXACT_ABLATION_CONFIGS"
+      ],
+      "requirement_statuses": {
+        "G_EXACT_ABLATION_CONFIGS": "BLOCKED_PARTIAL_RELEASE"
+      },
+      "blocking_requirements": [
+        "G_EXACT_ABLATION_CONFIGS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O06",
+      "kind": "empirical_figure",
+      "paper_label": "fig.edit.comparison",
+      "status": "SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED",
+      "evidence_lanes": [
+        "source"
+      ],
+      "source_member_count": 2,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_EXACT_ABLATION_CONFIGS"
+      ],
+      "requirement_statuses": {
+        "G_EXACT_ABLATION_CONFIGS": "BLOCKED_PARTIAL_RELEASE"
+      },
+      "blocking_requirements": [
+        "G_EXACT_ABLATION_CONFIGS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O07",
+      "kind": "empirical_figure",
+      "paper_label": "fig:actions_per_turn",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 2,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O08",
+      "kind": "empirical_figure",
+      "paper_label": "fig:failure_modes_pie",
+      "status": "SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED",
+      "evidence_lanes": [
+        "source"
+      ],
+      "source_member_count": 2,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_MODEL_FAILURE_LABELER",
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_MODEL_FAILURE_LABELER": "BLOCKED_UNAVAILABLE",
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_MODEL_FAILURE_LABELER",
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O09",
+      "kind": "empirical_table",
+      "paper_label": "tab:appx:hyperparam_sweep",
+      "status": "SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED",
+      "evidence_lanes": [
+        "source"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_DEV37_MANIFEST",
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_DEV37_MANIFEST": "BLOCKED_MISSING_PROVENANCE",
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_DEV37_MANIFEST",
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O10",
+      "kind": "empirical_table",
+      "paper_label": "table.results_by_repo",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O11",
+      "kind": "empirical_table",
+      "paper_label": "table.results_by_temporal",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O12",
+      "kind": "empirical_figure",
+      "paper_label": "fig.resolved_by_turn",
+      "status": "ARTIFACT_RECOMPUTED_WITH_DOCUMENTED_GAP",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 2,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O13",
+      "kind": "empirical_figure",
+      "paper_label": "fig:appx:steps_vs_cost_resolved",
+      "status": "ARTIFACT_RECOMPUTED_WITH_DOCUMENTED_GAP",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 2,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O14",
+      "kind": "empirical_table",
+      "paper_label": "tab:most_common_triples",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O15",
+      "kind": "empirical_table",
+      "paper_label": "tab:most_common_triples_by_index",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O16",
+      "kind": "empirical_figure",
+      "paper_label": "fig.pattern_categories_per_turns",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O17",
+      "kind": "empirical_figure",
+      "paper_label": "fig.actions_per_turn_density",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O18",
+      "kind": "empirical_figure",
+      "paper_label": "fig.actions_per_turn_norm",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O19",
+      "kind": "empirical_figure",
+      "paper_label": "fig.failed_edits_per_traj",
+      "status": "ARTIFACT_RECOMPUTED_WITH_DOCUMENTED_GAP",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 2,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O20",
+      "kind": "empirical_figure",
+      "paper_label": "fig.prob_good_edit_given_n_fails",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O21",
+      "kind": "empirical_figure",
+      "paper_label": "fig:transition_probs",
+      "status": "ARTIFACT_RECOMPUTED_WITH_DOCUMENTED_GAP",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O22",
+      "kind": "empirical_figure",
+      "paper_label": "fig:transition_probs_2gram",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O23",
+      "kind": "empirical_figure",
+      "paper_label": "fig:transition_probs_3gram",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O24",
+      "kind": "empirical_figure",
+      "paper_label": "fig:transition_probs_4gram",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O25",
+      "kind": "empirical_table",
+      "paper_label": "tab:appx:failure_categories",
+      "status": "SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED",
+      "evidence_lanes": [
+        "source"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_MODEL_FAILURE_LABELER",
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_MODEL_FAILURE_LABELER": "BLOCKED_UNAVAILABLE",
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_MODEL_FAILURE_LABELER",
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O26",
+      "kind": "empirical_table",
+      "paper_label": "tab:passk",
+      "status": "SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED",
+      "evidence_lanes": [
+        "source"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O27",
+      "kind": "empirical_table",
+      "paper_label": "tab.appx_tables.patch_stats_basic",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O28",
+      "kind": "empirical_figure",
+      "paper_label": "fig.humanevalfix_dist_of_turns",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS",
+        "G_HUMANEVAL_LANGUAGE"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED",
+        "G_HUMANEVAL_LANGUAGE": "COMPLETE"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O29",
+      "kind": "descriptive_table",
+      "paper_label": "tab:datasets_info",
+      "status": "SOURCE_ASSET_VERIFIED",
+      "evidence_lanes": [
+        "source"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 0,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [],
+      "requirement_statuses": {},
+      "blocking_requirements": [],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O30",
+      "kind": "empirical_table",
+      "paper_label": "tab:appx:exit_conditions",
+      "status": "ARTIFACT_RECOMPUTED_WITH_DOCUMENTED_GAP",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O31",
+      "kind": "interface_table",
+      "paper_label": "tab:commands",
+      "status": "ARTIFACT_AUDITED",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O32",
+      "kind": "interface_figure",
+      "paper_label": "fig.trajectory_overview",
+      "status": "SOURCE_ASSET_VERIFIED",
+      "evidence_lanes": [
+        "source"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 0,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [],
+      "requirement_statuses": {},
+      "blocking_requirements": [],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O33",
+      "kind": "interface_figure",
+      "paper_label": "fig.appx.swe_agent_components",
+      "status": "SOURCE_ASSET_VERIFIED",
+      "evidence_lanes": [
+        "source"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 0,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [],
+      "requirement_statuses": {},
+      "blocking_requirements": [],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O34",
+      "kind": "prompt_figure",
+      "paper_label": "fig.prompt_flow",
+      "status": "SOURCE_ASSET_VERIFIED",
+      "evidence_lanes": [
+        "source"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 0,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [],
+      "requirement_statuses": {},
+      "blocking_requirements": [],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O35",
+      "kind": "prompt_box",
+      "paper_label": "fig.prompts.linting",
+      "status": "ARTIFACT_AUDITED",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O36",
+      "kind": "prompt_box",
+      "paper_label": "fig.prompts.example_configuration",
+      "status": "ARTIFACT_AUDITED",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_EXACT_RUNTIME_PROMPTS"
+      ],
+      "requirement_statuses": {
+        "G_EXACT_RUNTIME_PROMPTS": "BLOCKED_PARTIAL_RELEASE"
+      },
+      "blocking_requirements": [
+        "G_EXACT_RUNTIME_PROMPTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O37",
+      "kind": "prompt_box",
+      "paper_label": "fig.prompts.system",
+      "status": "ARTIFACT_AUDITED",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_EXACT_RUNTIME_PROMPTS"
+      ],
+      "requirement_statuses": {
+        "G_EXACT_RUNTIME_PROMPTS": "BLOCKED_PARTIAL_RELEASE"
+      },
+      "blocking_requirements": [
+        "G_EXACT_RUNTIME_PROMPTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O38",
+      "kind": "prompt_box",
+      "paper_label": "fig.prompts.demonstration",
+      "status": "ARTIFACT_AUDITED",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_EXACT_RUNTIME_PROMPTS"
+      ],
+      "requirement_statuses": {
+        "G_EXACT_RUNTIME_PROMPTS": "BLOCKED_PARTIAL_RELEASE"
+      },
+      "blocking_requirements": [
+        "G_EXACT_RUNTIME_PROMPTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O39",
+      "kind": "prompt_box",
+      "paper_label": "fig.prompts.instance",
+      "status": "ARTIFACT_AUDITED",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_EXACT_RUNTIME_PROMPTS"
+      ],
+      "requirement_statuses": {
+        "G_EXACT_RUNTIME_PROMPTS": "BLOCKED_PARTIAL_RELEASE"
+      },
+      "blocking_requirements": [
+        "G_EXACT_RUNTIME_PROMPTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O40",
+      "kind": "prompt_box",
+      "paper_label": "fig.prompts.next_step",
+      "status": "SOURCE_ASSET_VERIFIED",
+      "evidence_lanes": [
+        "source"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 0,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [],
+      "requirement_statuses": {},
+      "blocking_requirements": [],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O41",
+      "kind": "prompt_box",
+      "paper_label": "fig.prompts.collapsed_obs",
+      "status": "ARTIFACT_AUDITED",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_EXACT_RUNTIME_PROMPTS"
+      ],
+      "requirement_statuses": {
+        "G_EXACT_RUNTIME_PROMPTS": "BLOCKED_PARTIAL_RELEASE"
+      },
+      "blocking_requirements": [
+        "G_EXACT_RUNTIME_PROMPTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O42",
+      "kind": "prompt_box",
+      "paper_label": "fig.prompts.error",
+      "status": "SOURCE_ASSET_VERIFIED",
+      "evidence_lanes": [
+        "source"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 0,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [],
+      "requirement_statuses": {},
+      "blocking_requirements": [],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O43",
+      "kind": "interface_figure",
+      "paper_label": "fig.interface.command_skeleton",
+      "status": "ARTIFACT_AUDITED",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O44",
+      "kind": "interface_figure",
+      "paper_label": "fig:appx:file_viewer",
+      "status": "ARTIFACT_AUDITED",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O45",
+      "kind": "interface_figure",
+      "paper_label": "fig:appx:file_search",
+      "status": "ARTIFACT_AUDITED",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O46",
+      "kind": "qualitative_case",
+      "paper_label": "qualitative:psf__requests-2317",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O47",
+      "kind": "qualitative_case",
+      "paper_label": "qualitative:pylint-dev__pylint-5859",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O48",
+      "kind": "qualitative_case",
+      "paper_label": "qualitative:sympy__sympy-21614",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O49",
+      "kind": "qualitative_case",
+      "paper_label": "qualitative:django__django-14411",
+      "status": "ARTIFACT_RECOMPUTED_EXACT",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 2,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O50",
+      "kind": "conceptual_figure",
+      "paper_label": "fig:teaser",
+      "status": "SOURCE_ASSET_VERIFIED",
+      "evidence_lanes": [
+        "source"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 0,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [],
+      "requirement_statuses": {},
+      "blocking_requirements": [],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O51",
+      "kind": "conceptual_figure",
+      "paper_label": "fig:aci-hci",
+      "status": "SOURCE_ASSET_VERIFIED",
+      "evidence_lanes": [
+        "source"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 0,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [],
+      "requirement_statuses": {},
+      "blocking_requirements": [],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O52",
+      "kind": "interface_subfigure",
+      "paper_label": "fig:sub_viewer",
+      "status": "ARTIFACT_AUDITED",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O53",
+      "kind": "interface_subfigure",
+      "paper_label": "fig:sub_editor",
+      "status": "ARTIFACT_AUDITED",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 1,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    },
+    {
+      "id": "O54",
+      "kind": "interface_figure",
+      "paper_label": "fig:viewer_and_editor",
+      "status": "ARTIFACT_AUDITED",
+      "evidence_lanes": [
+        "source",
+        "artifact"
+      ],
+      "source_member_count": 3,
+      "all_source_members_present": true,
+      "missing_source_members": [],
+      "generated_artifact_count": 1,
+      "all_generated_artifacts_present": true,
+      "missing_generated_artifacts": [],
+      "requires": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "requirement_statuses": {
+        "G_OFFICIAL_ARTIFACTS": "PARTIALLY_RECOVERED"
+      },
+      "blocking_requirements": [
+        "G_OFFICIAL_ARTIFACTS"
+      ],
+      "status_terminal": true,
+      "public_terminal": true
+    }
+  ],
+  "protocol_recovery": {
+    "component_count": 11,
+    "result_asset_count": 4,
+    "negative_finding_count": 7,
+    "all_missing_official_artifacts_terminal": true
+  },
+  "evaluator_replay": {
+    "repository_count": 12,
+    "full_reference_count": 11,
+    "external_network_semantic_count": 1,
+    "validated_count": 12,
+    "complete": true
+  },
+  "summary": {
+    "paper_output_count": 54,
+    "public_terminal_output_count": 54,
+    "status_counts": {
+      "ARTIFACT_AUDITED": 13,
+      "ARTIFACT_RECOMPUTED_EXACT": 18,
+      "ARTIFACT_RECOMPUTED_WITH_DOCUMENTED_GAP": 7,
+      "SOURCE_AGGREGATE_REBUILT_RAW_INPUT_BLOCKED": 8,
+      "SOURCE_ASSET_VERIFIED": 8
+    },
+    "unique_source_member_count": 56,
+    "unique_generated_artifact_count": 35,
+    "paper_source_matches_protocol_sha256": true,
+    "outputs_terminal": true,
+    "missing_official_artifacts_terminal": true,
+    "evaluator_repository_coverage_complete": true
+  },
+  "completion": {
+    "computed_public_artifact_reproduction_complete": true,
+    "declared_public_artifact_reproduction_complete": true,
+    "exact_model_rerun_complete": false,
+    "modern_replication_complete": false,
+    "strict_full_paper_reproduction_complete": false
+  },
+  "outputs": {
+    "coverage_csv": {
+      "path": "data/derived/paper_output_coverage.csv",
+      "bytes": 8331,
+      "sha256": "8730bc8285f11d6d47b9f2116e14f77d92c299b2f0369a75b6c53503091c74ee"
+    },
+    "completion_audit": {
+      "path": "docs/public_artifact_completion_audit.md",
+      "bytes": 3119,
+      "sha256": "0e52c8d7159ae4a6c17d33106f20aa42cbe03a36157e327883827fd917b7f9b0"
+    }
+  }
+}

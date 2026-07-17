@@ -3,7 +3,7 @@ as_of: "2026-07-17"
 objective: full_paper_reproduction
 
 completion_contract:
-  public_artifact_reproduction_complete: false
+  public_artifact_reproduction_complete: true
   exact_model_rerun_complete: false
   modern_replication_complete: false
   strict_full_paper_reproduction_complete: false
@@ -503,6 +503,21 @@ artifact_reproduction_runs:
       - data/derived/official_gold_repository_replay.csv
       - scripts/official_gold_repository_replay.py
       - docs/evaluator_replay.md
+  - id: EXP-ARTIFACT-010
+    evidence: artifact
+    paper_revision: arxiv_2405.15793v3
+    scope: full_public_paper_output_coverage_audit
+    paper_outputs: 54
+    unique_source_members: 56
+    unique_generated_artifacts: 35
+    protocol_components: 11
+    missing_result_asset_groups: 4
+    status: COMPLETE_PUBLIC_ARTIFACT_REPRODUCTION
+    outputs:
+      - data/manifests/full_reproduction_coverage.json
+      - data/derived/paper_output_coverage.csv
+      - scripts/audit_full_reproduction_coverage.py
+      - docs/public_artifact_completion_audit.md
 
 existing_non_exact_runs:
   - id: EXP-DEV20
