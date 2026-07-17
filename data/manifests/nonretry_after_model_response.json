@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "batch_id": "bounded_r1_edit_without_linting",
+      "instance_id": "pylint-dev__astroid-1333",
+      "classification": "MODEL_RESPONSE_INFRASTRUCTURE_FAILURE_NO_RETRY",
+      "date": "2026-07-17",
+      "reason": "The agent produced 20 persisted model responses, then its container exited before trajectory, prediction, or evaluator scorecard generation. The frozen protocol permits retries only when no model response was produced."
+    }
+  ]
+}

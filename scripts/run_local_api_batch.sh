@@ -9,6 +9,7 @@ max_new_runs="${4:-1}"
 max_api_calls="${5:-25}"
 eval_python="${HOME}/.venvs/swebench-paper-eval/bin/python"
 eval_testbed="${SWE_AGENT_EVAL_TESTBED:-${HOME}/sb}"
+nonretry_manifest="${repo_root}/data/manifests/nonretry_after_model_response.json"
 
 if [[ ! -f "${manifest}" ]]; then
   echo "Manifest not found: ${manifest}" >&2
@@ -39,6 +40,22 @@ PY
 
 started=0
 for instance_id in "${instance_ids[@]}"; do
+  if [[ -f "${nonretry_manifest}" ]] && "${eval_python}" - "${nonretry_manifest}" "${batch_id}" "${instance_id}" <<'PY'
+import json
+import sys
+
+with open(sys.argv[1], encoding="utf-8") as handle:
+    entries = json.load(handle).get("entries", [])
+for entry in entries:
+    if entry.get("batch_id") == sys.argv[2] and entry.get("instance_id") == sys.argv[3]:
+        raise SystemExit(0)
+raise SystemExit(1)
+PY
+  then
+    echo "skip_nonretry_after_model_response=${instance_id}"
+    continue
+  fi
+
   if "${eval_python}" - "${repo_root}/outputs/traces" "${batch_id}" "${instance_id}" <<'PY'
 import json
 import pathlib

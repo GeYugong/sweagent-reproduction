@@ -38,3 +38,13 @@
 该尝试被分类为 `ZERO_MODEL_RESPONSE_INFRASTRUCTURE_FAILURE`，原始元数据保存在该 run 的本地 trace 目录。根据冻结方案中“仅零模型响应基础设施失败可重试”的例外，终止卡死进程后允许一次人工恢复运行；这不是对已有模型结果的重采样，也不产生可计费的已记录模型调用。
 
 恢复尝试随后产生 25 次模型调用（288,831 input tokens、3,259 output tokens），提交的 prediction 通过独立 evaluator，终态为 `RESOLVED_FULL`。因此该单元的有效结果来自唯一一次授权重试；零响应原尝试不计入模型调用或解决率分母之外的重复采样。
+
+## R1 / 模型响应后容器基础设施失败（不重试）
+
+- 执行日期：2026-07-17
+- 配置与实例：`edit_without_linting` / `pylint-dev__astroid-1333`
+- 已持久化模型调用：20（240,312 input tokens、2,342 output tokens）
+
+该实例完成环境准备后已获得并持久化 20 次模型响应。随后 agent 容器在 trajectory、prediction 和 evaluator 评分卡生成前退出；运行器报告 Docker exec 的 `409 Conflict`（目标容器不再运行）。因此该尝试不属于零模型响应失败。
+
+冻结规则只允许对“零模型响应或未产生模型结果”的基础设施失败进行一次重试。为保证不将已经发生的模型交互重采样，该实例被标记为 `MODEL_RESPONSE_INFRASTRUCTURE_FAILURE_NO_RETRY`，并写入 `data/manifests/nonretry_after_model_response.json`。批处理脚本会跳过该标记项，使恢复执行不会隐式重跑；该项在最终汇总中与已评分项分开报告，不计作已解决实例。
