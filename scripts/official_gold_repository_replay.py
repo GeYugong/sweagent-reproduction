@@ -319,6 +319,7 @@ def run_selected(
     timeout: int,
     repositories: list[str],
     force: bool,
+    conda_solver: str | None,
 ) -> int:
     ensure_output_path(output_dir, project_root)
     master_path = output_dir / "input_manifest.json"
@@ -344,6 +345,40 @@ def run_selected(
             "PYTHONPATH": str(project_root / "code" / "SWE-bench"),
         }
     )
+    if conda_solver:
+        env["CONDA_SOLVER"] = conda_solver
+
+    source_path = project_root / "code" / "SWE-bench"
+    preflight = subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            (
+                "from pathlib import Path; "
+                "import ghapi, pandas, requests; "
+                "from swebench.harness import context_manager; "
+                f"expected=Path({str(source_path)!r}).resolve(); "
+                "actual=Path(context_manager.__file__).resolve(); "
+                "assert expected in actual.parents, (expected, actual); "
+                "print(actual)"
+            ),
+        ],
+        cwd=project_root,
+        env=env,
+        capture_output=True,
+        text=True,
+    )
+    if preflight.returncode != 0:
+        raise RuntimeError(
+            "Outer evaluator runtime preflight failed before creating an attempt:\n"
+            + preflight.stdout
+            + preflight.stderr
+        )
+    print(
+        f"outer_runtime={sys.executable} swebench_source={preflight.stdout.strip()} "
+        f"conda_solver={conda_solver or 'default'}",
+        flush=True,
+    )
 
     failures = []
     for row in master["instances"]:
@@ -354,7 +389,6 @@ def run_selected(
             continue
         input_dir = output_dir / row["input_directory"]
         scorecards_path = input_dir / "scorecards.json"
-        source_path = project_root / "code" / "SWE-bench"
         if not force and expected_scorecard_present(
             scorecards_path, row["instance_id"], input_dir, source_path
         ):
@@ -481,13 +515,16 @@ def run_selected(
             "protocol_valid": True,
             "swebench_revision": SWE_BENCH_REVISION,
             "timeout_seconds": timeout,
+            "outer_python": sys.executable,
+            "conda_solver": conda_solver or "default",
             "git_transport": "HTTP/1.1 process scope",
             "swebench_import_source": str(source_path),
             "compatibility": [
                 "source checkout forced through PYTHONPATH",
                 "conda activation uses etc/profile.d/conda.sh",
                 "instance-scoped package constraints from run_local_evaluation.py",
-            ],
+            ]
+            + ([f"conda solver set to {conda_solver}"] if conda_solver else []),
             "credential_variables_scrubbed": sorted(scrubbed),
             "model_api_calls": 0,
             "artifacts": artifacts,
@@ -764,6 +801,7 @@ def main() -> int:
     parser.add_argument("--timeout", type=int, default=900)
     parser.add_argument("--repository", action="append", default=[])
     parser.add_argument("--force", action="store_true")
+    parser.add_argument("--conda-solver", choices=("classic", "libmamba"))
     args = parser.parse_args()
     output_dir = args.output_dir.resolve()
     if args.mode == "prepare":
@@ -782,6 +820,7 @@ def main() -> int:
             args.timeout,
             args.repository,
             args.force,
+            args.conda_solver,
         )
     return collect(project_root, output_dir, args.manifest.resolve())
 
