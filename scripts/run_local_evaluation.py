@@ -123,16 +123,45 @@ def install_test_runner_compatibility(predictions: Path) -> None:
             if line.strip():
                 record = json.loads(line)
                 instance_ids.add(record.get("instance_id", ""))
-    if not any(instance_id.startswith("pydicom__pydicom-") for instance_id in instance_ids):
-        return
-    for install_config in context_manager.MAP_VERSION_TO_INSTALL["pydicom/pydicom"].values():
-        configured = install_config.get("pip_packages", [])
-        pip_packages = configured.split() if isinstance(configured, str) else list(configured)
-        python_version = str(install_config.get("python", ""))
-        pytest_version = "6.2.5" if python_version.startswith("3.6") else "7.4.4"
-        if not any(package.startswith("pytest") for package in pip_packages):
-            pip_packages.append(f"pytest=={pytest_version}")
-        install_config["pip_packages"] = pip_packages
+    if any(
+        instance_id.startswith("pydicom__pydicom-") for instance_id in instance_ids
+    ):
+        for install_config in context_manager.MAP_VERSION_TO_INSTALL[
+            "pydicom/pydicom"
+        ].values():
+            configured = install_config.get("pip_packages", [])
+            pip_packages = (
+                configured.split() if isinstance(configured, str) else list(configured)
+            )
+            python_version = str(install_config.get("python", ""))
+            pytest_version = "6.2.5" if python_version.startswith("3.6") else "7.4.4"
+            if not any(package.startswith("pytest") for package in pip_packages):
+                pip_packages.append(f"pytest=={pytest_version}")
+            install_config["pip_packages"] = pip_packages
+
+    if any(
+        instance_id.startswith("pydata__xarray-") for instance_id in instance_ids
+    ):
+        for install_config in context_manager.MAP_VERSION_TO_INSTALL[
+            "pydata/xarray"
+        ].values():
+            configured = install_config.get("pip_packages", [])
+            pip_packages = (
+                configured.split() if isinstance(configured, str) else list(configured)
+            )
+            replacements = {
+                "numpy": "numpy==1.23.0",
+                "pytest": "pytest==7.4.0",
+                "setuptools": "setuptools==68.0.0",
+            }
+            for package_name, pinned in replacements.items():
+                pip_packages = [
+                    package
+                    for package in pip_packages
+                    if not package.lower().startswith(package_name)
+                ]
+                pip_packages.append(pinned)
+            install_config["pip_packages"] = pip_packages
 
 
 def load_paper_evaluator(repo_root: Path):
