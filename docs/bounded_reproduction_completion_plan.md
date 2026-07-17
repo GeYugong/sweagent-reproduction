@@ -123,4 +123,4 @@ R1–R3 只是检查点，不是完成标志。即使中间结果已经显著或
 
 ## 8. 当前状态
 
-当前状态为 `RELATIVE_BUDGET_AUTHORIZED_PRICE_UNVERIFIED`。实验范围、四轮顺序、统计方法、正常预算和绝对硬停线已经冻结；尚未执行任何新增付费 episode。R1 按使用量倍数和调用硬上限启动；在获得中转定价后补充美元 ledger，但不改变已冻结矩阵。
+当前状态为 `R1_IN_PROGRESS_RELATIVE_BUDGET_WITHIN_LIMIT_PRICE_UNVERIFIED`。实验范围、四轮顺序、统计方法、正常预算和绝对硬停线已经冻结。默认 ACI 补齐批次的三个新增 episode 已完成并通过 evaluator 终态检查，预算账本判定为 `WITHIN_RELATIVE_BUDGET`；R1 的其余八个 ACI 配置批次正在按冻结顺序执行。阶段性、不可变结果见 `docs/bounded_execution_log.md`。在获得中转定价后补充美元 ledger，但不改变已冻结矩阵。
