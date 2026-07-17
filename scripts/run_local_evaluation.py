@@ -112,6 +112,10 @@ def configure_pip_constraints(predictions: Path, staging_dir: Path) -> Optional[
         constraints.append("vtk<9.3")
     if any(instance_id.startswith("astropy__astropy-") for instance_id in instance_ids):
         constraints.append("setuptools==68.0.0")
+    if any(
+        instance_id.startswith("sphinx-doc__sphinx-") for instance_id in instance_ids
+    ):
+        constraints.append("setuptools==69.5.1")
     if not constraints:
         os.environ.pop("PIP_CONSTRAINT", None)
         return None
