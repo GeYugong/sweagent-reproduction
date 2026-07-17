@@ -27,7 +27,12 @@ def install_requirements_compatibility() -> None:
     original_task_init = context_manager.TaskEnvContextManager.__init__
 
     def normalize_requirements(content: str, instance: dict) -> str:
-        content = content.replace("types-pkg_resources", "types-setuptools")
+        lines = [
+            line
+            for line in content.splitlines()
+            if not re.match(r"^\s*types-pkg_resources(?:\s|[<>=!~]|$)", line)
+        ]
+        content = "\n".join(lines) + "\n"
         if instance.get("repo") == "pyvista/pyvista":
             lines = [line for line in content.splitlines() if line.strip() != "vtk"]
             lines.append("vtk<9.3")
