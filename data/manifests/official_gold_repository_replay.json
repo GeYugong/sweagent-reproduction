@@ -1,0 +1,2684 @@
+{
+  "schema_version": 1,
+  "status": "COMPLETE_11_FULL_REFERENCE_1_EXTERNAL_NETWORK_SEMANTIC",
+  "prepared_at_utc": "2026-07-16T18:35:34.385567+00:00",
+  "selection_policy": "For each paper Lite repository, choose the instance with the fewest F2P+P2P references among official GPT-4 resolved instances. If the run has no resolved instance for that repository, choose the minimum over all Lite instances. Break ties by gold-patch bytes then instance ID.",
+  "paper_repositories": [
+    "astropy/astropy",
+    "django/django",
+    "matplotlib/matplotlib",
+    "mwaskom/seaborn",
+    "pallets/flask",
+    "psf/requests",
+    "pydata/xarray",
+    "pylint-dev/pylint",
+    "pytest-dev/pytest",
+    "scikit-learn/scikit-learn",
+    "sphinx-doc/sphinx",
+    "sympy/sympy"
+  ],
+  "dataset": {
+    "repository": "princeton-nlp/SWE-bench_Lite",
+    "revision": "81ad348adcaf3368691f4db2907f8fc97a8f7526",
+    "sha256": "2c0969b6fb6920f9425015563419901a4fe7fd078d143a3457fa1997b52365b1",
+    "rows": 300
+  },
+  "official_experiments_revision": "a5d52722965c791c0c04d18135f906b44f716d39",
+  "official_run": "20240402_sweagent_gpt4",
+  "swe_agent_revision": "658eb2842e8a8b00069b301338bc342b70538f7a",
+  "swe_bench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+  "transport_policy": "process-scoped Git HTTP/1.1; no global Git mutation",
+  "model_api_calls": 0,
+  "instances": [
+    {
+      "repository": "astropy/astropy",
+      "repository_key": "astropy__astropy",
+      "instance_id": "astropy__astropy-14995",
+      "version": "5.2",
+      "base_commit": "b16c7d12ccbc7b2d20364b89fb44285bcbfede54",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/astropy__astropy-14995.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "cef3c3f9d4af913eb16926ce555fa5235f7028b9",
+        "sha256": "4396edfa2d379573ab1c6877c57769ae6cebbf52738c88dccac19ede218d0490"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 179,
+      "gold_patch_bytes": 869,
+      "gold_patch_sha256": "370b3ff97b3a0627c29b74cf0b60bae46fe75edcd35a8d121c2dbe0f0421899a",
+      "test_patch_sha256": "e3bb402eed057015fbbf5c551110ea264e7fc449174fa11c5c66136c74f5a0a7",
+      "model_alias": "paper_replay_gold_astropy_astropy",
+      "input_directory": "inputs/astropy__astropy",
+      "predictions_sha256": "5a73a5a5c66ed68a6b9c01ee5bc4a1aa324e70e00f9938bb7eb410189a3bc545",
+      "tasks_sha256": "8ba2f093cf8c709b89cda8f890f0d835f984c75011907e3325ee8dc4f79c671a",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "django/django",
+      "repository_key": "django__django",
+      "instance_id": "django__django-13447",
+      "version": "4.0",
+      "base_commit": "0456d3e42795481a186db05719300691fe2a1029",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/django__django-13447.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "5aeb4543dc62f2e7adb82636261a2252b8e8b7b7",
+        "sha256": "413aad57328124457d4f6ab257ea49b91978ae909aa1944c23df8f5f5bad0aa0"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 5,
+      "gold_patch_bytes": 492,
+      "gold_patch_sha256": "4405b13629dde0bd48cf8441f4f4c4a23cc702c0a120a018f05183706ee36037",
+      "test_patch_sha256": "2f10fb3fa9652e6ac7471249bd35ef2d9a0d0e23d9de84b7c52ac1783b13826e",
+      "model_alias": "paper_replay_gold_django_django",
+      "input_directory": "inputs/django__django",
+      "predictions_sha256": "42d10dcaf515f5d1c5313a4464b5798ba9160ebc8799cd804ef8608f11668ad0",
+      "tasks_sha256": "017033948a244f4137f081967d35323e5b51cc84b227423780936fe8d1e3b1a2",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "matplotlib/matplotlib",
+      "repository_key": "matplotlib__matplotlib",
+      "instance_id": "matplotlib__matplotlib-23964",
+      "version": "3.6",
+      "base_commit": "269c0b94b4fcf8b1135011c1556eac29dc09de15",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/matplotlib__matplotlib-23964.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "290f3b1ad8b4face69e80f59b808d1659a8a1062",
+        "sha256": "2cb25afe9a83c102cc4ad173b8314d200eb8a62982c8a78434709cbb4afba6a7"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 16,
+      "gold_patch_bytes": 648,
+      "gold_patch_sha256": "d05240c2e660bc12358a3b2cd366c8f0af2fdc6e70696e61584c9dbc9132cad9",
+      "test_patch_sha256": "521afd09edbe9a624a46a0d129abfc2e4bdb9fe8536c71f5f801774274ddd359",
+      "model_alias": "paper_replay_gold_matplotlib_matplotlib",
+      "input_directory": "inputs/matplotlib__matplotlib",
+      "predictions_sha256": "981ba3cd1bc4fa048ec9d1ec5828d015288128b88223ff2847bdd4f3f9bb1ce0",
+      "tasks_sha256": "aab1f3a17060b7a8bd01e4000d6e231067380bbf369cbfd9c8a7a6446f6b9ba7",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "mwaskom/seaborn",
+      "repository_key": "mwaskom__seaborn",
+      "instance_id": "mwaskom__seaborn-3010",
+      "version": "0.12",
+      "base_commit": "0f5a013e2cf43562deec3b879458e59a73853813",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/mwaskom__seaborn-3010.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "b7f566beba1ecd87217d2c469845691ea12088dc",
+        "sha256": "2420c7ae7557ccbd6f39b9c94ba795619ed8640a108b60b2a16197bed2b05cc4"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 2,
+      "gold_patch_bytes": 444,
+      "gold_patch_sha256": "2d282a78db2b88dc42330fea5dc78b0551629b7d15c6d5b22f20c57a2ee3d1d7",
+      "test_patch_sha256": "1ba4f740fddbe1d3e1b82f09cf4dc724bd0d65eeed3a108f0892519b0ec8761b",
+      "model_alias": "paper_replay_gold_mwaskom_seaborn",
+      "input_directory": "inputs/mwaskom__seaborn",
+      "predictions_sha256": "2cc6f3bd73e8a57183c8bd0758bcafb2b754b05c9ee760c84ca4d44cd2a7404f",
+      "tasks_sha256": "6a61e8c447d6914a7219936059220a39bcab1453f0c05f037e7d96d341f676cd",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "pallets/flask",
+      "repository_key": "pallets__flask",
+      "instance_id": "pallets__flask-4992",
+      "version": "2.3",
+      "base_commit": "4c288bc97ea371817199908d0d9b12de9dae327e",
+      "selection_policy": "minimum_reference_tests_no_official_gpt4_resolved_available",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied"
+      ],
+      "official_resolved_log": null,
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 18,
+      "gold_patch_bytes": 1664,
+      "gold_patch_sha256": "db912cc1331807c9b0715766eb45a5fac8c4036a99dd54c9ce998b675d0d8697",
+      "test_patch_sha256": "851c94393511592a1e3b65ea1d909b73b342ef55388819c6bd9632edb71ad304",
+      "model_alias": "paper_replay_gold_pallets_flask",
+      "input_directory": "inputs/pallets__flask",
+      "predictions_sha256": "6833e5331e5f88c10fa6f03ef3edff351dad19b898a3e12325f3ee5f24eb819e",
+      "tasks_sha256": "851dc5c9ff063323aced02b2dd08032d6b64425dcf11838d62f9e2736a9c4356",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "psf/requests",
+      "repository_key": "psf__requests",
+      "instance_id": "psf__requests-2317",
+      "version": "2.4",
+      "base_commit": "091991be0da19de9108dbe5e3752917fea3d7fdc",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/psf__requests-2317.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "603ce553a29995e4560f90061756bd8f2c1fe583",
+        "sha256": "065729ff52b21cf54d5bcbabdd210120096ac73e1efd6375d8f393773b9c1aa8"
+      },
+      "fail_to_pass_count": 8,
+      "pass_to_pass_count": 133,
+      "gold_patch_bytes": 763,
+      "gold_patch_sha256": "e6f1e63850e2a5eefcfe6b4bbc6ba39038372415633a328ba7afea001fcbd50e",
+      "test_patch_sha256": "ff283039874db19ea594bda54c2aa6812eb25fea9881e2517c4a143805cdb552",
+      "model_alias": "paper_replay_gold_psf_requests",
+      "input_directory": "inputs/psf__requests",
+      "predictions_sha256": "e201a1699484d94d81f0f8db33de8ecd2ee495305ea8b0bb95fb691c504fb8c3",
+      "tasks_sha256": "bb91c1224475d54a9c2d60c9af33520e5f14699cc943494cd4a1301930809df7",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "pydata/xarray",
+      "repository_key": "pydata__xarray",
+      "instance_id": "pydata__xarray-4248",
+      "version": "0.12",
+      "base_commit": "98dc1f4ea18738492e074e9e51ddfed5cd30ab94",
+      "selection_policy": "minimum_reference_tests_no_official_gpt4_resolved_available",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied"
+      ],
+      "official_resolved_log": null,
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 18,
+      "gold_patch_bytes": 578,
+      "gold_patch_sha256": "cb60278c84b3245408864d4fde2f83e88229e920e6345b0f64ed74092b8f02d2",
+      "test_patch_sha256": "c295e6acb9392b7f9b5a89b45bc53049472ed16319c5626198653d0e77ac5fc6",
+      "model_alias": "paper_replay_gold_pydata_xarray",
+      "input_directory": "inputs/pydata__xarray",
+      "predictions_sha256": "797164e6f6ad13c08ef111601014cbec87dcb1aebbded6d7cbd910c5dc96412d",
+      "tasks_sha256": "eadbdd243a34c5a95a6991fbaad8868c0acac6cd537ad1cfb2475cd12d160ffd",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "pylint-dev/pylint",
+      "repository_key": "pylint-dev__pylint",
+      "instance_id": "pylint-dev__pylint-5859",
+      "version": "2.13",
+      "base_commit": "182cc539b8154c0710fcea7e522267e42eba8899",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/pylint-dev__pylint-5859.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "489fe7882772d97372e60c946779b33179ccc08a",
+        "sha256": "8289c930ea4ea3452645c75382089d7deb56dda52c635a5fff46c57d73b29eef"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 10,
+      "gold_patch_bytes": 612,
+      "gold_patch_sha256": "e7ec647093f251ba84dc511728af0ac5e7afafb0206bc826c343922d7afccebb",
+      "test_patch_sha256": "fe4a17f367335844b29ea0b9b4a7cea04bd17435c5ff0911a22ceb550dc9ecb6",
+      "model_alias": "paper_replay_gold_pylint-dev_pylint",
+      "input_directory": "inputs/pylint-dev__pylint",
+      "predictions_sha256": "eb9091da9e4c0a8db6c6f3cc3b8d819cda406d3f08d0e83b57f5f814a49bb131",
+      "tasks_sha256": "a4218ac5e13e68ce5c38bb2a12fe89b62c7155fd5e435804f700e5f4dd3e453f",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "pytest-dev/pytest",
+      "repository_key": "pytest-dev__pytest",
+      "instance_id": "pytest-dev__pytest-5227",
+      "version": "4.4",
+      "base_commit": "2051e30b9b596e944524ccb787ed20f9f5be93e3",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/pytest-dev__pytest-5227.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "3dac4bfdbc4f7622ca8e09339e02ba9ca7b3774d",
+        "sha256": "26d6ecdad9ed50285839cb8561f526c1302914326e7def5466c45827e8ba746c"
+      },
+      "fail_to_pass_count": 3,
+      "pass_to_pass_count": 34,
+      "gold_patch_bytes": 431,
+      "gold_patch_sha256": "e8193ea0dee0989323f0f7756f492d73cdc2e584b61f9142b8695d9ed2737893",
+      "test_patch_sha256": "2f0dbf3bd56d91379bef155a0663119a8a7f4e97d5a4501dcd7d8fdc9320d786",
+      "model_alias": "paper_replay_gold_pytest-dev_pytest",
+      "input_directory": "inputs/pytest-dev__pytest",
+      "predictions_sha256": "b89b31b9a028513f2c2899d3b40828d0b7e1f44307fb14e11f6be549827ab1ca",
+      "tasks_sha256": "55aa1837c5c510bf6867a832eae74ad71ef5e89444e175497f39681741570b2c",
+      "execution": "reuse_EXP-ARTIFACT-006_gold"
+    },
+    {
+      "repository": "scikit-learn/scikit-learn",
+      "repository_key": "scikit-learn__scikit-learn",
+      "instance_id": "scikit-learn__scikit-learn-13584",
+      "version": "0.21",
+      "base_commit": "0e3c1879b06d839171b7d0a607d71bbb19a966a9",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/scikit-learn__scikit-learn-13584.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "b3e6719a48d7a8a5e615a2c455d8868216051e88",
+        "sha256": "d9b68e41cf0d735c1f35866a2fab8c9d9b28ea3b1a7b37ff29a5c01c8d9a4274"
+      },
+      "fail_to_pass_count": 6,
+      "pass_to_pass_count": 3,
+      "gold_patch_bytes": 567,
+      "gold_patch_sha256": "acb1af9f4aff9be141c13e5b2e0143f5abc78e56f8e585e8b2407f1254b875ef",
+      "test_patch_sha256": "22446b7b57524d79a06c07b89b49087ca26f2a3ffb8028bd104ded3003331c87",
+      "model_alias": "paper_replay_gold_scikit-learn_scikit-learn",
+      "input_directory": "inputs/scikit-learn__scikit-learn",
+      "predictions_sha256": "6e56636f4994584bb4e569ace87dea6cad7a239aed65c1ef599db30a94d7c474",
+      "tasks_sha256": "be54a3e0734d6667d85d70f79b2b418d83677c53fc31dcbe850db8dad85bd8b4",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "sphinx-doc/sphinx",
+      "repository_key": "sphinx-doc__sphinx",
+      "instance_id": "sphinx-doc__sphinx-8713",
+      "version": "4.0",
+      "base_commit": "3ed7590ed411bd93b26098faab4f23619cdb2267",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/sphinx-doc__sphinx-8713.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "7c98aaab3f6f445c8ae8f433d73297bfa883b2e5",
+        "sha256": "92d2a3ad6078b817fa722584fd419779b1d70ff704b706abdfff12db636b09a5"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 45,
+      "gold_patch_bytes": 954,
+      "gold_patch_sha256": "790ea5dc9611d778d1147d4eeb2945d413961932546340f910c9c0b41846ee8d",
+      "test_patch_sha256": "12177bcae59fb9803f6e41aed9593877c863558472af25696fb0e73f9c7126ff",
+      "model_alias": "paper_replay_gold_sphinx-doc_sphinx",
+      "input_directory": "inputs/sphinx-doc__sphinx",
+      "predictions_sha256": "54daef0e910258430fe3bb18de81f8ef80e67094b9c8a23eb5f5660f4b504bfe",
+      "tasks_sha256": "d3e856d0925627d6037cce1a62743dc13bbb09b3b26ca4a94d61ec65124589cf",
+      "execution": "pending_local_paper_evaluator"
+    },
+    {
+      "repository": "sympy/sympy",
+      "repository_key": "sympy__sympy",
+      "instance_id": "sympy__sympy-24152",
+      "version": "1.12",
+      "base_commit": "b9af885473ad7e34b5b0826cb424dd26d8934670",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/sympy__sympy-24152.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "6a6fe4ef2663fae03c3f73155b1501205239f8e7",
+        "sha256": "a9cae10badfa669c1e57686fa2ce20add4f3245b23f9121e20a4cb4ad505c650"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 6,
+      "gold_patch_bytes": 1075,
+      "gold_patch_sha256": "42b4c8e39f5e1798c46f6d7bac8f01a9d48a5e7a5e629832c89f1b1a0bace5be",
+      "test_patch_sha256": "ddb9acbf0a784f78b53cbe97bc5d679b31e042bd671fc5fa99dc807532ee8bf0",
+      "model_alias": "paper_replay_gold_sympy_sympy",
+      "input_directory": "inputs/sympy__sympy",
+      "predictions_sha256": "b6bee79317ab4cc4fb576e57a797e768088c508bb36dbc5be08bb8f78508d041",
+      "tasks_sha256": "041c064b33997e39c7e607dc67da9f2a67a8693b69a107812eb1d75fe09e03e5",
+      "execution": "pending_local_paper_evaluator"
+    }
+  ],
+  "collected_at_utc": "2026-07-17T01:01:17.457533+00:00",
+  "runtime": {
+    "python": "3.9.25",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "model_api_calls": 0,
+    "gpu_used": false,
+    "server_used": false
+  },
+  "input_manifest_sha256": "13b1996e162cbe955d17d1c47d3bcb9c8912d370aa93c9ca4a227f99e622f1de",
+  "requests_semantic_manifest": {
+    "path": "data/manifests/requests_offhost_redirect_validation.json",
+    "sha256": "fc0b07729592bb2ecf3a8ffd49a7903f7df5fc3223b911fcfbea150936e0e62a"
+  },
+  "official_compatibility_evidence": {
+    "repository": "SWE-bench/experiments",
+    "revision": "2f15350cd32becc4569e0d826361048555b605c0",
+    "files": [
+      {
+        "path": "validation/lite_20240627/pydata__xarray-4248/report.json",
+        "bytes": 2413,
+        "sha256": "86845e0f5a2d19dc085f57e0c89843eec6d16c41b7d15ee996c76fd23b50d9f4",
+        "git_object_id": "0d959ddf0003eed5009e02ba4c33e96d7af5bef8",
+        "matches_repository_revision": true
+      },
+      {
+        "path": "validation/lite_20240627/pydata__xarray-4248/test_output.txt",
+        "bytes": 42610,
+        "sha256": "bffb57d6f422f855a478b1f9f04353469845cf4bcef6171bbaf8ea0d43bdbba2",
+        "git_object_id": "b7deadc23787de23f30b3a50c12e5aca3e390fae",
+        "matches_repository_revision": true
+      },
+      {
+        "path": "validation/lite_20240627/pylint-dev__pylint-5859/report.json",
+        "bytes": 1688,
+        "sha256": "a8efcff935ee6a3612a45bfb228e271f3c8365313a26f2d069693dfaad119340",
+        "git_object_id": "0c12a4385690cbb63ce470feb749593f4fe53026",
+        "matches_repository_revision": true
+      },
+      {
+        "path": "validation/lite_20240627/pylint-dev__pylint-5859/test_output.txt",
+        "bytes": 18241,
+        "sha256": "fc6c5068dd27c718d6a393af85626a790c34d15a1bb0308263110d4d638468cd",
+        "git_object_id": "67360d8ec6d6d69ea0394cac49025b11024ad59a",
+        "matches_repository_revision": true
+      },
+      {
+        "path": "validation/lite_20240627/sphinx-doc__sphinx-8713/report.json",
+        "bytes": 5691,
+        "sha256": "212b3d15d88f8c8ef3f891cf39d4e4f77bcd8eac60fc9b7ec82726abd5ccdcf0",
+        "git_object_id": "ca90d9c5e286ebb6228313c5cf53be522a2c65c2",
+        "matches_repository_revision": true
+      },
+      {
+        "path": "validation/lite_20240627/sphinx-doc__sphinx-8713/test_output.txt",
+        "bytes": 44353,
+        "sha256": "301fb29b4159e7e6a5a25fa9531aedea2188214e6dcd940365fce539f297f792",
+        "git_object_id": "54732c2413f913d598ab67a81defea3bed3d507a",
+        "matches_repository_revision": true
+      }
+    ]
+  },
+  "observations": [
+    {
+      "repository": "astropy/astropy",
+      "repository_key": "astropy__astropy",
+      "instance_id": "astropy__astropy-14995",
+      "version": "5.2",
+      "base_commit": "b16c7d12ccbc7b2d20364b89fb44285bcbfede54",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/astropy__astropy-14995.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "cef3c3f9d4af913eb16926ce555fa5235f7028b9",
+        "sha256": "4396edfa2d379573ab1c6877c57769ae6cebbf52738c88dccac19ede218d0490"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 179,
+      "gold_patch_bytes": 869,
+      "gold_patch_sha256": "370b3ff97b3a0627c29b74cf0b60bae46fe75edcd35a8d121c2dbe0f0421899a",
+      "test_patch_sha256": "e3bb402eed057015fbbf5c551110ea264e7fc449174fa11c5c66136c74f5a0a7",
+      "model_alias": "paper_replay_gold_astropy_astropy",
+      "input_directory": "inputs/astropy__astropy",
+      "predictions_sha256": "5a73a5a5c66ed68a6b9c01ee5bc4a1aa324e70e00f9938bb7eb410189a3bc545",
+      "tasks_sha256": "8ba2f093cf8c709b89cda8f890f0d835f984c75011907e3325ee8dc4f79c671a",
+      "execution": "pending_local_paper_evaluator",
+      "evidence": "fresh_gold_evaluator_replay",
+      "latest_attempt": {
+        "schema_version": 1,
+        "repository": "astropy/astropy",
+        "instance_id": "astropy__astropy-14995",
+        "attempt": 3,
+        "started_at_utc": "2026-07-16T20:17:51.709039+00:00",
+        "finished_at_utc": "2026-07-16T20:21:47.365337+00:00",
+        "duration_seconds": 235.335,
+        "return_code": 0,
+        "scorecard_statuses": [
+          "generated",
+          "applied",
+          "RESOLVED_FULL"
+        ],
+        "success": true,
+        "protocol_valid": true,
+        "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+        "timeout_seconds": 900,
+        "git_transport": "HTTP/1.1 process scope",
+        "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+        "compatibility": [
+          "source checkout forced through PYTHONPATH",
+          "conda activation uses etc/profile.d/conda.sh",
+          "instance-scoped package constraints from run_local_evaluation.py"
+        ],
+        "credential_variables_scrubbed": [],
+        "model_api_calls": 0,
+        "artifacts": {
+          "scorecards": {
+            "path": "inputs/astropy__astropy/attempts/attempt_003/scorecards.json",
+            "sha256": "f4d61420b739886a496f550270baec7e4439b77990953b56add0bacca288408b"
+          },
+          "results": {
+            "path": "inputs/astropy__astropy/attempts/attempt_003/results.json",
+            "sha256": "cbfb2e5eff09c54a3d4bee1bd5c439ddeebaf11152d4789e8c9c392cab546d9f"
+          },
+          "evaluation_log": {
+            "path": "inputs/astropy__astropy/attempts/attempt_003/astropy__astropy-14995.paper_replay_gold_astropy_astropy.eval.log",
+            "sha256": "78a1513ed691832cf1fa17f217c0ea1a1e6734702b758e3798d2214bf6c9d522"
+          }
+        },
+        "runner_log_sha256": "78af0ad068e65e1a40fbd3796bc56ea483f3ff109a43559d1b7b2b5cb134cb2a"
+      },
+      "attempt_history": [
+        {
+          "schema_version": 1,
+          "repository": "astropy/astropy",
+          "instance_id": "astropy__astropy-14995",
+          "attempt": 1,
+          "started_at_utc": "2026-07-16T18:37:48.734907+00:00",
+          "finished_at_utc": "2026-07-16T18:40:27.095960+00:00",
+          "duration_seconds": 156.304,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "install_fail",
+            "RESOLVED_NO"
+          ],
+          "success": false,
+          "timeout_seconds": 900,
+          "git_transport": "HTTP/1.1 process scope",
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/astropy__astropy/attempts/attempt_001/scorecards.json",
+              "sha256": "ee995b1c19a52b71af4c0ea82fb11056157c8ed3182709600b9c499380abccfe"
+            },
+            "results": {
+              "path": "inputs/astropy__astropy/attempts/attempt_001/results.json",
+              "sha256": "fbc040ea8647a587be02ce96bd1378d857b4671baa775352aa339c95716ca381"
+            },
+            "evaluation_log": {
+              "path": "inputs/astropy__astropy/attempts/attempt_001/astropy__astropy-14995.paper_replay_gold_astropy_astropy.eval.log",
+              "sha256": "779c04170c7a5c0ceff9309f03c5e2cfebe0330b531e540d741e9e11dfa03fec"
+            }
+          },
+          "runner_log_sha256": "2116d3f5509fd761bb0c0852e361dcaee112d0ef6554262a9c1def8e40fcf419"
+        },
+        {
+          "schema_version": 1,
+          "repository": "astropy/astropy",
+          "instance_id": "astropy__astropy-14995",
+          "attempt": 2,
+          "started_at_utc": "2026-07-16T20:14:26.995607+00:00",
+          "finished_at_utc": "2026-07-16T20:17:20.794021+00:00",
+          "duration_seconds": 173.497,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated"
+          ],
+          "success": false,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 900,
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/astropy__astropy/attempts/attempt_002/scorecards.json",
+              "sha256": "2482451d8e645df80ccc17f1bc33539d4e7cbd438cd5cdbcf76fd85614398ecc"
+            },
+            "results": {
+              "path": "inputs/astropy__astropy/attempts/attempt_002/results.json",
+              "sha256": "48dab56c9def1812c8ae4556beb7b37d95b3feffe2d2a5aa47cb6c1c71c97c58"
+            },
+            "evaluation_log": {
+              "path": "inputs/astropy__astropy/attempts/attempt_002/astropy__astropy-14995.paper_replay_gold_astropy_astropy.eval.log",
+              "sha256": "10d3a53347dbc9161b1c7841433b6dcf2e545c4e72e9ff9b23ad1268a32c87c2"
+            }
+          },
+          "runner_log_sha256": "b5518c76ea7a5cd36355e188ffa9afb082d3d0d4592813fc6e97bc23bb5d57b5"
+        },
+        {
+          "schema_version": 1,
+          "repository": "astropy/astropy",
+          "instance_id": "astropy__astropy-14995",
+          "attempt": 3,
+          "started_at_utc": "2026-07-16T20:17:51.709039+00:00",
+          "finished_at_utc": "2026-07-16T20:21:47.365337+00:00",
+          "duration_seconds": 235.335,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_FULL"
+          ],
+          "success": true,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 900,
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/astropy__astropy/attempts/attempt_003/scorecards.json",
+              "sha256": "f4d61420b739886a496f550270baec7e4439b77990953b56add0bacca288408b"
+            },
+            "results": {
+              "path": "inputs/astropy__astropy/attempts/attempt_003/results.json",
+              "sha256": "cbfb2e5eff09c54a3d4bee1bd5c439ddeebaf11152d4789e8c9c392cab546d9f"
+            },
+            "evaluation_log": {
+              "path": "inputs/astropy__astropy/attempts/attempt_003/astropy__astropy-14995.paper_replay_gold_astropy_astropy.eval.log",
+              "sha256": "78a1513ed691832cf1fa17f217c0ea1a1e6734702b758e3798d2214bf6c9d522"
+            }
+          },
+          "runner_log_sha256": "78af0ad068e65e1a40fbd3796bc56ea483f3ff109a43559d1b7b2b5cb134cb2a"
+        }
+      ],
+      "environment_compatibility": [
+        "setuptools==68.0.0"
+      ],
+      "observed_scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "observed_patch_applied": true,
+      "observed_resolution": "RESOLVED_FULL",
+      "all_reference_tests_passed": true,
+      "official_resolved_report_exact": true,
+      "observed_log_sha256": "78a1513ed691832cf1fa17f217c0ea1a1e6734702b758e3798d2214bf6c9d522",
+      "exact_outcome_match": true,
+      "full_reference_outcome_match": true,
+      "semantic_outcome_match": false,
+      "validated_outcome_match": true,
+      "validation_class": "full_reference_outcome",
+      "reference_success_count": 180,
+      "reference_failure_count": 0
+    },
+    {
+      "repository": "django/django",
+      "repository_key": "django__django",
+      "instance_id": "django__django-13447",
+      "version": "4.0",
+      "base_commit": "0456d3e42795481a186db05719300691fe2a1029",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/django__django-13447.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "5aeb4543dc62f2e7adb82636261a2252b8e8b7b7",
+        "sha256": "413aad57328124457d4f6ab257ea49b91978ae909aa1944c23df8f5f5bad0aa0"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 5,
+      "gold_patch_bytes": 492,
+      "gold_patch_sha256": "4405b13629dde0bd48cf8441f4f4c4a23cc702c0a120a018f05183706ee36037",
+      "test_patch_sha256": "2f10fb3fa9652e6ac7471249bd35ef2d9a0d0e23d9de84b7c52ac1783b13826e",
+      "model_alias": "paper_replay_gold_django_django",
+      "input_directory": "inputs/django__django",
+      "predictions_sha256": "42d10dcaf515f5d1c5313a4464b5798ba9160ebc8799cd804ef8608f11668ad0",
+      "tasks_sha256": "017033948a244f4137f081967d35323e5b51cc84b227423780936fe8d1e3b1a2",
+      "execution": "pending_local_paper_evaluator",
+      "evidence": "fresh_gold_evaluator_replay",
+      "latest_attempt": {
+        "schema_version": 1,
+        "repository": "django/django",
+        "instance_id": "django__django-13447",
+        "attempt": 2,
+        "started_at_utc": "2026-07-16T20:21:55.429725+00:00",
+        "finished_at_utc": "2026-07-16T20:25:19.601562+00:00",
+        "duration_seconds": 203.915,
+        "return_code": 0,
+        "scorecard_statuses": [
+          "generated",
+          "applied",
+          "RESOLVED_FULL"
+        ],
+        "success": true,
+        "protocol_valid": true,
+        "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+        "timeout_seconds": 900,
+        "git_transport": "HTTP/1.1 process scope",
+        "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+        "compatibility": [
+          "source checkout forced through PYTHONPATH",
+          "conda activation uses etc/profile.d/conda.sh",
+          "instance-scoped package constraints from run_local_evaluation.py"
+        ],
+        "credential_variables_scrubbed": [],
+        "model_api_calls": 0,
+        "artifacts": {
+          "scorecards": {
+            "path": "inputs/django__django/attempts/attempt_002/scorecards.json",
+            "sha256": "046aaa027bd3320e824f4e62a5a18e1b5e2094bf7dd4127f6deac0ef5079c990"
+          },
+          "results": {
+            "path": "inputs/django__django/attempts/attempt_002/results.json",
+            "sha256": "9f7edd54688a2aa694b6bc9e03310de0fcdef557e73d84f014aae262254a1435"
+          },
+          "evaluation_log": {
+            "path": "inputs/django__django/attempts/attempt_002/django__django-13447.paper_replay_gold_django_django.eval.log",
+            "sha256": "958a464186680a62b53ca24d8fa6d6b906f3604dbf4f1e6c54428c9b892409b0"
+          }
+        },
+        "runner_log_sha256": "cadce6824b61deb9a3de5a208b1cd35d58087618010fd1d5d804aafddcbd9f47"
+      },
+      "attempt_history": [
+        {
+          "schema_version": 1,
+          "repository": "django/django",
+          "instance_id": "django__django-13447",
+          "attempt": 1,
+          "started_at_utc": "2026-07-16T18:40:27.144141+00:00",
+          "finished_at_utc": "2026-07-16T18:42:57.530093+00:00",
+          "duration_seconds": 138.438,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_FULL"
+          ],
+          "success": true,
+          "timeout_seconds": 900,
+          "git_transport": "HTTP/1.1 process scope",
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/django__django/attempts/attempt_001/scorecards.json",
+              "sha256": "046aaa027bd3320e824f4e62a5a18e1b5e2094bf7dd4127f6deac0ef5079c990"
+            },
+            "results": {
+              "path": "inputs/django__django/attempts/attempt_001/results.json",
+              "sha256": "0f03b1e35aeab00143387c9aec99a1f35fc1ac99a3234de8cb7b2ae452656cfd"
+            },
+            "evaluation_log": {
+              "path": "inputs/django__django/attempts/attempt_001/django__django-13447.paper_replay_gold_django_django.eval.log",
+              "sha256": "a1df4d0c8ad0c29a792c81e188ad108bd824d9bf0a91eaacdbab66d35c426a64"
+            }
+          },
+          "runner_log_sha256": "d46b91ea39532e53cab79c8f202e58dede7f4c0532f77416261ef5aa812b06e3"
+        },
+        {
+          "schema_version": 1,
+          "repository": "django/django",
+          "instance_id": "django__django-13447",
+          "attempt": 2,
+          "started_at_utc": "2026-07-16T20:21:55.429725+00:00",
+          "finished_at_utc": "2026-07-16T20:25:19.601562+00:00",
+          "duration_seconds": 203.915,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_FULL"
+          ],
+          "success": true,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 900,
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/django__django/attempts/attempt_002/scorecards.json",
+              "sha256": "046aaa027bd3320e824f4e62a5a18e1b5e2094bf7dd4127f6deac0ef5079c990"
+            },
+            "results": {
+              "path": "inputs/django__django/attempts/attempt_002/results.json",
+              "sha256": "9f7edd54688a2aa694b6bc9e03310de0fcdef557e73d84f014aae262254a1435"
+            },
+            "evaluation_log": {
+              "path": "inputs/django__django/attempts/attempt_002/django__django-13447.paper_replay_gold_django_django.eval.log",
+              "sha256": "958a464186680a62b53ca24d8fa6d6b906f3604dbf4f1e6c54428c9b892409b0"
+            }
+          },
+          "runner_log_sha256": "cadce6824b61deb9a3de5a208b1cd35d58087618010fd1d5d804aafddcbd9f47"
+        }
+      ],
+      "environment_compatibility": [],
+      "observed_scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "observed_patch_applied": true,
+      "observed_resolution": "RESOLVED_FULL",
+      "all_reference_tests_passed": true,
+      "official_resolved_report_exact": true,
+      "observed_log_sha256": "958a464186680a62b53ca24d8fa6d6b906f3604dbf4f1e6c54428c9b892409b0",
+      "exact_outcome_match": true,
+      "full_reference_outcome_match": true,
+      "semantic_outcome_match": false,
+      "validated_outcome_match": true,
+      "validation_class": "full_reference_outcome",
+      "reference_success_count": 6,
+      "reference_failure_count": 0
+    },
+    {
+      "repository": "matplotlib/matplotlib",
+      "repository_key": "matplotlib__matplotlib",
+      "instance_id": "matplotlib__matplotlib-23964",
+      "version": "3.6",
+      "base_commit": "269c0b94b4fcf8b1135011c1556eac29dc09de15",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/matplotlib__matplotlib-23964.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "290f3b1ad8b4face69e80f59b808d1659a8a1062",
+        "sha256": "2cb25afe9a83c102cc4ad173b8314d200eb8a62982c8a78434709cbb4afba6a7"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 16,
+      "gold_patch_bytes": 648,
+      "gold_patch_sha256": "d05240c2e660bc12358a3b2cd366c8f0af2fdc6e70696e61584c9dbc9132cad9",
+      "test_patch_sha256": "521afd09edbe9a624a46a0d129abfc2e4bdb9fe8536c71f5f801774274ddd359",
+      "model_alias": "paper_replay_gold_matplotlib_matplotlib",
+      "input_directory": "inputs/matplotlib__matplotlib",
+      "predictions_sha256": "981ba3cd1bc4fa048ec9d1ec5828d015288128b88223ff2847bdd4f3f9bb1ce0",
+      "tasks_sha256": "aab1f3a17060b7a8bd01e4000d6e231067380bbf369cbfd9c8a7a6446f6b9ba7",
+      "execution": "pending_local_paper_evaluator",
+      "evidence": "fresh_gold_evaluator_replay",
+      "latest_attempt": {
+        "schema_version": 1,
+        "repository": "matplotlib/matplotlib",
+        "instance_id": "matplotlib__matplotlib-23964",
+        "attempt": 5,
+        "started_at_utc": "2026-07-16T21:49:28.293699+00:00",
+        "finished_at_utc": "2026-07-16T22:15:33.822388+00:00",
+        "duration_seconds": 1565.247,
+        "return_code": 0,
+        "scorecard_statuses": [
+          "generated",
+          "applied",
+          "RESOLVED_FULL"
+        ],
+        "success": true,
+        "protocol_valid": true,
+        "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+        "timeout_seconds": 900,
+        "git_transport": "HTTP/1.1 process scope",
+        "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+        "compatibility": [
+          "source checkout forced through PYTHONPATH",
+          "conda activation uses etc/profile.d/conda.sh",
+          "instance-scoped package constraints from run_local_evaluation.py"
+        ],
+        "credential_variables_scrubbed": [],
+        "model_api_calls": 0,
+        "artifacts": {
+          "scorecards": {
+            "path": "inputs/matplotlib__matplotlib/attempts/attempt_005/scorecards.json",
+            "sha256": "f7db6e2d7f50c54eae237c02a5abe391615c63c4cf8f0dd03a10ef1414d786ff"
+          },
+          "results": {
+            "path": "inputs/matplotlib__matplotlib/attempts/attempt_005/results.json",
+            "sha256": "71f04d44ad02e9947a58023c2e75e11cc9f3ba79cedcdf8d4b5826a8b6993f62"
+          },
+          "evaluation_log": {
+            "path": "inputs/matplotlib__matplotlib/attempts/attempt_005/matplotlib__matplotlib-23964.paper_replay_gold_matplotlib_matplotlib.eval.log",
+            "sha256": "41e461a335d5268199b8d85970a950d3bc0333e15df7815dd53c6bf709ebbd5e"
+          }
+        },
+        "runner_log_sha256": "5ec5935bdffb91727a1d31b998609df90f08c13f65ea2a4293292d0a4e17e133"
+      },
+      "attempt_history": [
+        {
+          "schema_version": 1,
+          "repository": "matplotlib/matplotlib",
+          "instance_id": "matplotlib__matplotlib-23964",
+          "attempt": 1,
+          "started_at_utc": "2026-07-16T18:42:57.577701+00:00",
+          "finished_at_utc": "2026-07-16T19:11:52.483594+00:00",
+          "duration_seconds": 1722.804,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_NO"
+          ],
+          "success": false,
+          "timeout_seconds": 900,
+          "git_transport": "HTTP/1.1 process scope",
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/matplotlib__matplotlib/attempts/attempt_001/scorecards.json",
+              "sha256": "ecaac857df13b0d5db1b313c1dab3a5cd4da956ea186cb3dc2e42740e82c316d"
+            },
+            "results": {
+              "path": "inputs/matplotlib__matplotlib/attempts/attempt_001/results.json",
+              "sha256": "720ebb15a65b2b916522094de3999ffb41bb9de14b96f2e66b0474ffa4f84513"
+            },
+            "evaluation_log": {
+              "path": "inputs/matplotlib__matplotlib/attempts/attempt_001/matplotlib__matplotlib-23964.paper_replay_gold_matplotlib_matplotlib.eval.log",
+              "sha256": "bd96885fd0a092d9582a27f781b514be75315b2e40eccee9b14f1dab01875c33"
+            }
+          },
+          "runner_log_sha256": "cfda02e26ee1e05298cc3a3d110372858fa245c9456ca1c01f7f47d1e27fc3d6"
+        },
+        {
+          "schema_version": 1,
+          "repository": "matplotlib/matplotlib",
+          "instance_id": "matplotlib__matplotlib-23964",
+          "attempt": 2,
+          "started_at_utc": "2026-07-16T20:25:26.944561+00:00",
+          "finished_at_utc": "2026-07-16T20:51:23.698685+00:00",
+          "duration_seconds": 1556.463,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_NO"
+          ],
+          "success": false,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 900,
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/matplotlib__matplotlib/attempts/attempt_002/scorecards.json",
+              "sha256": "40b0069a0736607a396486c08bbe1874e1d9836d7bc6d5d9afb3e1a91e10acf9"
+            },
+            "results": {
+              "path": "inputs/matplotlib__matplotlib/attempts/attempt_002/results.json",
+              "sha256": "fcfa056eb22b1240c56d14376e13a81eab8b6b5c9a399fc3dbd1b9dc8111b180"
+            },
+            "evaluation_log": {
+              "path": "inputs/matplotlib__matplotlib/attempts/attempt_002/matplotlib__matplotlib-23964.paper_replay_gold_matplotlib_matplotlib.eval.log",
+              "sha256": "991a297d1466bb495fb82cb182c7aebbc6352d726256fc0dacfc4f4442377594"
+            }
+          },
+          "runner_log_sha256": "2a15be96104cf3fb96db96d04897660dd6db806eeea720f84c2acd3b37dc10e5"
+        },
+        {
+          "schema_version": 1,
+          "repository": "matplotlib/matplotlib",
+          "instance_id": "matplotlib__matplotlib-23964",
+          "attempt": 3,
+          "started_at_utc": "2026-07-16T20:56:17.360259+00:00",
+          "finished_at_utc": "2026-07-16T21:24:11.648657+00:00",
+          "duration_seconds": 1674.012,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_NO"
+          ],
+          "success": false,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 900,
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/matplotlib__matplotlib/attempts/attempt_003/scorecards.json",
+              "sha256": "5a369fd45a276d854dbe9f61d4171be517148daa238fd02d5b11dc1b0019a4fd"
+            },
+            "results": {
+              "path": "inputs/matplotlib__matplotlib/attempts/attempt_003/results.json",
+              "sha256": "fcfa056eb22b1240c56d14376e13a81eab8b6b5c9a399fc3dbd1b9dc8111b180"
+            },
+            "evaluation_log": {
+              "path": "inputs/matplotlib__matplotlib/attempts/attempt_003/matplotlib__matplotlib-23964.paper_replay_gold_matplotlib_matplotlib.eval.log",
+              "sha256": "6e8d3d02e105f44e34c7c6e010dda645ea94988c7c41bd69c5f2010014e916ec"
+            }
+          },
+          "runner_log_sha256": "dc62d2f053763dc7ef9f4b68c4dbe44ec86d1d1865464849da024dfdad73be75"
+        },
+        {
+          "schema_version": 1,
+          "repository": "matplotlib/matplotlib",
+          "instance_id": "matplotlib__matplotlib-23964",
+          "attempt": 4,
+          "started_at_utc": "2026-07-16T21:26:12.865971+00:00",
+          "finished_at_utc": "2026-07-16T21:47:01.562151+00:00",
+          "duration_seconds": 1248.409,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_NO"
+          ],
+          "success": false,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 900,
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/matplotlib__matplotlib/attempts/attempt_004/scorecards.json",
+              "sha256": "5a369fd45a276d854dbe9f61d4171be517148daa238fd02d5b11dc1b0019a4fd"
+            },
+            "results": {
+              "path": "inputs/matplotlib__matplotlib/attempts/attempt_004/results.json",
+              "sha256": "fcfa056eb22b1240c56d14376e13a81eab8b6b5c9a399fc3dbd1b9dc8111b180"
+            },
+            "evaluation_log": {
+              "path": "inputs/matplotlib__matplotlib/attempts/attempt_004/matplotlib__matplotlib-23964.paper_replay_gold_matplotlib_matplotlib.eval.log",
+              "sha256": "3fbb20e06de1d7b751cd2756b503ca6b8dd85fc124682a9f6902a57eb813b393"
+            }
+          },
+          "runner_log_sha256": "1481c2a5b35a9904d915f346d35cd5096af105567ad08447612340f931e20a83"
+        },
+        {
+          "schema_version": 1,
+          "repository": "matplotlib/matplotlib",
+          "instance_id": "matplotlib__matplotlib-23964",
+          "attempt": 5,
+          "started_at_utc": "2026-07-16T21:49:28.293699+00:00",
+          "finished_at_utc": "2026-07-16T22:15:33.822388+00:00",
+          "duration_seconds": 1565.247,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_FULL"
+          ],
+          "success": true,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 900,
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/matplotlib__matplotlib/attempts/attempt_005/scorecards.json",
+              "sha256": "f7db6e2d7f50c54eae237c02a5abe391615c63c4cf8f0dd03a10ef1414d786ff"
+            },
+            "results": {
+              "path": "inputs/matplotlib__matplotlib/attempts/attempt_005/results.json",
+              "sha256": "71f04d44ad02e9947a58023c2e75e11cc9f3ba79cedcdf8d4b5826a8b6993f62"
+            },
+            "evaluation_log": {
+              "path": "inputs/matplotlib__matplotlib/attempts/attempt_005/matplotlib__matplotlib-23964.paper_replay_gold_matplotlib_matplotlib.eval.log",
+              "sha256": "41e461a335d5268199b8d85970a950d3bc0333e15df7815dd53c6bf709ebbd5e"
+            }
+          },
+          "runner_log_sha256": "5ec5935bdffb91727a1d31b998609df90f08c13f65ea2a4293292d0a4e17e133"
+        }
+      ],
+      "environment_compatibility": [
+        "ghostscript 10.02.1~dfsg1-0ubuntu7.8",
+        "texlive-latex-base 2023.20240207-1",
+        "texlive-latex-extra 2023.20240207-1",
+        "dvipng 1.15-1.1"
+      ],
+      "observed_scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "observed_patch_applied": true,
+      "observed_resolution": "RESOLVED_FULL",
+      "all_reference_tests_passed": true,
+      "official_resolved_report_exact": true,
+      "observed_log_sha256": "41e461a335d5268199b8d85970a950d3bc0333e15df7815dd53c6bf709ebbd5e",
+      "exact_outcome_match": true,
+      "full_reference_outcome_match": true,
+      "semantic_outcome_match": false,
+      "validated_outcome_match": true,
+      "validation_class": "full_reference_outcome",
+      "reference_success_count": 17,
+      "reference_failure_count": 0
+    },
+    {
+      "repository": "mwaskom/seaborn",
+      "repository_key": "mwaskom__seaborn",
+      "instance_id": "mwaskom__seaborn-3010",
+      "version": "0.12",
+      "base_commit": "0f5a013e2cf43562deec3b879458e59a73853813",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/mwaskom__seaborn-3010.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "b7f566beba1ecd87217d2c469845691ea12088dc",
+        "sha256": "2420c7ae7557ccbd6f39b9c94ba795619ed8640a108b60b2a16197bed2b05cc4"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 2,
+      "gold_patch_bytes": 444,
+      "gold_patch_sha256": "2d282a78db2b88dc42330fea5dc78b0551629b7d15c6d5b22f20c57a2ee3d1d7",
+      "test_patch_sha256": "1ba4f740fddbe1d3e1b82f09cf4dc724bd0d65eeed3a108f0892519b0ec8761b",
+      "model_alias": "paper_replay_gold_mwaskom_seaborn",
+      "input_directory": "inputs/mwaskom__seaborn",
+      "predictions_sha256": "2cc6f3bd73e8a57183c8bd0758bcafb2b754b05c9ee760c84ca4d44cd2a7404f",
+      "tasks_sha256": "6a61e8c447d6914a7219936059220a39bcab1453f0c05f037e7d96d341f676cd",
+      "execution": "pending_local_paper_evaluator",
+      "evidence": "fresh_gold_evaluator_replay",
+      "latest_attempt": {
+        "schema_version": 1,
+        "repository": "mwaskom/seaborn",
+        "instance_id": "mwaskom__seaborn-3010",
+        "attempt": 3,
+        "started_at_utc": "2026-07-16T19:49:20.428716+00:00",
+        "finished_at_utc": "2026-07-16T19:52:49.756889+00:00",
+        "duration_seconds": 209.023,
+        "return_code": 0,
+        "scorecard_statuses": [
+          "generated",
+          "applied",
+          "RESOLVED_FULL"
+        ],
+        "success": true,
+        "protocol_valid": true,
+        "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+        "timeout_seconds": 900,
+        "git_transport": "HTTP/1.1 process scope",
+        "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+        "compatibility": [
+          "source checkout forced through PYTHONPATH",
+          "conda activation uses etc/profile.d/conda.sh",
+          "instance-scoped package constraints from run_local_evaluation.py"
+        ],
+        "credential_variables_scrubbed": [],
+        "model_api_calls": 0,
+        "artifacts": {
+          "scorecards": {
+            "path": "inputs/mwaskom__seaborn/attempts/attempt_003/scorecards.json",
+            "sha256": "bd0f2074e834338e48986311521c2a4597d4978d1990d857cb3449976216149a"
+          },
+          "results": {
+            "path": "inputs/mwaskom__seaborn/attempts/attempt_003/results.json",
+            "sha256": "cce3f5deb849054c6dda0df40906fd3e833991c966d9d91793aa1de7084b1143"
+          },
+          "evaluation_log": {
+            "path": "inputs/mwaskom__seaborn/attempts/attempt_003/mwaskom__seaborn-3010.paper_replay_gold_mwaskom_seaborn.eval.log",
+            "sha256": "01a5eda1fd8c6b35393ce5e74702de92e5cdf5b3db27dd303b08560cf7bfa5d8"
+          }
+        },
+        "runner_log_sha256": "8b06d26b53db242958c708317287a812d38d81684b860aa44014e128685cda56"
+      },
+      "attempt_history": [
+        {
+          "schema_version": 1,
+          "repository": "mwaskom/seaborn",
+          "instance_id": "mwaskom__seaborn-3010",
+          "attempt": 1,
+          "started_at_utc": "2026-07-16T19:11:52.539508+00:00",
+          "finished_at_utc": "2026-07-16T19:16:15.037940+00:00",
+          "duration_seconds": 262.244,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_NO"
+          ],
+          "success": false,
+          "timeout_seconds": 900,
+          "git_transport": "HTTP/1.1 process scope",
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/mwaskom__seaborn/attempts/attempt_001/scorecards.json",
+              "sha256": "46c11f899bd26e2909288f1f88e469fbca13610935816256a0242e8d4f419558"
+            },
+            "results": {
+              "path": "inputs/mwaskom__seaborn/attempts/attempt_001/results.json",
+              "sha256": "53f9d9942e4f5800d00ba4f7b2c1333463149d38141213310a97e5ec53bbc4f7"
+            },
+            "evaluation_log": {
+              "path": "inputs/mwaskom__seaborn/attempts/attempt_001/mwaskom__seaborn-3010.paper_replay_gold_mwaskom_seaborn.eval.log",
+              "sha256": "1cd657d11b6e8cc532085cc2e5771ddacbbc9be94d8c22bd70ee3f89417767f5"
+            }
+          },
+          "runner_log_sha256": "4fa29a0f4df7602b7110cf0aed2ad1f954e9b2b2a7ffa502b605d4a9277684bd"
+        },
+        {
+          "schema_version": 1,
+          "repository": "mwaskom/seaborn",
+          "instance_id": "mwaskom__seaborn-3010",
+          "attempt": 2,
+          "status": "INTERRUPTED_OUTER_RUNNER_NO_RETURN_CODE",
+          "detected_at_utc": "2026-07-16T19:49:20.375336+00:00",
+          "return_code": null,
+          "scorecard_statuses": null,
+          "success": false,
+          "protocol_valid": false,
+          "model_api_calls": 0,
+          "runner_log_sha256": "8db27b9c7aa7eba5a75584862545da7d462ae95f041f2fc575cce09a9286cad9"
+        },
+        {
+          "schema_version": 1,
+          "repository": "mwaskom/seaborn",
+          "instance_id": "mwaskom__seaborn-3010",
+          "attempt": 3,
+          "started_at_utc": "2026-07-16T19:49:20.428716+00:00",
+          "finished_at_utc": "2026-07-16T19:52:49.756889+00:00",
+          "duration_seconds": 209.023,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_FULL"
+          ],
+          "success": true,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 900,
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/mwaskom__seaborn/attempts/attempt_003/scorecards.json",
+              "sha256": "bd0f2074e834338e48986311521c2a4597d4978d1990d857cb3449976216149a"
+            },
+            "results": {
+              "path": "inputs/mwaskom__seaborn/attempts/attempt_003/results.json",
+              "sha256": "cce3f5deb849054c6dda0df40906fd3e833991c966d9d91793aa1de7084b1143"
+            },
+            "evaluation_log": {
+              "path": "inputs/mwaskom__seaborn/attempts/attempt_003/mwaskom__seaborn-3010.paper_replay_gold_mwaskom_seaborn.eval.log",
+              "sha256": "01a5eda1fd8c6b35393ce5e74702de92e5cdf5b3db27dd303b08560cf7bfa5d8"
+            }
+          },
+          "runner_log_sha256": "8b06d26b53db242958c708317287a812d38d81684b860aa44014e128685cda56"
+        }
+      ],
+      "environment_compatibility": [],
+      "observed_scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "observed_patch_applied": true,
+      "observed_resolution": "RESOLVED_FULL",
+      "all_reference_tests_passed": true,
+      "official_resolved_report_exact": true,
+      "observed_log_sha256": "01a5eda1fd8c6b35393ce5e74702de92e5cdf5b3db27dd303b08560cf7bfa5d8",
+      "exact_outcome_match": true,
+      "full_reference_outcome_match": true,
+      "semantic_outcome_match": false,
+      "validated_outcome_match": true,
+      "validation_class": "full_reference_outcome",
+      "reference_success_count": 3,
+      "reference_failure_count": 0
+    },
+    {
+      "repository": "pallets/flask",
+      "repository_key": "pallets__flask",
+      "instance_id": "pallets__flask-4992",
+      "version": "2.3",
+      "base_commit": "4c288bc97ea371817199908d0d9b12de9dae327e",
+      "selection_policy": "minimum_reference_tests_no_official_gpt4_resolved_available",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied"
+      ],
+      "official_resolved_log": null,
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 18,
+      "gold_patch_bytes": 1664,
+      "gold_patch_sha256": "db912cc1331807c9b0715766eb45a5fac8c4036a99dd54c9ce998b675d0d8697",
+      "test_patch_sha256": "851c94393511592a1e3b65ea1d909b73b342ef55388819c6bd9632edb71ad304",
+      "model_alias": "paper_replay_gold_pallets_flask",
+      "input_directory": "inputs/pallets__flask",
+      "predictions_sha256": "6833e5331e5f88c10fa6f03ef3edff351dad19b898a3e12325f3ee5f24eb819e",
+      "tasks_sha256": "851dc5c9ff063323aced02b2dd08032d6b64425dcf11838d62f9e2736a9c4356",
+      "execution": "pending_local_paper_evaluator",
+      "evidence": "fresh_gold_evaluator_replay",
+      "latest_attempt": {
+        "schema_version": 1,
+        "repository": "pallets/flask",
+        "instance_id": "pallets__flask-4992",
+        "attempt": 2,
+        "started_at_utc": "2026-07-16T19:52:56.611452+00:00",
+        "finished_at_utc": "2026-07-16T19:55:43.381846+00:00",
+        "duration_seconds": 166.514,
+        "return_code": 0,
+        "scorecard_statuses": [
+          "generated",
+          "applied",
+          "RESOLVED_FULL"
+        ],
+        "success": true,
+        "protocol_valid": true,
+        "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+        "timeout_seconds": 900,
+        "git_transport": "HTTP/1.1 process scope",
+        "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+        "compatibility": [
+          "source checkout forced through PYTHONPATH",
+          "conda activation uses etc/profile.d/conda.sh",
+          "instance-scoped package constraints from run_local_evaluation.py"
+        ],
+        "credential_variables_scrubbed": [],
+        "model_api_calls": 0,
+        "artifacts": {
+          "scorecards": {
+            "path": "inputs/pallets__flask/attempts/attempt_002/scorecards.json",
+            "sha256": "228fe5dae77b11978a8a2e410e896b38ff93b996e2371124fe425c5da7db1119"
+          },
+          "results": {
+            "path": "inputs/pallets__flask/attempts/attempt_002/results.json",
+            "sha256": "bf40587fd5886aec639525b1e961a0aed8079c7fff290daf867bb10aa9c0a321"
+          },
+          "evaluation_log": {
+            "path": "inputs/pallets__flask/attempts/attempt_002/pallets__flask-4992.paper_replay_gold_pallets_flask.eval.log",
+            "sha256": "a9d6736499788d8d749f2a325347fafccd5abd7680ebfc28ac952d92421fe239"
+          }
+        },
+        "runner_log_sha256": "542c062afe568bf5d204ec18a423e6020ce80e1347e25ae1c6b67d4e5a143d57"
+      },
+      "attempt_history": [
+        {
+          "schema_version": 1,
+          "repository": "pallets/flask",
+          "instance_id": "pallets__flask-4992",
+          "attempt": 1,
+          "started_at_utc": "2026-07-16T19:16:15.101266+00:00",
+          "finished_at_utc": "2026-07-16T19:20:58.118972+00:00",
+          "duration_seconds": 282.743,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_NO"
+          ],
+          "success": false,
+          "timeout_seconds": 900,
+          "git_transport": "HTTP/1.1 process scope",
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/pallets__flask/attempts/attempt_001/scorecards.json",
+              "sha256": "dbe74f0b6c502683b2f04fa675c34ef1add5ec660acc426397f5af4303323360"
+            },
+            "results": {
+              "path": "inputs/pallets__flask/attempts/attempt_001/results.json",
+              "sha256": "f6c76c1f6808f1ef5662c3740482e45627469ee0804538ffe5224fb2b33cc68a"
+            },
+            "evaluation_log": {
+              "path": "inputs/pallets__flask/attempts/attempt_001/pallets__flask-4992.paper_replay_gold_pallets_flask.eval.log",
+              "sha256": "995efb70e6058f910c2c95884a1275381aa8b328a885119a53bb0f004502f0dc"
+            }
+          },
+          "runner_log_sha256": "7c0092991f02d17c6d9bd673fe175bf73edae22248178f9c190dde7291aff537"
+        },
+        {
+          "schema_version": 1,
+          "repository": "pallets/flask",
+          "instance_id": "pallets__flask-4992",
+          "attempt": 2,
+          "started_at_utc": "2026-07-16T19:52:56.611452+00:00",
+          "finished_at_utc": "2026-07-16T19:55:43.381846+00:00",
+          "duration_seconds": 166.514,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_FULL"
+          ],
+          "success": true,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 900,
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/pallets__flask/attempts/attempt_002/scorecards.json",
+              "sha256": "228fe5dae77b11978a8a2e410e896b38ff93b996e2371124fe425c5da7db1119"
+            },
+            "results": {
+              "path": "inputs/pallets__flask/attempts/attempt_002/results.json",
+              "sha256": "bf40587fd5886aec639525b1e961a0aed8079c7fff290daf867bb10aa9c0a321"
+            },
+            "evaluation_log": {
+              "path": "inputs/pallets__flask/attempts/attempt_002/pallets__flask-4992.paper_replay_gold_pallets_flask.eval.log",
+              "sha256": "a9d6736499788d8d749f2a325347fafccd5abd7680ebfc28ac952d92421fe239"
+            }
+          },
+          "runner_log_sha256": "542c062afe568bf5d204ec18a423e6020ce80e1347e25ae1c6b67d4e5a143d57"
+        }
+      ],
+      "environment_compatibility": [],
+      "observed_scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "observed_patch_applied": true,
+      "observed_resolution": "RESOLVED_FULL",
+      "all_reference_tests_passed": true,
+      "official_resolved_report_exact": null,
+      "observed_log_sha256": "a9d6736499788d8d749f2a325347fafccd5abd7680ebfc28ac952d92421fe239",
+      "exact_outcome_match": true,
+      "full_reference_outcome_match": true,
+      "semantic_outcome_match": false,
+      "validated_outcome_match": true,
+      "validation_class": "full_reference_outcome",
+      "reference_success_count": 19,
+      "reference_failure_count": 0
+    },
+    {
+      "repository": "psf/requests",
+      "repository_key": "psf__requests",
+      "instance_id": "psf__requests-2317",
+      "version": "2.4",
+      "base_commit": "091991be0da19de9108dbe5e3752917fea3d7fdc",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/psf__requests-2317.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "603ce553a29995e4560f90061756bd8f2c1fe583",
+        "sha256": "065729ff52b21cf54d5bcbabdd210120096ac73e1efd6375d8f393773b9c1aa8"
+      },
+      "fail_to_pass_count": 8,
+      "pass_to_pass_count": 133,
+      "gold_patch_bytes": 763,
+      "gold_patch_sha256": "e6f1e63850e2a5eefcfe6b4bbc6ba39038372415633a328ba7afea001fcbd50e",
+      "test_patch_sha256": "ff283039874db19ea594bda54c2aa6812eb25fea9881e2517c4a143805cdb552",
+      "model_alias": "paper_replay_gold_psf_requests",
+      "input_directory": "inputs/psf__requests",
+      "predictions_sha256": "e201a1699484d94d81f0f8db33de8ecd2ee495305ea8b0bb95fb691c504fb8c3",
+      "tasks_sha256": "bb91c1224475d54a9c2d60c9af33520e5f14699cc943494cd4a1301930809df7",
+      "execution": "pending_local_paper_evaluator",
+      "evidence": "fresh_gold_evaluator_replay",
+      "latest_attempt": {
+        "schema_version": 1,
+        "repository": "psf/requests",
+        "instance_id": "psf__requests-2317",
+        "attempt": 3,
+        "started_at_utc": "2026-07-16T22:15:58.817089+00:00",
+        "finished_at_utc": "2026-07-16T22:38:12.139438+00:00",
+        "duration_seconds": 1333.079,
+        "return_code": 0,
+        "scorecard_statuses": [
+          "generated",
+          "applied",
+          "RESOLVED_NO"
+        ],
+        "success": false,
+        "protocol_valid": true,
+        "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+        "timeout_seconds": 1800,
+        "git_transport": "HTTP/1.1 process scope",
+        "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+        "compatibility": [
+          "source checkout forced through PYTHONPATH",
+          "conda activation uses etc/profile.d/conda.sh",
+          "instance-scoped package constraints from run_local_evaluation.py"
+        ],
+        "credential_variables_scrubbed": [],
+        "model_api_calls": 0,
+        "artifacts": {
+          "scorecards": {
+            "path": "inputs/psf__requests/attempts/attempt_003/scorecards.json",
+            "sha256": "f51f0a8e3a68fde9d185ffd9ca4b3cf3f1e8afa58b809fefbf12b540a85d8821"
+          },
+          "results": {
+            "path": "inputs/psf__requests/attempts/attempt_003/results.json",
+            "sha256": "322d4b7a13eca17ed0437ff5c39deedbee41ccc816bd49bf55d3e351dcc39de6"
+          },
+          "evaluation_log": {
+            "path": "inputs/psf__requests/attempts/attempt_003/psf__requests-2317.paper_replay_gold_psf_requests.eval.log",
+            "sha256": "d8cd85adc65681eef55fa41c62e9074349349ea896b82d0e630d3a31a3d68bf1"
+          }
+        },
+        "runner_log_sha256": "b12da8c4882aa8f0041dfd2f6e9ede56a2f26d9fa21529127723ed21ace86876"
+      },
+      "attempt_history": [
+        {
+          "schema_version": 1,
+          "repository": "psf/requests",
+          "instance_id": "psf__requests-2317",
+          "attempt": 1,
+          "started_at_utc": "2026-07-16T19:20:58.177861+00:00",
+          "finished_at_utc": "2026-07-16T19:22:33.273274+00:00",
+          "duration_seconds": 94.824,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_NO"
+          ],
+          "success": false,
+          "timeout_seconds": 900,
+          "git_transport": "HTTP/1.1 process scope",
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/psf__requests/attempts/attempt_001/scorecards.json",
+              "sha256": "e568f98726f16a4840fe156178f50a528962d81f39411e6689aaf12f52b009f1"
+            },
+            "results": {
+              "path": "inputs/psf__requests/attempts/attempt_001/results.json",
+              "sha256": "a13ec0a7d3415acdcb6ae4ee95534fae367428b4d6fd19df23be9c8368775310"
+            },
+            "evaluation_log": {
+              "path": "inputs/psf__requests/attempts/attempt_001/psf__requests-2317.paper_replay_gold_psf_requests.eval.log",
+              "sha256": "093b92c7e8c3451feb1be4bdeebeb030a2ef5759512895d329069f3b1b1bf53f"
+            }
+          },
+          "runner_log_sha256": "ef3e4ab434452b4590edb547e25d92ff9235a59fd00ea75294f812f805d245cd"
+        },
+        {
+          "schema_version": 1,
+          "repository": "psf/requests",
+          "instance_id": "psf__requests-2317",
+          "attempt": 2,
+          "started_at_utc": "2026-07-16T19:55:49.359753+00:00",
+          "finished_at_utc": "2026-07-16T20:13:37.618350+00:00",
+          "duration_seconds": 1067.964,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_NO"
+          ],
+          "success": false,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 900,
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/psf__requests/attempts/attempt_002/scorecards.json",
+              "sha256": "e568f98726f16a4840fe156178f50a528962d81f39411e6689aaf12f52b009f1"
+            },
+            "results": {
+              "path": "inputs/psf__requests/attempts/attempt_002/results.json",
+              "sha256": "e5bffec86bcbad8f14ef29f2c091d7eb16777402648c0f67f609a4947457cb4c"
+            },
+            "evaluation_log": {
+              "path": "inputs/psf__requests/attempts/attempt_002/psf__requests-2317.paper_replay_gold_psf_requests.eval.log",
+              "sha256": "270a9c999a163186915dcc74c2071be17c28f46fa5c215fc1035e8f83b5777e8"
+            }
+          },
+          "runner_log_sha256": "bc5f0332cc9f87e2471d1e7e36d80f904d357f5a9bbe5e51e8e8d88b20e19b18"
+        },
+        {
+          "schema_version": 1,
+          "repository": "psf/requests",
+          "instance_id": "psf__requests-2317",
+          "attempt": 3,
+          "started_at_utc": "2026-07-16T22:15:58.817089+00:00",
+          "finished_at_utc": "2026-07-16T22:38:12.139438+00:00",
+          "duration_seconds": 1333.079,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_NO"
+          ],
+          "success": false,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 1800,
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/psf__requests/attempts/attempt_003/scorecards.json",
+              "sha256": "f51f0a8e3a68fde9d185ffd9ca4b3cf3f1e8afa58b809fefbf12b540a85d8821"
+            },
+            "results": {
+              "path": "inputs/psf__requests/attempts/attempt_003/results.json",
+              "sha256": "322d4b7a13eca17ed0437ff5c39deedbee41ccc816bd49bf55d3e351dcc39de6"
+            },
+            "evaluation_log": {
+              "path": "inputs/psf__requests/attempts/attempt_003/psf__requests-2317.paper_replay_gold_psf_requests.eval.log",
+              "sha256": "d8cd85adc65681eef55fa41c62e9074349349ea896b82d0e630d3a31a3d68bf1"
+            }
+          },
+          "runner_log_sha256": "b12da8c4882aa8f0041dfd2f6e9ede56a2f26d9fa21529127723ed21ace86876"
+        }
+      ],
+      "environment_compatibility": [
+        "public off-host redirect dependency replaced by local cross-host semantic validation"
+      ],
+      "observed_scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_NO"
+      ],
+      "observed_patch_applied": true,
+      "observed_resolution": "RESOLVED_NO",
+      "all_reference_tests_passed": false,
+      "official_resolved_report_exact": false,
+      "observed_log_sha256": "d8cd85adc65681eef55fa41c62e9074349349ea896b82d0e630d3a31a3d68bf1",
+      "exact_outcome_match": false,
+      "full_reference_outcome_match": false,
+      "semantic_outcome_match": true,
+      "validated_outcome_match": true,
+      "validation_class": "external_network_semantic",
+      "reference_success_count": 140,
+      "reference_failure_count": 1
+    },
+    {
+      "repository": "pydata/xarray",
+      "repository_key": "pydata__xarray",
+      "instance_id": "pydata__xarray-4248",
+      "version": "0.12",
+      "base_commit": "98dc1f4ea18738492e074e9e51ddfed5cd30ab94",
+      "selection_policy": "minimum_reference_tests_no_official_gpt4_resolved_available",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied"
+      ],
+      "official_resolved_log": null,
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 18,
+      "gold_patch_bytes": 578,
+      "gold_patch_sha256": "cb60278c84b3245408864d4fde2f83e88229e920e6345b0f64ed74092b8f02d2",
+      "test_patch_sha256": "c295e6acb9392b7f9b5a89b45bc53049472ed16319c5626198653d0e77ac5fc6",
+      "model_alias": "paper_replay_gold_pydata_xarray",
+      "input_directory": "inputs/pydata__xarray",
+      "predictions_sha256": "797164e6f6ad13c08ef111601014cbec87dcb1aebbded6d7cbd910c5dc96412d",
+      "tasks_sha256": "eadbdd243a34c5a95a6991fbaad8868c0acac6cd537ad1cfb2475cd12d160ffd",
+      "execution": "pending_local_paper_evaluator",
+      "evidence": "fresh_gold_evaluator_replay",
+      "latest_attempt": {
+        "schema_version": 1,
+        "repository": "pydata/xarray",
+        "instance_id": "pydata__xarray-4248",
+        "attempt": 6,
+        "started_at_utc": "2026-07-17T00:17:48.953508+00:00",
+        "finished_at_utc": "2026-07-17T00:23:53.085766+00:00",
+        "duration_seconds": 348.202,
+        "return_code": 0,
+        "scorecard_statuses": [
+          "generated",
+          "applied",
+          "RESOLVED_FULL"
+        ],
+        "success": true,
+        "protocol_valid": true,
+        "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+        "timeout_seconds": 1800,
+        "outer_python": "/home/gugabobo/.venvs/swebench-paper-eval/bin/python",
+        "conda_solver": "libmamba",
+        "git_transport": "HTTP/1.1 process scope",
+        "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+        "compatibility": [
+          "source checkout forced through PYTHONPATH",
+          "conda activation uses etc/profile.d/conda.sh",
+          "instance-scoped package constraints from run_local_evaluation.py",
+          "conda solver set to libmamba"
+        ],
+        "credential_variables_scrubbed": [],
+        "model_api_calls": 0,
+        "artifacts": {
+          "scorecards": {
+            "path": "inputs/pydata__xarray/attempts/attempt_006/scorecards.json",
+            "sha256": "6fdf9ad0feec37e44ee20aee71ce97e8cf4283557804900a36bcf69e9ace0b7f"
+          },
+          "results": {
+            "path": "inputs/pydata__xarray/attempts/attempt_006/results.json",
+            "sha256": "5a95c067951cb4a1b2f443c2378b50b4bc5e63758cc8ffa0dc2e0089c98044f3"
+          },
+          "evaluation_log": {
+            "path": "inputs/pydata__xarray/attempts/attempt_006/pydata__xarray-4248.paper_replay_gold_pydata_xarray.eval.log",
+            "sha256": "9f3c698d24cf35d96ba92e106ea0afa80ca8b9816c60c48740a2e7ee43d76f03"
+          }
+        },
+        "runner_log_sha256": "bbff3a97c14555485ad654690d659a069bcebb7e45afec75721e4e5ea8ed6759"
+      },
+      "attempt_history": [
+        {
+          "schema_version": 1,
+          "repository": "pydata/xarray",
+          "instance_id": "pydata__xarray-4248",
+          "attempt": 1,
+          "status": "INTERRUPTED_OUTER_RUNNER_NO_RETURN_CODE",
+          "detected_at_utc": "2026-07-16T22:43:01.467772+00:00",
+          "return_code": null,
+          "scorecard_statuses": null,
+          "success": false,
+          "protocol_valid": false,
+          "model_api_calls": 0,
+          "runner_log_sha256": "c9ce8de1d0369ec623f0b1eda7e19c59e7ee750b3c193074833649b5035fa46f"
+        },
+        {
+          "schema_version": 1,
+          "repository": "pydata/xarray",
+          "instance_id": "pydata__xarray-4248",
+          "attempt": 2,
+          "status": "INTERRUPTED_OUTER_RUNNER_NO_RETURN_CODE",
+          "detected_at_utc": "2026-07-16T23:47:00.057604+00:00",
+          "return_code": null,
+          "scorecard_statuses": null,
+          "success": false,
+          "protocol_valid": false,
+          "model_api_calls": 0,
+          "runner_log_sha256": "60cc4b058a33a523998218252ccb088ae356ab0099a3d95bfab9ebd88aa0d544"
+        },
+        {
+          "schema_version": 1,
+          "repository": "pydata/xarray",
+          "instance_id": "pydata__xarray-4248",
+          "attempt": 3,
+          "started_at_utc": "2026-07-16T23:47:00.111369+00:00",
+          "finished_at_utc": "2026-07-16T23:47:00.616985+00:00",
+          "duration_seconds": 0.488,
+          "return_code": 1,
+          "scorecard_statuses": null,
+          "success": false,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 1800,
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {},
+          "runner_log_sha256": "97494f2e73e9dc91199b5a2936d01f5d884c630483ee9c5ac2cbded730dd3f66"
+        },
+        {
+          "schema_version": 1,
+          "repository": "pydata/xarray",
+          "instance_id": "pydata__xarray-4248",
+          "attempt": 4,
+          "started_at_utc": "2026-07-16T23:48:50.385000+00:00",
+          "detected_at_utc": "2026-07-17T00:05:50.901847+00:00",
+          "duration_seconds": 923.0,
+          "status": "ENV_SOLVER_RESOURCE_GUARD",
+          "reason": "Classic conda environment solve exceeded the preregistered safety threshold of 1 GiB available memory.",
+          "return_code": null,
+          "scorecard_statuses": null,
+          "success": false,
+          "protocol_valid": false,
+          "conda_solver": "classic_default",
+          "resource_guard": {
+            "peak_solver_rss_kib": 19531176,
+            "solver_memory_percent": 95.3,
+            "available_memory_mib": 116,
+            "swap_used_gib": 1.6
+          },
+          "model_api_calls": 0,
+          "runner_log_sha256": "dd287fe6e49ea5da007d7debf1671c3c0a02aa961abf5334a52b9712e074dbf2"
+        },
+        {
+          "schema_version": 1,
+          "repository": "pydata/xarray",
+          "instance_id": "pydata__xarray-4248",
+          "attempt": 5,
+          "started_at_utc": "2026-07-17T00:06:57.692136+00:00",
+          "finished_at_utc": "2026-07-17T00:13:08.051059+00:00",
+          "duration_seconds": 334.98,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_NO"
+          ],
+          "success": false,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 1800,
+          "outer_python": "/home/gugabobo/.venvs/swebench-paper-eval/bin/python",
+          "conda_solver": "libmamba",
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py",
+            "conda solver set to libmamba"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/pydata__xarray/attempts/attempt_005/scorecards.json",
+              "sha256": "f65b08fac792187c6eb52e13bca8ce0879cfbd88b63b1c5bca90ae73c563191d"
+            },
+            "results": {
+              "path": "inputs/pydata__xarray/attempts/attempt_005/results.json",
+              "sha256": "cd0f97e8446e72c1d0425279e0f562ef47e1936180f9d59b651857dc1a003902"
+            },
+            "evaluation_log": {
+              "path": "inputs/pydata__xarray/attempts/attempt_005/pydata__xarray-4248.paper_replay_gold_pydata_xarray.eval.log",
+              "sha256": "0562866c76f6665a894ca38e7d223a04f92b0afa53bebb157b9e3b902f785f19"
+            }
+          },
+          "runner_log_sha256": "2698372669182659b7101c9698cdcb6d3445a23834333e32dfdd95f4a599adc9"
+        },
+        {
+          "schema_version": 1,
+          "repository": "pydata/xarray",
+          "instance_id": "pydata__xarray-4248",
+          "attempt": 6,
+          "started_at_utc": "2026-07-17T00:17:48.953508+00:00",
+          "finished_at_utc": "2026-07-17T00:23:53.085766+00:00",
+          "duration_seconds": 348.202,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_FULL"
+          ],
+          "success": true,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 1800,
+          "outer_python": "/home/gugabobo/.venvs/swebench-paper-eval/bin/python",
+          "conda_solver": "libmamba",
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py",
+            "conda solver set to libmamba"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/pydata__xarray/attempts/attempt_006/scorecards.json",
+              "sha256": "6fdf9ad0feec37e44ee20aee71ce97e8cf4283557804900a36bcf69e9ace0b7f"
+            },
+            "results": {
+              "path": "inputs/pydata__xarray/attempts/attempt_006/results.json",
+              "sha256": "5a95c067951cb4a1b2f443c2378b50b4bc5e63758cc8ffa0dc2e0089c98044f3"
+            },
+            "evaluation_log": {
+              "path": "inputs/pydata__xarray/attempts/attempt_006/pydata__xarray-4248.paper_replay_gold_pydata_xarray.eval.log",
+              "sha256": "9f3c698d24cf35d96ba92e106ea0afa80ca8b9816c60c48740a2e7ee43d76f03"
+            }
+          },
+          "runner_log_sha256": "bbff3a97c14555485ad654690d659a069bcebb7e45afec75721e4e5ea8ed6759"
+        }
+      ],
+      "environment_compatibility": [
+        "libmamba dependency solver",
+        "numpy==1.23.0",
+        "pytest==7.4.0",
+        "setuptools==68.0.0"
+      ],
+      "observed_scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "observed_patch_applied": true,
+      "observed_resolution": "RESOLVED_FULL",
+      "all_reference_tests_passed": true,
+      "official_resolved_report_exact": null,
+      "observed_log_sha256": "9f3c698d24cf35d96ba92e106ea0afa80ca8b9816c60c48740a2e7ee43d76f03",
+      "exact_outcome_match": true,
+      "full_reference_outcome_match": true,
+      "semantic_outcome_match": false,
+      "validated_outcome_match": true,
+      "validation_class": "full_reference_outcome",
+      "reference_success_count": 19,
+      "reference_failure_count": 0
+    },
+    {
+      "repository": "pylint-dev/pylint",
+      "repository_key": "pylint-dev__pylint",
+      "instance_id": "pylint-dev__pylint-5859",
+      "version": "2.13",
+      "base_commit": "182cc539b8154c0710fcea7e522267e42eba8899",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/pylint-dev__pylint-5859.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "489fe7882772d97372e60c946779b33179ccc08a",
+        "sha256": "8289c930ea4ea3452645c75382089d7deb56dda52c635a5fff46c57d73b29eef"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 10,
+      "gold_patch_bytes": 612,
+      "gold_patch_sha256": "e7ec647093f251ba84dc511728af0ac5e7afafb0206bc826c343922d7afccebb",
+      "test_patch_sha256": "fe4a17f367335844b29ea0b9b4a7cea04bd17435c5ff0911a22ceb550dc9ecb6",
+      "model_alias": "paper_replay_gold_pylint-dev_pylint",
+      "input_directory": "inputs/pylint-dev__pylint",
+      "predictions_sha256": "eb9091da9e4c0a8db6c6f3cc3b8d819cda406d3f08d0e83b57f5f814a49bb131",
+      "tasks_sha256": "a4218ac5e13e68ce5c38bb2a12fe89b62c7155fd5e435804f700e5f4dd3e453f",
+      "execution": "pending_local_paper_evaluator",
+      "evidence": "fresh_gold_evaluator_replay",
+      "latest_attempt": {
+        "schema_version": 1,
+        "repository": "pylint-dev/pylint",
+        "instance_id": "pylint-dev__pylint-5859",
+        "attempt": 2,
+        "started_at_utc": "2026-07-17T00:27:16.415365+00:00",
+        "finished_at_utc": "2026-07-17T00:29:34.255186+00:00",
+        "duration_seconds": 125.81,
+        "return_code": 0,
+        "scorecard_statuses": [
+          "generated",
+          "applied",
+          "RESOLVED_FULL"
+        ],
+        "success": true,
+        "protocol_valid": true,
+        "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+        "timeout_seconds": 1800,
+        "outer_python": "/home/gugabobo/.venvs/swebench-paper-eval/bin/python",
+        "conda_solver": "libmamba",
+        "git_transport": "HTTP/1.1 process scope",
+        "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+        "compatibility": [
+          "source checkout forced through PYTHONPATH",
+          "conda activation uses etc/profile.d/conda.sh",
+          "instance-scoped package constraints from run_local_evaluation.py",
+          "conda solver set to libmamba"
+        ],
+        "credential_variables_scrubbed": [],
+        "model_api_calls": 0,
+        "artifacts": {
+          "scorecards": {
+            "path": "inputs/pylint-dev__pylint/attempts/attempt_002/scorecards.json",
+            "sha256": "a211aa3038a64f10ecabfafc4646d293658730ec85c41a39e8b154a403e556ba"
+          },
+          "results": {
+            "path": "inputs/pylint-dev__pylint/attempts/attempt_002/results.json",
+            "sha256": "64a581c6ba56e53aedbee745e8d8fad45827cdf80040c9e3f922070d3bf50620"
+          },
+          "evaluation_log": {
+            "path": "inputs/pylint-dev__pylint/attempts/attempt_002/pylint-dev__pylint-5859.paper_replay_gold_pylint-dev_pylint.eval.log",
+            "sha256": "4ea4251563b90feb5af8a993bd472655e4327c93fec3f3e89711c2ee6d81ebe8"
+          }
+        },
+        "runner_log_sha256": "e2ed682f224f8032bba01bf4292e003ea28637c372bc09c0b727fc21f4370ff8"
+      },
+      "attempt_history": [
+        {
+          "schema_version": 1,
+          "repository": "pylint-dev/pylint",
+          "instance_id": "pylint-dev__pylint-5859",
+          "attempt": 1,
+          "started_at_utc": "2026-07-17T00:24:20.992158+00:00",
+          "finished_at_utc": "2026-07-17T00:26:06.050055+00:00",
+          "duration_seconds": 96.017,
+          "return_code": 1,
+          "scorecard_statuses": [
+            "generated",
+            "build_failure"
+          ],
+          "success": false,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 1800,
+          "outer_python": "/home/gugabobo/.venvs/swebench-paper-eval/bin/python",
+          "conda_solver": "libmamba",
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py",
+            "conda solver set to libmamba"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/pylint-dev__pylint/attempts/attempt_001/scorecards.json",
+              "sha256": "68471aa5fa7a28297687545e36a6551f0ad7d824f9bb20274f71d015071b70de"
+            },
+            "results": {
+              "path": "inputs/pylint-dev__pylint/attempts/attempt_001/results.json",
+              "sha256": "9f5b59b2300c5a584cc09fcfd7d6981fb187fe734293d733504d0350d93cd7f6"
+            }
+          },
+          "runner_log_sha256": "76e8825a08e12aba63df6ed76b08a0e7e8f52f2f80302bfd3584aa3556971d0a"
+        },
+        {
+          "schema_version": 1,
+          "repository": "pylint-dev/pylint",
+          "instance_id": "pylint-dev__pylint-5859",
+          "attempt": 2,
+          "started_at_utc": "2026-07-17T00:27:16.415365+00:00",
+          "finished_at_utc": "2026-07-17T00:29:34.255186+00:00",
+          "duration_seconds": 125.81,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_FULL"
+          ],
+          "success": true,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 1800,
+          "outer_python": "/home/gugabobo/.venvs/swebench-paper-eval/bin/python",
+          "conda_solver": "libmamba",
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py",
+            "conda solver set to libmamba"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/pylint-dev__pylint/attempts/attempt_002/scorecards.json",
+              "sha256": "a211aa3038a64f10ecabfafc4646d293658730ec85c41a39e8b154a403e556ba"
+            },
+            "results": {
+              "path": "inputs/pylint-dev__pylint/attempts/attempt_002/results.json",
+              "sha256": "64a581c6ba56e53aedbee745e8d8fad45827cdf80040c9e3f922070d3bf50620"
+            },
+            "evaluation_log": {
+              "path": "inputs/pylint-dev__pylint/attempts/attempt_002/pylint-dev__pylint-5859.paper_replay_gold_pylint-dev_pylint.eval.log",
+              "sha256": "4ea4251563b90feb5af8a993bd472655e4327c93fec3f3e89711c2ee6d81ebe8"
+            }
+          },
+          "runner_log_sha256": "e2ed682f224f8032bba01bf4292e003ea28637c372bc09c0b727fc21f4370ff8"
+        }
+      ],
+      "environment_compatibility": [
+        "removed unavailable development-only types-pkg_resources==0.1.3"
+      ],
+      "observed_scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "observed_patch_applied": true,
+      "observed_resolution": "RESOLVED_FULL",
+      "all_reference_tests_passed": true,
+      "official_resolved_report_exact": true,
+      "observed_log_sha256": "4ea4251563b90feb5af8a993bd472655e4327c93fec3f3e89711c2ee6d81ebe8",
+      "exact_outcome_match": true,
+      "full_reference_outcome_match": true,
+      "semantic_outcome_match": false,
+      "validated_outcome_match": true,
+      "validation_class": "full_reference_outcome",
+      "reference_success_count": 11,
+      "reference_failure_count": 0
+    },
+    {
+      "repository": "pytest-dev/pytest",
+      "repository_key": "pytest-dev__pytest",
+      "instance_id": "pytest-dev__pytest-5227",
+      "version": "4.4",
+      "base_commit": "2051e30b9b596e944524ccb787ed20f9f5be93e3",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/pytest-dev__pytest-5227.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "3dac4bfdbc4f7622ca8e09339e02ba9ca7b3774d",
+        "sha256": "26d6ecdad9ed50285839cb8561f526c1302914326e7def5466c45827e8ba746c"
+      },
+      "fail_to_pass_count": 3,
+      "pass_to_pass_count": 34,
+      "gold_patch_bytes": 431,
+      "gold_patch_sha256": "e8193ea0dee0989323f0f7756f492d73cdc2e584b61f9142b8695d9ed2737893",
+      "test_patch_sha256": "2f0dbf3bd56d91379bef155a0663119a8a7f4e97d5a4501dcd7d8fdc9320d786",
+      "model_alias": "paper_replay_gold_pytest-dev_pytest",
+      "input_directory": "inputs/pytest-dev__pytest",
+      "predictions_sha256": "b89b31b9a028513f2c2899d3b40828d0b7e1f44307fb14e11f6be549827ab1ca",
+      "tasks_sha256": "55aa1837c5c510bf6867a832eae74ad71ef5e89444e175497f39681741570b2c",
+      "execution": "reuse_EXP-ARTIFACT-006_gold",
+      "evidence": "reused_EXP-ARTIFACT-006_gold",
+      "observed_scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "observed_resolution": "RESOLVED_FULL",
+      "all_reference_tests_passed": true,
+      "observed_log_sha256": "80e493581889be8d4a205306002b73287e035040838577bddb2177fc9cdb5716",
+      "exact_outcome_match": true,
+      "full_reference_outcome_match": true,
+      "semantic_outcome_match": false,
+      "validated_outcome_match": true,
+      "validation_class": "full_reference_outcome",
+      "reference_success_count": 37,
+      "reference_failure_count": 0,
+      "environment_compatibility": []
+    },
+    {
+      "repository": "scikit-learn/scikit-learn",
+      "repository_key": "scikit-learn__scikit-learn",
+      "instance_id": "scikit-learn__scikit-learn-13584",
+      "version": "0.21",
+      "base_commit": "0e3c1879b06d839171b7d0a607d71bbb19a966a9",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/scikit-learn__scikit-learn-13584.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "b3e6719a48d7a8a5e615a2c455d8868216051e88",
+        "sha256": "d9b68e41cf0d735c1f35866a2fab8c9d9b28ea3b1a7b37ff29a5c01c8d9a4274"
+      },
+      "fail_to_pass_count": 6,
+      "pass_to_pass_count": 3,
+      "gold_patch_bytes": 567,
+      "gold_patch_sha256": "acb1af9f4aff9be141c13e5b2e0143f5abc78e56f8e585e8b2407f1254b875ef",
+      "test_patch_sha256": "22446b7b57524d79a06c07b89b49087ca26f2a3ffb8028bd104ded3003331c87",
+      "model_alias": "paper_replay_gold_scikit-learn_scikit-learn",
+      "input_directory": "inputs/scikit-learn__scikit-learn",
+      "predictions_sha256": "6e56636f4994584bb4e569ace87dea6cad7a239aed65c1ef599db30a94d7c474",
+      "tasks_sha256": "be54a3e0734d6667d85d70f79b2b418d83677c53fc31dcbe850db8dad85bd8b4",
+      "execution": "pending_local_paper_evaluator",
+      "evidence": "fresh_gold_evaluator_replay",
+      "latest_attempt": {
+        "schema_version": 1,
+        "repository": "scikit-learn/scikit-learn",
+        "instance_id": "scikit-learn__scikit-learn-13584",
+        "attempt": 1,
+        "started_at_utc": "2026-07-17T00:29:50.110543+00:00",
+        "finished_at_utc": "2026-07-17T00:36:18.211934+00:00",
+        "duration_seconds": 355.314,
+        "return_code": 0,
+        "scorecard_statuses": [
+          "generated",
+          "applied",
+          "RESOLVED_FULL"
+        ],
+        "success": true,
+        "protocol_valid": true,
+        "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+        "timeout_seconds": 1800,
+        "outer_python": "/home/gugabobo/.venvs/swebench-paper-eval/bin/python",
+        "conda_solver": "libmamba",
+        "git_transport": "HTTP/1.1 process scope",
+        "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+        "compatibility": [
+          "source checkout forced through PYTHONPATH",
+          "conda activation uses etc/profile.d/conda.sh",
+          "instance-scoped package constraints from run_local_evaluation.py",
+          "conda solver set to libmamba"
+        ],
+        "credential_variables_scrubbed": [],
+        "model_api_calls": 0,
+        "artifacts": {
+          "scorecards": {
+            "path": "inputs/scikit-learn__scikit-learn/attempts/attempt_001/scorecards.json",
+            "sha256": "3677ec8a560bd3a3bc1fe4aedc7a43a89655d83dc479c6ca13ebc723d3ba308f"
+          },
+          "results": {
+            "path": "inputs/scikit-learn__scikit-learn/attempts/attempt_001/results.json",
+            "sha256": "97cc6cc9aa6e6609762b0adf75e78bbc4b868f608bccc755a648b98f600adc08"
+          },
+          "evaluation_log": {
+            "path": "inputs/scikit-learn__scikit-learn/attempts/attempt_001/scikit-learn__scikit-learn-13584.paper_replay_gold_scikit-learn_scikit-learn.eval.log",
+            "sha256": "14417189fd54fb2143ecef3152b4a9284ce3ae388e437de30c305476408c8621"
+          }
+        },
+        "runner_log_sha256": "bb5627daf21db3e54bfb4e676f9ed3d60bbde91a8ac88a47755b9af6ce29cbbd"
+      },
+      "attempt_history": [
+        {
+          "schema_version": 1,
+          "repository": "scikit-learn/scikit-learn",
+          "instance_id": "scikit-learn__scikit-learn-13584",
+          "attempt": 1,
+          "started_at_utc": "2026-07-17T00:29:50.110543+00:00",
+          "finished_at_utc": "2026-07-17T00:36:18.211934+00:00",
+          "duration_seconds": 355.314,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_FULL"
+          ],
+          "success": true,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 1800,
+          "outer_python": "/home/gugabobo/.venvs/swebench-paper-eval/bin/python",
+          "conda_solver": "libmamba",
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py",
+            "conda solver set to libmamba"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/scikit-learn__scikit-learn/attempts/attempt_001/scorecards.json",
+              "sha256": "3677ec8a560bd3a3bc1fe4aedc7a43a89655d83dc479c6ca13ebc723d3ba308f"
+            },
+            "results": {
+              "path": "inputs/scikit-learn__scikit-learn/attempts/attempt_001/results.json",
+              "sha256": "97cc6cc9aa6e6609762b0adf75e78bbc4b868f608bccc755a648b98f600adc08"
+            },
+            "evaluation_log": {
+              "path": "inputs/scikit-learn__scikit-learn/attempts/attempt_001/scikit-learn__scikit-learn-13584.paper_replay_gold_scikit-learn_scikit-learn.eval.log",
+              "sha256": "14417189fd54fb2143ecef3152b4a9284ce3ae388e437de30c305476408c8621"
+            }
+          },
+          "runner_log_sha256": "bb5627daf21db3e54bfb4e676f9ed3d60bbde91a8ac88a47755b9af6ce29cbbd"
+        }
+      ],
+      "environment_compatibility": [],
+      "observed_scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "observed_patch_applied": true,
+      "observed_resolution": "RESOLVED_FULL",
+      "all_reference_tests_passed": true,
+      "official_resolved_report_exact": true,
+      "observed_log_sha256": "14417189fd54fb2143ecef3152b4a9284ce3ae388e437de30c305476408c8621",
+      "exact_outcome_match": true,
+      "full_reference_outcome_match": true,
+      "semantic_outcome_match": false,
+      "validated_outcome_match": true,
+      "validation_class": "full_reference_outcome",
+      "reference_success_count": 9,
+      "reference_failure_count": 0
+    },
+    {
+      "repository": "sphinx-doc/sphinx",
+      "repository_key": "sphinx-doc__sphinx",
+      "instance_id": "sphinx-doc__sphinx-8713",
+      "version": "4.0",
+      "base_commit": "3ed7590ed411bd93b26098faab4f23619cdb2267",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/sphinx-doc__sphinx-8713.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "7c98aaab3f6f445c8ae8f433d73297bfa883b2e5",
+        "sha256": "92d2a3ad6078b817fa722584fd419779b1d70ff704b706abdfff12db636b09a5"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 45,
+      "gold_patch_bytes": 954,
+      "gold_patch_sha256": "790ea5dc9611d778d1147d4eeb2945d413961932546340f910c9c0b41846ee8d",
+      "test_patch_sha256": "12177bcae59fb9803f6e41aed9593877c863558472af25696fb0e73f9c7126ff",
+      "model_alias": "paper_replay_gold_sphinx-doc_sphinx",
+      "input_directory": "inputs/sphinx-doc__sphinx",
+      "predictions_sha256": "54daef0e910258430fe3bb18de81f8ef80e67094b9c8a23eb5f5660f4b504bfe",
+      "tasks_sha256": "d3e856d0925627d6037cce1a62743dc13bbb09b3b26ca4a94d61ec65124589cf",
+      "execution": "pending_local_paper_evaluator",
+      "evidence": "fresh_gold_evaluator_replay",
+      "latest_attempt": {
+        "schema_version": 1,
+        "repository": "sphinx-doc/sphinx",
+        "instance_id": "sphinx-doc__sphinx-8713",
+        "attempt": 2,
+        "started_at_utc": "2026-07-17T00:43:20.760531+00:00",
+        "finished_at_utc": "2026-07-17T00:50:09.384794+00:00",
+        "duration_seconds": 377.663,
+        "return_code": 0,
+        "scorecard_statuses": [
+          "generated",
+          "applied",
+          "RESOLVED_FULL"
+        ],
+        "success": true,
+        "protocol_valid": true,
+        "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+        "timeout_seconds": 1800,
+        "outer_python": "/home/gugabobo/.venvs/swebench-paper-eval/bin/python",
+        "conda_solver": "libmamba",
+        "git_transport": "HTTP/1.1 process scope",
+        "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+        "compatibility": [
+          "source checkout forced through PYTHONPATH",
+          "conda activation uses etc/profile.d/conda.sh",
+          "instance-scoped package constraints from run_local_evaluation.py",
+          "conda solver set to libmamba"
+        ],
+        "credential_variables_scrubbed": [],
+        "model_api_calls": 0,
+        "artifacts": {
+          "scorecards": {
+            "path": "inputs/sphinx-doc__sphinx/attempts/attempt_002/scorecards.json",
+            "sha256": "88ddf68845743f3d545aa604da79cd6715cc3b9c3a670b58c9be9fb805bce010"
+          },
+          "results": {
+            "path": "inputs/sphinx-doc__sphinx/attempts/attempt_002/results.json",
+            "sha256": "dc964b9865b520321883fb0e1700a67844ea0ad49cc82a2726d80a344023f5ca"
+          },
+          "evaluation_log": {
+            "path": "inputs/sphinx-doc__sphinx/attempts/attempt_002/sphinx-doc__sphinx-8713.paper_replay_gold_sphinx-doc_sphinx.eval.log",
+            "sha256": "04399579dde6794e2ac0e96d22fe90bd79cc77d6c65fcfce167e5fe405f08476"
+          }
+        },
+        "runner_log_sha256": "9a8e5e3f5ffb420ad6a26aa04cd8eab44448de5f7f6602104f8fba5247f28a52"
+      },
+      "attempt_history": [
+        {
+          "schema_version": 1,
+          "repository": "sphinx-doc/sphinx",
+          "instance_id": "sphinx-doc__sphinx-8713",
+          "attempt": 1,
+          "started_at_utc": "2026-07-17T00:36:33.601432+00:00",
+          "finished_at_utc": "2026-07-17T00:42:02.463198+00:00",
+          "duration_seconds": 302.086,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_NO"
+          ],
+          "success": false,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 1800,
+          "outer_python": "/home/gugabobo/.venvs/swebench-paper-eval/bin/python",
+          "conda_solver": "libmamba",
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py",
+            "conda solver set to libmamba"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/sphinx-doc__sphinx/attempts/attempt_001/scorecards.json",
+              "sha256": "939113d1e5ccdb866c8de5fb30835a01e58f65991db27c75df98454bea6ca21d"
+            },
+            "results": {
+              "path": "inputs/sphinx-doc__sphinx/attempts/attempt_001/results.json",
+              "sha256": "c7c42e700cda9dadbd2ccc0ab1bdeef65b944e08e75e7e82434092abc2100320"
+            },
+            "evaluation_log": {
+              "path": "inputs/sphinx-doc__sphinx/attempts/attempt_001/sphinx-doc__sphinx-8713.paper_replay_gold_sphinx-doc_sphinx.eval.log",
+              "sha256": "f293bfa4ae2a09a696f3aa490d0fac08a2c9c674b4aaacfa0627c8ee7147dc21"
+            }
+          },
+          "runner_log_sha256": "a12b4f5077983ec90a18334dfc98cf2474c9f37e969391d69ed21ba8e1906b8a"
+        },
+        {
+          "schema_version": 1,
+          "repository": "sphinx-doc/sphinx",
+          "instance_id": "sphinx-doc__sphinx-8713",
+          "attempt": 2,
+          "started_at_utc": "2026-07-17T00:43:20.760531+00:00",
+          "finished_at_utc": "2026-07-17T00:50:09.384794+00:00",
+          "duration_seconds": 377.663,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_FULL"
+          ],
+          "success": true,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 1800,
+          "outer_python": "/home/gugabobo/.venvs/swebench-paper-eval/bin/python",
+          "conda_solver": "libmamba",
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py",
+            "conda solver set to libmamba"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/sphinx-doc__sphinx/attempts/attempt_002/scorecards.json",
+              "sha256": "88ddf68845743f3d545aa604da79cd6715cc3b9c3a670b58c9be9fb805bce010"
+            },
+            "results": {
+              "path": "inputs/sphinx-doc__sphinx/attempts/attempt_002/results.json",
+              "sha256": "dc964b9865b520321883fb0e1700a67844ea0ad49cc82a2726d80a344023f5ca"
+            },
+            "evaluation_log": {
+              "path": "inputs/sphinx-doc__sphinx/attempts/attempt_002/sphinx-doc__sphinx-8713.paper_replay_gold_sphinx-doc_sphinx.eval.log",
+              "sha256": "04399579dde6794e2ac0e96d22fe90bd79cc77d6c65fcfce167e5fe405f08476"
+            }
+          },
+          "runner_log_sha256": "9a8e5e3f5ffb420ad6a26aa04cd8eab44448de5f7f6602104f8fba5247f28a52"
+        }
+      ],
+      "environment_compatibility": [
+        "setuptools==69.5.1"
+      ],
+      "observed_scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "observed_patch_applied": true,
+      "observed_resolution": "RESOLVED_FULL",
+      "all_reference_tests_passed": true,
+      "official_resolved_report_exact": true,
+      "observed_log_sha256": "04399579dde6794e2ac0e96d22fe90bd79cc77d6c65fcfce167e5fe405f08476",
+      "exact_outcome_match": true,
+      "full_reference_outcome_match": true,
+      "semantic_outcome_match": false,
+      "validated_outcome_match": true,
+      "validation_class": "full_reference_outcome",
+      "reference_success_count": 46,
+      "reference_failure_count": 0
+    },
+    {
+      "repository": "sympy/sympy",
+      "repository_key": "sympy__sympy",
+      "instance_id": "sympy__sympy-24152",
+      "version": "1.12",
+      "base_commit": "b9af885473ad7e34b5b0826cb424dd26d8934670",
+      "selection_policy": "minimum_reference_tests_among_official_gpt4_resolved",
+      "official_categories": [
+        "generated",
+        "with_logs",
+        "applied",
+        "resolved"
+      ],
+      "official_resolved_log": {
+        "source": "evaluation/lite/20240402_sweagent_gpt4/logs/sympy__sympy-24152.20240402_sweagent_gpt4.eval.log",
+        "git_blob": "6a6fe4ef2663fae03c3f73155b1501205239f8e7",
+        "sha256": "a9cae10badfa669c1e57686fa2ce20add4f3245b23f9121e20a4cb4ad505c650"
+      },
+      "fail_to_pass_count": 1,
+      "pass_to_pass_count": 6,
+      "gold_patch_bytes": 1075,
+      "gold_patch_sha256": "42b4c8e39f5e1798c46f6d7bac8f01a9d48a5e7a5e629832c89f1b1a0bace5be",
+      "test_patch_sha256": "ddb9acbf0a784f78b53cbe97bc5d679b31e042bd671fc5fa99dc807532ee8bf0",
+      "model_alias": "paper_replay_gold_sympy_sympy",
+      "input_directory": "inputs/sympy__sympy",
+      "predictions_sha256": "b6bee79317ab4cc4fb576e57a797e768088c508bb36dbc5be08bb8f78508d041",
+      "tasks_sha256": "041c064b33997e39c7e607dc67da9f2a67a8693b69a107812eb1d75fe09e03e5",
+      "execution": "pending_local_paper_evaluator",
+      "evidence": "fresh_gold_evaluator_replay",
+      "latest_attempt": {
+        "schema_version": 1,
+        "repository": "sympy/sympy",
+        "instance_id": "sympy__sympy-24152",
+        "attempt": 1,
+        "started_at_utc": "2026-07-17T00:50:32.114868+00:00",
+        "finished_at_utc": "2026-07-17T00:52:51.449233+00:00",
+        "duration_seconds": 127.252,
+        "return_code": 0,
+        "scorecard_statuses": [
+          "generated",
+          "applied",
+          "RESOLVED_FULL"
+        ],
+        "success": true,
+        "protocol_valid": true,
+        "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+        "timeout_seconds": 1800,
+        "outer_python": "/home/gugabobo/.venvs/swebench-paper-eval/bin/python",
+        "conda_solver": "libmamba",
+        "git_transport": "HTTP/1.1 process scope",
+        "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+        "compatibility": [
+          "source checkout forced through PYTHONPATH",
+          "conda activation uses etc/profile.d/conda.sh",
+          "instance-scoped package constraints from run_local_evaluation.py",
+          "conda solver set to libmamba"
+        ],
+        "credential_variables_scrubbed": [],
+        "model_api_calls": 0,
+        "artifacts": {
+          "scorecards": {
+            "path": "inputs/sympy__sympy/attempts/attempt_001/scorecards.json",
+            "sha256": "8992c21d4e562781bed0c1587734f92e253d9fb7af8499c3e9e33e6f76c48c0e"
+          },
+          "results": {
+            "path": "inputs/sympy__sympy/attempts/attempt_001/results.json",
+            "sha256": "eddd7976aef21f45bb778cbac08f14b20775da0b9e6fd52ebb7e1493f3af356a"
+          },
+          "evaluation_log": {
+            "path": "inputs/sympy__sympy/attempts/attempt_001/sympy__sympy-24152.paper_replay_gold_sympy_sympy.eval.log",
+            "sha256": "d7401e5e7f0b686c4d12c8900729d81876ded2184ea0e668154fc346bfd1e447"
+          }
+        },
+        "runner_log_sha256": "722f2c824f2956527a59c8c73aa81ef7adf10c1090931aa4360e927478d1a5b3"
+      },
+      "attempt_history": [
+        {
+          "schema_version": 1,
+          "repository": "sympy/sympy",
+          "instance_id": "sympy__sympy-24152",
+          "attempt": 1,
+          "started_at_utc": "2026-07-17T00:50:32.114868+00:00",
+          "finished_at_utc": "2026-07-17T00:52:51.449233+00:00",
+          "duration_seconds": 127.252,
+          "return_code": 0,
+          "scorecard_statuses": [
+            "generated",
+            "applied",
+            "RESOLVED_FULL"
+          ],
+          "success": true,
+          "protocol_valid": true,
+          "swebench_revision": "cfb20092bbbee9683176177b2f59b85f522e7f27",
+          "timeout_seconds": 1800,
+          "outer_python": "/home/gugabobo/.venvs/swebench-paper-eval/bin/python",
+          "conda_solver": "libmamba",
+          "git_transport": "HTTP/1.1 process scope",
+          "swebench_import_source": "/mnt/d/0code/Research/05/code/SWE-bench",
+          "compatibility": [
+            "source checkout forced through PYTHONPATH",
+            "conda activation uses etc/profile.d/conda.sh",
+            "instance-scoped package constraints from run_local_evaluation.py",
+            "conda solver set to libmamba"
+          ],
+          "credential_variables_scrubbed": [],
+          "model_api_calls": 0,
+          "artifacts": {
+            "scorecards": {
+              "path": "inputs/sympy__sympy/attempts/attempt_001/scorecards.json",
+              "sha256": "8992c21d4e562781bed0c1587734f92e253d9fb7af8499c3e9e33e6f76c48c0e"
+            },
+            "results": {
+              "path": "inputs/sympy__sympy/attempts/attempt_001/results.json",
+              "sha256": "eddd7976aef21f45bb778cbac08f14b20775da0b9e6fd52ebb7e1493f3af356a"
+            },
+            "evaluation_log": {
+              "path": "inputs/sympy__sympy/attempts/attempt_001/sympy__sympy-24152.paper_replay_gold_sympy_sympy.eval.log",
+              "sha256": "d7401e5e7f0b686c4d12c8900729d81876ded2184ea0e668154fc346bfd1e447"
+            }
+          },
+          "runner_log_sha256": "722f2c824f2956527a59c8c73aa81ef7adf10c1090931aa4360e927478d1a5b3"
+        }
+      ],
+      "environment_compatibility": [],
+      "observed_scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "observed_patch_applied": true,
+      "observed_resolution": "RESOLVED_FULL",
+      "all_reference_tests_passed": true,
+      "official_resolved_report_exact": true,
+      "observed_log_sha256": "d7401e5e7f0b686c4d12c8900729d81876ded2184ea0e668154fc346bfd1e447",
+      "exact_outcome_match": true,
+      "full_reference_outcome_match": true,
+      "semantic_outcome_match": false,
+      "validated_outcome_match": true,
+      "validation_class": "full_reference_outcome",
+      "reference_success_count": 7,
+      "reference_failure_count": 0
+    }
+  ],
+  "outputs": {
+    "summary_csv": {
+      "path": "data/derived/official_gold_repository_replay.csv",
+      "bytes": 3485,
+      "sha256": "04b616ead99e62658eb818cc4011d95cccbbdc9f74bd12a0b5b70059cd22ae5d"
+    }
+  },
+  "summary": {
+    "repository_count": 12,
+    "fresh_repository_count": 11,
+    "reused_repository_count": 1,
+    "fresh_attempt_count": 30,
+    "unsuccessful_fresh_attempt_count": 19,
+    "protocol_valid_successful_fresh_attempt_count": 10,
+    "exact_outcome_match_count": 11,
+    "semantic_outcome_match_count": 1,
+    "validated_outcome_match_count": 12,
+    "all_exact": false,
+    "all_validated": true
+  }
+}

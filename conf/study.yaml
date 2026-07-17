@@ -105,7 +105,7 @@ full_reproduction:
     swebench_main_rows: complete_with_claude_paper_inconsistency
     humanevalfix: complete_with_notebook_denominator_bug
     paper_output_inventory_entries: 54
-    evaluator_gold_replay: in_progress_6_strict_1_semantic_5_pending
+    evaluator_gold_replay: complete_11_full_reference_1_external_network_semantic
 
 tracking:
   registry: logs/experiment_registry.csv

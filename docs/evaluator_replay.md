@@ -188,7 +188,49 @@ wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
 
 执行采用每仓库一个独立 evaluator 进程，避免单个依赖安装失败终止其余仓库。每次使用论文期 SWE-agent evaluator、`SWE-bench@cfb20092`、900 秒任务超时和本地临时 Miniconda；Git 仅在该进程中固定 HTTP/1.1，不修改全局配置。runner 显式移除继承环境中的模型端点与凭据变量，模型 API 调用固定为 0。每个失败尝试单独保存完整 runner 日志、scorecard、eval log、开始/结束时间和哈希，不覆盖历史尝试。
 
-验收要求为每个 gold patch 均得到 `generated, applied, RESOLVED_FULL`，F2P/P2P 引用全部通过；10 个有官方 resolved 日志的实例还要求新 gold report 与官方 report 完整相等。pytest 已满足要求，其余 11 个仓库在预注册提交后执行。
+预注册验收要求为每个 gold patch 均得到 `generated, applied, RESOLVED_FULL`，F2P/P2P 引用全部通过；10 个有官方 resolved 日志的实例还要求新 gold report 与官方 report 完整相等。pytest 在预注册时已经满足要求，其余 11 个仓库随后按固定顺序执行；结果及外网例外见 6.4。
+
+### 6.4 逐仓库 gold 环境验证结果
+
+12 个论文期仓库的环境覆盖已经完成。10 个仓库在新建环境中得到全部 reference outcome，pytest 复用 EXP-ARTIFACT-006 的已冻结 gold 证据；Requests 的 141 个 reference outcome 中有 140 个直接通过，唯一失败项依赖不可达的公共跨站 HTTP 服务，另由相同 base/gold/test patch 上的本地双主机重定向验证确认 Authorization header 被正确剥离。
+
+| 仓库 | reference 结果 | attempts | 最终分类 | 实例级兼容 |
+|---|---:|---:|---|---|
+| astropy/astropy | 180/180 | 3 | full reference | `setuptools==68.0.0` |
+| django/django | 6/6 | 2 | full reference | 无 |
+| matplotlib/matplotlib | 17/17 | 5 | full reference | Ghostscript、TeX、dvipng 系统包 |
+| mwaskom/seaborn | 3/3 | 3 | full reference | 无 |
+| pallets/flask | 19/19 | 2 | full reference | 无 |
+| psf/requests | 140/141 + 1/1 semantic | 3 | external-network semantic | 本地 `127.0.0.1 → localhost` 跨主机重定向 |
+| pydata/xarray | 19/19 | 6 | full reference | libmamba；官方验证版本的 NumPy/pytest/setuptools |
+| pylint-dev/pylint | 11/11 | 2 | full reference | 删除已下架且仅供 typing 的 stub |
+| pytest-dev/pytest | 37/37 | 复用 | full reference | 无 |
+| scikit-learn/scikit-learn | 9/9 | 1 | full reference | 无 |
+| sphinx-doc/sphinx | 46/46 | 2 | full reference | 官方验证使用的 `setuptools==69.5.1` |
+| sympy/sympy | 7/7 | 1 | full reference | 无 |
+
+直接 reference outcome 合计 494/495；Requests 剩余 1 项的语义验证通过后，仓库级环境覆盖为 12/12。机器清单同时保留两种结论：`exact_outcome_match_count=11`、`semantic_outcome_match_count=1`，不会把外网替代验证改写成 `RESOLVED_FULL`。
+
+11 个新仓库共保存 30 次尝试，其中 10 次为协议有效的最终 `RESOLVED_FULL`。其余尝试包括早期错误导入已安装 SWE-bench、Git/依赖安装失败、Matplotlib 缺少排版工具、Requests 公网漂移、xarray 中断及经典 conda solver 资源保护、Pylint 下架 typing stub、Sphinx 缺失 `pkg_resources`。xarray 的经典 solver 峰值 RSS 约 19.5 GiB，系统可用内存降至 116 MiB 后按 1 GiB 保护阈值终止；后续 libmamba 在不改变依赖声明的情况下完成环境求解。每次尝试的时间、状态、return code、协议有效性、日志哈希和模型调用数均纳入汇总清单。
+
+Requests 的公共 `httpbin.org` 与 Google 跨站端点在当前网络持续 reset/timeout。语义验证在 base commit `091991be...` 上应用同一 gold/test patch，使用 `127.0.0.1` 发起带 Basic Authorization 的 302，再重定向到 `localhost`；初始请求有 Authorization，最终请求在客户端和服务端均无 Authorization，HTTP 200、history 长度 1。该结果只补足单个外网语义，不改变原 scorecard 的 `RESOLVED_NO`。
+
+正式命令为：
+
+```powershell
+wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
+  /home/gugabobo/.venvs/swebench-paper-eval/bin/python `
+  scripts/official_gold_repository_replay.py run `
+  --repository <owner/repo> --timeout 1800 --conda-solver libmamba
+
+wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
+  /home/gugabobo/.venvs/swebench-paper-eval/bin/python `
+  scripts/official_gold_repository_replay.py collect
+```
+
+机器输出为 `data/manifests/official_gold_repository_replay.json`、`data/derived/official_gold_repository_replay.csv` 和 `data/manifests/requests_offhost_redirect_validation.json`。主清单另外固定官方 SWE-bench experiments 兼容性记录的 repository revision、Git object ID 和 SHA-256。原始 runner/eval 日志、scorecard、任务行和全部 attempt 目录保存在 Git 忽略的 `outputs/evaluation/official_gold_repository_replay/`。模型 API、GPU和远程服务器使用均为 0。
+
+宿主 D 盘在本阶段约有 64–65 GB 空闲，低于正式 300/2,294 实例批量运行门槛。逐仓库环境在结束后清理，因此本阶段可安全顺序执行；WSL 稀疏虚拟磁盘显示的 944 GB 不再作为宿主真实容量证据。
 
 ## 7. 当前完成边界
 
@@ -200,12 +242,11 @@ wsl -d Ubuntu --cd /mnt/d/0code/Research/05 `
 - 后续数据 revision 引起的 resolved 漂移定位。
 - 一个官方 resolved 和一个官方 applied-unresolved 预测的真实容器重放，逐测试结果 `2/2` 完全一致。
 - gold、官方 patch-apply failure、空字符串、null 和重复行的代表边界验证，逐行状态 `5/5` 完全一致。
-- 12 个论文期支持仓库的 gold 实例、选择规则和输入哈希已在执行前冻结；pytest 的既有 gold 证据可复用。
+- 12 个论文期支持仓库的 gold 环境覆盖：11 个 full-reference outcome、1 个 Requests 外网语义验证，仓库级验证 12/12。
 
 尚未完成：
 
 - 全量 2,294/300 实例从 patch 开始的容器重评；
-- 其余 11 个 SWE-bench 支持仓库的 gold patch 环境验证；
 - 严格原模型重新推理。
 
-因此 `G_EVALUATOR_REPLAY` 更新为“聚合层和代表核心/边界分支完成”，但仍不等于全量容器重评，更不能标为整个严格复现完成。
+因此 `G_EVALUATOR_REPLAY` 的论文仓库代表覆盖已经完成，但仍不等于全量 300/2,294 实例容器重评，更不能标为整个严格复现完成。

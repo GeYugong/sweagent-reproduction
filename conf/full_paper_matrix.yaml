@@ -102,8 +102,15 @@ gates:
     status: BLOCKED_NO_CONTAINER_RUNTIME
     evidence: The scoped server directory exists under /public/home/mty/GeYugong/05_sweagent_repro_ser, but no usable container runtime has been validated. Server use is limited to controlled storage or API generation until a scoped gold-patch smoke passes.
   - id: G_EVALUATOR_REPLAY
-    status: IN_PROGRESS_6_STRICT_1_SEMANTIC_5_PENDING
-    evidence: Historical reports and evaluator edge branches replay exactly. Astropy, Django, Flask, Matplotlib, Seaborn, and pytest gold patches pass with the frozen evaluator. Requests passes 140/141 public reference outcomes; its only external-network test is separately validated by a deterministic local cross-host redirect. xarray has no valid completed attempt; Pylint, scikit-learn, Sphinx, and SymPy remain pending.
+    status: COMPLETE_11_FULL_REFERENCE_1_EXTERNAL_NETWORK_SEMANTIC
+    evidence: >-
+      Historical reports and evaluator edge branches replay exactly. One
+      unmodified gold patch from every paper repository is validated: 11
+      repositories have all reference outcomes, including one reused pytest
+      environment, and Requests has 140/141 direct outcomes plus a
+      deterministic local cross-host validation for the single unreachable
+      public-network redirect test. This completes representative repository
+      coverage, not full 300/2294-instance container replay.
 
 resource_measurements:
   measured_at: "2026-07-17"
@@ -486,9 +493,14 @@ artifact_reproduction_runs:
     repositories: 12
     fresh_environments: 11
     reused_environments: 1
-    status: PREPARED_SELECTION_AND_INPUT_HASHES_FROZEN
+    fresh_attempts: 30
+    protocol_valid_successful_fresh_attempts: 10
+    status: COMPLETE_11_FULL_REFERENCE_1_EXTERNAL_NETWORK_SEMANTIC
     outputs:
       - data/manifests/official_gold_repository_selection.json
+      - data/manifests/official_gold_repository_replay.json
+      - data/manifests/requests_offhost_redirect_validation.json
+      - data/derived/official_gold_repository_replay.csv
       - scripts/official_gold_repository_replay.py
       - docs/evaluator_replay.md
 

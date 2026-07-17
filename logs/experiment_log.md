@@ -1567,3 +1567,83 @@ runner 在子进程启动前移除继承环境中的 OpenAI、Anthropic 和 Clau
 ### 预注册状态
 
 `PREPARED_SELECTION_AND_INPUT_HASHES_FROZEN`：选择、输入和验收规则已冻结，尚未读取其余 11 个新环境的结果。模型 API、GPU和远程服务器使用均为 0；本地 WSL 根文件系统可用空间约 944 GB，满足逐仓库临时环境构建需求。
+
+## 2026-07-17 — EXP-ARTIFACT-009：逐仓库 gold 环境验证完成
+
+### 目标与口径
+
+在预注册选择不变的前提下，为论文期 12 个 SWE-bench 仓库各验证一个未修改 gold patch。实验只验证 evaluator 的环境构建、base commit reset、test/gold patch 应用、测试执行和 reference outcome 解析；不运行代理、不计入论文解决率。
+
+完成判定保留两个层级：
+
+- `full_reference_outcome`：scorecard 为 `generated, applied, RESOLVED_FULL`，全部 F2P/P2P reference tests 通过；
+- `external_network_semantic`：仅当一个 reference test 因不可控公网依赖失败，并且相同 base/gold/test patch 上的本地等价语义验证通过时使用，不改写原 scorecard。
+
+### 冻结运行时
+
+- SWE-bench：`cfb20092bbbee9683176177b2f59b85f522e7f27`，由 `PYTHONPATH` 强制优先导入源码工作树并在 runner preflight 中验证实际模块路径；
+- SWE-agent evaluator：`658eb2842e8a8b00069b301338bc342b70538f7a`；
+- Lite：`81ad348adcaf3368691f4db2907f8fc97a8f7526`；
+- 外层 Python：`/home/gugabobo/.venvs/swebench-paper-eval/bin/python`；
+- conda solver：正式后续尝试使用 libmamba；
+- 单测试命令 timeout：1,800 秒；
+- 执行：本地 WSL2，单仓库顺序运行；
+- 模型 API、GPU、远程服务器：全部 0。
+
+初始尝试曾从已安装的 `swebench 1.0.2` 导入模块，无法证明使用冻结 revision。此后 runner 强制源码路径、记录实际 import source，并把旧尝试保留为协议无效诊断，不计入成功证据。
+
+### 最终结果
+
+| 仓库 | 直接 reference | 最终分类 | 新 attempts | 关键兼容证据 |
+|---|---:|---|---:|---|
+| astropy/astropy | 180/180 | full reference | 3 | `setuptools==68.0.0` |
+| django/django | 6/6 | full reference | 2 | 无 |
+| matplotlib/matplotlib | 17/17 | full reference | 5 | Ghostscript、TeX、dvipng |
+| mwaskom/seaborn | 3/3 | full reference | 3 | 无 |
+| pallets/flask | 19/19 | full reference | 2 | 无 |
+| psf/requests | 140/141 | external-network semantic | 3 | 本地双主机重定向 1/1 |
+| pydata/xarray | 19/19 | full reference | 6 | libmamba 与官方验证包版本 |
+| pylint-dev/pylint | 11/11 | full reference | 2 | 删除下架的 typing-only stub |
+| pytest-dev/pytest | 37/37 | full reference | 复用 | EXP-ARTIFACT-006 |
+| scikit-learn/scikit-learn | 9/9 | full reference | 1 | 无 |
+| sphinx-doc/sphinx | 46/46 | full reference | 2 | `setuptools==69.5.1` |
+| sympy/sympy | 7/7 | full reference | 1 | 无 |
+
+总计 495 个 reference outcomes，494 个在冻结 evaluator 中直接通过；剩余 1 个 Requests 公网测试完成独立语义验证。仓库级结果为 11 个 `full_reference_outcome` 和 1 个 `external_network_semantic`，`validated_outcome_match=12/12`，同时保留 `all_exact=false`。
+
+### Requests 公网漂移
+
+`psf__requests-2317` 的 F2P 8/8 和 P2P 132/133 直接通过。唯一失败项为 `test_auth_is_stripped_on_redirect_off_host`；当前网络访问论文测试依赖的公共 HTTP 端点持续 reset/timeout，官方历史日志中该项通过。
+
+本地语义验证使用 base `091991be0da19de9108dbe5e3752917fea3d7fdc`、相同 gold patch SHA-256 `e6f1e638...` 和 test patch SHA-256 `ff283039...`。请求从 `127.0.0.1` 携带 Basic Authorization，经 302 重定向到 `localhost`；history 为 1、最终状态 200，初始 Authorization 存在，最终客户端和服务端 Authorization 均不存在。该结果证明目标安全语义成立，但不把公网失败的 scorecard 改写为 `RESOLVED_FULL`。
+
+### xarray 资源保护与版本漂移
+
+xarray 的经典 conda solver 持续计算约 14 分钟，峰值 RSS 19,531,176 KiB，占 WSL 内存约 95.3%，可用内存降至 116 MiB、swap 已使用约 1.6 GiB。达到预设 1 GiB 可用内存保护阈值后终止 attempt 4，状态为 `ENV_SOLVER_RESOURCE_GUARD`，没有 patch 应用、测试或 API 调用。
+
+libmamba 在相同 `environment.yml` 上完成求解。冻结 harness 的 `numpy 1.25.2 + pytest 8.1.1` 使 xarray 0.16 在收集期失败；官方 `validation/lite_20240627` 对同一 base/gold/test patch 明确使用 NumPy 1.23.0、setuptools 68.0.0 并得到 19/19。实例级兼容固定 NumPy 1.23.0、pytest 7.4.0、setuptools 68.0.0 后，本地也得到 F2P 1/1、P2P 18/18。
+
+### 其他依赖漂移
+
+- Pylint：开发 requirements 中的 `types-pkg_resources==0.1.3` 已从 PyPI 下架；该包只提供 typing stub，删除该行后官方 11 项 reference tests 全部通过。
+- Sphinx：tox 新环境安装的最新 setuptools 已删除 `pkg_resources`，导致测试插件在收集前失败；官方验证使用 setuptools 69.5.1，固定该版本后 46/46 reference tests 通过。
+- Matplotlib：依次补齐 Ghostscript、LaTeX、`type1cm` 和 dvipng；每次缺失依赖均保留独立 attempt，最终 17/17。
+- Requests：公网漂移按前述语义验证处理，不通过改写 hosts、跳过测试或伪造日志解决。
+
+### Attempt 审计
+
+11 个新仓库累计 30 个 attempt，机器清单保留每个 attempt 的时间、状态、return code、scorecard、协议有效性、solver、兼容说明、原始日志 SHA-256 和 `model_api_calls=0`。其中 10 个为协议有效的最终 `RESOLVED_FULL`；pytest 的第 11 个 full-reference 仓库复用 EXP-ARTIFACT-006。19 个未成功 attempt 与一个早期协议无效但测试通过的 Django 诊断均未覆盖、未进入最终 full-reference 计数。
+
+### 磁盘口径纠正
+
+预注册日志引用的 WSL 根目录约 944 GB 是稀疏虚拟磁盘视图，不能视为独立物理容量。本阶段宿主 D 盘实测只剩约 64–65 GB。逐仓库环境执行后清理，故顺序 gold 重放可安全完成；正式 300/2,294 实例批量运行仍受 120 GB 门槛阻止。
+
+### 输出与状态
+
+- `data/manifests/official_gold_repository_replay.json`：12 个 observation、30 个 fresh attempt 历史、环境兼容和汇总；
+- `data/derived/official_gold_repository_replay.csv`：逐仓库判定；
+- `data/manifests/requests_offhost_redirect_validation.json`：Requests 本地语义证据；
+- `outputs/evaluation/official_gold_repository_replay/`：全部原始输入、日志、scorecard 和 attempt 文件，Git 忽略；
+- `docs/evaluator_replay.md`：方法、结果和完成边界。
+
+最终状态为 `COMPLETE_11_FULL_REFERENCE_1_EXTERNAL_NETWORK_SEMANTIC`。该状态完成了论文仓库代表环境门槛，不代表全量 Lite/Full 容器重评、原模型推理或整篇论文严格复现完成。

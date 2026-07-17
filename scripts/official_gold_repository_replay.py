@@ -26,6 +26,41 @@ OFFICIAL_RUN = "20240402_sweagent_gpt4"
 SWE_AGENT_REVISION = "658eb2842e8a8b00069b301338bc342b70538f7a"
 SWE_BENCH_REVISION = "cfb20092bbbee9683176177b2f59b85f522e7f27"
 REUSED_PYTEST_MANIFEST = "data/manifests/official_gold_no_apply_replay.json"
+REQUESTS_SEMANTIC_MANIFEST = (
+    "data/manifests/requests_offhost_redirect_validation.json"
+)
+
+REPOSITORY_COMPATIBILITY = {
+    "astropy/astropy": ["setuptools==68.0.0"],
+    "matplotlib/matplotlib": [
+        "ghostscript 10.02.1~dfsg1-0ubuntu7.8",
+        "texlive-latex-base 2023.20240207-1",
+        "texlive-latex-extra 2023.20240207-1",
+        "dvipng 1.15-1.1",
+    ],
+    "psf/requests": [
+        "public off-host redirect dependency replaced by local cross-host semantic validation"
+    ],
+    "pydata/xarray": [
+        "libmamba dependency solver",
+        "numpy==1.23.0",
+        "pytest==7.4.0",
+        "setuptools==68.0.0",
+    ],
+    "pylint-dev/pylint": [
+        "removed unavailable development-only types-pkg_resources==0.1.3"
+    ],
+    "sphinx-doc/sphinx": ["setuptools==69.5.1"],
+}
+
+OFFICIAL_COMPATIBILITY_EVIDENCE = [
+    "validation/lite_20240627/pydata__xarray-4248/report.json",
+    "validation/lite_20240627/pydata__xarray-4248/test_output.txt",
+    "validation/lite_20240627/pylint-dev__pylint-5859/report.json",
+    "validation/lite_20240627/pylint-dev__pylint-5859/test_output.txt",
+    "validation/lite_20240627/sphinx-doc__sphinx-8713/report.json",
+    "validation/lite_20240627/sphinx-doc__sphinx-8713/test_output.txt",
+]
 
 EXPECTED_SELECTION = {
     "astropy/astropy": "astropy__astropy-14995",
@@ -555,10 +590,15 @@ def expected_full_report(reference: dict[str, Any]) -> dict[str, Any]:
 
 
 def latest_attempt(input_dir: Path) -> dict[str, Any] | None:
-    paths = sorted((input_dir / "attempts").glob("attempt_*/attempt.json"))
-    if not paths:
+    attempts = attempt_history(input_dir)
+    if not attempts:
         return None
-    return json.loads(paths[-1].read_text(encoding="utf-8"))
+    return attempts[-1]
+
+
+def attempt_history(input_dir: Path) -> list[dict[str, Any]]:
+    paths = sorted((input_dir / "attempts").glob("attempt_*/attempt.json"))
+    return [json.loads(path.read_text(encoding="utf-8")) for path in paths]
 
 
 def collect(
@@ -570,6 +610,19 @@ def collect(
     if source_path not in sys.path:
         sys.path.insert(0, source_path)
     from swebench import get_eval_refs, get_eval_report, get_logs_eval, get_resolution_status
+    from swebench.harness.constants import APPLY_PATCH_PASS
+    from swebench.metrics.log_parsers import MAP_REPO_TO_PARSER
+
+    def parse_eval_log(path: Path, repository: str) -> tuple[dict[str, Any], bool]:
+        content = path.read_text(encoding="utf-8")
+        required_markers = [
+            f"{APPLY_PATCH_PASS} (test)",
+            f"{APPLY_PATCH_PASS} (pred)",
+        ]
+        if any(marker not in content for marker in required_markers):
+            return {}, False
+        content = content.split(f"{APPLY_PATCH_PASS} (pred)")[-1]
+        return MAP_REPO_TO_PARSER[repository](content), True
 
     ensure_output_path(output_dir, project_root)
     master_path = output_dir / "input_manifest.json"
@@ -583,6 +636,38 @@ def collect(
         if row.get("instance_id") == "pytest-dev__pytest-5227"
         and row.get("patch_state") == "gold"
     )
+    requests_semantic_path = project_root / REQUESTS_SEMANTIC_MANIFEST
+    requests_semantic = json.loads(
+        requests_semantic_path.read_text(encoding="utf-8")
+    )
+    experiments_repo = project_root / "code" / "SWE-bench-experiments"
+    experiments_revision = git_head(experiments_repo)
+    official_compatibility_files = []
+    for relative_path in OFFICIAL_COMPATIBILITY_EVIDENCE:
+        evidence_path = experiments_repo / relative_path
+        working_sha256 = sha256_file(evidence_path)
+        revision_sha256 = sha256_bytes(
+            git_blob(experiments_repo, experiments_revision, relative_path)
+        )
+        official_compatibility_files.append(
+            {
+                "path": relative_path,
+                "bytes": evidence_path.stat().st_size,
+                "sha256": working_sha256,
+                "git_object_id": git_object_id(
+                    experiments_repo, experiments_revision, relative_path
+                ),
+                "matches_repository_revision": working_sha256
+                == revision_sha256,
+            }
+        )
+    if not all(
+        item["matches_repository_revision"]
+        for item in official_compatibility_files
+    ):
+        raise RuntimeError(
+            "Official compatibility evidence differs from the pinned repository revision"
+        )
 
     observations = []
     for source in master["instances"]:
@@ -609,6 +694,25 @@ def collect(
                     ],
                     "observed_log_sha256": reused_gold["observed_log_sha256"],
                     "exact_outcome_match": exact,
+                    "full_reference_outcome_match": exact,
+                    "semantic_outcome_match": False,
+                    "validated_outcome_match": exact,
+                    "validation_class": (
+                        "full_reference_outcome" if exact else "failed"
+                    ),
+                    "reference_success_count": (
+                        source["fail_to_pass_count"]
+                        + source["pass_to_pass_count"]
+                        if exact
+                        else 0
+                    ),
+                    "reference_failure_count": 0 if exact else (
+                        source["fail_to_pass_count"]
+                        + source["pass_to_pass_count"]
+                    ),
+                    "environment_compatibility": REPOSITORY_COMPATIBILITY.get(
+                        repository, []
+                    ),
                 }
             )
             continue
@@ -626,6 +730,10 @@ def collect(
             **source,
             "evidence": "fresh_gold_evaluator_replay",
             "latest_attempt": latest_attempt(input_dir),
+            "attempt_history": attempt_history(input_dir),
+            "environment_compatibility": REPOSITORY_COMPATIBILITY.get(
+                repository, []
+            ),
         }
         if not scorecards_path.is_file() or not observed_log.is_file():
             observation.update(
@@ -634,6 +742,10 @@ def collect(
                     "observed_resolution": None,
                     "all_reference_tests_passed": False,
                     "exact_outcome_match": False,
+                    "full_reference_outcome_match": False,
+                    "semantic_outcome_match": False,
+                    "validated_outcome_match": False,
+                    "validation_class": "missing_output",
                 }
             )
             observations.append(observation)
@@ -650,7 +762,9 @@ def collect(
         official_report_exact = None
         if source["official_resolved_log"] is not None:
             official_log = input_dir / "official_resolved.eval.log"
-            official_map, official_applied = get_logs_eval(str(official_log))
+            official_map, official_applied = parse_eval_log(
+                official_log, repository
+            )
             official_report = get_eval_report(official_map, reference)
             official_report_exact = official_applied and official_report == report
         attempt = latest_attempt(input_dir)
@@ -666,6 +780,33 @@ def collect(
             and attempt.get("protocol_valid") is True
             and attempt.get("swebench_revision") == SWE_BENCH_REVISION
         )
+        requests_semantic_match = (
+            repository == "psf/requests"
+            and source["instance_id"] == requests_semantic.get("instance_id")
+            and source["base_commit"]
+            == requests_semantic.get("source_base_commit")
+            and source["gold_patch_sha256"]
+            == requests_semantic.get("gold_patch_sha256")
+            and source["test_patch_sha256"]
+            == requests_semantic.get("test_patch_sha256")
+            and patch_applied
+            and report["FAIL_TO_PASS"]["failure"] == []
+            and len(report["FAIL_TO_PASS"]["success"])
+            == source["fail_to_pass_count"]
+            and report["PASS_TO_PASS"]["failure"]
+            == [
+                "test_requests.py::RequestsTestCase::"
+                "test_auth_is_stripped_on_redirect_off_host"
+            ]
+            and len(report["PASS_TO_PASS"]["success"])
+            == source["pass_to_pass_count"] - 1
+            and requests_semantic.get("status_code") == 200
+            and requests_semantic.get("history_length") == 1
+            and requests_semantic.get("initial_authorization_present") is True
+            and requests_semantic.get("final_authorization_absent_client") is True
+            and requests_semantic.get("final_authorization_absent_server") is True
+        )
+        validated = exact or requests_semantic_match
         observation.update(
             {
                 "observed_scorecard_statuses": card.get("statuses"),
@@ -675,12 +816,35 @@ def collect(
                 "official_resolved_report_exact": official_report_exact,
                 "observed_log_sha256": sha256_file(observed_log),
                 "exact_outcome_match": exact,
+                "full_reference_outcome_match": exact,
+                "semantic_outcome_match": requests_semantic_match,
+                "validated_outcome_match": validated,
+                "validation_class": (
+                    "full_reference_outcome"
+                    if exact
+                    else (
+                        "external_network_semantic"
+                        if requests_semantic_match
+                        else "failed"
+                    )
+                ),
+                "reference_success_count": len(
+                    report["FAIL_TO_PASS"]["success"]
+                )
+                + len(report["PASS_TO_PASS"]["success"]),
+                "reference_failure_count": len(
+                    report["FAIL_TO_PASS"]["failure"]
+                )
+                + len(report["PASS_TO_PASS"]["failure"]),
             }
         )
         observations.append(observation)
 
     exact_count = sum(row["exact_outcome_match"] for row in observations)
+    semantic_count = sum(row["semantic_outcome_match"] for row in observations)
+    validated_count = sum(row["validated_outcome_match"] for row in observations)
     all_exact = exact_count == len(observations) == len(EXPECTED_SELECTION)
+    all_validated = validated_count == len(observations) == len(EXPECTED_SELECTION)
     csv_path = project_root / "data" / "derived" / "official_gold_repository_replay.csv"
     csv_path.parent.mkdir(parents=True, exist_ok=True)
     fields = [
@@ -696,6 +860,11 @@ def collect(
         "all_reference_tests_passed",
         "official_resolved_report_exact",
         "exact_outcome_match",
+        "semantic_outcome_match",
+        "validated_outcome_match",
+        "validation_class",
+        "reference_success_count",
+        "reference_failure_count",
     ]
     with csv_path.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
@@ -708,7 +877,14 @@ def collect(
         "status": (
             "COMPLETE_12_OF_12_GOLD_REPOSITORY_ENVIRONMENTS"
             if all_exact
-            else f"PARTIAL_{exact_count}_OF_12_GOLD_REPOSITORY_ENVIRONMENTS"
+            else (
+                "COMPLETE_11_FULL_REFERENCE_1_EXTERNAL_NETWORK_SEMANTIC"
+                if all_validated and exact_count == 11 and semantic_count == 1
+                else (
+                    f"PARTIAL_{validated_count}_OF_12_"
+                    "GOLD_REPOSITORY_ENVIRONMENTS"
+                )
+            )
         ),
         "collected_at_utc": utc_now(),
         "runtime": {
@@ -719,6 +895,15 @@ def collect(
             "server_used": False,
         },
         "input_manifest_sha256": sha256_file(master_path),
+        "requests_semantic_manifest": {
+            "path": REQUESTS_SEMANTIC_MANIFEST,
+            "sha256": sha256_file(requests_semantic_path),
+        },
+        "official_compatibility_evidence": {
+            "repository": "SWE-bench/experiments",
+            "revision": experiments_revision,
+            "files": official_compatibility_files,
+        },
         "observations": observations,
         "outputs": {
             "summary_csv": {
@@ -737,14 +922,33 @@ def collect(
                 row["evidence"] == "reused_EXP-ARTIFACT-006_gold"
                 for row in observations
             ),
+            "fresh_attempt_count": sum(
+                len(row.get("attempt_history", [])) for row in observations
+            ),
+            "unsuccessful_fresh_attempt_count": sum(
+                not attempt.get("success", False)
+                for row in observations
+                for attempt in row.get("attempt_history", [])
+            ),
+            "protocol_valid_successful_fresh_attempt_count": sum(
+                attempt.get("success") is True
+                and attempt.get("protocol_valid") is True
+                for row in observations
+                for attempt in row.get("attempt_history", [])
+            ),
             "exact_outcome_match_count": exact_count,
+            "semantic_outcome_match_count": semantic_count,
+            "validated_outcome_match_count": validated_count,
             "all_exact": all_exact,
+            "all_validated": all_validated,
         },
     }
     write_json(manifest_path, manifest)
     print(f"exact={exact_count}/{len(observations)}")
+    print(f"semantic={semantic_count}/{len(observations)}")
+    print(f"validated={validated_count}/{len(observations)}")
     print(f"manifest={manifest_path}")
-    return 0 if all_exact else 1
+    return 0 if all_validated else 1
 
 
 def main() -> int:
