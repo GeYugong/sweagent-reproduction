@@ -1792,3 +1792,28 @@ trajectory 持久化总量为 397 次 API 调用、5,496,947 input tokens 和 70
 `data/manifests/zero_cost_regeneration_audit.json` 保存 48 个文件的 baseline/current SHA-256、比较分类和命令清单，`docs/zero_cost_regeneration_audit.md` 给出简明结论。最终状态为 `COMPLETE_SEMANTIC_REGENERATION_NO_DERIVED_DRIFT`。
 
 本阶段证明公开工件生成链可重放，不证明退役模型重新推理可执行，也不补足未发布的原始消融运行、dev37、pass@k 预测或失败标签。
+
+## 2026-07-17 — EXP-REPORT-001：综合复现报告
+
+### 目标
+
+把分散在主结果、HumanEvalFix、源码聚合、A01–A14、evaluator、现代 dev20、资源与负检索清单中的证据合并为单一报告，同时保持不同证据层的完成状态互不替代。
+
+### 报告结构
+
+`docs/reproduction_report.md` 依次记录版本冻结、证据分层、公开主结果、Claude 主表不一致、HumanEvalFix 分母缺陷、消融/超参/pass@k/失败模式边界、A01–A14、四层 evaluator 验证、现代 dev20 统计、再生成审计、预算规模和已知威胁。
+
+关键终态为：
+
+- 公开工件：54/54，完成；
+- exact：0/18，未启动；
+- modern：默认 ACI dev20 完成，八项配对消融未完成；
+- strict：false。
+
+报告不使用单一总体百分比合并上述状态。论文源码聚合值不记为原始运行，Requests 语义验证不记为直接 `RESOLVED_FULL`，现代 dev20 不与论文 Lite test 做显著性比较，未知 API 价格不记为零。
+
+### 证据索引方案
+
+报告提交后由 `scripts/generate_reproduction_evidence_index.py` 在干净 tracked worktree 上枚举全部 Git 文件和四个 submodule，记录 Git object ID、工作树 SHA-256、关键证据、完成标志、近期提交与凭据扫描结果。索引文件在后续独立提交中冻结，因此索引明确记录其自身不属于被索引 revision，避免自引用哈希循环。
+
+本阶段模型 API、GPU和远程服务器使用均为 0。报告状态为 `COMPLETE_REPORT_PUBLIC_ARTIFACT_EXACT_BLOCKED`，不改变严格完成布尔值。

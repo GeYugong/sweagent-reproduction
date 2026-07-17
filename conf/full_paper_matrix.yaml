@@ -9,6 +9,7 @@ completion_contract:
   strict_full_paper_reproduction_complete: false
   strict_completion_rule: public_artifact_reproduction_complete AND exact_model_rerun_complete
   output_inventory: conf/paper_output_inventory.yaml
+  reproduction_report: docs/reproduction_report.md
 
 global_exact_requires:
   - G_EXACT_RUNTIME_PROMPTS

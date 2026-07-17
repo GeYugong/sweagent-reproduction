@@ -205,6 +205,10 @@ def main() -> int:
         errors.append("strict completion flag violates the declared AND rule")
     if completion.get("output_inventory") != "conf/paper_output_inventory.yaml":
         errors.append("matrix output inventory pointer is not frozen")
+    if completion.get("reproduction_report") != "docs/reproduction_report.md":
+        errors.append("matrix reproduction report pointer is not frozen")
+    if not (ROOT / "docs" / "reproduction_report.md").is_file():
+        errors.append("reproduction report is missing")
 
     public_complete = bool(completion.get("public_artifact_reproduction_complete"))
     coverage = load_json(COVERAGE_PATH) if COVERAGE_PATH.is_file() else {}
@@ -291,6 +295,8 @@ def main() -> int:
     full_reproduction = study.get("full_reproduction", {})
     if full_reproduction.get("matrix") != "conf/full_paper_matrix.yaml":
         errors.append("study matrix pointer is not frozen")
+    if full_reproduction.get("report") != "docs/reproduction_report.md":
+        errors.append("study reproduction report pointer is not frozen")
     if full_reproduction.get("paper_output_inventory") != "conf/paper_output_inventory.yaml":
         errors.append("study output inventory pointer is not frozen")
     if full_reproduction.get("coverage_manifest") != (

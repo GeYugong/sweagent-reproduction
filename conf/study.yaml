@@ -99,6 +99,7 @@ evaluation:
 
 full_reproduction:
   plan: docs/full_paper_reproduction_plan.md
+  report: docs/reproduction_report.md
   matrix: conf/full_paper_matrix.yaml
   paper_output_inventory: conf/paper_output_inventory.yaml
   coverage_manifest: data/manifests/full_reproduction_coverage.json
