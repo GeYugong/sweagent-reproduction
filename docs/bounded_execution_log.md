@@ -27,3 +27,12 @@
 
 中转单价与美元计费仍未核验，因此该检查点只报告由 trajectory 直接恢复的资源使用量，未将未知价格记为零。预算脚本判定为 `WITHIN_RELATIVE_BUDGET`，随后启动 R1 的 `edit_without_linting` 配置批次。
 
+## R1 / 零模型响应基础设施重试
+
+- 执行日期：2026-07-17
+- 配置与实例：`edit_without_linting` / `marshmallow-code__marshmallow-1359`
+- 原始尝试：`attempt 1`
+
+环境初始化、仓库克隆和代理 shell 建立均已完成，但首次模型请求在超过 12 分钟后仍未返回，trajectory 中没有模型调用记录、prediction 或持久化轨迹。运行进程维持到本地代理的 TCP 连接；无凭据的连通性探针返回 HTTP 401，说明代理与目标服务可达而该请求未获得响应。
+
+该尝试被分类为 `ZERO_MODEL_RESPONSE_INFRASTRUCTURE_FAILURE`，原始元数据保存在该 run 的本地 trace 目录。根据冻结方案中“仅零模型响应基础设施失败可重试”的例外，终止卡死进程后允许一次人工恢复运行；这不是对已有模型结果的重采样，也不产生可计费的已记录模型调用。
