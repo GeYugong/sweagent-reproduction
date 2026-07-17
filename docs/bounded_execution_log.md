@@ -60,3 +60,13 @@
 因此该事件被分类为 `ZERO_MODEL_RESPONSE_INFRASTRUCTURE_FAILURE`。根据冻结协议，唯一的恢复运行获授权并使用独立标识 `bounded_r1_edit_without_linting_pyvista_pyvista-4315_attempt_2`，使原始失败日志保留且不会覆盖。授权记录位于 `data/manifests/zero_model_response_retries.json`；成功评分后不得再次重试。
 
 恢复运行完成 18 次模型调用（204,920 input tokens、3,803 output tokens），生成 prediction 且补丁成功应用。独立 evaluator 对目标 `FAIL_TO_PASS` 测试给出通过结果，终态为 `RESOLVED_FULL`；无安装、重置、补丁应用或测试超时错误。该单元的有效结果仅来自这一次保留标识的授权恢复运行。
+
+## R1 / 模型响应后 evaluator 基础设施失败（不重试）
+
+- 执行日期：2026-07-17
+- 配置与实例：`edit_without_linting` / `sqlfluff__sqlfluff-2419`
+- 已持久化模型调用：25（236,694 input tokens、3,649 output tokens）
+
+该实例生成 prediction，补丁可由 evaluator 成功应用；但 evaluator 在恢复其内部补丁检查时执行 `git restore test/rules/std_L060_test.py`，目标 evaluation checkout 不包含该路径，导致 `CalledProcessError`。因此评分卡仅保留 `generated`，没有补丁应用后的测试终态。
+
+这不是零模型响应失败，且任何重跑都会重采样已经发生的模型交互。该实例标记为 `MODEL_RESPONSE_EVALUATOR_INFRASTRUCTURE_FAILURE_NO_RETRY`，加入 `data/manifests/nonretry_after_model_response.json`，最终分析将把它与完整 evaluator 终态分开报告。
