@@ -44,6 +44,6 @@
 
 ## 完成边界
 
-本分析完成已有现代默认 ACI 基线的统计收口。八个论文单因素 ACI 的 dev20 配对运行尚未执行，因而 `modern_replication_complete=false`，也不存在可计算的配对 McNemar 检验。扩大 API 实验前仍需明确总预算上限和端点价格。
+本分析完成已有现代默认 ACI 基线的统计收口。八个论文单因素 ACI 已完成配置重建、冻结解析器验收和 160 条配对运行预注册，详见 `docs/modern_aci_reconstruction.md`；配对运行仍为 0/160，因而 `modern_replication_complete=false`，也不存在可计算的配对 McNemar 检验。扩大 API 实验前仍需明确总预算上限和端点价格。
 
 机器清单位于 `data/manifests/modern_dev20_baseline_analysis.json`，逐实例数据位于 `data/derived/modern_dev20_baseline_instances.csv`。

@@ -72,6 +72,18 @@ modern_replication:
   baseline_status: complete_statistics_with_one_usage_persistence_gap
   baseline_resolved: 4
   baseline_instances: 20
+  aci_variant_definitions: conf/modern_aci/variants.yaml
+  aci_static_validation: data/manifests/modern_aci_variant_validation.json
+  aci_runtime_validation: data/manifests/modern_aci_runtime_validation.json
+  aci_pairing_manifest: data/manifests/modern_aci_dev20_pairing.json
+  aci_reconstruction_document: docs/modern_aci_reconstruction.md
+  aci_preparation_status: ready_blocked_price_and_budget
+  aci_variants_prepared: 8
+  aci_planned_new_episodes: 160
+  aci_completed_new_episodes: 0
+  aci_hard_max_api_calls: 4000
+  aci_projected_input_tokens_lower_bound: 43975576
+  aci_projected_output_tokens_lower_bound: 563240
   paired_aci_ablations_complete: false
 
 exploratory_combined_ablation:

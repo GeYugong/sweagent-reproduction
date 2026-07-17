@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-07-17",
+  "evidence": "modern_reconstructed",
+  "status": "COMPLETE_RUNTIME_PARSER_AND_BEHAVIOR_VALIDATION",
+  "inputs": {
+    "static_validation": {
+      "path": "data/manifests/modern_aci_variant_validation.json",
+      "bytes": 12597,
+      "sha256": "71a6af8054744c17c271f19771553492aab382b45fa21ab7518a117a266f76e0"
+    },
+    "runtime_patch": {
+      "path": "patches/sweagent_local_api.patch",
+      "bytes": 8127,
+      "sha256": "4f59244a7f371184e4b0b3982c1deb4bb5ded058d04dd9a0be478bd4422bfd24"
+    },
+    "command_assets": [
+      {
+        "path": "conf/modern_aci/commands/_modern_full_file_view.sh",
+        "bytes": 213,
+        "sha256": "9a321bcabd631414e994aa3e7062ed120a5ef76b7e57b76d05dcf2a0a1478cb7"
+      },
+      {
+        "path": "conf/modern_aci/commands/modern_edit_without_linting.sh",
+        "bytes": 1992,
+        "sha256": "c1024157d062dc1273ed8322f3e34be9d0d9a4abdf712957f25359f0d18e9a3a"
+      },
+      {
+        "path": "conf/modern_aci/commands/modern_iterative_search.sh",
+        "bytes": 5957,
+        "sha256": "d1169d3ddd7ba2e30741816cd97d4efb6561dabe5fd389ddeb7a855cbcb5bcd0"
+      }
+    ]
+  },
+  "runtime": {
+    "execution": "local_wsl2",
+    "runtime_root": "/mnt/d/0code/Research/05/tmp/runtime/SWE-agent-local-4f59244a7f37",
+    "python": "3.9.25",
+    "model_api_calls": 0,
+    "gpu_used": false,
+    "server_used": false
+  },
+  "observations": [
+    {
+      "id": "edit_without_linting",
+      "config_sha256": "a4e15dc85604f5b7c1a40097bd05865c81a940001988cc5c9c5b2d62d06d1ed3",
+      "public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "edit"
+      ],
+      "public_command_count": 10,
+      "history_processor": "Last5Observations",
+      "demonstration_count": 1,
+      "window": "100",
+      "parsed": true
+    },
+    {
+      "id": "no_edit",
+      "config_sha256": "4e8dd9eac8ac632bc5c994ece60753a92262133ee72e4f9a09ed2a51c1ad5948",
+      "public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file"
+      ],
+      "public_command_count": 9,
+      "history_processor": "Last5Observations",
+      "demonstration_count": 1,
+      "window": "100",
+      "parsed": true
+    },
+    {
+      "id": "iterative_search",
+      "config_sha256": "959d1748127425ea385c39788f264e3f9aef369004f99716c662e5c73218f354",
+      "public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "next",
+        "prev",
+        "edit"
+      ],
+      "public_command_count": 12,
+      "history_processor": "Last5Observations",
+      "demonstration_count": 1,
+      "window": "100",
+      "parsed": true
+    },
+    {
+      "id": "no_search",
+      "config_sha256": "706166d22fd2375bf488da16cbce22769ff0cb25c34e815e58c9c03fd40941d9",
+      "public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "edit"
+      ],
+      "public_command_count": 7,
+      "history_processor": "Last5Observations",
+      "demonstration_count": 1,
+      "window": "100",
+      "parsed": true
+    },
+    {
+      "id": "window_30",
+      "config_sha256": "b276625b7aa0044341c24f8dd1161d72692ca29963c51ed3420cc5ab3d112ee4",
+      "public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "edit"
+      ],
+      "public_command_count": 10,
+      "history_processor": "Last5Observations",
+      "demonstration_count": 1,
+      "window": "30",
+      "parsed": true
+    },
+    {
+      "id": "full_file",
+      "config_sha256": "be6f7e648f112c724cbff44048c884ba384668e1204412cf92b0cddd5f8c6f0a",
+      "public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "edit"
+      ],
+      "public_command_count": 10,
+      "history_processor": "Last5Observations",
+      "demonstration_count": 1,
+      "window": "100",
+      "parsed": true
+    },
+    {
+      "id": "full_history",
+      "config_sha256": "a22a3e238fa3bacde9d1c29936d731a730db25f9a9c94366d48277333d0c518f",
+      "public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "edit"
+      ],
+      "public_command_count": 10,
+      "history_processor": "DefaultHistoryProcessor",
+      "demonstration_count": 1,
+      "window": "100",
+      "parsed": true
+    },
+    {
+      "id": "no_demonstration",
+      "config_sha256": "a670b30e087f95448a9d86bd0c928dc8b5626fa76a2160da1822743655f1b771",
+      "public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "edit"
+      ],
+      "public_command_count": 10,
+      "history_processor": "Last5Observations",
+      "demonstration_count": 0,
+      "window": "100",
+      "parsed": true
+    }
+  ],
+  "behavior_tests": [
+    {
+      "name": "bash_syntax",
+      "passed": true,
+      "returncode": 0,
+      "output": "BASH_SYNTAX_OK"
+    },
+    {
+      "name": "iterative_search_navigation",
+      "passed": true,
+      "returncode": 0,
+      "output": "ITERATIVE_OK"
+    },
+    {
+      "name": "edit_without_linting_application",
+      "passed": true,
+      "returncode": 0,
+      "output": "EDIT_WITHOUT_LINT_OK"
+    },
+    {
+      "name": "full_file_rendering",
+      "passed": true,
+      "returncode": 0,
+      "output": "FULL_FILE_OK"
+    }
+  ],
+  "summary": {
+    "variant_count": 8,
+    "parsed_variant_count": 8,
+    "behavior_test_count": 4,
+    "passed_behavior_test_count": 4,
+    "errors": []
+  },
+  "completion": {
+    "runtime_parser_and_behavior_validation_complete": true,
+    "paired_runs_complete": false,
+    "modern_replication_complete": false,
+    "exact_model_rerun_complete": false
+  }
+}

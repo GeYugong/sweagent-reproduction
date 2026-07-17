@@ -22,6 +22,15 @@ MODERN_ANALYSIS_PATH = (
 REGENERATION_AUDIT_PATH = (
     ROOT / "data" / "manifests" / "zero_cost_regeneration_audit.json"
 )
+MODERN_ACI_STATIC_PATH = (
+    ROOT / "data" / "manifests" / "modern_aci_variant_validation.json"
+)
+MODERN_ACI_RUNTIME_PATH = (
+    ROOT / "data" / "manifests" / "modern_aci_runtime_validation.json"
+)
+MODERN_ACI_PAIRING_PATH = (
+    ROOT / "data" / "manifests" / "modern_aci_dev20_pairing.json"
+)
 
 
 def load_yaml(path: Path) -> dict:
@@ -369,6 +378,123 @@ def main() -> int:
             path = ROOT / str(record.get("path", ""))
             if not path.is_file() or record.get("sha256") != sha256_file(path):
                 errors.append(f"modern analysis output hash is stale or missing: {key}")
+
+    modern_aci = modern_runs.get("EXP-MODERN-ACI-PREP", {})
+    if not modern_aci:
+        errors.append("modern ACI preparation entry is missing from the matrix")
+    else:
+        static_validation = (
+            load_json(MODERN_ACI_STATIC_PATH) if MODERN_ACI_STATIC_PATH.is_file() else {}
+        )
+        runtime_validation = (
+            load_json(MODERN_ACI_RUNTIME_PATH)
+            if MODERN_ACI_RUNTIME_PATH.is_file()
+            else {}
+        )
+        pairing = (
+            load_json(MODERN_ACI_PAIRING_PATH) if MODERN_ACI_PAIRING_PATH.is_file() else {}
+        )
+        if static_validation.get("status") != "COMPLETE_STATIC_SINGLE_FACTOR_VALIDATION":
+            errors.append("modern ACI static validation is missing or incomplete")
+        static_summary = static_validation.get("summary", {})
+        if static_summary.get("variant_count") != 8 or static_summary.get(
+            "single_factor_valid_count"
+        ) != 8:
+            errors.append("modern ACI static validation must contain eight valid variants")
+        if static_summary.get("model_api_calls") != 0:
+            errors.append("modern ACI static preparation must not call a model API")
+        for variant in static_validation.get("variants", []):
+            record = variant.get("config", {})
+            path = ROOT / str(record.get("path", ""))
+            if not path.is_file() or record.get("sha256") != sha256_file(path):
+                errors.append(
+                    f"modern ACI generated config hash is stale: {variant.get('id')}"
+                )
+            if variant.get("single_factor_valid") is not True:
+                errors.append(f"modern ACI variant is not single-factor valid: {variant.get('id')}")
+        if runtime_validation.get("status") != (
+            "COMPLETE_RUNTIME_PARSER_AND_BEHAVIOR_VALIDATION"
+        ):
+            errors.append("modern ACI runtime validation is missing or incomplete")
+        runtime_summary = runtime_validation.get("summary", {})
+        if (
+            runtime_summary.get("variant_count") != 8
+            or runtime_summary.get("parsed_variant_count") != 8
+            or runtime_summary.get("behavior_test_count") != 4
+            or runtime_summary.get("passed_behavior_test_count") != 4
+            or runtime_summary.get("errors") != []
+        ):
+            errors.append("modern ACI runtime validation counters are incomplete")
+        if runtime_validation.get("runtime", {}).get("model_api_calls") != 0:
+            errors.append("modern ACI runtime validation must not call a model API")
+        runtime_static_record = runtime_validation.get("inputs", {}).get(
+            "static_validation", {}
+        )
+        if (
+            not MODERN_ACI_STATIC_PATH.is_file()
+            or runtime_static_record.get("sha256") != sha256_file(MODERN_ACI_STATIC_PATH)
+        ):
+            errors.append("modern ACI runtime validation is stale against static validation")
+        if pairing.get("status") != "READY_BLOCKED_PRICE_AND_BUDGET":
+            errors.append("modern ACI pairing manifest is not budget-blocked and ready")
+        execution = pairing.get("execution", {})
+        expected_pairing_fields = {
+            "variant_count": 8,
+            "instances_per_variant": 20,
+            "planned_new_episodes": 160,
+            "hard_max_api_calls": 4000,
+            "model_api_calls_executed_for_preparation": 0,
+        }
+        for field, expected in expected_pairing_fields.items():
+            if execution.get(field) != expected:
+                errors.append(f"modern ACI pairing field is stale: {field}")
+            if modern_aci.get(field) not in (None, expected):
+                errors.append(f"matrix modern ACI field is stale: {field}")
+        if len(pairing.get("planned_runs", [])) != 160:
+            errors.append("modern ACI pairing must contain 160 planned runs")
+        planned_ids = [row.get("planned_run_id") for row in pairing.get("planned_runs", [])]
+        if len(planned_ids) != len(set(planned_ids)):
+            errors.append("modern ACI planned run IDs are not unique")
+        if not all(
+            row.get("status") == "PLANNED_NOT_EXECUTED"
+            for row in pairing.get("planned_runs", [])
+        ):
+            errors.append("modern ACI pairing includes an unexpected execution status")
+        readiness = pairing.get("readiness", {})
+        if (
+            readiness.get("static_single_factor_validation_complete") is not True
+            or readiness.get("runtime_parser_and_behavior_validation_complete")
+            is not True
+            or readiness.get("pricing_verified") is not False
+            or readiness.get("paid_execution_allowed") is not False
+        ):
+            errors.append("modern ACI pairing readiness flags are invalid")
+        if pairing.get("completion", {}).get("modern_replication_complete") is not False:
+            errors.append("modern ACI preparation cannot complete modern replication")
+        if modern_aci.get("completed_new_episodes") != 0:
+            errors.append("matrix modern ACI preparation must record zero completed episodes")
+        if modern_aci.get("paired_aci_ablations_complete") is not False:
+            errors.append("matrix modern ACI preparation cannot mark paired ablations complete")
+        expected_study_paths = {
+            "aci_variant_definitions": "conf/modern_aci/variants.yaml",
+            "aci_static_validation": "data/manifests/modern_aci_variant_validation.json",
+            "aci_runtime_validation": "data/manifests/modern_aci_runtime_validation.json",
+            "aci_pairing_manifest": "data/manifests/modern_aci_dev20_pairing.json",
+            "aci_reconstruction_document": "docs/modern_aci_reconstruction.md",
+        }
+        modern_study = study.get("modern_replication", {})
+        for field, expected in expected_study_paths.items():
+            if modern_study.get(field) != expected:
+                errors.append(f"study modern ACI pointer is stale: {field}")
+        for path in (
+            ROOT / "conf" / "modern_aci" / "variants.yaml",
+            MODERN_ACI_STATIC_PATH,
+            MODERN_ACI_RUNTIME_PATH,
+            MODERN_ACI_PAIRING_PATH,
+            ROOT / "docs" / "modern_aci_reconstruction.md",
+        ):
+            if not path.is_file():
+                errors.append(f"modern ACI required file is missing: {path}")
 
     artifact_runs = {
         entry.get("id"): entry for entry in matrix.get("artifact_reproduction_runs", [])

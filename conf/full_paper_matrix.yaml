@@ -557,6 +557,47 @@ existing_non_exact_runs:
       - data/derived/modern_dev20_baseline_instances.csv
       - scripts/analyze_modern_dev20_baseline.py
       - docs/modern_dev20_baseline_analysis.md
+  - id: EXP-MODERN-ACI-PREP
+    evidence: modern
+    model: gpt-5.6-terra
+    dataset: frozen_dev20
+    variant: eight_reconstructed_single_factor_aci_variants
+    status: READY_BLOCKED_PRICE_AND_BUDGET
+    variants: 8
+    instances_per_variant: 20
+    planned_new_episodes: 160
+    completed_new_episodes: 0
+    static_single_factor_valid: 8
+    runtime_parser_valid: 8
+    behavior_tests_valid: 4
+    hard_max_api_calls: 4000
+    projected_persisted_api_calls_lower_bound: 3176
+    projected_resource_audited_api_calls: 3184
+    projected_input_tokens_lower_bound: 43975576
+    projected_output_tokens_lower_bound: 563240
+    pricing_status: UNKNOWN
+    explicit_total_budget_authorized: false
+    exact_paper_run_configs_available: false
+    paired_aci_ablations_complete: false
+    modern_replication_complete: false
+    outputs:
+      - conf/modern_aci/variants.yaml
+      - conf/modern_aci/generated/edit_without_linting.yaml
+      - conf/modern_aci/generated/no_edit.yaml
+      - conf/modern_aci/generated/iterative_search.yaml
+      - conf/modern_aci/generated/no_search.yaml
+      - conf/modern_aci/generated/window_30.yaml
+      - conf/modern_aci/generated/full_file.yaml
+      - conf/modern_aci/generated/full_history.yaml
+      - conf/modern_aci/generated/no_demonstration.yaml
+      - data/manifests/modern_aci_variant_validation.json
+      - data/manifests/modern_aci_runtime_validation.json
+      - data/manifests/modern_aci_dev20_pairing.json
+      - scripts/materialize_modern_aci_variants.py
+      - scripts/validate_modern_aci_runtime.py
+      - scripts/validate_modern_aci_runtime.sh
+      - scripts/run_modern_aci_batch.sh
+      - docs/modern_aci_reconstruction.md
   - id: EXP-WEAKACI-001-002
     evidence: exploratory
     model: gpt-5.6-terra

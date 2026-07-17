@@ -1,0 +1,161 @@
+schema_version: 1
+as_of: "2026-07-17"
+evidence: modern_reconstructed
+status: READY_BLOCKED_PRICE_AND_BUDGET
+
+base:
+  config: code/SWE-agent/config/default.yaml
+  sha256: 6428bf45edf5bdd46478f33599a80ee2579116d8855471aab74394c035a236b5
+  sweagent_revision: 658eb2842e8a8b00069b301338bc342b70538f7a
+  model: gpt-5.6-terra
+  dataset: princeton-nlp/SWE-bench_Lite
+  dataset_revision: 6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2
+  split: dev
+  selection_manifest: data/manifests/swebench_lite_dev20_seed42.json
+  temperature: 0.0
+  top_p: 0.95
+  max_api_calls_per_instance: 25
+
+reconstruction_policy:
+  exact_paper_run_configs_available: false
+  exact_paper_raw_runs_available: false
+  modern_results_may_replace_exact_results: false
+  iterative_search_context_lines_each_side: 5
+  iterative_search_context_source: reconstruction_assumption_not_reported_by_paper
+  single_factor_rule: Each generated configuration may differ from the frozen default only at its declared path.
+
+variants:
+  - id: edit_without_linting
+    paper_component: editor
+    paper_label: edit action
+    paper_resolved_percent: 15.0
+    paper_absolute_drop_points: 3.0
+    reconstruction_class: behavioral_reconstruction
+    exact_paper_run_config_available: false
+    transformation:
+      operation: replace_command_file
+      old: config/commands/edit_linting.sh
+      new: config/commands/modern_edit_without_linting.sh
+    expected_diff_paths: [command_files]
+    assets: [conf/modern_aci/commands/modern_edit_without_linting.sh]
+    expected_public_commands: [open, goto, scroll_down, scroll_up, create, submit, search_dir, search_file, find_file, edit]
+    config: conf/modern_aci/generated/edit_without_linting.yaml
+
+  - id: no_edit
+    paper_component: editor
+    paper_label: No edit
+    paper_resolved_percent: 10.3
+    paper_absolute_drop_points: 7.7
+    reconstruction_class: public_command_removal
+    exact_paper_run_config_available: false
+    transformation:
+      operation: remove_command_file
+      value: config/commands/edit_linting.sh
+    expected_diff_paths: [command_files]
+    assets: []
+    expected_public_commands: [open, goto, scroll_down, scroll_up, create, submit, search_dir, search_file, find_file]
+    config: conf/modern_aci/generated/no_edit.yaml
+
+  - id: iterative_search
+    paper_component: search
+    paper_label: Iterative
+    paper_resolved_percent: 12.0
+    paper_absolute_drop_points: 6.0
+    reconstruction_class: behavioral_reconstruction
+    exact_paper_run_config_available: false
+    transformation:
+      operation: replace_command_file
+      old: config/commands/search.sh
+      new: config/commands/modern_iterative_search.sh
+    expected_diff_paths: [command_files]
+    assets: [conf/modern_aci/commands/modern_iterative_search.sh]
+    expected_public_commands: [open, goto, scroll_down, scroll_up, create, submit, search_dir, search_file, find_file, next, prev, edit]
+    config: conf/modern_aci/generated/iterative_search.yaml
+
+  - id: no_search
+    paper_component: search
+    paper_label: No search
+    paper_resolved_percent: 15.7
+    paper_absolute_drop_points: 2.3
+    reconstruction_class: public_command_removal
+    exact_paper_run_config_available: false
+    transformation:
+      operation: remove_command_file
+      value: config/commands/search.sh
+    expected_diff_paths: [command_files]
+    assets: []
+    expected_public_commands: [open, goto, scroll_down, scroll_up, create, submit, edit]
+    config: conf/modern_aci/generated/no_search.yaml
+
+  - id: window_30
+    paper_component: file_viewer
+    paper_label: 30 lines
+    paper_resolved_percent: 14.3
+    paper_absolute_drop_points: 3.7
+    reconstruction_class: public_parameter_reconstruction
+    exact_paper_run_config_available: false
+    transformation:
+      operation: set_env
+      key: WINDOW
+      value: 30
+    expected_diff_paths: [env_variables.WINDOW]
+    assets: []
+    expected_public_commands: [open, goto, scroll_down, scroll_up, create, submit, search_dir, search_file, find_file, edit]
+    config: conf/modern_aci/generated/window_30.yaml
+
+  - id: full_file
+    paper_component: file_viewer
+    paper_label: Full file
+    paper_resolved_percent: 12.7
+    paper_absolute_drop_points: 5.3
+    reconstruction_class: behavioral_reconstruction
+    exact_paper_run_config_available: false
+    transformation:
+      operation: append_command_file
+      value: config/commands/_modern_full_file_view.sh
+    expected_diff_paths: [command_files]
+    assets: [conf/modern_aci/commands/_modern_full_file_view.sh]
+    expected_public_commands: [open, goto, scroll_down, scroll_up, create, submit, search_dir, search_file, find_file, edit]
+    config: conf/modern_aci/generated/full_file.yaml
+
+  - id: full_history
+    paper_component: context
+    paper_label: Full history
+    paper_resolved_percent: 15.0
+    paper_absolute_drop_points: 3.0
+    reconstruction_class: public_reference_config
+    exact_paper_run_config_available: false
+    public_reference_config: code/SWE-agent/config/configs/default_sys-env_window100-detailed_cmd_format-full_history-1_demos.yaml
+    public_reference_sha256: df9c0c69db0679fcc9bd272871b524e1ea2311c22dd90482ebbca934353e701e
+    public_reference_match_mode: trailing_whitespace_normalized
+    transformation:
+      operation: set_top_level
+      key: history_processor
+      value: DefaultHistoryProcessor
+    expected_diff_paths: [history_processor]
+    assets: []
+    expected_public_commands: [open, goto, scroll_down, scroll_up, create, submit, search_dir, search_file, find_file, edit]
+    config: conf/modern_aci/generated/full_history.yaml
+
+  - id: no_demonstration
+    paper_component: context
+    paper_label: Without demonstration
+    paper_resolved_percent: 16.3
+    paper_absolute_drop_points: 1.7
+    reconstruction_class: public_parameter_reconstruction
+    exact_paper_run_config_available: false
+    transformation:
+      operation: clear_top_level_list
+      key: demonstrations
+    expected_diff_paths: [demonstrations]
+    assets: []
+    expected_public_commands: [open, goto, scroll_down, scroll_up, create, submit, search_dir, search_file, find_file, edit]
+    config: conf/modern_aci/generated/no_demonstration.yaml
+
+completion:
+  variant_definitions_complete: true
+  generated_configs_complete: true
+  runtime_parser_validation_complete: true
+  paired_runs_complete: false
+  modern_replication_complete: false
+  exact_model_rerun_complete: false

@@ -1,0 +1,472 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-07-17",
+  "evidence": "modern_reconstructed",
+  "status": "COMPLETE_STATIC_SINGLE_FACTOR_VALIDATION",
+  "inputs": {
+    "variant_definitions": {
+      "path": "conf/modern_aci/variants.yaml",
+      "bytes": 6400,
+      "sha256": "ce3618d4ef92bb0bc8d5993b1023368b00fc9958f9961eace322905a608b90eb"
+    },
+    "base_config": {
+      "path": "code/SWE-agent/config/default.yaml",
+      "bytes": 6583,
+      "sha256": "6428bf45edf5bdd46478f33599a80ee2579116d8855471aab74394c035a236b5"
+    }
+  },
+  "summary": {
+    "variant_count": 8,
+    "single_factor_valid_count": 8,
+    "behavioral_reconstruction_count": 3,
+    "exact_paper_run_config_count": 0,
+    "model_api_calls": 0
+  },
+  "variants": [
+    {
+      "id": "edit_without_linting",
+      "paper_component": "editor",
+      "paper_label": "edit action",
+      "paper_resolved_percent": 15.0,
+      "paper_absolute_drop_points": 3.0,
+      "reconstruction_class": "behavioral_reconstruction",
+      "exact_paper_run_config_available": false,
+      "transformation": {
+        "operation": "replace_command_file",
+        "old": "config/commands/edit_linting.sh",
+        "new": "config/commands/modern_edit_without_linting.sh"
+      },
+      "observed_diff_paths": [
+        "command_files"
+      ],
+      "single_factor_valid": true,
+      "expected_public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "edit"
+      ],
+      "observed_public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "edit"
+      ],
+      "helper_functions": [
+        "_print",
+        "_constrain_line"
+      ],
+      "config": {
+        "path": "conf/modern_aci/generated/edit_without_linting.yaml",
+        "bytes": 6751,
+        "sha256": "a4e15dc85604f5b7c1a40097bd05865c81a940001988cc5c9c5b2d62d06d1ed3"
+      },
+      "assets": [
+        {
+          "path": "conf/modern_aci/commands/modern_edit_without_linting.sh",
+          "bytes": 1992,
+          "sha256": "c1024157d062dc1273ed8322f3e34be9d0d9a4abdf712957f25359f0d18e9a3a"
+        }
+      ]
+    },
+    {
+      "id": "no_edit",
+      "paper_component": "editor",
+      "paper_label": "No edit",
+      "paper_resolved_percent": 10.3,
+      "paper_absolute_drop_points": 7.7,
+      "reconstruction_class": "public_command_removal",
+      "exact_paper_run_config_available": false,
+      "transformation": {
+        "operation": "remove_command_file",
+        "value": "config/commands/edit_linting.sh"
+      },
+      "observed_diff_paths": [
+        "command_files"
+      ],
+      "single_factor_valid": true,
+      "expected_public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file"
+      ],
+      "observed_public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file"
+      ],
+      "helper_functions": [
+        "_print",
+        "_constrain_line"
+      ],
+      "config": {
+        "path": "conf/modern_aci/generated/no_edit.yaml",
+        "bytes": 6689,
+        "sha256": "4e8dd9eac8ac632bc5c994ece60753a92262133ee72e4f9a09ed2a51c1ad5948"
+      },
+      "assets": []
+    },
+    {
+      "id": "iterative_search",
+      "paper_component": "search",
+      "paper_label": "Iterative",
+      "paper_resolved_percent": 12.0,
+      "paper_absolute_drop_points": 6.0,
+      "reconstruction_class": "behavioral_reconstruction",
+      "exact_paper_run_config_available": false,
+      "transformation": {
+        "operation": "replace_command_file",
+        "old": "config/commands/search.sh",
+        "new": "config/commands/modern_iterative_search.sh"
+      },
+      "observed_diff_paths": [
+        "command_files"
+      ],
+      "single_factor_valid": true,
+      "expected_public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "next",
+        "prev",
+        "edit"
+      ],
+      "observed_public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "next",
+        "prev",
+        "edit"
+      ],
+      "helper_functions": [
+        "_print",
+        "_constrain_line",
+        "_show_search_result"
+      ],
+      "config": {
+        "path": "conf/modern_aci/generated/iterative_search.yaml",
+        "bytes": 6749,
+        "sha256": "959d1748127425ea385c39788f264e3f9aef369004f99716c662e5c73218f354"
+      },
+      "assets": [
+        {
+          "path": "conf/modern_aci/commands/modern_iterative_search.sh",
+          "bytes": 5957,
+          "sha256": "d1169d3ddd7ba2e30741816cd97d4efb6561dabe5fd389ddeb7a855cbcb5bcd0"
+        }
+      ]
+    },
+    {
+      "id": "no_search",
+      "paper_component": "search",
+      "paper_label": "No search",
+      "paper_resolved_percent": 15.7,
+      "paper_absolute_drop_points": 2.3,
+      "reconstruction_class": "public_command_removal",
+      "exact_paper_run_config_available": false,
+      "transformation": {
+        "operation": "remove_command_file",
+        "value": "config/commands/search.sh"
+      },
+      "observed_diff_paths": [
+        "command_files"
+      ],
+      "single_factor_valid": true,
+      "expected_public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "edit"
+      ],
+      "observed_public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "edit"
+      ],
+      "helper_functions": [
+        "_print",
+        "_constrain_line"
+      ],
+      "config": {
+        "path": "conf/modern_aci/generated/no_search.yaml",
+        "bytes": 6697,
+        "sha256": "706166d22fd2375bf488da16cbce22769ff0cb25c34e815e58c9c03fd40941d9"
+      },
+      "assets": []
+    },
+    {
+      "id": "window_30",
+      "paper_component": "file_viewer",
+      "paper_label": "30 lines",
+      "paper_resolved_percent": 14.3,
+      "paper_absolute_drop_points": 3.7,
+      "reconstruction_class": "public_parameter_reconstruction",
+      "exact_paper_run_config_available": false,
+      "transformation": {
+        "operation": "set_env",
+        "key": "WINDOW",
+        "value": 30
+      },
+      "observed_diff_paths": [
+        "env_variables.WINDOW"
+      ],
+      "single_factor_valid": true,
+      "expected_public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "edit"
+      ],
+      "observed_public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "edit"
+      ],
+      "helper_functions": [
+        "_print",
+        "_constrain_line"
+      ],
+      "config": {
+        "path": "conf/modern_aci/generated/window_30.yaml",
+        "bytes": 6724,
+        "sha256": "b276625b7aa0044341c24f8dd1161d72692ca29963c51ed3420cc5ab3d112ee4"
+      },
+      "assets": []
+    },
+    {
+      "id": "full_file",
+      "paper_component": "file_viewer",
+      "paper_label": "Full file",
+      "paper_resolved_percent": 12.7,
+      "paper_absolute_drop_points": 5.3,
+      "reconstruction_class": "behavioral_reconstruction",
+      "exact_paper_run_config_available": false,
+      "transformation": {
+        "operation": "append_command_file",
+        "value": "config/commands/_modern_full_file_view.sh"
+      },
+      "observed_diff_paths": [
+        "command_files"
+      ],
+      "single_factor_valid": true,
+      "expected_public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "edit"
+      ],
+      "observed_public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "edit"
+      ],
+      "helper_functions": [
+        "_print",
+        "_constrain_line",
+        "_print"
+      ],
+      "config": {
+        "path": "conf/modern_aci/generated/full_file.yaml",
+        "bytes": 6769,
+        "sha256": "be6f7e648f112c724cbff44048c884ba384668e1204412cf92b0cddd5f8c6f0a"
+      },
+      "assets": [
+        {
+          "path": "conf/modern_aci/commands/_modern_full_file_view.sh",
+          "bytes": 213,
+          "sha256": "9a321bcabd631414e994aa3e7062ed120a5ef76b7e57b76d05dcf2a0a1478cb7"
+        }
+      ]
+    },
+    {
+      "id": "full_history",
+      "paper_component": "context",
+      "paper_label": "Full history",
+      "paper_resolved_percent": 15.0,
+      "paper_absolute_drop_points": 3.0,
+      "reconstruction_class": "public_reference_config",
+      "exact_paper_run_config_available": false,
+      "transformation": {
+        "operation": "set_top_level",
+        "key": "history_processor",
+        "value": "DefaultHistoryProcessor"
+      },
+      "observed_diff_paths": [
+        "history_processor"
+      ],
+      "single_factor_valid": true,
+      "expected_public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "edit"
+      ],
+      "observed_public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "edit"
+      ],
+      "helper_functions": [
+        "_print",
+        "_constrain_line"
+      ],
+      "config": {
+        "path": "conf/modern_aci/generated/full_history.yaml",
+        "bytes": 6734,
+        "sha256": "a22a3e238fa3bacde9d1c29936d731a730db25f9a9c94366d48277333d0c518f"
+      },
+      "assets": [],
+      "public_reference_config": {
+        "path": "code/SWE-agent/config/configs/default_sys-env_window100-detailed_cmd_format-full_history-1_demos.yaml",
+        "bytes": 6588,
+        "sha256": "df9c0c69db0679fcc9bd272871b524e1ea2311c22dd90482ebbca934353e701e"
+      },
+      "public_reference_match_mode": "trailing_whitespace_normalized",
+      "public_reference_raw_diff_paths": [
+        "instance_template"
+      ],
+      "public_reference_normalized_match": true
+    },
+    {
+      "id": "no_demonstration",
+      "paper_component": "context",
+      "paper_label": "Without demonstration",
+      "paper_resolved_percent": 16.3,
+      "paper_absolute_drop_points": 1.7,
+      "reconstruction_class": "public_parameter_reconstruction",
+      "exact_paper_run_config_available": false,
+      "transformation": {
+        "operation": "clear_top_level_list",
+        "key": "demonstrations"
+      },
+      "observed_diff_paths": [
+        "demonstrations"
+      ],
+      "single_factor_valid": true,
+      "expected_public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "edit"
+      ],
+      "observed_public_commands": [
+        "open",
+        "goto",
+        "scroll_down",
+        "scroll_up",
+        "create",
+        "submit",
+        "search_dir",
+        "search_file",
+        "find_file",
+        "edit"
+      ],
+      "helper_functions": [
+        "_print",
+        "_constrain_line"
+      ],
+      "config": {
+        "path": "conf/modern_aci/generated/no_demonstration.yaml",
+        "bytes": 6560,
+        "sha256": "a670b30e087f95448a9d86bd0c928dc8b5626fa76a2160da1822743655f1b771"
+      },
+      "assets": []
+    }
+  ],
+  "completion": {
+    "static_single_factor_validation_complete": true,
+    "runtime_parser_validation_complete": false,
+    "paired_runs_complete": false,
+    "modern_replication_complete": false,
+    "exact_model_rerun_complete": false
+  }
+}

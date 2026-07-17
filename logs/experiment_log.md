@@ -1817,3 +1817,39 @@ trajectory 持久化总量为 397 次 API 调用、5,496,947 input tokens 和 70
 报告提交后由 `scripts/generate_reproduction_evidence_index.py` 在干净 tracked worktree 上枚举全部 Git 文件和四个 submodule，记录 Git object ID、工作树 SHA-256、关键证据、完成标志、近期提交与凭据扫描结果。索引文件在后续独立提交中冻结，因此索引明确记录其自身不属于被索引 revision，避免自引用哈希循环。
 
 本阶段模型 API、GPU和远程服务器使用均为 0。报告状态为 `COMPLETE_REPORT_PUBLIC_ARTIFACT_EXACT_BLOCKED`，不改变严格完成布尔值。
+
+## 2026-07-17 — EXP-MODERN-ACI-PREP-001：八项现代 ACI 配对实验准备
+
+### 目标
+
+在不调用模型 API 的条件下，把论文的八个单因素 ACI 消融重建为独立、可加载、可审计的现代模型配置，并把现有 dev20 默认基线扩展成严格配对的运行预注册。该阶段只解决现代替代实验的技术准备，不补写论文未发布的 exact 配置或原始运行。
+
+### 配置重建
+
+冻结基线为 SWE-agent `658eb284` 的 `config/default.yaml`。八个变体分别为 no-lint editor、no-edit、iterative-search、no-search、window-30、full-file、full-history 和 no-demo。配置生成器对解析后的 YAML 做递归 diff，并要求观察到的变化路径与预注册路径完全相等。
+
+no-edit/no-search 只删除相应公开命令文件，window-30/no-demo 只改公开参数，full-history 只改 history processor。full-history 与上游公开参考配置在规范化行尾空白后完全匹配；原始参考文件在 instance template 中有一处行末空格，清单保留该原始差异，没有记为逐字节一致。
+
+作者没有发布 no-lint editor、iterative search 和 full-file viewer 的逐字实现，因此三者记为 `behavioral_reconstruction`：
+
+- no-lint editor 保留行范围替换和即时文件反馈，移除 lint、回滚与相关错误分支；
+- iterative search 保存有序匹配并提供 `next`/`prev`，论文未报告的上下文参数固定为显式假设的每侧 5 行；
+- full-file 通过后置覆盖内部 `_print` 输出整个带行号文件，其他 viewer 命令不变。
+
+### 离线验证
+
+第一次静态生成发现上游 full-history 参考文件和默认配置除了 history processor 外还存在一个行末空格差异。验证规则随后改为同时记录 raw diff，并只在声明的 `trailing_whitespace_normalized` 模式下比较；没有删除或掩盖原始差异。
+
+最终静态检查为 8/8 单因素有效。隔离运行树应用本地 API 兼容补丁后，冻结 `AgentConfig.load_yaml` 解析 8/8；Bash 语法、iterative search 的前后导航、无 lint 编辑写回和整文件输出共 4/4 通过。验证仅在本地 WSL2 完成，模型 API 调用、GPU和服务器使用均为 0。
+
+### 配对清单与预算门
+
+八项变体与冻结 dev20 的 20 个实例形成 160 条计划记录，每条保存配置 SHA-256、计划 run ID、基线 run ID、基线目录和基线 outcome。调用硬上限为 4,000。按现有基线均值外推为 3,176 次持久化调用、3,184 次资源审计调用、43,975,576 input tokens 和 563,240 output tokens；已有一条 usage 缺口使 token 投影保持下界。
+
+`scripts/run_modern_aci_batch.sh` 默认只输出 plan。execute 模式要求显式付费授权、输入/输出单价和本次美元 ceiling，并检查 ceiling 不低于估算下界的 1.25 倍。该防误触门不能替代提供商账单上限，因此价格未知和总预算未批准时状态保持 `READY_BLOCKED_PRICE_AND_BUDGET`，实际运行为 0/160。
+
+### 输出与完成边界
+
+主要输出为 `conf/modern_aci/`、三个 `data/manifests/modern_aci_*.json`、配置生成/运行时验证/安全批量入口脚本，以及 `docs/modern_aci_reconstruction.md`。统计方案预注册为双侧 exact McNemar、八比较 Holm 校正和 seed 42 的 10,000 次 paired bootstrap。
+
+该阶段使现代 ACI 实验达到技术就绪，但不产生效果数据。`modern_replication_complete=false`、`exact_model_rerun_complete=false` 和严格完成状态均不变。

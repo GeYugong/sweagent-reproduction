@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "as_of": "2026-07-17",
-  "generated_at_utc": "2026-07-17T01:17:30.999240+00:00",
+  "generated_at_utc": "2026-07-17T02:24:06.078029+00:00",
   "status": "COMPLETE_BASELINE_STATISTICS_WITH_ONE_USAGE_PERSISTENCE_GAP",
   "evidence": "modern",
   "model": "gpt-5.6-terra",
@@ -1268,8 +1268,8 @@
     },
     "analysis_document": {
       "path": "docs/modern_dev20_baseline_analysis.md",
-      "bytes": 2993,
-      "sha256": "12b690ab7b9e2a027ae12a1d266a88970d7d7fc68a67f9279f1284c4b46661ba"
+      "bytes": 3108,
+      "sha256": "40b8711f0c6da7a6f279f87b8872798e121fb7135c41bbe9e206ff8e5b0ec12b"
     }
   }
 }

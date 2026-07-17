@@ -2,7 +2,7 @@
 
 ## 摘要
 
-本研究复现并审计《SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering》（arXiv 2405.15793v3）的公开论文工件、历史 evaluator、实例级分析、定性案例和一组现代模型开发集基线。研究将证据拆分为源码、作者工件、原模型严格重跑、现代模型复验和探索性实验五类，避免把论文源码中的最终数字或现代模型结果误写成原始模型重新推理。
+本研究复现并审计《SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering》（arXiv 2405.15793v3）的公开论文工件、历史 evaluator、实例级分析、定性案例、一组现代模型开发集基线及八项现代 ACI 配对实验预注册。研究将证据拆分为源码、作者工件、原模型严格重跑、现代模型复验和探索性实验五类，避免把论文源码中的最终数字或现代模型结果误写成原始模型重新推理。
 
 截至 2026-07-17，完成状态为：
 
@@ -10,7 +10,7 @@
 |---|---|---|
 | 公开工件复现 | 完成 | 54/54 个论文输出进入可审计终态 |
 | 原模型严格重跑 | 未完成 | 0/18 个 exact 实验启动 |
-| 现代模型复验 | 部分完成 | 默认 ACI dev20 基线完成，八项配对消融未执行 |
+| 现代模型复验 | 部分完成 | 默认 ACI dev20 基线完成；八项配置与 160 条配对计划就绪，运行 0/160 |
 | 整篇论文严格复现 | 未完成 | `public_artifact_complete AND exact_rerun_complete = false` |
 
 公开工件层包含 18 项作者工件精确复算、15 项公开部分复算并量化缺口、8 项论文源码资产验证、13 项 prompt/命令/界面审计。退役模型、未发布的精确消融实现和原始运行、dev37 ID、失败标签、价格/预算与正式运行资源仍阻止原模型严格重跑。因此本报告的最终结论是“公开工件复现完成，严格重跑受阻”，而不是整篇论文 100% 严格复现完成。
@@ -158,7 +158,9 @@ A14 遍历 2,268 条 GPT-4 Full 与 300 条 Lite trajectory。2,002 条使用 sy
 
 trajectory 持久化 397 次 API 调用、5,496,947 input tokens 和 70,405 output tokens。SQLFluff 1763 的最后一次格式纠正请求没有写入 usage，资源日志确认总调用为 398，因此 token 合计是下界。19/20 份 `args.yaml` 精确确认模型、temperature 和 top-p；该实例的缺失运行参数与 usage 单独保留。
 
-中转端点没有可核验价格，美元成本不填 0。八个论文单因素 ACI 尚未在同一 dev20 上完成配对运行，因此没有 McNemar 统计，`modern_replication_complete=false`。
+八个论文单因素 ACI 的现代重建已经完成离线准备。相对默认配置的结构 diff 通过 8/8，冻结 `AgentConfig` 解析通过 8/8，自定义命令的语法与行为测试通过 4/4。三项未公开命令实现标为行为重建；特别是 iterative search 的上下文每侧 5 行属于显式假设。20 个基线实例与八项变体形成 160 条配对计划，25 次/实例的硬调用上限为 4,000。
+
+按 dev20 持久化均值，160 条新增运行投影为 3,176 次调用、43,975,576 input tokens 和 563,240 output tokens；资源审计口径为 3,184 次调用。中转端点没有可核验价格，美元成本不填 0，总预算也未授权，因此实际运行仍为 0/160。尚无 McNemar 统计，`modern_replication_complete=false`。配置、配对表和预注册见 `docs/modern_aci_reconstruction.md`。
 
 早期自定义 `no_search + no_editor` 同时改变两个因素，既不是论文 Shell-only 也不是单因素消融。两条完成轨迹只作为 exploratory 证据，后续运行已停止，不进入论文对齐结果。
 
@@ -191,7 +193,7 @@ trajectory 持久化 397 次 API 调用、5,496,947 input tokens 和 70,405 outp
 4. 上游数据 revision 会改变少量 resolved 结果，必须使用论文期 revision。
 5. 历史 Python/conda/PyPI/系统包漂移需要实例级兼容修正；所有修正均保留理由与 attempt 历史。
 6. Requests 的一个测试依赖已漂移的公网服务，只能提供本地等价安全语义验证，不能算作直接 full-reference outcome。
-7. 现代 dev20 样本量小、仓库分布不均且没有配对消融，不支持对 ACI 因果效应作正式结论。
+7. 现代 dev20 样本量小、仓库分布不均；配对消融只完成配置与运行预注册、尚未执行，不支持对 ACI 因果效应作正式结论。
 
 ## 11. 主要可复核入口
 
@@ -203,6 +205,7 @@ trajectory 持久化 397 次 API 调用、5,496,947 input tokens 和 70,405 outp
 - A13–A14：`docs/official_qualitative_interface_audit.md`；
 - 协议负检索：`docs/protocol_recovery_audit.md`；
 - 现代 dev20：`docs/modern_dev20_baseline_analysis.md`；
+- 现代 ACI 重建与配对预注册：`docs/modern_aci_reconstruction.md`；
 - 再生成审计：`docs/zero_cost_regeneration_audit.md`；
 - 全部实验过程：`logs/experiment_log.md`、`logs/experiment_registry.csv`。
 
