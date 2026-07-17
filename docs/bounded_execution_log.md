@@ -58,3 +58,5 @@
 原始运行完成仓库克隆后，在实例环境脚本的 `apt update` 步骤等待外部软件源。运行器记录 `Timeout reached while reading from subprocess`，并列出仍在运行的 `apt` 与 `http` 子进程；随后按运行器的环境关闭路径停止容器。该尝试没有模型响应、trajectory、prediction 或 evaluator scorecard。
 
 因此该事件被分类为 `ZERO_MODEL_RESPONSE_INFRASTRUCTURE_FAILURE`。根据冻结协议，唯一的恢复运行获授权并使用独立标识 `bounded_r1_edit_without_linting_pyvista_pyvista-4315_attempt_2`，使原始失败日志保留且不会覆盖。授权记录位于 `data/manifests/zero_model_response_retries.json`；成功评分后不得再次重试。
+
+恢复运行完成 18 次模型调用（204,920 input tokens、3,803 output tokens），生成 prediction 且补丁成功应用。独立 evaluator 对目标 `FAIL_TO_PASS` 测试给出通过结果，终态为 `RESOLVED_FULL`；无安装、重置、补丁应用或测试超时错误。该单元的有效结果仅来自这一次保留标识的授权恢复运行。
