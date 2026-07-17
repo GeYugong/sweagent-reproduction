@@ -22,6 +22,7 @@ outputs/results/*
 outputs/evaluation/*
 outputs/figures/*
 outputs/summary/*
+data/manifests/bounded_modern_budget_ledger.json
 data/cache/
 data/docker/
 data/official_artifacts/
