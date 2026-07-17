@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-07-17T01:54:25.791997+00:00",
+  "generated_at_utc": "2026-07-17T02:27:11.488315+00:00",
   "status": "COMPLETE_COMMITTED_EVIDENCE_INDEX",
   "scope": "Committed SWE-agent reproduction evidence",
   "repository": {
-    "indexed_revision": "ab523647da6d01ab462070c490b89b9651c04ce4",
+    "indexed_revision": "4c4848be8fe10b9124990436658263186635442b",
     "tracked_worktree_clean_before_index_write": true,
     "tracked_status_before_index_write": [],
     "self_excluded_from_index": true,
@@ -20,26 +20,26 @@
   "runtime": {
     "python": "3.11.15",
     "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
-    "pid": 582,
+    "pid": 579,
     "model_api_calls": 0,
     "gpu_used": false,
     "server_used": false,
     "disk_total_bytes": 699697983488,
-    "disk_free_bytes": 66183643136
+    "disk_free_bytes": 65361354752
   },
   "summary": {
-    "tracked_file_count": 131,
+    "tracked_file_count": 152,
     "submodule_count": 4,
     "category_counts": {
-      "configuration": 7,
-      "data": 50,
-      "documentation": 19,
+      "configuration": 19,
+      "data": 54,
+      "documentation": 20,
       "experiment_log": 5,
       "paper": 3,
       "patch": 1,
       "rendered_artifact": 7,
       "repository_root": 11,
-      "script": 28,
+      "script": 32,
       "submodule": 4
     },
     "secret_hit_file_count": 0,
@@ -110,11 +110,11 @@
     },
     {
       "mode": "100644",
-      "git_object_id": "c8861d82c32ea4601fd439d36eed3d5f9771b434",
+      "git_object_id": "f7e62a6446b62b31a342ea730b0d675aa4812247",
       "path": "conf/full_paper_matrix.yaml",
       "category": "configuration",
-      "bytes": 24618,
-      "working_tree_sha256": "147cd9c9ccb0164d20124169e4dae0b13985713a002a6e4c139404c7fff74c70"
+      "bytes": 26304,
+      "working_tree_sha256": "08133491a91eab41b0230602fe701f5a916e779393265be19432b3393dfd2a45"
     },
     {
       "mode": "100644",
@@ -126,11 +126,11 @@
     },
     {
       "mode": "100644",
-      "git_object_id": "9d947b06400cde0aa98c95d7a64e91e71ee610de",
+      "git_object_id": "bbfcaff01f64d74cedd75958eac7221be688aff3",
       "path": "data/manifests/full_reproduction_coverage.json",
       "category": "data",
       "bytes": 58943,
-      "working_tree_sha256": "e41238e961e2cc5905df2dcdafb144dc72f08e0674663420a443b7ea90c66ccc"
+      "working_tree_sha256": "65baf94b8679c9e06d6116930c58cd55275436c806d5db5204a80a07134d2ad3"
     },
     {
       "mode": "100644",
@@ -158,35 +158,35 @@
     },
     {
       "mode": "100644",
-      "git_object_id": "34f6d58ebe0c41401dcefd5f6fadeb9330b88d64",
+      "git_object_id": "a711fc4bc1585cf182dc5c546047df7200693566",
       "path": "data/manifests/modern_dev20_baseline_analysis.json",
       "category": "data",
       "bytes": 47365,
-      "working_tree_sha256": "9b41956b3f56d80da0511c5209b2bc3acb68edcbc12c1fa724cae0999268fa3d"
+      "working_tree_sha256": "68ba4a86ac160c550f84ae78f3d46fb3506a425d7261ef53aa6ca66ac01747ab"
     },
     {
       "mode": "100644",
-      "git_object_id": "1267312386f7ee5da6e0926f9cf040d15987dce4",
+      "git_object_id": "cf537b21de666517f9d5a756877b6b937dd57a44",
       "path": "docs/reproduction_report.md",
       "category": "documentation",
-      "bytes": 16222,
-      "working_tree_sha256": "93e6f12c571ef8cbc5a1985f31d490e649213f7e444ba13ab929109c531d6a3e"
+      "bytes": 17064,
+      "working_tree_sha256": "9d9dd07e765c5021e44eff74f3afcf84381709f1224d89e2d8c540911d17473b"
     },
     {
       "mode": "100644",
-      "git_object_id": "3eba9b09f3949568311ac1dbc99adf3dcb889ec8",
+      "git_object_id": "dd93197df9ec91db6c88634e7a8bd9fd203ecfb4",
       "path": "logs/experiment_log.md",
       "category": "experiment_log",
-      "bytes": 106676,
-      "working_tree_sha256": "29ded9de13512c7aa6b1e2932dd777cfe50184058a7a304c8721946121baed47"
+      "bytes": 110204,
+      "working_tree_sha256": "c42bb276007e6f5fb876f782554017cc954d47c1b1963f4670effb383672d858"
     },
     {
       "mode": "100644",
-      "git_object_id": "eab754da16a59d9b203a815fa1781eac8b146faf",
+      "git_object_id": "7b0ad8e75be65e38b49471d6b1e5731aae9d3593",
       "path": "logs/experiment_registry.csv",
       "category": "experiment_log",
-      "bytes": 15476,
-      "working_tree_sha256": "5424ace1438d0208efac4e7b08a0f14b924a5e0984cc6bd3724459857fdaee01"
+      "bytes": 15869,
+      "working_tree_sha256": "349a21f27f9780b4e37786d93bb9d6c66f6885932a75f2dc01db966d08f14ff5"
     }
   ],
   "files": [
@@ -224,11 +224,107 @@
     },
     {
       "mode": "100644",
-      "git_object_id": "c8861d82c32ea4601fd439d36eed3d5f9771b434",
+      "git_object_id": "f7e62a6446b62b31a342ea730b0d675aa4812247",
       "path": "conf/full_paper_matrix.yaml",
       "category": "configuration",
-      "bytes": 24618,
-      "working_tree_sha256": "147cd9c9ccb0164d20124169e4dae0b13985713a002a6e4c139404c7fff74c70"
+      "bytes": 26304,
+      "working_tree_sha256": "08133491a91eab41b0230602fe701f5a916e779393265be19432b3393dfd2a45"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "1a97eb36595eff6a987f95b8dcc2b0e8ff015da6",
+      "path": "conf/modern_aci/commands/_modern_full_file_view.sh",
+      "category": "configuration",
+      "bytes": 213,
+      "working_tree_sha256": "9a321bcabd631414e994aa3e7062ed120a5ef76b7e57b76d05dcf2a0a1478cb7"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "bb282aafafe04aa3bf190a95b0a0e335d294b8bc",
+      "path": "conf/modern_aci/commands/modern_edit_without_linting.sh",
+      "category": "configuration",
+      "bytes": 1992,
+      "working_tree_sha256": "c1024157d062dc1273ed8322f3e34be9d0d9a4abdf712957f25359f0d18e9a3a"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "a431875260917baaa82e2d31fd9734b44296b003",
+      "path": "conf/modern_aci/commands/modern_iterative_search.sh",
+      "category": "configuration",
+      "bytes": 5957,
+      "working_tree_sha256": "d1169d3ddd7ba2e30741816cd97d4efb6561dabe5fd389ddeb7a855cbcb5bcd0"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "3f260e08aa8406516ebaf8b2639d4cb6f15782b0",
+      "path": "conf/modern_aci/generated/edit_without_linting.yaml",
+      "category": "configuration",
+      "bytes": 6751,
+      "working_tree_sha256": "a4e15dc85604f5b7c1a40097bd05865c81a940001988cc5c9c5b2d62d06d1ed3"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "8b6388ff0f613edfb011c0fa4f0cf7ac2f86308a",
+      "path": "conf/modern_aci/generated/full_file.yaml",
+      "category": "configuration",
+      "bytes": 6769,
+      "working_tree_sha256": "be6f7e648f112c724cbff44048c884ba384668e1204412cf92b0cddd5f8c6f0a"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "43e68044d9891479a9343db393f294702cbd2822",
+      "path": "conf/modern_aci/generated/full_history.yaml",
+      "category": "configuration",
+      "bytes": 6734,
+      "working_tree_sha256": "a22a3e238fa3bacde9d1c29936d731a730db25f9a9c94366d48277333d0c518f"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "f991ea804ca663a53d68b563d71b92ab1277faac",
+      "path": "conf/modern_aci/generated/iterative_search.yaml",
+      "category": "configuration",
+      "bytes": 6749,
+      "working_tree_sha256": "959d1748127425ea385c39788f264e3f9aef369004f99716c662e5c73218f354"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "0439383db58bf4988afb328de3c3397516c04c42",
+      "path": "conf/modern_aci/generated/no_demonstration.yaml",
+      "category": "configuration",
+      "bytes": 6560,
+      "working_tree_sha256": "a670b30e087f95448a9d86bd0c928dc8b5626fa76a2160da1822743655f1b771"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "64b9bfaa5a16b187731a70af02801081f7229347",
+      "path": "conf/modern_aci/generated/no_edit.yaml",
+      "category": "configuration",
+      "bytes": 6689,
+      "working_tree_sha256": "4e8dd9eac8ac632bc5c994ece60753a92262133ee72e4f9a09ed2a51c1ad5948"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "b274307563ee9255fbc8af0f9f0e3a4d87d3cd1e",
+      "path": "conf/modern_aci/generated/no_search.yaml",
+      "category": "configuration",
+      "bytes": 6697,
+      "working_tree_sha256": "706166d22fd2375bf488da16cbce22769ff0cb25c34e815e58c9c03fd40941d9"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "7b73447dffc38b9ff03fc1005fd39ebceb68f8f4",
+      "path": "conf/modern_aci/generated/window_30.yaml",
+      "category": "configuration",
+      "bytes": 6724,
+      "working_tree_sha256": "b276625b7aa0044341c24f8dd1161d72692ca29963c51ed3420cc5ab3d112ee4"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "5f683d567d6cace3ab01455ee082ca664413865b",
+      "path": "conf/modern_aci/variants.yaml",
+      "category": "configuration",
+      "bytes": 6400,
+      "working_tree_sha256": "ce3618d4ef92bb0bc8d5993b1023368b00fc9958f9961eace322905a608b90eb"
     },
     {
       "mode": "100644",
@@ -256,11 +352,11 @@
     },
     {
       "mode": "100644",
-      "git_object_id": "342e2b78f7a6b47219a794cb540df0ffb14a2c93",
+      "git_object_id": "1b81f287ae0276611b6f1a1e768e3f17e9eb0bf2",
       "path": "conf/study.yaml",
       "category": "configuration",
-      "bytes": 4471,
-      "working_tree_sha256": "e5b4152e9802c82e0c7388dbb23239ed77731411b34061331804dc6618c1ad52"
+      "bytes": 5093,
+      "working_tree_sha256": "ca426eab1d275e60ba83beb2ccb4c9e52e54c22471a567bda6254d74a50aaee9"
     },
     {
       "mode": "100644",
@@ -536,19 +632,43 @@
     },
     {
       "mode": "100644",
-      "git_object_id": "9d947b06400cde0aa98c95d7a64e91e71ee610de",
+      "git_object_id": "bbfcaff01f64d74cedd75958eac7221be688aff3",
       "path": "data/manifests/full_reproduction_coverage.json",
       "category": "data",
       "bytes": 58943,
-      "working_tree_sha256": "e41238e961e2cc5905df2dcdafb144dc72f08e0674663420a443b7ea90c66ccc"
+      "working_tree_sha256": "65baf94b8679c9e06d6116930c58cd55275436c806d5db5204a80a07134d2ad3"
     },
     {
       "mode": "100644",
-      "git_object_id": "34f6d58ebe0c41401dcefd5f6fadeb9330b88d64",
+      "git_object_id": "f11bbf7ec54d6e3f7f7012347c5c77acecb3171d",
+      "path": "data/manifests/modern_aci_dev20_pairing.json",
+      "category": "data",
+      "bytes": 98982,
+      "working_tree_sha256": "afbe6889d097cb9d437b9797da33937792ffcee688246c35a7c3cdd415d74ced"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "a959e3e426754045fd7d5c56516476aa88d85038",
+      "path": "data/manifests/modern_aci_runtime_validation.json",
+      "category": "data",
+      "bytes": 6462,
+      "working_tree_sha256": "ce2071a52015ff520ad10457451a7db271962d9d956370453d0662dd690dde50"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "fabe2cc391147a477557f3be9f6ec898840f5905",
+      "path": "data/manifests/modern_aci_variant_validation.json",
+      "category": "data",
+      "bytes": 12597,
+      "working_tree_sha256": "71a6af8054744c17c271f19771553492aab382b45fa21ab7518a117a266f76e0"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "a711fc4bc1585cf182dc5c546047df7200693566",
       "path": "data/manifests/modern_dev20_baseline_analysis.json",
       "category": "data",
       "bytes": 47365,
-      "working_tree_sha256": "9b41956b3f56d80da0511c5209b2bc3acb68edcbc12c1fa724cae0999268fa3d"
+      "working_tree_sha256": "68ba4a86ac160c550f84ae78f3d46fb3506a425d7261ef53aa6ca66ac01747ab"
     },
     {
       "mode": "100644",
@@ -656,6 +776,14 @@
     },
     {
       "mode": "100644",
+      "git_object_id": "a3066af0b599ae9b1f0db5df4fb193918cdc1f51",
+      "path": "data/manifests/reproduction_evidence_index.json",
+      "category": "data",
+      "bytes": 49804,
+      "working_tree_sha256": "e2e3794475cd52f0b9f411894c611105e77ad992243a5dda076234785a374816"
+    },
+    {
+      "mode": "100644",
       "git_object_id": "e46b385111b0c7c13b2a2187ee03c372a7dd4b1a",
       "path": "data/manifests/requests_offhost_redirect_validation.json",
       "category": "data",
@@ -728,11 +856,11 @@
     },
     {
       "mode": "100644",
-      "git_object_id": "59d885028789ab4b79bec1542fa4bbdbe0aca84b",
+      "git_object_id": "40f4ad180d462082bc647becc10d1815cbf1acba",
       "path": "docs/full_paper_reproduction_plan.md",
       "category": "documentation",
-      "bytes": 27364,
-      "working_tree_sha256": "aa64a18d3ce4dbc24cebc9ae287742b67ca1a2bca604267ff02fa3c31b1fb7ce"
+      "bytes": 28775,
+      "working_tree_sha256": "35c2b116e917f85f3492e91306b6cde9c1ee45a506ef6b1aa9c862f12745ebc3"
     },
     {
       "mode": "100644",
@@ -752,11 +880,19 @@
     },
     {
       "mode": "100644",
-      "git_object_id": "8c3dab6176350085af9fd676a225ca64168576f5",
+      "git_object_id": "9a634114e9d2028794fc2d2de82fb6985ae2f6af",
+      "path": "docs/modern_aci_reconstruction.md",
+      "category": "documentation",
+      "bytes": 8460,
+      "working_tree_sha256": "75fc65d0b8a9b9bfd9eca2ba1ac43ca8a4944f47683d8c1c14cb8a7496a5aed6"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "c859d356c9e12d4809bde4b8f6f20c88a1f6bfc4",
       "path": "docs/modern_dev20_baseline_analysis.md",
       "category": "documentation",
-      "bytes": 2993,
-      "working_tree_sha256": "12b690ab7b9e2a027ae12a1d266a88970d7d7fc68a67f9279f1284c4b46661ba"
+      "bytes": 3108,
+      "working_tree_sha256": "40b8711f0c6da7a6f279f87b8872798e121fb7135c41bbe9e206ff8e5b0ec12b"
     },
     {
       "mode": "100644",
@@ -808,11 +944,11 @@
     },
     {
       "mode": "100644",
-      "git_object_id": "1267312386f7ee5da6e0926f9cf040d15987dce4",
+      "git_object_id": "cf537b21de666517f9d5a756877b6b937dd57a44",
       "path": "docs/reproduction_report.md",
       "category": "documentation",
-      "bytes": 16222,
-      "working_tree_sha256": "93e6f12c571ef8cbc5a1985f31d490e649213f7e444ba13ab929109c531d6a3e"
+      "bytes": 17064,
+      "working_tree_sha256": "9d9dd07e765c5021e44eff74f3afcf84381709f1224d89e2d8c540911d17473b"
     },
     {
       "mode": "100644",
@@ -856,19 +992,19 @@
     },
     {
       "mode": "100644",
-      "git_object_id": "3eba9b09f3949568311ac1dbc99adf3dcb889ec8",
+      "git_object_id": "dd93197df9ec91db6c88634e7a8bd9fd203ecfb4",
       "path": "logs/experiment_log.md",
       "category": "experiment_log",
-      "bytes": 106676,
-      "working_tree_sha256": "29ded9de13512c7aa6b1e2932dd777cfe50184058a7a304c8721946121baed47"
+      "bytes": 110204,
+      "working_tree_sha256": "c42bb276007e6f5fb876f782554017cc954d47c1b1963f4670effb383672d858"
     },
     {
       "mode": "100644",
-      "git_object_id": "eab754da16a59d9b203a815fa1781eac8b146faf",
+      "git_object_id": "7b0ad8e75be65e38b49471d6b1e5731aae9d3593",
       "path": "logs/experiment_registry.csv",
       "category": "experiment_log",
-      "bytes": 15476,
-      "working_tree_sha256": "5424ace1438d0208efac4e7b08a0f14b924a5e0984cc6bd3724459857fdaee01"
+      "bytes": 15869,
+      "working_tree_sha256": "349a21f27f9780b4e37786d93bb9d6c66f6885932a75f2dc01db966d08f14ff5"
     },
     {
       "mode": "100644",
@@ -1016,11 +1152,11 @@
     },
     {
       "mode": "100644",
-      "git_object_id": "ebaec13f1493677b36ae6e009deb29163c52f721",
+      "git_object_id": "9bbea69cf1ec335ba59bad6d244dd8ae1676a34d",
       "path": "scripts/analyze_modern_dev20_baseline.py",
       "category": "script",
-      "bytes": 18923,
-      "working_tree_sha256": "1b2d29697bb90a9fefef07d96706db49eeb5a6b1cace0ff303e13cd0d70ac3d7"
+      "bytes": 19038,
+      "working_tree_sha256": "794eb89af1e01184e58c9e76d0f4dd1ec53b6a80ecfa5f3752fd76cf9b6ccbb1"
     },
     {
       "mode": "100644",
@@ -1061,6 +1197,14 @@
       "category": "script",
       "bytes": 1079,
       "working_tree_sha256": "c97f73a7313c0530438e271048a33bcd96391d56c502ed6236d179683acc6d57"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "89dda2ddb4330112d298416c519129eff92ca2dd",
+      "path": "scripts/materialize_modern_aci_variants.py",
+      "category": "script",
+      "bytes": 21736,
+      "working_tree_sha256": "6c640811f43f700b3ae306da9856d9a76342fbc531d1cbfa1e8f986048e6ef28"
     },
     {
       "mode": "100644",
@@ -1168,11 +1312,11 @@
     },
     {
       "mode": "100755",
-      "git_object_id": "3007df21523442836c2a5090f47782558ac605cf",
+      "git_object_id": "e60f914fcdd48cf940dded1ae03b2d2912d4a811",
       "path": "scripts/run_local_api_instance.sh",
       "category": "script",
-      "bytes": 3869,
-      "working_tree_sha256": "42ba2daa01e6c185a57d7d004a153f2dd5eb1dcf896fd3fee63e44f5c8eb401a"
+      "bytes": 5655,
+      "working_tree_sha256": "745c9c0785107b2b319669b83b7d6e82e73947bd171206dd666fec9e33537d68"
     },
     {
       "mode": "100755",
@@ -1181,6 +1325,14 @@
       "category": "script",
       "bytes": 10335,
       "working_tree_sha256": "f0a9293d437bb4b3a118e9c0896c106c5d1f5a72faa6662ab9a59eb7052692da"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "400d88d5fd74c9e501a1035449cb1ed2e59d6b53",
+      "path": "scripts/run_modern_aci_batch.sh",
+      "category": "script",
+      "bytes": 4347,
+      "working_tree_sha256": "e61fa02520b109d0f609a7810f85d0d1427cf2f702b394d89c81766900069c1f"
     },
     {
       "mode": "100755",
@@ -1216,11 +1368,27 @@
     },
     {
       "mode": "100644",
-      "git_object_id": "0939d6c7bbc383bb3b4b9eee2de9f83c7dedeb47",
+      "git_object_id": "bcbe0d0dfa6ca2ce95d49cd3b7ceb66a261d6412",
       "path": "scripts/validate_full_reproduction_plan.py",
       "category": "script",
-      "bytes": 21109,
-      "working_tree_sha256": "a8470ae50f5eff919dbbe79d1a60e0128cb11794c00806e3ce8727bece06d409"
+      "bytes": 27776,
+      "working_tree_sha256": "adffd7cb3bc839b4953bb8a9aef2c9d9605dbc6bbd0f8ecdb7e92acc77ab9baf"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "430f50aeda5b9d051a545e76accbb10a73e5ed47",
+      "path": "scripts/validate_modern_aci_runtime.py",
+      "category": "script",
+      "bytes": 8537,
+      "working_tree_sha256": "a6d5f9c4e5d403ff5a659041ee2814af58b250cb02f74df7cca07028f89b709d"
+    },
+    {
+      "mode": "100644",
+      "git_object_id": "4f10a03e7e668aa163b22e3f74011bff6eb464b4",
+      "path": "scripts/validate_modern_aci_runtime.sh",
+      "category": "script",
+      "bytes": 1234,
+      "working_tree_sha256": "c4739d4758a77107a5626cd2e95fadbce4a28542c8d5f23e209a4146c0f792e4"
     },
     {
       "mode": "100644",
@@ -1240,6 +1408,14 @@
     }
   ],
   "recent_commits": [
+    {
+      "commit": "4c4848be8fe10b9124990436658263186635442b",
+      "subject": "feat(experiments): prepare modern ACI ablations"
+    },
+    {
+      "commit": "98fc1740f95df2e080dbaa5e7a370e292442c03e",
+      "subject": "chore(research): freeze reproduction evidence index"
+    },
     {
       "commit": "ab523647da6d01ab462070c490b89b9651c04ce4",
       "subject": "docs(research): publish comprehensive reproduction report"
@@ -1311,14 +1487,6 @@
     {
       "commit": "e597e6de788e1b58441f44788678d0852c968c28",
       "subject": "feat(evaluation): replay official paper reports"
-    },
-    {
-      "commit": "249c0b2eabc9fdb927e7e35c0c24e85e100476d6",
-      "subject": "feat(analysis): recover paper aggregate results"
-    },
-    {
-      "commit": "0a01a54981e0312a796764bf54d34fc1f4dd7eff",
-      "subject": "feat(analysis): reproduce official artifact results"
     }
   ]
 }
