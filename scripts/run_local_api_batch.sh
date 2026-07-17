@@ -10,6 +10,7 @@ max_api_calls="${5:-25}"
 eval_python="${HOME}/.venvs/swebench-paper-eval/bin/python"
 eval_testbed="${SWE_AGENT_EVAL_TESTBED:-${HOME}/sb}"
 nonretry_manifest="${repo_root}/data/manifests/nonretry_after_model_response.json"
+zero_response_retry_manifest="${repo_root}/data/manifests/zero_model_response_retries.json"
 
 if [[ ! -f "${manifest}" ]]; then
   echo "Manifest not found: ${manifest}" >&2
@@ -73,6 +74,24 @@ PY
   fi
 
   run_id="${batch_id}_${instance_id//__/_}"
+  if [[ -f "${zero_response_retry_manifest}" ]]; then
+    retry_run_id="$("${eval_python}" - "${zero_response_retry_manifest}" "${batch_id}" "${instance_id}" <<'PY'
+import json
+import sys
+
+with open(sys.argv[1], encoding="utf-8") as handle:
+    entries = json.load(handle).get("entries", [])
+for entry in entries:
+    if entry.get("batch_id") == sys.argv[2] and entry.get("instance_id") == sys.argv[3]:
+        print(entry["retry_run_id"])
+        break
+PY
+)"
+    if [[ -n "${retry_run_id}" ]]; then
+      run_id="${retry_run_id}"
+      echo "authorized_zero_model_response_retry=${instance_id} run_id=${run_id}"
+    fi
+  fi
   trace_root="${repo_root}/outputs/traces/${run_id}"
   if ! find "${trace_root}" -maxdepth 1 -name '*.traj' -print -quit 2>/dev/null | grep -q .; then
     SWE_AGENT_MAX_API_CALLS="${max_api_calls}" \

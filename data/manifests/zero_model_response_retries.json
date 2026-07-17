@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "batch_id": "bounded_r1_edit_without_linting",
+      "instance_id": "pyvista__pyvista-4315",
+      "original_run_id": "bounded_r1_edit_without_linting_pyvista_pyvista-4315",
+      "retry_run_id": "bounded_r1_edit_without_linting_pyvista_pyvista-4315_attempt_2",
+      "classification": "ZERO_MODEL_RESPONSE_INFRASTRUCTURE_FAILURE",
+      "date": "2026-07-17",
+      "reason": "The environment setup command apt update timed out while reading subprocess output. No model response, trajectory, prediction, or evaluator scorecard was produced. The frozen protocol permits one retained-attempt retry."
+    }
+  ]
+}

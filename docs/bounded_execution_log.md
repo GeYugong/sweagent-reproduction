@@ -48,3 +48,13 @@
 该实例完成环境准备后已获得并持久化 20 次模型响应。随后 agent 容器在 trajectory、prediction 和 evaluator 评分卡生成前退出；运行器报告 Docker exec 的 `409 Conflict`（目标容器不再运行）。因此该尝试不属于零模型响应失败。
 
 冻结规则只允许对“零模型响应或未产生模型结果”的基础设施失败进行一次重试。为保证不将已经发生的模型交互重采样，该实例被标记为 `MODEL_RESPONSE_INFRASTRUCTURE_FAILURE_NO_RETRY`，并写入 `data/manifests/nonretry_after_model_response.json`。批处理脚本会跳过该标记项，使恢复执行不会隐式重跑；该项在最终汇总中与已评分项分开报告，不计作已解决实例。
+
+## R1 / 零模型响应环境超时：授权保留尝试的恢复
+
+- 执行日期：2026-07-17
+- 配置与实例：`edit_without_linting` / `pyvista__pyvista-4315`
+- 原始运行标识：`bounded_r1_edit_without_linting_pyvista_pyvista-4315`
+
+原始运行完成仓库克隆后，在实例环境脚本的 `apt update` 步骤等待外部软件源。运行器记录 `Timeout reached while reading from subprocess`，并列出仍在运行的 `apt` 与 `http` 子进程；随后按运行器的环境关闭路径停止容器。该尝试没有模型响应、trajectory、prediction 或 evaluator scorecard。
+
+因此该事件被分类为 `ZERO_MODEL_RESPONSE_INFRASTRUCTURE_FAILURE`。根据冻结协议，唯一的恢复运行获授权并使用独立标识 `bounded_r1_edit_without_linting_pyvista_pyvista-4315_attempt_2`，使原始失败日志保留且不会覆盖。授权记录位于 `data/manifests/zero_model_response_retries.json`；成功评分后不得再次重试。
