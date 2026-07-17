@@ -67,6 +67,12 @@ modern_replication:
   relay_pricing: unknown
   accounting: tokens_and_api_calls
   max_api_calls_per_instance: 25
+  baseline_run_map: conf/modern_dev20_baseline_runs.yaml
+  baseline_analysis: data/manifests/modern_dev20_baseline_analysis.json
+  baseline_status: complete_statistics_with_one_usage_persistence_gap
+  baseline_resolved: 4
+  baseline_instances: 20
+  paired_aci_ablations_complete: false
 
 exploratory_combined_ablation:
   variant: custom_no_search_plus_no_editor

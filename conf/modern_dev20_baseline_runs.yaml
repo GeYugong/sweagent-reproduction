@@ -1,0 +1,46 @@
+schema_version: 1
+as_of: "2026-07-17"
+evidence: modern
+status: FROZEN_COMPLETED_BASELINE
+model: gpt-5.6-terra
+api_style: chat_completions
+temperature: 0.0
+top_p: 0.95
+max_api_calls_per_instance: 25
+sweagent_revision: 658eb2842e8a8b00069b301338bc342b70538f7a
+dataset: princeton-nlp/SWE-bench_Lite
+dataset_revision: 6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2
+split: dev
+selection_manifest: data/manifests/swebench_lite_dev20_seed42.json
+trace_root: outputs/traces
+expected_instances: 20
+direct_comparison_to_paper_test_rate_allowed: false
+include_in_modern_replication_completion: false
+pricing_status: UNKNOWN
+known_persistence_gaps:
+  - instance_id: sqlfluff__sqlfluff-1763
+    missing: [args.yaml, run_manifest.txt, final_api_response_usage]
+    persisted_api_calls: 24
+    resource_audited_api_calls: 25
+    effect: Token totals are lower bounds; the missing final format-retry response did not produce a prediction.
+runs:
+  - {run_id: EXP-DEV20-001, instance_id: marshmallow-code__marshmallow-1343, run_directory: dev20_baseline_marshmallow-code_marshmallow-1343}
+  - {run_id: EXP-DEV20-002, instance_id: marshmallow-code__marshmallow-1359, run_directory: dev20_baseline_marshmallow-code_marshmallow-1359}
+  - {run_id: EXP-DEV20-003, instance_id: pvlib__pvlib-python-1154, run_directory: dev20_baseline_pvlib_pvlib-python-1154}
+  - {run_id: EXP-DEV20-004, instance_id: pvlib__pvlib-python-1606, run_directory: dev20_baseline_pvlib_pvlib-python-1606}
+  - {run_id: EXP-DEV20-005, instance_id: pvlib__pvlib-python-1707, run_directory: dev20_baseline_pvlib_pvlib-python-1707}
+  - {run_id: EXP-DEV20-006, instance_id: pvlib__pvlib-python-1854, run_directory: dev20_baseline_pvlib_pvlib-python-1854}
+  - {run_id: EXP-DEV20-007, instance_id: pydicom__pydicom-1139, run_directory: dev20_baseline_pydicom_pydicom-1139}
+  - {run_id: EXP-DEV20-008, instance_id: pydicom__pydicom-1256, run_directory: dev20_baseline_pydicom_pydicom-1256}
+  - {run_id: EXP-DEV20-009, instance_id: pydicom__pydicom-1413, run_directory: dev20_baseline_pydicom_pydicom-1413}
+  - {run_id: EXP-DEV20-010, instance_id: pydicom__pydicom-1694, run_directory: dev20_baseline_pydicom_pydicom-1694}
+  - {run_id: EXP-DEV20-011, instance_id: pydicom__pydicom-901, run_directory: dev20_baseline_pydicom_pydicom-901}
+  - {run_id: EXP-DEV20-012, instance_id: pylint-dev__astroid-1196, run_directory: dev20_baseline_pylint-dev_astroid-1196}
+  - {run_id: EXP-DEV20-013, instance_id: pylint-dev__astroid-1268, run_directory: dev20_baseline_pylint-dev_astroid-1268}
+  - {run_id: EXP-DEV20-014, instance_id: pylint-dev__astroid-1333, run_directory: dev20_baseline_pylint-dev_astroid-1333}
+  - {run_id: EXP-DEV20-015, instance_id: pyvista__pyvista-4315, run_directory: dev20_baseline_pyvista_pyvista-4315}
+  - {run_id: EXP-DEV20-016, instance_id: sqlfluff__sqlfluff-1517, run_directory: dev20_baseline_sqlfluff_sqlfluff-1517}
+  - {run_id: EXP-API-BASELINE-001, instance_id: sqlfluff__sqlfluff-1625, run_directory: exp_api_baseline_001}
+  - {run_id: EXP-DEV20-017, instance_id: sqlfluff__sqlfluff-1733, run_directory: dev20_baseline_sqlfluff_sqlfluff-1733}
+  - {run_id: EXP-DEV20-018, instance_id: sqlfluff__sqlfluff-1763, run_directory: dev20_baseline_sqlfluff_sqlfluff-1763}
+  - {run_id: EXP-DEV20-019, instance_id: sqlfluff__sqlfluff-2419, run_directory: dev20_baseline_sqlfluff_sqlfluff-2419}

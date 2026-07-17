@@ -1,0 +1,1275 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-07-17",
+  "generated_at_utc": "2026-07-17T01:17:30.999240+00:00",
+  "status": "COMPLETE_BASELINE_STATISTICS_WITH_ONE_USAGE_PERSISTENCE_GAP",
+  "evidence": "modern",
+  "model": "gpt-5.6-terra",
+  "api_style": "chat_completions",
+  "paper_alignment": {
+    "sweagent_revision": "658eb2842e8a8b00069b301338bc342b70538f7a",
+    "temperature": 0.0,
+    "top_p": 0.95,
+    "dataset": "princeton-nlp/SWE-bench_Lite",
+    "dataset_revision": "6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2",
+    "split": "dev",
+    "direct_comparison_to_paper_test_rate_allowed": false
+  },
+  "inputs": {
+    "run_map": {
+      "path": "conf/modern_dev20_baseline_runs.yaml",
+      "bytes": 3345,
+      "sha256": "ef0e37baaf306b611a6b9b5c5ab88e2bc09039f480801c018e924ee6e9fa3d02"
+    },
+    "selection_manifest": {
+      "path": "data/manifests/swebench_lite_dev20_seed42.json",
+      "bytes": 1103,
+      "sha256": "53c912aa9410161c5ec841fa0828ca4da79d3e7525dbd8d6f5beb95ed7452cb4"
+    }
+  },
+  "known_persistence_gaps": [
+    {
+      "instance_id": "sqlfluff__sqlfluff-1763",
+      "missing": [
+        "args.yaml",
+        "run_manifest.txt",
+        "final_api_response_usage"
+      ],
+      "persisted_api_calls": 24,
+      "resource_audited_api_calls": 25,
+      "effect": "Token totals are lower bounds; the missing final format-retry response did not produce a prediction."
+    }
+  ],
+  "observations": [
+    {
+      "run_id": "EXP-DEV20-001",
+      "instance_id": "marshmallow-code__marshmallow-1343",
+      "repository": "marshmallow-code",
+      "run_directory": "dev20_baseline_marshmallow-code_marshmallow-1343",
+      "scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "outcome": "RESOLVED_FULL",
+      "resolved": true,
+      "generated": true,
+      "applied": true,
+      "exit_status": "submitted",
+      "persisted_api_calls": 22,
+      "persisted_input_tokens": 243975,
+      "persisted_output_tokens": 2750,
+      "patch_file_count": 2,
+      "patch_lines_add": 17,
+      "patch_lines_del": 1,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_marshmallow-code_marshmallow-1343/scorecards.json",
+          "bytes": 3127,
+          "sha256": "4e983f09614d52aecee4e8dacaa9a855462f8b7fa419c206165361f89ea53f4f"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_marshmallow-code_marshmallow-1343/marshmallow-code__marshmallow-1343.traj",
+          "bytes": 174564,
+          "sha256": "7c80f78616fde7b0d225bdc3b579a94c998acb81a385fde381e3d71899666eb3"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_marshmallow-code_marshmallow-1343/all_preds.jsonl",
+          "bytes": 1951,
+          "sha256": "4fa63194fa0259511d14297098386cda9232eab2eb5fd524e1fdd53286939b2a"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_marshmallow-code_marshmallow-1343/results.json",
+          "bytes": 355,
+          "sha256": "f3c5c2a9d5ab2ffe7c83de540cb4165b2db86d47ed2484b6a7a2314bb78832ed"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_marshmallow-code_marshmallow-1343/run_manifest.txt",
+          "bytes": 167,
+          "sha256": "09855ac88bcafc876897952c7e1006785722e03041dac5f324f1ba60763a1a09"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_marshmallow-code_marshmallow-1343/args.yaml",
+          "bytes": 30939,
+          "sha256": "8ef6622c6e6fdd0ca41e7f00774b7438dc03bea1475b754e4115878634708d56"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-002",
+      "instance_id": "marshmallow-code__marshmallow-1359",
+      "repository": "marshmallow-code",
+      "run_directory": "dev20_baseline_marshmallow-code_marshmallow-1359",
+      "scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "outcome": "RESOLVED_FULL",
+      "resolved": true,
+      "generated": true,
+      "applied": true,
+      "exit_status": "submitted",
+      "persisted_api_calls": 23,
+      "persisted_input_tokens": 299097,
+      "persisted_output_tokens": 5405,
+      "patch_file_count": 2,
+      "patch_lines_add": 21,
+      "patch_lines_del": 1,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_marshmallow-code_marshmallow-1359/scorecards.json",
+          "bytes": 8384,
+          "sha256": "65188cbc3c9d25d39c1f789d8f119b870ccf5b56456185a49e12a63e6fd9e8fe"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_marshmallow-code_marshmallow-1359/marshmallow-code__marshmallow-1359.traj",
+          "bytes": 351044,
+          "sha256": "f4a0dc60f70c69831e0741209a0d40126098020753ddd9c788b9b708567fcee8"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_marshmallow-code_marshmallow-1359/all_preds.jsonl",
+          "bytes": 1756,
+          "sha256": "f81adf2cd15ca60772d211db25c5d3c59dc15d367bb481a63daed8658fcf4e2f"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_marshmallow-code_marshmallow-1359/results.json",
+          "bytes": 355,
+          "sha256": "04b39e5b36e9ac057a9c383c3089ea37453ead848db1f8266ca8da673ba5d3da"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_marshmallow-code_marshmallow-1359/run_manifest.txt",
+          "bytes": 167,
+          "sha256": "2b6a3aade8898f3ddb21941c6b039fb2e50f9c60ca323b59d1fe40c7e75dc778"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_marshmallow-code_marshmallow-1359/args.yaml",
+          "bytes": 30939,
+          "sha256": "abed8326b9c46353cbae9ebc6ab464fc424149e070e15fe8903fce9fb0117325"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-003",
+      "instance_id": "pvlib__pvlib-python-1154",
+      "repository": "pvlib",
+      "run_directory": "dev20_baseline_pvlib_pvlib-python-1154",
+      "scorecard_statuses": [
+        "generated"
+      ],
+      "outcome": "PATCH_APPLY_FAILED",
+      "resolved": false,
+      "generated": true,
+      "applied": false,
+      "exit_status": "submitted",
+      "persisted_api_calls": 23,
+      "persisted_input_tokens": 363417,
+      "persisted_output_tokens": 5377,
+      "patch_file_count": 0,
+      "patch_lines_add": 0,
+      "patch_lines_del": 0,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1154/scorecards.json",
+          "bytes": 418,
+          "sha256": "881fbc1bb33ee4267847d6d4b4f1563b6c5ad6cf203d3503d5cdae8893d40245"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1154/pvlib__pvlib-python-1154.traj",
+          "bytes": 149000,
+          "sha256": "a4b80b978f49102b6aa3e5ea7bbf2874bd7bb98afef3d0a0e8344edb3590c5e2"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1154/all_preds.jsonl",
+          "bytes": 1548,
+          "sha256": "31bfd19d40b1076acd85390deea0207c06ee20fc0403af8978f5d0cb374e0b3b"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1154/results.json",
+          "bytes": 229,
+          "sha256": "548026e8dfbc1aa4485fceb78cf79213b2110e36372fc63e89a1b46d4bc3877b"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1154/run_manifest.txt",
+          "bytes": 147,
+          "sha256": "e668c7ba08ab109454088ed5098fc99ecd4e1734506e94dbeeb397f9ef94edc2"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1154/args.yaml",
+          "bytes": 30919,
+          "sha256": "b57bfd676c07498e50e4a7790d2c0f2ba6ecccc859c790dca7ccb18b834701d9"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-004",
+      "instance_id": "pvlib__pvlib-python-1606",
+      "repository": "pvlib",
+      "run_directory": "dev20_baseline_pvlib_pvlib-python-1606",
+      "scorecard_statuses": [
+        "not_generated"
+      ],
+      "outcome": "NOT_GENERATED",
+      "resolved": false,
+      "generated": false,
+      "applied": false,
+      "exit_status": "exit_format",
+      "persisted_api_calls": 4,
+      "persisted_input_tokens": 55879,
+      "persisted_output_tokens": 632,
+      "patch_file_count": 0,
+      "patch_lines_add": 0,
+      "patch_lines_del": 0,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1606/scorecards.json",
+          "bytes": 267,
+          "sha256": "1cbb115cf2b41d65617fb5a0551736f098a3627821c741325292916271ec5fb2"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1606/pvlib__pvlib-python-1606.traj",
+          "bytes": 36472,
+          "sha256": "d4125d79a4bf625ec85841055871ba18e4cc4781e4fd65a4cab78be312b09166"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1606/all_preds.jsonl",
+          "bytes": 204,
+          "sha256": "278cabb08a1157fe8f93b2a83c83c29cdb915c661ba5b4983ee0576a019a347e"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1606/results.json",
+          "bytes": 191,
+          "sha256": "60aef38760522bdbeb3504115101ca429b7c3a91ca91b2f278fedbddd3c9af24"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1606/run_manifest.txt",
+          "bytes": 147,
+          "sha256": "2df8993884c42d212cfc5ad7046f02f8e8d660c7a8ca0b233bef1565f665180e"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1606/args.yaml",
+          "bytes": 30919,
+          "sha256": "b094334b8799319a640122d76df2c79561dfcd638759c48626a956602e7ce09b"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-005",
+      "instance_id": "pvlib__pvlib-python-1707",
+      "repository": "pvlib",
+      "run_directory": "dev20_baseline_pvlib_pvlib-python-1707",
+      "scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "outcome": "RESOLVED_FULL",
+      "resolved": true,
+      "generated": true,
+      "applied": true,
+      "exit_status": "submitted",
+      "persisted_api_calls": 21,
+      "persisted_input_tokens": 361753,
+      "persisted_output_tokens": 4612,
+      "patch_file_count": 2,
+      "patch_lines_add": 5,
+      "patch_lines_del": 0,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1707/scorecards.json",
+          "bytes": 2980,
+          "sha256": "7302fb8930bbf7be3973da90a794f4116a9e408e1ea9dc20abf6492334355d40"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1707/pvlib__pvlib-python-1707.traj",
+          "bytes": 164864,
+          "sha256": "c010e27599b6d0f9cb06644d2ab3ffcc00152b3be03af1fedc049b07da3bb92c"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1707/all_preds.jsonl",
+          "bytes": 1098,
+          "sha256": "874904f763ab70bb5daa5b0e528e1c2d2b43fe3f717def19f67b27ec7c7378b7"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1707/results.json",
+          "bytes": 305,
+          "sha256": "d91afacc12c59b44deaad5e0966b373fa94f3bd2d51295cdfe3db221bcb1b6a8"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1707/run_manifest.txt",
+          "bytes": 147,
+          "sha256": "7f5c4c3745dc92ae269664337d78e07806ffa466af162a678124f693cf80a509"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1707/args.yaml",
+          "bytes": 30919,
+          "sha256": "735d6b2971e54abc0078fc53de9d9fedce1beb259ef1440bfcc62627af8c9270"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-006",
+      "instance_id": "pvlib__pvlib-python-1854",
+      "repository": "pvlib",
+      "run_directory": "dev20_baseline_pvlib_pvlib-python-1854",
+      "scorecard_statuses": [
+        "not_generated"
+      ],
+      "outcome": "NOT_GENERATED",
+      "resolved": false,
+      "generated": false,
+      "applied": false,
+      "exit_status": "exit_format",
+      "persisted_api_calls": 4,
+      "persisted_input_tokens": 51333,
+      "persisted_output_tokens": 1269,
+      "patch_file_count": 0,
+      "patch_lines_add": 0,
+      "patch_lines_del": 0,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1854/scorecards.json",
+          "bytes": 267,
+          "sha256": "6bf7a441ae0bcb7085c64a973b8acc0af6efb1fe89ee65728b02fa93b239a072"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1854/pvlib__pvlib-python-1854.traj",
+          "bytes": 32443,
+          "sha256": "09ea2f334e746ddcc63312abeab077b535767ca4250f72eb0937a6f41f855899"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1854/all_preds.jsonl",
+          "bytes": 204,
+          "sha256": "3997b5518f82d95e1d24d32b81b312bf64d8b4d42d366082c5671b2880d43fbf"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1854/results.json",
+          "bytes": 191,
+          "sha256": "114208d8f0c4cdcc46510357ebd6eadf4a3236197ada515a7ec392a4d970176f"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1854/run_manifest.txt",
+          "bytes": 147,
+          "sha256": "40b06b699de0c762087c4080d6b2aa99c4d7d2dbb8faba84f43400923e2947e8"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_pvlib_pvlib-python-1854/args.yaml",
+          "bytes": 30919,
+          "sha256": "8e400bfd9c01bfd55fad9928444cfefe5dc19a35f9c954f6d6f9ab36ecac7d24"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-007",
+      "instance_id": "pydicom__pydicom-1139",
+      "repository": "pydicom",
+      "run_directory": "dev20_baseline_pydicom_pydicom-1139",
+      "scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_PARTIAL"
+      ],
+      "outcome": "RESOLVED_PARTIAL",
+      "resolved": false,
+      "generated": true,
+      "applied": true,
+      "exit_status": "submitted",
+      "persisted_api_calls": 21,
+      "persisted_input_tokens": 353071,
+      "persisted_output_tokens": 2521,
+      "patch_file_count": 2,
+      "patch_lines_add": 8,
+      "patch_lines_del": 0,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1139/scorecards.json",
+          "bytes": 3949,
+          "sha256": "2108bec42844300010ed6824e0bdda4a43d68a5c41af4410977b65b499541e3d"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1139/pydicom__pydicom-1139.traj",
+          "bytes": 174085,
+          "sha256": "ddd9710e47787c7904666102a6d8a2a800c8aa29f949a5f9dd2be22728e24c32"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1139/all_preds.jsonl",
+          "bytes": 1208,
+          "sha256": "f28c8f5cd06369c4c8f305b5252c6397bd6dbbf6b99ecc5430fc9391a0fc5ba4"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1139/results.json",
+          "bytes": 255,
+          "sha256": "3625e1c52e0b5a04a54487248286b20219a3c657fa375b35836eb1c949df43e5"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1139/run_manifest.txt",
+          "bytes": 141,
+          "sha256": "ae82a3ae1088255b5eda23d48878efc4273125f66d5c4fea937336eccc1ac831"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1139/args.yaml",
+          "bytes": 30913,
+          "sha256": "225e512dbcd87a4035b36ca36c1ec853a692ff29c902e7b3be0be2f0b6157054"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-008",
+      "instance_id": "pydicom__pydicom-1256",
+      "repository": "pydicom",
+      "run_directory": "dev20_baseline_pydicom_pydicom-1256",
+      "scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_FULL"
+      ],
+      "outcome": "RESOLVED_FULL",
+      "resolved": true,
+      "generated": true,
+      "applied": true,
+      "exit_status": "submitted",
+      "persisted_api_calls": 21,
+      "persisted_input_tokens": 248681,
+      "persisted_output_tokens": 2580,
+      "patch_file_count": 2,
+      "patch_lines_add": 22,
+      "patch_lines_del": 1,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1256/scorecards.json",
+          "bytes": 2590,
+          "sha256": "aef55733e12f32b311b8ac12aade425f22aeb29acd26a27c7d64a3c02e546fad"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1256/pydicom__pydicom-1256.traj",
+          "bytes": 187378,
+          "sha256": "7e0f151f661b52a4a2e0a6bb5ddabbf0d4297b9aa879b5cf58b854b0c5a0ddff"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1256/all_preds.jsonl",
+          "bytes": 1869,
+          "sha256": "154cd0f57232c2101ab0c7d8404e0d0191049aab02ecef554839765ef0cc169b"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1256/results.json",
+          "bytes": 290,
+          "sha256": "a5670dc1132a43ed44c7aac11b5e3336d76a2d0fd978d4c58f30f13b85f5c99b"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1256/run_manifest.txt",
+          "bytes": 141,
+          "sha256": "ccc9a994cafe422942c28ade3cc08239da39ed76b5bc4394b4ec46885a0b4e1a"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1256/args.yaml",
+          "bytes": 30913,
+          "sha256": "4e6f8fd6a0a897b265ccddcadf74b692dc89b2426b5405ffd5306223f3cdc518"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-009",
+      "instance_id": "pydicom__pydicom-1413",
+      "repository": "pydicom",
+      "run_directory": "dev20_baseline_pydicom_pydicom-1413",
+      "scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_PARTIAL"
+      ],
+      "outcome": "RESOLVED_PARTIAL",
+      "resolved": false,
+      "generated": true,
+      "applied": true,
+      "exit_status": "submitted",
+      "persisted_api_calls": 20,
+      "persisted_input_tokens": 249072,
+      "persisted_output_tokens": 5460,
+      "patch_file_count": 2,
+      "patch_lines_add": 11,
+      "patch_lines_del": 1,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1413/scorecards.json",
+          "bytes": 28503,
+          "sha256": "ba5b42106e79cd2cee74bf3e2b9415b0099678a16fe783570aca31bc0b6c3b76"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1413/pydicom__pydicom-1413.traj",
+          "bytes": 286409,
+          "sha256": "89cc479b8a841529aa4b4928cc2d080ae6df8f2808d9ad4b2a483d82c2dd28d7"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1413/all_preds.jsonl",
+          "bytes": 1725,
+          "sha256": "822d7d8fab231cafda13b2ae098c9623d163e6ea14a16fae9b4babd065ee46f3"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1413/results.json",
+          "bytes": 255,
+          "sha256": "86f10f36275daf910b17b90d723e0ee5cf2acf2aca3e50461eaad78b380f3622"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1413/run_manifest.txt",
+          "bytes": 141,
+          "sha256": "0af3aa7eda59d530b9a6e0b3c10b50ebad0e16075d4bd2ac4059408bfb06e059"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1413/args.yaml",
+          "bytes": 30913,
+          "sha256": "c0308a0533282f2adcc850790afeb305abc638faae49f61fba78180d14bcf9af"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-010",
+      "instance_id": "pydicom__pydicom-1694",
+      "repository": "pydicom",
+      "run_directory": "dev20_baseline_pydicom_pydicom-1694",
+      "scorecard_statuses": [
+        "generated"
+      ],
+      "outcome": "PATCH_APPLY_FAILED",
+      "resolved": false,
+      "generated": true,
+      "applied": false,
+      "exit_status": "submitted (exit_cost)",
+      "persisted_api_calls": 25,
+      "persisted_input_tokens": 312767,
+      "persisted_output_tokens": 3346,
+      "patch_file_count": 0,
+      "patch_lines_add": 0,
+      "patch_lines_del": 0,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1694/scorecards.json",
+          "bytes": 383,
+          "sha256": "4a42cc007781767a37e66a3bd7ce00697082f673492bab69db4f55a02ae38c7d"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1694/pydicom__pydicom-1694.traj",
+          "bytes": 224730,
+          "sha256": "a84d2274100f53df78be21363914de979025ee919938f69f797ba102b2317e4b"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1694/all_preds.jsonl",
+          "bytes": 2105,
+          "sha256": "e096430d72ba1d4ed870598b05bffff9108bed90e5054b39cc9b7e966521a1b6"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1694/results.json",
+          "bytes": 220,
+          "sha256": "24dc573f8137c2055d318e7d9817b5ffb94f5584fe926a41883c2e6850d5faf5"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1694/run_manifest.txt",
+          "bytes": 141,
+          "sha256": "dcb50d1b6f9442174007955b8b08ca95e5f629778bbe6326adcb6eb47da9ce3d"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-1694/args.yaml",
+          "bytes": 30913,
+          "sha256": "47e361193175d2c6db880474c688811a5734abc946bc870aa3322adde68d3bb2"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-011",
+      "instance_id": "pydicom__pydicom-901",
+      "repository": "pydicom",
+      "run_directory": "dev20_baseline_pydicom_pydicom-901",
+      "scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_NO"
+      ],
+      "outcome": "RESOLVED_NO",
+      "resolved": false,
+      "generated": true,
+      "applied": true,
+      "exit_status": "submitted (exit_cost)",
+      "persisted_api_calls": 25,
+      "persisted_input_tokens": 287071,
+      "persisted_output_tokens": 3485,
+      "patch_file_count": 2,
+      "patch_lines_add": 14,
+      "patch_lines_del": 11,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-901/scorecards.json",
+          "bytes": 1222,
+          "sha256": "d8b11626c0bb2b2967ee3c6696ab8bb1c266eacd8508fad2258dd743ebfe34e5"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-901/pydicom__pydicom-901.traj",
+          "bytes": 202980,
+          "sha256": "9d534f64c60c49d55dc9d96d0537e25baf6b9c7a58521381ab5120afaa3ec09f"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-901/all_preds.jsonl",
+          "bytes": 2250,
+          "sha256": "c158e4f9e9a647bfec9bd7e5e6e1330c992f26487c6e03332b44efa02812eded"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-901/results.json",
+          "bytes": 252,
+          "sha256": "8067636a5672c9570192499a4431c8ad824123a9887aa2fa17411ac0de51a035"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-901/run_manifest.txt",
+          "bytes": 139,
+          "sha256": "cf150327bdf146b6e731aa87aafc0cc2d3b5e4b28348d23b524cb1d62d531e2d"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_pydicom_pydicom-901/args.yaml",
+          "bytes": 30911,
+          "sha256": "60cdbc953118b18cbbc52153dead5032a17e005693e2ae47cd5fc41e89a25ca5"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-012",
+      "instance_id": "pylint-dev__astroid-1196",
+      "repository": "pylint-dev",
+      "run_directory": "dev20_baseline_pylint-dev_astroid-1196",
+      "scorecard_statuses": [
+        "generated"
+      ],
+      "outcome": "PATCH_APPLY_FAILED",
+      "resolved": false,
+      "generated": true,
+      "applied": false,
+      "exit_status": "submitted (exit_cost)",
+      "persisted_api_calls": 25,
+      "persisted_input_tokens": 289720,
+      "persisted_output_tokens": 3862,
+      "patch_file_count": 0,
+      "patch_lines_add": 0,
+      "patch_lines_del": 0,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1196/scorecards.json",
+          "bytes": 425,
+          "sha256": "22308bc5c2fd77baa6913cfddd48b4ac0f8d8f2ccc5d9cc4994bbef112daf7d0"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1196/pylint-dev__astroid-1196.traj",
+          "bytes": 228472,
+          "sha256": "1c7cdbedcc8724c76e6dfc2caf11406d53051ef946405ca780bfbfd14c33fe07"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1196/all_preds.jsonl",
+          "bytes": 3391,
+          "sha256": "e1986d10009e7893e6bc0bd13860eb2b8cc9b03d0263385bdca99a512a3d51b2"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1196/results.json",
+          "bytes": 229,
+          "sha256": "87d1a70973c4dc10c9520d44579f605a6d0ca6d2c05c020134619888e6436878"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1196/run_manifest.txt",
+          "bytes": 147,
+          "sha256": "0fa6ab3030e40b9135732ee0fc3dadca71b056181a63c0457bdbc006509649a2"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1196/args.yaml",
+          "bytes": 30919,
+          "sha256": "bbe239134e8fec7901de4361af415c929a85c81395abe410b377081e09dd1e7a"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-013",
+      "instance_id": "pylint-dev__astroid-1268",
+      "repository": "pylint-dev",
+      "run_directory": "dev20_baseline_pylint-dev_astroid-1268",
+      "scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_NO"
+      ],
+      "outcome": "RESOLVED_NO",
+      "resolved": false,
+      "generated": true,
+      "applied": true,
+      "exit_status": "submitted",
+      "persisted_api_calls": 20,
+      "persisted_input_tokens": 210496,
+      "persisted_output_tokens": 2509,
+      "patch_file_count": 2,
+      "patch_lines_add": 6,
+      "patch_lines_del": 0,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1268/scorecards.json",
+          "bytes": 7360,
+          "sha256": "22d05ad8d301195a307b7a4d7213bff4e65a422f2af186e476656dd9fab59c92"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1268/pylint-dev__astroid-1268.traj",
+          "bytes": 145834,
+          "sha256": "c156439c0e5f569404e1eb00527cfdc9efd319130104f41e50c80911f946484a"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1268/all_preds.jsonl",
+          "bytes": 1252,
+          "sha256": "48d63ac8e764eec9c76c88e677d377619b0b95fc41bd5a1c8e73a9edf1b98480"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1268/results.json",
+          "bytes": 267,
+          "sha256": "500dc59218ea447f264035917fe5c3f3842b46efd3aeb7c7f6d8778307adb9a6"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1268/run_manifest.txt",
+          "bytes": 147,
+          "sha256": "47ce417e64dd47aeb7814da158e262f95f11d3811513da220a35e2bcde9b96db"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1268/args.yaml",
+          "bytes": 30919,
+          "sha256": "6f509a65dc39b5003ed30d2201bc6e8771f16ad8dd6e02c495bdbbd5aa9065c2"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-014",
+      "instance_id": "pylint-dev__astroid-1333",
+      "repository": "pylint-dev",
+      "run_directory": "dev20_baseline_pylint-dev_astroid-1333",
+      "scorecard_statuses": [
+        "not_generated"
+      ],
+      "outcome": "NOT_GENERATED",
+      "resolved": false,
+      "generated": false,
+      "applied": false,
+      "exit_status": "exit_cost",
+      "persisted_api_calls": 25,
+      "persisted_input_tokens": 303979,
+      "persisted_output_tokens": 3845,
+      "patch_file_count": 0,
+      "patch_lines_add": 0,
+      "patch_lines_del": 0,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1333/scorecards.json",
+          "bytes": 355,
+          "sha256": "0b0501c6acb6fc089398d76661569ec8ed24b6fef978f400e7afb417c8f3eee2"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1333/pylint-dev__astroid-1333.traj",
+          "bytes": 218554,
+          "sha256": "b43864768d63530f5093a08b005ac6ca9b0d22b18213a616f9f6c5152ec163e5"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1333/all_preds.jsonl",
+          "bytes": 204,
+          "sha256": "112da2432f6e94045fb0d20297c19da1738624a7b2a159725c660c64000b693e"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1333/results.json",
+          "bytes": 191,
+          "sha256": "d3be6a2f46fe3062030faee708f8e13043ece99766f0272dc4f5910476bfcc2a"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1333/run_manifest.txt",
+          "bytes": 147,
+          "sha256": "4c1852d7abf8ed886e17fd71af918746518c9d7c76415d7db3f4c2db67c28dcf"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_pylint-dev_astroid-1333/args.yaml",
+          "bytes": 30919,
+          "sha256": "bbd6e0cf14d5f9fa1142519857696c0f4fb22e5ea3155033bf96e0b328b888be"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-015",
+      "instance_id": "pyvista__pyvista-4315",
+      "repository": "pyvista",
+      "run_directory": "dev20_baseline_pyvista_pyvista-4315",
+      "scorecard_statuses": [
+        "not_generated"
+      ],
+      "outcome": "NOT_GENERATED",
+      "resolved": false,
+      "generated": false,
+      "applied": false,
+      "exit_status": "exit_format",
+      "persisted_api_calls": 4,
+      "persisted_input_tokens": 50758,
+      "persisted_output_tokens": 802,
+      "patch_file_count": 0,
+      "patch_lines_add": 0,
+      "patch_lines_del": 0,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_pyvista_pyvista-4315/scorecards.json",
+          "bytes": 264,
+          "sha256": "2b3aa0aa461b221903b5542255ce6d9e048f7e2e3343e164b6cf9d8e5c11f90f"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_pyvista_pyvista-4315/pyvista__pyvista-4315.traj",
+          "bytes": 31404,
+          "sha256": "6db94e48ed874cf144cb63fbf862957283dd780ef3014975f03702f279bcec49"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_pyvista_pyvista-4315/all_preds.jsonl",
+          "bytes": 198,
+          "sha256": "95340f915f588b4788d317aa65048da1e0b211116e524301aecdd75d34187492"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_pyvista_pyvista-4315/results.json",
+          "bytes": 185,
+          "sha256": "fbf69afa80c56130397358fe0b241330b79651901c2177d851f635dabb22fc3b"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_pyvista_pyvista-4315/run_manifest.txt",
+          "bytes": 141,
+          "sha256": "74a996ee39350e954c7c15dac971cd7511fb6b2a5434a22afd6083b79504ec00"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_pyvista_pyvista-4315/args.yaml",
+          "bytes": 30913,
+          "sha256": "1cd88089160c8b04cfb70f596afdb241a87d6a343ea4649b531846b698b2dcc2"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-016",
+      "instance_id": "sqlfluff__sqlfluff-1517",
+      "repository": "sqlfluff",
+      "run_directory": "dev20_baseline_sqlfluff_sqlfluff-1517",
+      "scorecard_statuses": [
+        "not_generated"
+      ],
+      "outcome": "NOT_GENERATED",
+      "resolved": false,
+      "generated": false,
+      "applied": false,
+      "exit_status": "exit_format",
+      "persisted_api_calls": 17,
+      "persisted_input_tokens": 279449,
+      "persisted_output_tokens": 3105,
+      "patch_file_count": 0,
+      "patch_lines_add": 0,
+      "patch_lines_del": 0,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-1517/scorecards.json",
+          "bytes": 362,
+          "sha256": "bb7960955daf5e6169875d284df8982ca84cf19a5f3cf04a54636d6e82ef3b82"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-1517/sqlfluff__sqlfluff-1517.traj",
+          "bytes": 122111,
+          "sha256": "625e3f797b52c343f771309043121bdcdadecfa8b28c644b7cd703d26f225e05"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-1517/all_preds.jsonl",
+          "bytes": 202,
+          "sha256": "48a9af87470c723b2498fbf503aaa438ace250bf3e5ae00b3316614f02f75a22"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-1517/results.json",
+          "bytes": 189,
+          "sha256": "da6f836ebbe153ec0a2ff89e2ae4d27f7a8465056c1dccca2521c44e367863ce"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-1517/run_manifest.txt",
+          "bytes": 145,
+          "sha256": "71305e4e1df1952682e358d6b8a87dc56cd83170762e491721e5a018dff2fc70"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-1517/args.yaml",
+          "bytes": 30917,
+          "sha256": "c11820f72502098eea21a3e7aabf1fe04dcfe1d8cb2afcaa9bd7fae3c6a47081"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-API-BASELINE-001",
+      "instance_id": "sqlfluff__sqlfluff-1625",
+      "repository": "sqlfluff",
+      "run_directory": "exp_api_baseline_001",
+      "scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_NO"
+      ],
+      "outcome": "RESOLVED_NO",
+      "resolved": false,
+      "generated": true,
+      "applied": true,
+      "exit_status": "submitted (exit_cost)",
+      "persisted_api_calls": 25,
+      "persisted_input_tokens": 270910,
+      "persisted_output_tokens": 3248,
+      "patch_file_count": 1,
+      "patch_lines_add": 5,
+      "patch_lines_del": 1,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/exp_api_baseline_001/scorecards.json",
+          "bytes": 6310,
+          "sha256": "23b654a5be01d37cc2698759d78e38d4c0857de7c019540b52afb56770a9daf8"
+        },
+        "trajectory": {
+          "path": "outputs/traces/exp_api_baseline_001/sqlfluff__sqlfluff-1625.traj",
+          "bytes": 197188,
+          "sha256": "2617043a16b87cd046010c5e59fefa5fee955250b3cb6fae2c521e1c4bfc0289"
+        },
+        "predictions": {
+          "path": "outputs/traces/exp_api_baseline_001/all_preds.jsonl",
+          "bytes": 1212,
+          "sha256": "dd6f65e963da209a905f9aaa8fce54544a0702f6fedce847d90f68db331214f3"
+        },
+        "results": {
+          "path": "outputs/traces/exp_api_baseline_001/results.json",
+          "bytes": 263,
+          "sha256": "5ba36dc7591fc2a8056a8ba76704c9d7181f1aa2670a92f75464470bf34f3027"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/exp_api_baseline_001/run_manifest.txt",
+          "bytes": 128,
+          "sha256": "f2eb5fcd3b2fd1c5f3f9f25e048a86d1aa8fabb5bc1f24f7f4b7bb122634c041"
+        },
+        "args": {
+          "path": "outputs/traces/exp_api_baseline_001/args.yaml",
+          "bytes": 30900,
+          "sha256": "743d619a78181aa9150b42640eb34f48e14276e87554fd1f43a76096faa426c9"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-017",
+      "instance_id": "sqlfluff__sqlfluff-1733",
+      "repository": "sqlfluff",
+      "run_directory": "dev20_baseline_sqlfluff_sqlfluff-1733",
+      "scorecard_statuses": [
+        "generated",
+        "applied",
+        "RESOLVED_NO"
+      ],
+      "outcome": "RESOLVED_NO",
+      "resolved": false,
+      "generated": true,
+      "applied": true,
+      "exit_status": "submitted (exit_cost)",
+      "persisted_api_calls": 25,
+      "persisted_input_tokens": 472317,
+      "persisted_output_tokens": 8425,
+      "patch_file_count": 1,
+      "patch_lines_add": 17,
+      "patch_lines_del": 0,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-1733/scorecards.json",
+          "bytes": 1203,
+          "sha256": "56a6027a471e1151c1afafc6b0d877e4256ed88f067842bc71c7befe437c53e8"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-1733/sqlfluff__sqlfluff-1733.traj",
+          "bytes": 355304,
+          "sha256": "8b33909adfef4302a778297010fd28437d1052472d2c7310d44f5adeb3e03664"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-1733/all_preds.jsonl",
+          "bytes": 1508,
+          "sha256": "b0c7079ba296fffdadd97c819c84a3522f717020161cf5b41be3194625bcb0ec"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-1733/results.json",
+          "bytes": 263,
+          "sha256": "d3ce9d384b2b276867b6a399f349588f837a712c8adcb526cd2be77a43d43323"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-1733/run_manifest.txt",
+          "bytes": 145,
+          "sha256": "2af90ac3df42023a6d54b6fea672f09202ec55677e05a6c72bdea962d37353ce"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-1733/args.yaml",
+          "bytes": 30917,
+          "sha256": "fb9d389b46bac4ffba2a547f56633b2bd943c463cc64ca5c6fccb21feab4f790"
+        }
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-018",
+      "instance_id": "sqlfluff__sqlfluff-1763",
+      "repository": "sqlfluff",
+      "run_directory": "dev20_baseline_sqlfluff_sqlfluff-1763",
+      "scorecard_statuses": [
+        "not_generated"
+      ],
+      "outcome": "NOT_GENERATED",
+      "resolved": false,
+      "generated": false,
+      "applied": false,
+      "exit_status": null,
+      "persisted_api_calls": 24,
+      "persisted_input_tokens": 440710,
+      "persisted_output_tokens": 3707,
+      "patch_file_count": 0,
+      "patch_lines_add": 0,
+      "patch_lines_del": 0,
+      "args_model_verified": null,
+      "args_parameters_verified": null,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-1763/scorecards.json",
+          "bytes": 213,
+          "sha256": "e094881a746b218c99ba0282b5f3f2f3dbc81aa35ba8e05b5300123116a5ae81"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-1763/sqlfluff__sqlfluff-1763.traj",
+          "bytes": 182681,
+          "sha256": "03580a93a9a72384ec767f934f6c0b039f408487d44b352c7e27f926d121ec6e"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-1763/all_preds.jsonl",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-1763/results.json",
+          "bytes": 2,
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        },
+        "run_manifest": null,
+        "args": null
+      }
+    },
+    {
+      "run_id": "EXP-DEV20-019",
+      "instance_id": "sqlfluff__sqlfluff-2419",
+      "repository": "sqlfluff",
+      "run_directory": "dev20_baseline_sqlfluff_sqlfluff-2419",
+      "scorecard_statuses": [
+        "generated"
+      ],
+      "outcome": "PATCH_APPLY_FAILED",
+      "resolved": false,
+      "generated": true,
+      "applied": false,
+      "exit_status": "submitted",
+      "persisted_api_calls": 23,
+      "persisted_input_tokens": 352492,
+      "persisted_output_tokens": 3465,
+      "patch_file_count": 0,
+      "patch_lines_add": 0,
+      "patch_lines_del": 0,
+      "args_model_verified": true,
+      "args_parameters_verified": true,
+      "raw_files": {
+        "scorecard": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-2419/scorecards.json",
+          "bytes": 418,
+          "sha256": "93a346a0ea64427608701548354c6b749b10321bb6aba463d797391ef2cd2040"
+        },
+        "trajectory": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-2419/sqlfluff__sqlfluff-2419.traj",
+          "bytes": 137453,
+          "sha256": "7b555e0e10fa399d88cd41ed17a2f897fd9ff2e4e229976a4a632b5c6d798f53"
+        },
+        "predictions": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-2419/all_preds.jsonl",
+          "bytes": 1533,
+          "sha256": "514d7aa74de53e55f8e9922f2ab1a62575e283a973e925a45c700c9463dd0d16"
+        },
+        "results": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-2419/results.json",
+          "bytes": 226,
+          "sha256": "319642488370e11bbdf1cd4acc35327c46be5311f5607d7b3635b031571d3b79"
+        },
+        "run_manifest": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-2419/run_manifest.txt",
+          "bytes": 145,
+          "sha256": "6e0e0affac210a82df2d90d6138741602f2c90196f9ca0991ec4afc9417643d1"
+        },
+        "args": {
+          "path": "outputs/traces/dev20_baseline_sqlfluff_sqlfluff-2419/args.yaml",
+          "bytes": 30917,
+          "sha256": "25a38656445abbaf4208b527a64ea18862eac2945cc44c68f9fb54d2e72b1154"
+        }
+      }
+    }
+  ],
+  "repository_summary": [
+    {
+      "repository": "marshmallow-code",
+      "instances": 2,
+      "resolved": 2,
+      "resolve_rate": 1.0,
+      "persisted_api_calls": 45,
+      "persisted_input_tokens": 543072,
+      "persisted_output_tokens": 8155
+    },
+    {
+      "repository": "pvlib",
+      "instances": 4,
+      "resolved": 1,
+      "resolve_rate": 0.25,
+      "persisted_api_calls": 52,
+      "persisted_input_tokens": 832382,
+      "persisted_output_tokens": 11890
+    },
+    {
+      "repository": "pydicom",
+      "instances": 5,
+      "resolved": 1,
+      "resolve_rate": 0.2,
+      "persisted_api_calls": 112,
+      "persisted_input_tokens": 1450662,
+      "persisted_output_tokens": 17392
+    },
+    {
+      "repository": "pylint-dev",
+      "instances": 3,
+      "resolved": 0,
+      "resolve_rate": 0.0,
+      "persisted_api_calls": 70,
+      "persisted_input_tokens": 804195,
+      "persisted_output_tokens": 10216
+    },
+    {
+      "repository": "pyvista",
+      "instances": 1,
+      "resolved": 0,
+      "resolve_rate": 0.0,
+      "persisted_api_calls": 4,
+      "persisted_input_tokens": 50758,
+      "persisted_output_tokens": 802
+    },
+    {
+      "repository": "sqlfluff",
+      "instances": 5,
+      "resolved": 0,
+      "resolve_rate": 0.0,
+      "persisted_api_calls": 114,
+      "persisted_input_tokens": 1815878,
+      "persisted_output_tokens": 21950
+    }
+  ],
+  "summary": {
+    "selected_count": 20,
+    "evaluated_count": 20,
+    "resolved_count": 4,
+    "unresolved_count": 16,
+    "resolve_rate": 0.2,
+    "resolve_rate_wilson_95": [
+      0.08065766257979806,
+      0.41601743225189364
+    ],
+    "outcome_counts": {
+      "NOT_GENERATED": 6,
+      "PATCH_APPLY_FAILED": 4,
+      "RESOLVED_FULL": 4,
+      "RESOLVED_NO": 4,
+      "RESOLVED_PARTIAL": 2
+    },
+    "exit_status_counts": {
+      "MISSING_PERSISTED_EXIT_STATUS": 1,
+      "exit_cost": 1,
+      "exit_format": 4,
+      "submitted": 9,
+      "submitted (exit_cost)": 5
+    },
+    "generated_count": 14,
+    "applied_count": 10,
+    "runtime_args_verified_count": 19,
+    "persisted_api_calls": 397,
+    "resource_audited_api_calls": 398,
+    "known_unpersisted_api_calls": 1,
+    "persisted_input_tokens": 5496947,
+    "persisted_output_tokens": 70405,
+    "token_totals_are_lower_bounds": true,
+    "api_calls": {
+      "sum": 397,
+      "mean": 19.85,
+      "median": 22.5,
+      "q1": 20.0,
+      "q3": 25.0,
+      "minimum": 4,
+      "maximum": 25
+    },
+    "input_tokens": {
+      "sum": 5496947,
+      "mean": 274847.35,
+      "median": 288395.5,
+      "q1": 247504.5,
+      "q3": 352636.75,
+      "minimum": 50758,
+      "maximum": 472317
+    },
+    "output_tokens": {
+      "sum": 70405,
+      "mean": 3520.25,
+      "median": 3405.5,
+      "q1": 2565.25,
+      "q3": 4049.5,
+      "minimum": 632,
+      "maximum": 8425
+    },
+    "resolved_persisted_api_calls": 87,
+    "unresolved_persisted_api_calls": 310,
+    "pricing_status": "UNKNOWN"
+  },
+  "completion": {
+    "baseline_statistics_complete": true,
+    "paired_aci_ablations_complete": false,
+    "modern_replication_complete": false,
+    "exact_model_rerun_complete": false
+  },
+  "outputs": {
+    "instance_csv": {
+      "path": "data/derived/modern_dev20_baseline_instances.csv",
+      "bytes": 6113,
+      "sha256": "e9a8c1055da2eea007e9ad39ce51faed460712b029f13b9760937f13d9b03f0f"
+    },
+    "analysis_document": {
+      "path": "docs/modern_dev20_baseline_analysis.md",
+      "bytes": 2993,
+      "sha256": "12b690ab7b9e2a027ae12a1d266a88970d7d7fc68a67f9279f1284c4b46661ba"
+    }
+  }
+}

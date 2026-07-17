@@ -525,9 +525,23 @@ existing_non_exact_runs:
     model: gpt-5.6-terra
     dataset: frozen_dev20
     variant: paper_snapshot_default_aci
-    status: COMPLETE
+    status: COMPLETE_BASELINE_STATISTICS_WITH_ONE_USAGE_PERSISTENCE_GAP
     resolved: 4
     instances: 20
+    resolve_rate: 0.20
+    wilson_95: [0.08065766257979806, 0.41601743225189364]
+    persisted_api_calls: 397
+    resource_audited_api_calls: 398
+    persisted_input_tokens: 5496947
+    persisted_output_tokens: 70405
+    runtime_args_verified: 19
+    paired_aci_ablations_complete: false
+    outputs:
+      - conf/modern_dev20_baseline_runs.yaml
+      - data/manifests/modern_dev20_baseline_analysis.json
+      - data/derived/modern_dev20_baseline_instances.csv
+      - scripts/analyze_modern_dev20_baseline.py
+      - docs/modern_dev20_baseline_analysis.md
   - id: EXP-WEAKACI-001-002
     evidence: exploratory
     model: gpt-5.6-terra

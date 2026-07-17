@@ -16,6 +16,9 @@ MATRIX_PATH = ROOT / "conf" / "full_paper_matrix.yaml"
 INVENTORY_PATH = ROOT / "conf" / "paper_output_inventory.yaml"
 STUDY_PATH = ROOT / "conf" / "study.yaml"
 COVERAGE_PATH = ROOT / "data" / "manifests" / "full_reproduction_coverage.json"
+MODERN_ANALYSIS_PATH = (
+    ROOT / "data" / "manifests" / "modern_dev20_baseline_analysis.json"
+)
 
 
 def load_yaml(path: Path) -> dict:
@@ -305,6 +308,58 @@ def main() -> int:
     ):
         if full_reproduction.get(field) is not completion.get(field):
             errors.append(f"study and matrix completion flags differ: {field}")
+
+    modern_runs = {
+        entry.get("id"): entry for entry in matrix.get("existing_non_exact_runs", [])
+    }
+    modern_baseline = modern_runs.get("EXP-DEV20", {})
+    modern_analysis = (
+        load_json(MODERN_ANALYSIS_PATH) if MODERN_ANALYSIS_PATH.is_file() else {}
+    )
+    if str(modern_baseline.get("status", "")).startswith("COMPLETE_"):
+        if modern_analysis.get("status") != (
+            "COMPLETE_BASELINE_STATISTICS_WITH_ONE_USAGE_PERSISTENCE_GAP"
+        ):
+            errors.append("modern dev20 baseline lacks a complete analysis manifest")
+        modern_summary = modern_analysis.get("summary", {})
+        expected_modern_values = {
+            "instances": modern_summary.get("evaluated_count"),
+            "resolved": modern_summary.get("resolved_count"),
+            "persisted_api_calls": modern_summary.get("persisted_api_calls"),
+            "resource_audited_api_calls": modern_summary.get(
+                "resource_audited_api_calls"
+            ),
+            "persisted_input_tokens": modern_summary.get(
+                "persisted_input_tokens"
+            ),
+            "persisted_output_tokens": modern_summary.get(
+                "persisted_output_tokens"
+            ),
+            "runtime_args_verified": modern_summary.get(
+                "runtime_args_verified_count"
+            ),
+        }
+        for field, expected in expected_modern_values.items():
+            if modern_baseline.get(field) != expected:
+                errors.append(f"matrix modern baseline field is stale: {field}")
+        if modern_summary.get("evaluated_count") != 20:
+            errors.append("modern dev20 analysis must contain 20 instances")
+        if modern_summary.get("resolved_count") != 4:
+            errors.append("modern dev20 analysis resolved count must be 4")
+        if modern_analysis.get("completion", {}).get(
+            "modern_replication_complete"
+        ) is not False:
+            errors.append("dev20 baseline cannot complete the modern replication")
+        for key in ("run_map", "selection_manifest"):
+            record = modern_analysis.get("inputs", {}).get(key, {})
+            path = ROOT / str(record.get("path", ""))
+            if not path.is_file() or record.get("sha256") != sha256_file(path):
+                errors.append(f"modern analysis input hash is stale or missing: {key}")
+        for key in ("instance_csv", "analysis_document"):
+            record = modern_analysis.get("outputs", {}).get(key, {})
+            path = ROOT / str(record.get("path", ""))
+            if not path.is_file() or record.get("sha256") != sha256_file(path):
+                errors.append(f"modern analysis output hash is stale or missing: {key}")
 
     resource = matrix.get("resource_measurements", {})
     if resource.get("formal_scale_up_allowed") is not False:

@@ -1703,3 +1703,49 @@ libmamba 在相同 `environment.yml` 上完成求解。冻结 harness 的 `numpy
 - `scripts/audit_full_reproduction_coverage.py`：确定性覆盖审计入口。
 
 本阶段模型 API、GPU和远程服务器使用均为 0。最终状态为 `COMPLETE_PUBLIC_ARTIFACT_REPRODUCTION`；该状态不等于整篇论文严格复现完成。
+
+## 2026-07-17 — EXP-MODERN-ANALYSIS-001：现代 dev20 默认 ACI 基线统计收口
+
+### 目标与证据层
+
+对已经完成的 `gpt-5.6-terra` 冻结 dev20 默认 ACI 运行做统计、资源和原始文件哈希收口，不新增模型请求。该实验属于 `modern` 证据层；数据来自 SWE-bench Lite dev split，不与论文 Lite test 成功率作直接显著性比较，也不替代 `gpt-4-1106-preview` 严格重跑。
+
+### 冻结输入
+
+- SWE-agent revision：`658eb2842e8a8b00069b301338bc342b70538f7a`；
+- 模型：`gpt-5.6-terra`，Chat Completions；
+- temperature：0.0；top-p：0.95；每实例最多 25 次调用；
+- 数据：`princeton-nlp/SWE-bench_Lite` dev revision `6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2`；
+- 选择：seed 42 冻结的 20 个实例；
+- run map：`conf/modern_dev20_baseline_runs.yaml`，逐实例固定正式 trace directory 与 run ID。
+
+### 验收方法
+
+每个实例必须有唯一 scorecard 与 trajectory，scorecard ID 必须匹配冻结清单。结果只按 evaluator 最终状态分类；`RESOLVED_FULL` 记为解决，`RESOLVED_PARTIAL` 不计为完全解决。脚本同时读取模型调用与 token 统计、exit status、patch 生成/应用状态、patch 规模，并为 scorecard、trajectory、prediction、result、运行参数和 run manifest 中的可得文件计算 SHA-256。
+
+19 份可得 `args.yaml` 均逐项确认模型为 `gpt-5.6-terra`、temperature 0.0、top-p 0.95。`sqlfluff__sqlfluff-1763` 在最终格式重试后未完整持久化运行目录，缺少 `args.yaml`、run manifest 和最后一次响应 usage；既有实验台账与运行日志确认该实例实际发起 25 次请求，而 trajectory 只保存 24 次。
+
+### 主要统计
+
+- 完全解决：4/20，20.00%；
+- Wilson 95% CI：8.07%–41.60%；
+- 生成 prediction：14/20；
+- prediction 成功应用：10/20；
+- `RESOLVED_PARTIAL`：2；
+- `RESOLVED_NO`：4；
+- `PATCH_APPLY_FAILED`：4；
+- `NOT_GENERATED`：6。
+
+仓库描述结果为 Marshmallow 2/2、pvlib 1/4、pydicom 1/5、Astroid 0/3、PyVista 0/1、SQLFluff 0/5。各仓库 n=1–5，不做仓库间显著性推断。
+
+### 调用与 token
+
+trajectory 持久化总量为 397 次 API 调用、5,496,947 input tokens 和 70,405 output tokens。加上 SQLFluff 1763 已知未持久化的最后一次格式请求，资源台账总调用为 398；由于该响应 usage 不存在，token 合计只能作为下界。端点价格未知，成本字段不写成 0。
+
+逐实例持久化调用均值 19.85、中位数 22.5、IQR 20–25；input token 均值 274,847.35、中位数 288,395.5；output token 均值 3,520.25、中位数 3,405.5。四个成功实例共 87 次持久化调用，其余实例 310 次；该描述不解释为调用量与成功的因果关系。
+
+### 完成边界
+
+当前只完成现代默认 ACI 基线的统计收口。八个论文单因素 ACI 尚无同一 dev20 上的配对运行，因此不能计算 McNemar 检验，也不能把 `modern_replication_complete` 更新为真。扩大 API 调用前仍需端点价格和明确总预算。
+
+输出为 `data/manifests/modern_dev20_baseline_analysis.json`、`data/derived/modern_dev20_baseline_instances.csv`、`docs/modern_dev20_baseline_analysis.md` 与确定性分析脚本。该分析阶段新增 API 调用、GPU与远程服务器使用均为 0。

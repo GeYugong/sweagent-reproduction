@@ -46,6 +46,8 @@ Dataset Viewer `/splits` 与 `/rows` 在冻结时连续返回 503，因此使用
 
 冻结的 20 个实例均已完成。自动汇总以最终轨迹中持久化的模型统计为准：397 次 API 调用、5,496,947 input tokens、70,405 output tokens。1763 在第 25 次、未持久化的格式纠正请求后失败，故资源审计为 25 次调用，而自动轨迹汇总为 24 次。
 
+正式统计收口给出 4/20 的 Wilson 95% CI 为 8.07%–41.60%，并把全部 scorecard、trajectory 和可得运行参数固定到逐文件 SHA-256 清单。持久化调用总数为 397，加入 1763 的已知缺失请求后资源台账为 398；缺失响应的 token usage 无法恢复，因此 token 合计保持下界。机器清单与逐实例统计见 `data/manifests/modern_dev20_baseline_analysis.json` 和 `data/derived/modern_dev20_baseline_instances.csv`。
+
 ## 未计入正式结果的尝试
 
 `EXP-DEV20-003A` 尝试运行 `pvlib__pvlib-python-1154`，但容器内 Conda 在下载 Python、NumPy、Pandas、SciPy 与 OpenBLAS 时连续发生代理 TLS 超时。失败发生在 agent 初始化前：
