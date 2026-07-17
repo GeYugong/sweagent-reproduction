@@ -1,0 +1,1628 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-07-17",
+  "status": "READY_FOR_R1_EXECUTION",
+  "stage": "R1",
+  "inputs": {
+    "bounded_plan": {
+      "path": "conf/bounded_modern_reproduction.yaml",
+      "bytes": 5750,
+      "sha256": "a1928ff026e2de7ef5428622d9e479332cf9d66960b2b336c0f5bb08fea4d965"
+    },
+    "dev23_manifest": {
+      "path": "data/manifests/swebench_lite_dev23_full.json",
+      "bytes": 1259,
+      "sha256": "9f929128c69d178029711586b401bfd5658f35fd06382324b6b4601324272ed2"
+    },
+    "dev20_baseline_manifest": {
+      "path": "data/manifests/swebench_lite_dev20_seed42.json",
+      "bytes": 1103,
+      "sha256": "53c912aa9410161c5ec841fa0828ca4da79d3e7525dbd8d6f5beb95ed7452cb4"
+    },
+    "variant_definitions": {
+      "path": "conf/modern_aci/variants.yaml",
+      "bytes": 6400,
+      "sha256": "ce3618d4ef92bb0bc8d5993b1023368b00fc9958f9961eace322905a608b90eb"
+    }
+  },
+  "execution": {
+    "model": "gpt-5.6-terra",
+    "max_api_calls_per_episode": 25,
+    "new_episode_count": 187,
+    "credited_episode_count": 20,
+    "total_r1_cells": 207,
+    "hard_max_api_calls": 4675,
+    "relative_budget_checkpoint_C0": 9.35,
+    "model_api_calls_executed": 0
+  },
+  "batches": [
+    {
+      "configuration_id": "default_aci",
+      "batch_id": "bounded_r1_default_aci",
+      "instance_manifest": {
+        "path": "data/manifests/bounded_r1/default_aci_missing3.json",
+        "bytes": 440,
+        "sha256": "7e31f2f863600e6274cfb648b1179fbdb02ba0f4fdd9574d0fd316c206f3d98e"
+      },
+      "instance_count": 3,
+      "config_source": null,
+      "config": {
+        "path": "code/SWE-agent/config/default.yaml",
+        "bytes": 6583,
+        "sha256": "6428bf45edf5bdd46478f33599a80ee2579116d8855471aab74394c035a236b5"
+      },
+      "config_asset_dir": null
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "instance_manifest": {
+        "path": "data/manifests/bounded_r1/edit_without_linting_dev23.json",
+        "bytes": 1077,
+        "sha256": "cf4549467e40f5bbab868f69fc2b0994f56ab7d354b74fe55be46c11c8d68c7d"
+      },
+      "instance_count": 23,
+      "config_source": "conf/modern_aci/generated/edit_without_linting.yaml",
+      "config": {
+        "path": "conf/modern_aci/generated/edit_without_linting.yaml",
+        "bytes": 6751,
+        "sha256": "a4e15dc85604f5b7c1a40097bd05865c81a940001988cc5c9c5b2d62d06d1ed3"
+      },
+      "config_asset_dir": "conf/modern_aci/commands"
+    },
+    {
+      "configuration_id": "no_edit",
+      "batch_id": "bounded_r1_no_edit",
+      "instance_manifest": {
+        "path": "data/manifests/bounded_r1/no_edit_dev23.json",
+        "bytes": 1064,
+        "sha256": "33193bb7bec1346c0cabbe6775dec1add6dbc00b3e2456ad651568391a03289d"
+      },
+      "instance_count": 23,
+      "config_source": "conf/modern_aci/generated/no_edit.yaml",
+      "config": {
+        "path": "conf/modern_aci/generated/no_edit.yaml",
+        "bytes": 6689,
+        "sha256": "4e8dd9eac8ac632bc5c994ece60753a92262133ee72e4f9a09ed2a51c1ad5948"
+      },
+      "config_asset_dir": "conf/modern_aci/commands"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "batch_id": "bounded_r1_iterative_search",
+      "instance_manifest": {
+        "path": "data/manifests/bounded_r1/iterative_search_dev23.json",
+        "bytes": 1073,
+        "sha256": "960d274af676dc50fa7b583cbc145627f9b44d511131b44e29e6c951453e00fd"
+      },
+      "instance_count": 23,
+      "config_source": "conf/modern_aci/generated/iterative_search.yaml",
+      "config": {
+        "path": "conf/modern_aci/generated/iterative_search.yaml",
+        "bytes": 6749,
+        "sha256": "959d1748127425ea385c39788f264e3f9aef369004f99716c662e5c73218f354"
+      },
+      "config_asset_dir": "conf/modern_aci/commands"
+    },
+    {
+      "configuration_id": "no_search",
+      "batch_id": "bounded_r1_no_search",
+      "instance_manifest": {
+        "path": "data/manifests/bounded_r1/no_search_dev23.json",
+        "bytes": 1066,
+        "sha256": "04e3d42dc4ad92b5465cfef95849ebab8926a0827505a38ec6585906d1309ab3"
+      },
+      "instance_count": 23,
+      "config_source": "conf/modern_aci/generated/no_search.yaml",
+      "config": {
+        "path": "conf/modern_aci/generated/no_search.yaml",
+        "bytes": 6697,
+        "sha256": "706166d22fd2375bf488da16cbce22769ff0cb25c34e815e58c9c03fd40941d9"
+      },
+      "config_asset_dir": "conf/modern_aci/commands"
+    },
+    {
+      "configuration_id": "window_30",
+      "batch_id": "bounded_r1_window_30",
+      "instance_manifest": {
+        "path": "data/manifests/bounded_r1/window_30_dev23.json",
+        "bytes": 1066,
+        "sha256": "c7bb8421f6c8016453fb42cfa715d36c3ca64614e66f14e1b3d82531b9e201de"
+      },
+      "instance_count": 23,
+      "config_source": "conf/modern_aci/generated/window_30.yaml",
+      "config": {
+        "path": "conf/modern_aci/generated/window_30.yaml",
+        "bytes": 6724,
+        "sha256": "b276625b7aa0044341c24f8dd1161d72692ca29963c51ed3420cc5ab3d112ee4"
+      },
+      "config_asset_dir": "conf/modern_aci/commands"
+    },
+    {
+      "configuration_id": "full_file",
+      "batch_id": "bounded_r1_full_file",
+      "instance_manifest": {
+        "path": "data/manifests/bounded_r1/full_file_dev23.json",
+        "bytes": 1066,
+        "sha256": "67c284199b32a6bf6378ca06ce03409f97e643bc69c2b071a74d1f198600dee0"
+      },
+      "instance_count": 23,
+      "config_source": "conf/modern_aci/generated/full_file.yaml",
+      "config": {
+        "path": "conf/modern_aci/generated/full_file.yaml",
+        "bytes": 6769,
+        "sha256": "be6f7e648f112c724cbff44048c884ba384668e1204412cf92b0cddd5f8c6f0a"
+      },
+      "config_asset_dir": "conf/modern_aci/commands"
+    },
+    {
+      "configuration_id": "full_history",
+      "batch_id": "bounded_r1_full_history",
+      "instance_manifest": {
+        "path": "data/manifests/bounded_r1/full_history_dev23.json",
+        "bytes": 1069,
+        "sha256": "22981aef1185faf9eb9bee48b94a8881c66509d06927f7bf2977b3e1c051069a"
+      },
+      "instance_count": 23,
+      "config_source": "conf/modern_aci/generated/full_history.yaml",
+      "config": {
+        "path": "conf/modern_aci/generated/full_history.yaml",
+        "bytes": 6734,
+        "sha256": "a22a3e238fa3bacde9d1c29936d731a730db25f9a9c94366d48277333d0c518f"
+      },
+      "config_asset_dir": "conf/modern_aci/commands"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "batch_id": "bounded_r1_no_demonstration",
+      "instance_manifest": {
+        "path": "data/manifests/bounded_r1/no_demonstration_dev23.json",
+        "bytes": 1073,
+        "sha256": "f84bfd8a5fcdf3e2348bb2264b4070c152e14df73f66166d0157e3fd75e35b64"
+      },
+      "instance_count": 23,
+      "config_source": "conf/modern_aci/generated/no_demonstration.yaml",
+      "config": {
+        "path": "conf/modern_aci/generated/no_demonstration.yaml",
+        "bytes": 6560,
+        "sha256": "a670b30e087f95448a9d86bd0c928dc8b5626fa76a2160da1822743655f1b771"
+      },
+      "config_asset_dir": "conf/modern_aci/commands"
+    }
+  ],
+  "cells": [
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1343",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1359",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1154",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1606",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1707",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1854",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1139",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1256",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1413",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1694",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-901",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1196",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1268",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1333",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "pyvista__pyvista-4315",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1517",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1625",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1733",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1763",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-2419",
+      "status": "CREDITED_EXISTING_BASELINE"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1072",
+      "batch_id": "bounded_r1_default_aci",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1866",
+      "batch_id": "bounded_r1_default_aci",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "default_aci",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1978",
+      "batch_id": "bounded_r1_default_aci",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1343",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1359",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1072",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1154",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1606",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1707",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1854",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1139",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1256",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1413",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1694",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-901",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1196",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1268",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1333",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1866",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1978",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "pyvista__pyvista-4315",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1517",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1625",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1733",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1763",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "edit_without_linting",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-2419",
+      "batch_id": "bounded_r1_edit_without_linting",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1343",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1359",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1072",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1154",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1606",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1707",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1854",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1139",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1256",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1413",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1694",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-901",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1196",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1268",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1333",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1866",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1978",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "pyvista__pyvista-4315",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1517",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1625",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1733",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1763",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_edit",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-2419",
+      "batch_id": "bounded_r1_no_edit",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1343",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1359",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1072",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1154",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1606",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1707",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1854",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1139",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1256",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1413",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1694",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-901",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1196",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1268",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1333",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1866",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1978",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "pyvista__pyvista-4315",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1517",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1625",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1733",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1763",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "iterative_search",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-2419",
+      "batch_id": "bounded_r1_iterative_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1343",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1359",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1072",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1154",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1606",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1707",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1854",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1139",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1256",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1413",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1694",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-901",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1196",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1268",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1333",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1866",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1978",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "pyvista__pyvista-4315",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1517",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1625",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1733",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1763",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_search",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-2419",
+      "batch_id": "bounded_r1_no_search",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1343",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1359",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1072",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1154",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1606",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1707",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1854",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1139",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1256",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1413",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1694",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-901",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1196",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1268",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1333",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1866",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1978",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "pyvista__pyvista-4315",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1517",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1625",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1733",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1763",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "window_30",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-2419",
+      "batch_id": "bounded_r1_window_30",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1343",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1359",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1072",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1154",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1606",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1707",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1854",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1139",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1256",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1413",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1694",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-901",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1196",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1268",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1333",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1866",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1978",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "pyvista__pyvista-4315",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1517",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1625",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1733",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1763",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_file",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-2419",
+      "batch_id": "bounded_r1_full_file",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1343",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1359",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1072",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1154",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1606",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1707",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1854",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1139",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1256",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1413",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1694",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-901",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1196",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1268",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1333",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1866",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1978",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "pyvista__pyvista-4315",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1517",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1625",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1733",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1763",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "full_history",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-2419",
+      "batch_id": "bounded_r1_full_history",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1343",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "marshmallow-code__marshmallow-1359",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1072",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1154",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1606",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1707",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "pvlib__pvlib-python-1854",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1139",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1256",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1413",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-1694",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "pydicom__pydicom-901",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1196",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1268",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1333",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1866",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "pylint-dev__astroid-1978",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "pyvista__pyvista-4315",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1517",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1625",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1733",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-1763",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "configuration_id": "no_demonstration",
+      "repetition": 1,
+      "instance_id": "sqlfluff__sqlfluff-2419",
+      "batch_id": "bounded_r1_no_demonstration",
+      "status": "PLANNED_NOT_EXECUTED"
+    }
+  ],
+  "completion": {
+    "r1_complete": false,
+    "bounded_modern_reproduction_complete": false
+  }
+}

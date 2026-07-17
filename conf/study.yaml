@@ -87,6 +87,9 @@ modern_replication:
   bounded_completion_plan: docs/bounded_reproduction_completion_plan.md
   bounded_completion_config: conf/bounded_modern_reproduction.yaml
   bounded_dev23_manifest: data/manifests/swebench_lite_dev23_full.json
+  bounded_r1_plan: data/manifests/bounded_modern_r1_plan.json
+  bounded_r1_runner: scripts/run_bounded_modern_r1.sh
+  bounded_budget_ledger: data/manifests/bounded_modern_budget_ledger.json
   bounded_completion_marker: BOUNDED_MODERN_REPRODUCTION_COMPLETE
   bounded_status: relative_budget_authorized_price_unverified
   bounded_configurations: 9

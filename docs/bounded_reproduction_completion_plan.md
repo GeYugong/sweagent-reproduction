@@ -78,6 +78,8 @@
 
 每轮按配置和实例的冻结顺序顺序执行，最大并发保持 1。每个 episode 完成后立即保存 trajectory、prediction、运行参数、配置 SHA-256、命令资产 SHA-256 和 API usage；随后运行 evaluator 并保存 scorecard。
 
+R1 的 187 个新增单元已展开为九个可恢复批次，写入 `data/manifests/bounded_modern_r1_plan.json` 与 `data/manifests/bounded_r1/`。`scripts/run_bounded_modern_r1.sh ... plan` 只打印范围；只有 `execute` 与显式执行确认同时出现时才发起 API 请求。每个批次结束后 `scripts/assess_bounded_modern_budget.py` 根据 trajectory usage 写入 `data/manifests/bounded_modern_budget_ledger.json`，并在相对使用量触及 50 × C0 或 80 × C0 时停止后续批次。
+
 每轮结束后必须完成：
 
 1. 检查计划单元是否全部有且只有一个有效结果；

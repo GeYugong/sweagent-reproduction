@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
   "as_of": "2026-07-17",
-  "generated_at_utc": "2026-07-17T02:50:53.403912+00:00",
+  "generated_at_utc": "2026-07-17T02:54:44.239945+00:00",
   "scope": "SWE-agent paper public-artifact completion audit",
   "status": "COMPLETE_PUBLIC_ARTIFACT_REPRODUCTION",
   "inputs": {
     "matrix": {
       "path": "conf/full_paper_matrix.yaml",
-      "bytes": 27280,
-      "sha256": "89d5375e2ee9c2f7ef7c50d7cee4f97d7247b37f9fe2dc0d4f53f9115fa5c220"
+      "bytes": 27995,
+      "sha256": "8263def10e35d5561800207491739e5fca4fae0085cb2f4cda8d81b27e630ad2"
     },
     "inventory": {
       "path": "conf/paper_output_inventory.yaml",

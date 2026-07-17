@@ -1,0 +1,17 @@
+{
+  "dataset": "princeton-nlp/SWE-bench_Lite",
+  "dataset_revision": "6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2",
+  "split": "dev",
+  "source_instance_count": 23,
+  "selection": {
+    "algorithm": "frozen bounded-modern R1 batch subset",
+    "seed": 42,
+    "selected_count": 3,
+    "label": "default_aci_r1_missing3"
+  },
+  "instances": [
+    "pvlib__pvlib-python-1072",
+    "pylint-dev__astroid-1866",
+    "pylint-dev__astroid-1978"
+  ]
+}

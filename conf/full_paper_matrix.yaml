@@ -622,6 +622,19 @@ existing_non_exact_runs:
     outputs:
       - conf/bounded_modern_reproduction.yaml
       - data/manifests/swebench_lite_dev23_full.json
+      - data/manifests/bounded_modern_r1_plan.json
+      - data/manifests/bounded_r1/default_aci_missing3.json
+      - data/manifests/bounded_r1/edit_without_linting_dev23.json
+      - data/manifests/bounded_r1/no_edit_dev23.json
+      - data/manifests/bounded_r1/iterative_search_dev23.json
+      - data/manifests/bounded_r1/no_search_dev23.json
+      - data/manifests/bounded_r1/window_30_dev23.json
+      - data/manifests/bounded_r1/full_file_dev23.json
+      - data/manifests/bounded_r1/full_history_dev23.json
+      - data/manifests/bounded_r1/no_demonstration_dev23.json
+      - scripts/materialize_bounded_modern_r1.py
+      - scripts/run_bounded_modern_r1.sh
+      - scripts/assess_bounded_modern_budget.py
       - docs/bounded_reproduction_completion_plan.md
   - id: EXP-WEAKACI-001-002
     evidence: exploratory
