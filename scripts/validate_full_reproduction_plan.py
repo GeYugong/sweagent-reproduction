@@ -511,8 +511,8 @@ def main() -> int:
         errors.append("bounded modern reproduction entry is missing from the matrix")
     if bounded.get("schema_version") != 1:
         errors.append("bounded modern reproduction config must use schema_version 1")
-    if bounded.get("status") != "PREREGISTERED_WAITING_FOR_PRICE_CALIBRATION":
-        errors.append("bounded modern reproduction status is not preregistered")
+    if bounded.get("status") != "RELATIVE_BUDGET_AUTHORIZED_PRICE_UNVERIFIED":
+        errors.append("bounded modern reproduction status is not relative-budget authorized")
     if bounded.get("completion_marker") != "BOUNDED_MODERN_REPRODUCTION_COMPLETE":
         errors.append("bounded modern completion marker is not frozen")
     bounded_experiment = bounded.get("experiment", {})
