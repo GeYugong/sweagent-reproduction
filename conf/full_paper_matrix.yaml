@@ -598,6 +598,31 @@ existing_non_exact_runs:
       - scripts/validate_modern_aci_runtime.sh
       - scripts/run_modern_aci_batch.sh
       - docs/modern_aci_reconstruction.md
+  - id: EXP-BOUNDED-MODERN-ACI
+    evidence: modern
+    model: gpt-5.6-terra
+    dataset: frozen_dev23
+    variant: default_plus_eight_single_factor_aci_variants_four_repetitions
+    status: RELATIVE_BUDGET_AUTHORIZED_PRICE_UNVERIFIED
+    configurations: 9
+    instances: 23
+    repetitions: 4
+    total_episode_cells: 828
+    existing_episode_cells_credited: 20
+    new_episode_cells: 808
+    completed_episode_cells: 20
+    planned_remaining_cost_multiple_of_current: 40.4
+    normal_remaining_budget_multiple_of_current: 50.0
+    absolute_hard_stop_multiple_of_current: 80.0
+    new_hard_max_api_calls: 20200
+    completion_marker: BOUNDED_MODERN_REPRODUCTION_COMPLETE
+    pricing_status: UNKNOWN
+    exact_model_rerun_complete_after_plan: false
+    strict_full_paper_reproduction_complete_after_plan: false
+    outputs:
+      - conf/bounded_modern_reproduction.yaml
+      - data/manifests/swebench_lite_dev23_full.json
+      - docs/bounded_reproduction_completion_plan.md
   - id: EXP-WEAKACI-001-002
     evidence: exploratory
     model: gpt-5.6-terra

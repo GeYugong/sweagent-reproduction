@@ -31,6 +31,9 @@ MODERN_ACI_RUNTIME_PATH = (
 MODERN_ACI_PAIRING_PATH = (
     ROOT / "data" / "manifests" / "modern_aci_dev20_pairing.json"
 )
+BOUNDED_MODERN_CONFIG_PATH = ROOT / "conf" / "bounded_modern_reproduction.yaml"
+BOUNDED_DEV23_PATH = ROOT / "data" / "manifests" / "swebench_lite_dev23_full.json"
+DEV20_SELECTION_PATH = ROOT / "data" / "manifests" / "swebench_lite_dev20_seed42.json"
 
 
 def load_yaml(path: Path) -> dict:
@@ -495,6 +498,107 @@ def main() -> int:
         ):
             if not path.is_file():
                 errors.append(f"modern ACI required file is missing: {path}")
+
+    bounded_run = modern_runs.get("EXP-BOUNDED-MODERN-ACI", {})
+    bounded = (
+        load_yaml(BOUNDED_MODERN_CONFIG_PATH)
+        if BOUNDED_MODERN_CONFIG_PATH.is_file()
+        else {}
+    )
+    dev23 = load_json(BOUNDED_DEV23_PATH) if BOUNDED_DEV23_PATH.is_file() else {}
+    dev20 = load_json(DEV20_SELECTION_PATH) if DEV20_SELECTION_PATH.is_file() else {}
+    if not bounded_run:
+        errors.append("bounded modern reproduction entry is missing from the matrix")
+    if bounded.get("schema_version") != 1:
+        errors.append("bounded modern reproduction config must use schema_version 1")
+    if bounded.get("status") != "PREREGISTERED_WAITING_FOR_PRICE_CALIBRATION":
+        errors.append("bounded modern reproduction status is not preregistered")
+    if bounded.get("completion_marker") != "BOUNDED_MODERN_REPRODUCTION_COMPLETE":
+        errors.append("bounded modern completion marker is not frozen")
+    bounded_experiment = bounded.get("experiment", {})
+    bounded_expected = {
+        "instances": 23,
+        "configurations": 9,
+        "repetitions_per_configuration_instance": 4,
+        "total_episode_cells": 828,
+        "existing_episode_cells_credited": 20,
+        "new_episode_cells": 808,
+        "new_hard_max_api_calls": 20200,
+    }
+    for field, expected in bounded_expected.items():
+        if bounded_experiment.get(field) != expected:
+            errors.append(f"bounded modern experiment field is stale: {field}")
+    if bounded_experiment.get("total_episode_cells") != (
+        bounded_experiment.get("instances", 0)
+        * bounded_experiment.get("configurations", 0)
+        * bounded_experiment.get("repetitions_per_configuration_instance", 0)
+    ):
+        errors.append("bounded modern total episode arithmetic is invalid")
+    if bounded_experiment.get("new_episode_cells") != (
+        bounded_experiment.get("total_episode_cells", 0)
+        - bounded_experiment.get("existing_episode_cells_credited", 0)
+    ):
+        errors.append("bounded modern new episode arithmetic is invalid")
+    budget = bounded.get("budget", {})
+    if not (
+        budget.get("planned_remaining_cost_multiple_of_C0") == 40.4
+        and budget.get("normal_remaining_budget_multiple_of_C0") == 50.0
+        and budget.get("absolute_hard_stop_multiple_of_C0") == 80.0
+        and budget.get("reference_billed_usd_known") is False
+        and budget.get("unknown_price_is_zero") is False
+    ):
+        errors.append("bounded modern budget or price gate is not frozen")
+    if not (
+        budget.get("planned_remaining_cost_multiple_of_C0", 999)
+        < budget.get("normal_remaining_budget_multiple_of_C0", 0)
+        < budget.get("absolute_hard_stop_multiple_of_C0", 0)
+    ):
+        errors.append("bounded modern budget ordering is invalid")
+    stages = bounded.get("stages", [])
+    if [stage.get("id") for stage in stages] != ["R1", "R2", "R3", "R4"]:
+        errors.append("bounded modern stages must be ordered R1-R4")
+    if [stage.get("cumulative_new_episodes") for stage in stages] != [
+        187,
+        394,
+        601,
+        808,
+    ]:
+        errors.append("bounded modern cumulative episode checkpoints are invalid")
+    if bounded.get("completion_contract", {}).get("completion_flag_initial") is not False:
+        errors.append("bounded modern completion flag must remain false before execution")
+    dev23_instances = dev23.get("instances", [])
+    expected_dev23 = sorted(
+        list(dev20.get("instances", [])) + list(dev20.get("holdout_instances", []))
+    )
+    if (
+        len(dev23_instances) != 23
+        or len(dev23_instances) != len(set(dev23_instances))
+        or dev23_instances != expected_dev23
+    ):
+        errors.append("bounded dev23 manifest does not equal selected plus holdout dev IDs")
+    bounded_study = study.get("modern_replication", {})
+    bounded_study_expected = {
+        "bounded_completion_plan": "docs/bounded_reproduction_completion_plan.md",
+        "bounded_completion_config": "conf/bounded_modern_reproduction.yaml",
+        "bounded_dev23_manifest": "data/manifests/swebench_lite_dev23_full.json",
+        "bounded_completion_marker": "BOUNDED_MODERN_REPRODUCTION_COMPLETE",
+        "bounded_total_episode_cells": 828,
+        "bounded_existing_episode_cells": 20,
+        "bounded_new_episode_cells": 808,
+        "bounded_planned_cost_multiple_of_current": 40.4,
+        "bounded_normal_budget_multiple_of_current": 50.0,
+        "bounded_absolute_hard_stop_multiple_of_current": 80.0,
+    }
+    for field, expected in bounded_study_expected.items():
+        if bounded_study.get(field) != expected:
+            errors.append(f"study bounded modern field is stale: {field}")
+    for path in (
+        BOUNDED_MODERN_CONFIG_PATH,
+        BOUNDED_DEV23_PATH,
+        ROOT / "docs" / "bounded_reproduction_completion_plan.md",
+    ):
+        if not path.is_file():
+            errors.append(f"bounded modern required file is missing: {path}")
 
     artifact_runs = {
         entry.get("id"): entry for entry in matrix.get("artifact_reproduction_runs", [])

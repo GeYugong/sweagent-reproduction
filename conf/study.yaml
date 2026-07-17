@@ -84,6 +84,20 @@ modern_replication:
   aci_hard_max_api_calls: 4000
   aci_projected_input_tokens_lower_bound: 43975576
   aci_projected_output_tokens_lower_bound: 563240
+  bounded_completion_plan: docs/bounded_reproduction_completion_plan.md
+  bounded_completion_config: conf/bounded_modern_reproduction.yaml
+  bounded_dev23_manifest: data/manifests/swebench_lite_dev23_full.json
+  bounded_completion_marker: BOUNDED_MODERN_REPRODUCTION_COMPLETE
+  bounded_status: relative_budget_authorized_price_unverified
+  bounded_configurations: 9
+  bounded_instances: 23
+  bounded_repetitions: 4
+  bounded_total_episode_cells: 828
+  bounded_existing_episode_cells: 20
+  bounded_new_episode_cells: 808
+  bounded_planned_cost_multiple_of_current: 40.4
+  bounded_normal_budget_multiple_of_current: 50.0
+  bounded_absolute_hard_stop_multiple_of_current: 80.0
   paired_aci_ablations_complete: false
 
 exploratory_combined_ablation:
@@ -99,6 +113,8 @@ evaluation:
   smoke_instances: 1
   dev_instances: 20
   dev_manifest: data/manifests/swebench_lite_dev20_seed42.json
+  bounded_dev_instances: 23
+  bounded_dev_manifest: data/manifests/swebench_lite_dev23_full.json
   formal_instances: 300
   full_instances: 2294
   hyperparameter_dev_instances: 37

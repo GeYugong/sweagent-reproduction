@@ -284,6 +284,8 @@ A01–A10 的全部公开实例级输入已由单一冻结脚本重放，得到 
 
 当前状态（2026-07-17）：配置与运行清单准备完成，付费执行未开始。八项配置均满足声明的单因素结构 diff，冻结运行时解析与行为测试通过；160 条配对记录、调用上限、token 下界、McNemar/Holm/paired-bootstrap 方案均已冻结。状态为 `READY_BLOCKED_PRICE_AND_BUDGET`，`paired_runs=0/160`，`modern_replication_complete=false`。
 
+预算约束终点进一步冻结为九配置 × 全部 23 个 dev 实例 × 4 repetitions，共 828 个实验单元。现有 default dev20 计入其中，需新增 808 个 episode，按现有使用量预计为 40.4 倍当前成本；正常剩余预算为 50 倍，80 倍为绝对硬停线。R4 后完成 evaluator、McNemar/Holm、instance-cluster bootstrap、成本台账、哈希审计、报告和 Git 提交，即写入 `BOUNDED_MODERN_REPRODUCTION_COMPLETE` 并停止，不增加第五轮或 300 条 Lite test。完整规则见 `docs/bounded_reproduction_completion_plan.md`。
+
 ### P9：最终审计与交付
 
 1. 运行覆盖率检查，所有必需矩阵项必须为 `COMPLETE`；
@@ -348,4 +350,4 @@ A01–A10 的全部公开实例级输入已由单一冻结脚本重放，得到 
 
 进度报告必须并列给出两组数字：`public_artifact_progress` 和 `exact_rerun_progress`。不得把已经从论文源码读取出的聚合数字同时计入工件复算和严格重跑，也不得用受阻项的“已定位原因”冒充实验已完成。
 
-截至 2026-07-17，`public_artifact_progress=54/54`，`exact_rerun_progress=0/18`，`modern_aci_preparation=8/8`，`modern_aci_paired_runs=0/160`。公开工件层已完成；exact 仍受退役模型、精确配置、预算和正式运行资源门槛阻塞；modern 已完成离线准备但没有配对效果结果。上述口径不得合并成一个会掩盖证据层差异的百分比。
+截至 2026-07-17，`public_artifact_progress=54/54`，`exact_rerun_progress=0/18`，`modern_aci_preparation=8/8`，预算约束矩阵为 `completed_cells=20/828`、`new_paid_cells=0/808`。公开工件层已完成；exact 仍受退役模型、精确配置、预算和正式运行资源门槛阻塞；modern 已完成离线准备但没有配对效果结果。上述口径不得合并成一个会掩盖证据层差异的百分比。

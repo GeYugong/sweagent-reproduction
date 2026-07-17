@@ -1,0 +1,143 @@
+schema_version: 1
+as_of: "2026-07-17"
+status: RELATIVE_BUDGET_AUTHORIZED_PRICE_UNVERIFIED
+scope: budget_bounded_modern_reproduction
+completion_marker: BOUNDED_MODERN_REPRODUCTION_COMPLETE
+
+claim_boundary:
+  allowed_claim: The public artifacts and the preregistered modern-model ACI study are reproducibly complete within the declared budget.
+  prohibited_claims:
+    - exact-model full-paper reproduction complete
+    - reproduction of unpublished paper-run configurations
+    - direct replacement of GPT-4 Turbo or Claude 3 Opus results
+  exact_model_rerun_complete_after_this_plan: false
+  strict_full_paper_reproduction_complete_after_this_plan: false
+
+budget:
+  reference_name: C0
+  reference_definition: Verified billed cost of the completed 20-episode modern default-ACI baseline.
+  reference_episodes: 20
+  reference_billed_usd_known: false
+  reference_usage_lower_bounds:
+    resource_audited_api_calls: 398
+    persisted_input_tokens: 5496947
+    persisted_output_tokens: 70405
+  normal_remaining_budget_multiple_of_C0: 50.0
+  planned_remaining_cost_multiple_of_C0: 40.4
+  reserve_multiple_of_C0: 9.6
+  absolute_hard_stop_multiple_of_C0: 80.0
+  contingency_rule: Spending above 50 C0 may only finish a preregistered repetition already in progress; it may not add configurations, instances, or a fifth repetition.
+  execution_authorization: Relative budget authorization is confirmed for the preregistered R1-R4 matrix.
+  pricing_gate: DOLLAR_PRICE_UNVERIFIED_USE_C0_USAGE_RATIO_AND_HARD_CALL_CAPS
+  unknown_price_is_zero: false
+
+experiment:
+  model: gpt-5.6-terra
+  api_style: chat_completions
+  sweagent_revision: 658eb2842e8a8b00069b301338bc342b70538f7a
+  dataset: princeton-nlp/SWE-bench_Lite
+  dataset_revision: 6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2
+  split: dev
+  instance_manifest: data/manifests/swebench_lite_dev23_full.json
+  instances: 23
+  configurations: 9
+  configuration_ids:
+    - default_aci
+    - edit_without_linting
+    - no_edit
+    - iterative_search
+    - no_search
+    - window_30
+    - full_file
+    - full_history
+    - no_demonstration
+  repetitions_per_configuration_instance: 4
+  total_episode_cells: 828
+  existing_episode_cells_credited: 20
+  new_episode_cells: 808
+  total_scale_relative_to_current_baseline: 41.4
+  new_scale_relative_to_current_baseline: 40.4
+  max_api_calls_per_episode: 25
+  new_hard_max_api_calls: 20200
+  projected_new_usage_lower_bounds:
+    resource_audited_api_calls: 16079
+    input_tokens: 222076659
+    output_tokens: 2844362
+  projected_new_sequential_time_at_10_minutes_per_episode:
+    hours: 134.67
+    days: 5.61
+  temperature: 0.0
+  top_p: 0.95
+  retry_policy: no automatic retry; only zero-model-response infrastructure failures may be retried with a retained attempt suffix
+
+stages:
+  - id: R1
+    objective: Complete repetition 1 for all nine configurations on all 23 instances.
+    new_episodes_in_stage: 187
+    cumulative_new_episodes: 187
+    cumulative_estimated_multiple_of_C0: 9.35
+    cumulative_hard_max_api_calls: 4675
+    checkpoint_only: true
+  - id: R2
+    objective: Complete repetition 2 for all nine configurations on all 23 instances.
+    new_episodes_in_stage: 207
+    cumulative_new_episodes: 394
+    cumulative_estimated_multiple_of_C0: 19.70
+    cumulative_hard_max_api_calls: 9850
+    checkpoint_only: true
+  - id: R3
+    objective: Complete repetition 3 for all nine configurations on all 23 instances.
+    new_episodes_in_stage: 207
+    cumulative_new_episodes: 601
+    cumulative_estimated_multiple_of_C0: 30.05
+    cumulative_hard_max_api_calls: 15025
+    checkpoint_only: true
+  - id: R4
+    objective: Complete repetition 4 for all nine configurations on all 23 instances.
+    new_episodes_in_stage: 207
+    cumulative_new_episodes: 808
+    cumulative_estimated_multiple_of_C0: 40.40
+    cumulative_hard_max_api_calls: 20200
+    checkpoint_only: false
+
+analysis_preregistration:
+  primary_outcome: RESOLVED_FULL
+  denominator: all 23 instances times four repetitions for each configuration
+  primary_comparisons: eight variants versus default ACI
+  paired_test: two-sided exact McNemar matched by instance and repetition
+  multiple_testing: Holm family-wise correction across eight primary comparisons
+  effect_interval: 10000 cluster-bootstrap resamples by instance, retaining all repetitions within each cluster
+  bootstrap_seed: 42
+  secondary_outcomes:
+    - NOT_GENERATED
+    - PATCH_APPLY_FAILED
+    - RESOLVED_NO
+    - RESOLVED_PARTIAL
+    - model calls
+    - input and output tokens
+    - turns and exit status
+  result_driven_extension_allowed: false
+
+completion_contract:
+  public_artifact_outputs_terminal: 54
+  public_artifact_outputs_required: 54
+  static_aci_variants_valid_required: 8
+  runtime_aci_variants_valid_required: 8
+  required_episode_cells: 828
+  required_new_episode_cells: 808
+  required_evaluated_cells: 828
+  raw_trajectory_and_prediction_hashes_required: true
+  scorecards_required: true
+  paired_analysis_required: true
+  cost_and_failure_ledger_required: true
+  comprehensive_report_update_required: true
+  clean_git_commit_required: true
+  completion_independent_of_effect_direction_or_significance: true
+  completion_flag_initial: false
+
+stop_rules:
+  - Do not add a fifth repetition, new model, new prompt, new configuration, or Lite test run after R4.
+  - Do not extend the experiment because an effect is insignificant or disagrees with the paper.
+  - At 50 C0, do not start another repetition; contingency may only finish the current preregistered repetition.
+  - At 80 C0, stop before the next paid request under all circumstances.
+  - After R4, evaluation, preregistered analysis, artifact hashing, report update, and Git commit, set only BOUNDED_MODERN_REPRODUCTION_COMPLETE and stop the experiment.

@@ -206,6 +206,7 @@ trajectory 持久化 397 次 API 调用、5,496,947 input tokens 和 70,405 outp
 - 协议负检索：`docs/protocol_recovery_audit.md`；
 - 现代 dev20：`docs/modern_dev20_baseline_analysis.md`；
 - 现代 ACI 重建与配对预注册：`docs/modern_aci_reconstruction.md`；
+- 预算约束完成与停止方案：`docs/bounded_reproduction_completion_plan.md`；
 - 再生成审计：`docs/zero_cost_regeneration_audit.md`；
 - 全部实验过程：`logs/experiment_log.md`、`logs/experiment_registry.csv`。
 
@@ -216,3 +217,5 @@ trajectory 持久化 397 次 API 调用、5,496,947 input tokens 和 70,405 outp
 原模型严格重跑仍为 0/18。缺失精确模型、未发布协议工件和未获授权的高额批量预算使严格复现无法诚实标为完成。若后续获得论文模型访问、精确缺失配置和明确费用 ceiling，可按已冻结矩阵直接进入 E01–E18；在此之前，最准确的终态是：
 
 `COMPLETE_PUBLIC_ARTIFACT_REPRODUCTION / BLOCKED_EXACT_MODEL_RERUN / PARTIAL_MODERN_REPLICATION / STRICT_COMPLETE_FALSE`
+
+后续项目终点已经另行固定为预算约束的现代复现：九配置 × dev23 × 四 repetitions，828 个单元中现有 20 个、需新增 808 个，预计新增成本为当前成本的 40.4 倍。正常预算为 50 倍，80 倍绝对硬停；完成全量评测、预注册统计、成本审计、哈希和 Git 冻结后写入 `BOUNDED_MODERN_REPRODUCTION_COMPLETE` 并停止。该标志不改变上述 exact/strict 结论。
