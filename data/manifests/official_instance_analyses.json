@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "status": "COMPLETE_AVAILABLE_A01_A10_WITH_DOCUMENTED_PUBLIC_ARTIFACT_GAPS",
-  "generated_at_utc": "2026-07-16T18:01:29.720165+00:00",
+  "generated_at_utc": "2026-07-17T01:25:07.388608+00:00",
   "paper": {
     "arxiv_id": "2405.15793v3",
     "source_path": "paper/2405.15793_source.tar.gz",

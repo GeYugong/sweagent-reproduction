@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-07-16T16:50:32.803403+00:00",
+  "generated_at_utc": "2026-07-17T01:33:14.828170+00:00",
   "runtime": {
     "python": "3.9.25",
     "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39"
@@ -38,7 +38,7 @@
         "row_count": 300,
         "cache": {
           "path": "/mnt/d/0code/Research/05/data/cache/paper_evaluator/lite_paper_81ad348a.parquet",
-          "cache_hit": false,
+          "cache_hit": true,
           "bytes": 1176783,
           "sha256": "2c0969b6fb6920f9425015563419901a4fe7fd078d143a3457fa1997b52365b1"
         },
@@ -54,7 +54,7 @@
         "row_count": 300,
         "cache": {
           "path": "/mnt/d/0code/Research/05/data/cache/paper_evaluator/lite_post_paper_6ec7bb89.parquet",
-          "cache_hit": false,
+          "cache_hit": true,
           "bytes": 1119540,
           "sha256": "7a21f37b8bc179c7db5beeb14e88ac538ba283455c776e6b2535bbfb6e3551b4"
         },
@@ -149,7 +149,7 @@
         "row_count": 2294,
         "cache": {
           "path": "/mnt/d/0code/Research/05/data/cache/paper_evaluator/test_paper_283547ac.parquet",
-          "cache_hit": false,
+          "cache_hit": true,
           "bytes": 12102802,
           "sha256": "831728617f006e70c9de546e15cbdb49ce27b6fe8a8e4c4cd8035e8da3de3020"
         },
@@ -165,7 +165,7 @@
         "row_count": 2294,
         "cache": {
           "path": "/mnt/d/0code/Research/05/data/cache/paper_evaluator/test_post_paper_e48e2bd1.parquet",
-          "cache_hit": false,
+          "cache_hit": true,
           "bytes": 12097227,
           "sha256": "db4f70ef735b3162c74801ddcdf8d7bae8d704193788c6d844f898c20b571cbb"
         },

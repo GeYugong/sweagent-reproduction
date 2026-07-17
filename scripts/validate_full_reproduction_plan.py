@@ -19,6 +19,9 @@ COVERAGE_PATH = ROOT / "data" / "manifests" / "full_reproduction_coverage.json"
 MODERN_ANALYSIS_PATH = (
     ROOT / "data" / "manifests" / "modern_dev20_baseline_analysis.json"
 )
+REGENERATION_AUDIT_PATH = (
+    ROOT / "data" / "manifests" / "zero_cost_regeneration_audit.json"
+)
 
 
 def load_yaml(path: Path) -> dict:
@@ -360,6 +363,47 @@ def main() -> int:
             path = ROOT / str(record.get("path", ""))
             if not path.is_file() or record.get("sha256") != sha256_file(path):
                 errors.append(f"modern analysis output hash is stale or missing: {key}")
+
+    artifact_runs = {
+        entry.get("id"): entry for entry in matrix.get("artifact_reproduction_runs", [])
+    }
+    regeneration_run = artifact_runs.get("EXP-ARTIFACT-011", {})
+    regeneration_audit = (
+        load_json(REGENERATION_AUDIT_PATH)
+        if REGENERATION_AUDIT_PATH.is_file()
+        else {}
+    )
+    if regeneration_run:
+        if regeneration_audit.get("status") != (
+            "COMPLETE_SEMANTIC_REGENERATION_NO_DERIVED_DRIFT"
+        ):
+            errors.append("zero-cost regeneration audit is missing or incomplete")
+        regeneration_summary = regeneration_audit.get("summary", {})
+        regeneration_fields = {
+            "target_files": "target_file_count",
+            "byte_exact_files": "byte_exact_count",
+            "metadata_only_files": "metadata_only_count",
+            "line_ending_only_files": "line_ending_only_count",
+            "semantic_mismatches": "semantic_mismatch_count",
+        }
+        for matrix_field, summary_field in regeneration_fields.items():
+            if regeneration_run.get(matrix_field) != regeneration_summary.get(
+                summary_field
+            ):
+                errors.append(
+                    f"matrix regeneration audit field is stale: {matrix_field}"
+                )
+        if regeneration_summary.get("errors") != []:
+            errors.append("zero-cost regeneration audit retains errors")
+        document = regeneration_audit.get("outputs", {}).get(
+            "audit_document", {}
+        )
+        document_path = ROOT / str(document.get("path", ""))
+        if (
+            not document_path.is_file()
+            or document.get("sha256") != sha256_file(document_path)
+        ):
+            errors.append("zero-cost regeneration audit document hash is stale")
 
     resource = matrix.get("resource_measurements", {})
     if resource.get("formal_scale_up_allowed") is not False:

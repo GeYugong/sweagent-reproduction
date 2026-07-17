@@ -518,6 +518,20 @@ artifact_reproduction_runs:
       - data/derived/paper_output_coverage.csv
       - scripts/audit_full_reproduction_coverage.py
       - docs/public_artifact_completion_audit.md
+  - id: EXP-ARTIFACT-011
+    evidence: artifact
+    scope: zero_cost_clean_regeneration_audit
+    audited_artifact_runs: 6
+    target_files: 48
+    byte_exact_files: 39
+    metadata_only_files: 5
+    line_ending_only_files: 4
+    semantic_mismatches: 0
+    status: COMPLETE_SEMANTIC_REGENERATION_NO_DERIVED_DRIFT
+    outputs:
+      - data/manifests/zero_cost_regeneration_audit.json
+      - scripts/audit_zero_cost_regeneration.py
+      - docs/zero_cost_regeneration_audit.md
 
 existing_non_exact_runs:
   - id: EXP-DEV20

@@ -1749,3 +1749,46 @@ trajectory 持久化总量为 397 次 API 调用、5,496,947 input tokens 和 70
 当前只完成现代默认 ACI 基线的统计收口。八个论文单因素 ACI 尚无同一 dev20 上的配对运行，因此不能计算 McNemar 检验，也不能把 `modern_replication_complete` 更新为真。扩大 API 调用前仍需端点价格和明确总预算。
 
 输出为 `data/manifests/modern_dev20_baseline_analysis.json`、`data/derived/modern_dev20_baseline_instances.csv`、`docs/modern_dev20_baseline_analysis.md` 与确定性分析脚本。该分析阶段新增 API 调用、GPU与远程服务器使用均为 0。
+
+## 2026-07-17 — EXP-AUDIT-001：六条零成本工件链再生成
+
+### 目标
+
+从当前冻结输入完整重跑不需要模型推理的公开工件生成链，检查论文数字、CSV、PDF、分析状态和 evaluator 聚合是否出现漂移。审计基线为 Git revision `3b8516b`，执行期间不修改配置、输入 revision 或验收规则。
+
+### 执行链
+
+1. 官方 SWE-bench 与 RAG 主结果复算；
+2. HumanEvalFix 实例结果、修正分母、turn histogram 与 PDF；
+3. ACI 消融、超参、pass@k 和失败模式论文源码聚合；
+4. A01–A10 官方实例级分析与四份 PDF；
+5. A13–A14 定性案例、实际 prompt 和命令接口审计；
+6. 八组官方预测的论文期与后期数据 evaluator 离线重放。
+
+最终 HumanEvalFix 命令显式指定 `output/pdf/humanevalfix_turns_artifact.pdf`，保证 manifest 同时核验图形哈希。所有任务在本地 WSL2 执行；模型 API、GPU和远程服务器使用均为 0。
+
+### 运行结果
+
+- 主结果：GPT-4 SWE-agent Full/Lite 与四个 RAG 行保持一致；Claude 主表的 Lite -4、Full +1 工件差异保持不变；
+- HumanEvalFix：Python 143、JavaScript 148、Java 145，修正分母均为 164，确定性 PDF 不变；
+- 源码聚合：12 个 ACI 行、16 个超参设置、6 个 pass@k 点、248 个失败实例计数不变；
+- A01–A10：精确/公开重放/缺口状态全部不变；
+- A13–A14：4 案例、72/72 actions、4/4 gold/results、2,568 prompts、2 个 system variants、10/10 commands 不变；
+- evaluator：论文期完整结果列表 8/8 精确匹配，后期数据 revision 6/8 精确匹配。
+
+### 差异分类
+
+矩阵六个工件 run 共列出 48 个受审计文件：
+
+- 39 个文件与 Git baseline 逐字节相同，包括全部 PDF 和绝大多数 CSV/清单；
+- 5 个 JSON 只变化 `generated_at_utc`，其中 evaluator 还把已有 parquet 的 `cache_hit` 从 false 更新为 true；删除这些运行元数据后 JSON 对象完全相同；
+- 4 个 CSV 的字段与行完全相同，仅工作区 CRLF 与 Git blob LF 不同；
+- 真实语义或二进制差异：0。
+
+第一次自动审计把四个 CRLF/LF 差异误判为 byte mismatch，但 `git status` 已判定文件未改。审计器随后显式增加文本行尾规范化分类，同时保持 PDF 等二进制文件必须逐字节相等；修正后验收通过。该修正不改变任何论文数据。
+
+### 输出与边界
+
+`data/manifests/zero_cost_regeneration_audit.json` 保存 48 个文件的 baseline/current SHA-256、比较分类和命令清单，`docs/zero_cost_regeneration_audit.md` 给出简明结论。最终状态为 `COMPLETE_SEMANTIC_REGENERATION_NO_DERIVED_DRIFT`。
+
+本阶段证明公开工件生成链可重放，不证明退役模型重新推理可执行，也不补足未发布的原始消融运行、dev37、pass@k 预测或失败标签。
