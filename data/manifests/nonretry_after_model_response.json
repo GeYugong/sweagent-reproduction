@@ -14,6 +14,13 @@
       "classification": "MODEL_RESPONSE_EVALUATOR_INFRASTRUCTURE_FAILURE_NO_RETRY",
       "date": "2026-07-17",
       "reason": "The agent produced 25 persisted model responses and a patch that applied successfully. The evaluator then failed during its internal git restore step because test/rules/std_L060_test.py was not tracked in the evaluation checkout, leaving no test-result terminal status. The frozen protocol forbids a retry after model responses were produced."
+    },
+    {
+      "batch_id": "bounded_r1_no_edit",
+      "instance_id": "pydicom__pydicom-1256",
+      "classification": "MODEL_RESPONSE_NO_PREDICTION_NO_RETRY",
+      "date": "2026-07-18",
+      "reason": "The retained run log contains 25 persisted model responses but no all_preds.jsonl. The frozen protocol forbids retries after any model response."
     }
   ]
 }

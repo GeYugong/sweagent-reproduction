@@ -79,3 +79,11 @@
 批处理运行器此前在单个实例未生成 `all_preds.jsonl` 或 evaluator 返回非零时会因 shell 的 fail-fast 语义退出，导致需要人工恢复后续实例。运行器现将此类终态写入机器可读清单后继续批次：已有任意持久化模型调用但没有 prediction 的实例记录为 `MODEL_RESPONSE_NO_PREDICTION_NO_RETRY`；evaluator 非零退出的实例记录为 `MODEL_RESPONSE_EVALUATOR_FAILURE_NO_RETRY`。两种情况都不自动重跑，以保持冻结规则对模型响应后结果不可重采样的约束。
 
 对零模型响应、零 trajectory、零 prediction 的失败，运行器自动登记独立的 `_attempt_2` 标识并仅恢复一次；若该恢复尝试仍未产生模型响应，则登记 `ZERO_MODEL_RESPONSE_RETRY_EXHAUSTED_NO_RETRY` 并继续。每次登记通过临时文件原子替换 JSON 清单，避免中断时留下损坏的执行记录。预算检查仍在每个批次结束后运行，预算违规和配置校验失败仍会停止总运行。
+
+## R1 / 调用上限后未提交 prediction（自动分类，不重试）
+
+- 执行日期：2026-07-18
+- 配置与实例：`no_edit` / `pydicom__pydicom-1256`
+- 已持久化模型调用：25（该实例的硬上限）
+
+该实例在第 25 次调用后触发 SWE-agent 的 `CostLimitExceededError: API call limit reached`，没有在上限前生成 `all_preds.jsonl`。原批处理实现因此退出；恢复机制读取保留运行日志中的 25 次调用记录，在启动替代容器之前将该实例登记为 `MODEL_RESPONSE_NO_PREDICTION_NO_RETRY`。恢复后驱动跳过该实例并进入后续样本，未产生重复模型调用。该终态与 evaluator 已完成的样本分开保留，最终报告将把它归入未生成 prediction 的模型响应后失败分解。
