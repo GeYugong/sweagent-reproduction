@@ -70,3 +70,12 @@
 该实例生成 prediction，补丁可由 evaluator 成功应用；但 evaluator 在恢复其内部补丁检查时执行 `git restore test/rules/std_L060_test.py`，目标 evaluation checkout 不包含该路径，导致 `CalledProcessError`。因此评分卡仅保留 `generated`，没有补丁应用后的测试终态。
 
 这不是零模型响应失败，且任何重跑都会重采样已经发生的模型交互。该实例标记为 `MODEL_RESPONSE_EVALUATOR_INFRASTRUCTURE_FAILURE_NO_RETRY`，加入 `data/manifests/nonretry_after_model_response.json`，最终分析将把它与完整 evaluator 终态分开报告。
+
+## 自动终态恢复机制
+
+- 生效日期：2026-07-18
+- 适用范围：所有后续本地 API 批次。
+
+批处理运行器此前在单个实例未生成 `all_preds.jsonl` 或 evaluator 返回非零时会因 shell 的 fail-fast 语义退出，导致需要人工恢复后续实例。运行器现将此类终态写入机器可读清单后继续批次：已有任意持久化模型调用但没有 prediction 的实例记录为 `MODEL_RESPONSE_NO_PREDICTION_NO_RETRY`；evaluator 非零退出的实例记录为 `MODEL_RESPONSE_EVALUATOR_FAILURE_NO_RETRY`。两种情况都不自动重跑，以保持冻结规则对模型响应后结果不可重采样的约束。
+
+对零模型响应、零 trajectory、零 prediction 的失败，运行器自动登记独立的 `_attempt_2` 标识并仅恢复一次；若该恢复尝试仍未产生模型响应，则登记 `ZERO_MODEL_RESPONSE_RETRY_EXHAUSTED_NO_RETRY` 并继续。每次登记通过临时文件原子替换 JSON 清单，避免中断时留下损坏的执行记录。预算检查仍在每个批次结束后运行，预算违规和配置校验失败仍会停止总运行。
