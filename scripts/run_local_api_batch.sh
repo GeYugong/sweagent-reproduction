@@ -186,6 +186,23 @@ PY
       echo "authorized_zero_model_response_retry=${instance_id} run_id=${run_id}"
     fi
   fi
+
+  # A previous process can have terminated after model responses but before the
+  # trace directory was copied into outputs/.  Inspect the durable run log
+  # before launching a replacement container so resuming a batch never repeats
+  # already-billed model interaction.
+  existing_trace_root="${repo_root}/outputs/traces/${run_id}"
+  if [[ ! -s "${existing_trace_root}/all_preds.jsonl" ]]; then
+    existing_api_calls="$(model_api_call_count "${run_id}")"
+    if [[ "${existing_api_calls}" -gt 0 ]]; then
+      record_nonretry_terminal_failure "${batch_id}" "${instance_id}" \
+        "MODEL_RESPONSE_NO_PREDICTION_NO_RETRY" \
+        "The retained run log contains ${existing_api_calls} persisted model responses but no all_preds.jsonl. The frozen protocol forbids retries after any model response."
+      echo "classified_existing_nonretry_no_prediction=${instance_id} api_calls=${existing_api_calls}"
+      continue
+    fi
+  fi
+
   while true; do
     trace_root="${repo_root}/outputs/traces/${run_id}"
     if ! find "${trace_root}" -maxdepth 1 -name '*.traj' -print -quit 2>/dev/null | grep -q .; then
