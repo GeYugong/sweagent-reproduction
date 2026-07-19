@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Record conservative C0-relative usage for bounded modern replication."""
+"""Record cumulative conservative C0-relative usage for bounded modern replication."""
 
 from __future__ import annotations
 
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -40,7 +41,15 @@ def main() -> int:
     parser.add_argument("--stage", default="R1")
     args = parser.parse_args()
     plan = load_yaml(PLAN_PATH)
-    trajectories = sorted(TRACE_ROOT.glob(f"bounded_{args.stage.lower()}_*/*.traj"))
+    stage_match = re.fullmatch(r"R([1-4])", args.stage.upper())
+    if stage_match is None:
+        raise ValueError("stage must be one of R1, R2, R3, or R4")
+    through_stage = int(stage_match.group(1))
+    trajectories = []
+    for trajectory_path in sorted(TRACE_ROOT.glob("bounded_r*_*/*.traj")):
+        match = re.match(r"bounded_r([1-4])_", trajectory_path.parent.name)
+        if match is not None and int(match.group(1)) <= through_stage:
+            trajectories.append(trajectory_path)
     totals = {"persisted_calls": 0, "input_tokens": 0, "output_tokens": 0}
     observations = []
     for trajectory_path in trajectories:

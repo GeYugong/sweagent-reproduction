@@ -9,6 +9,15 @@
       "classification": "ZERO_MODEL_RESPONSE_INFRASTRUCTURE_FAILURE",
       "date": "2026-07-17",
       "reason": "The environment setup command apt update timed out while reading subprocess output. No model response, trajectory, prediction, or evaluator scorecard was produced. The frozen protocol permits one retained-attempt retry."
+    },
+    {
+      "batch_id": "bounded_r1_iterative_search",
+      "instance_id": "sqlfluff__sqlfluff-1733",
+      "original_run_id": "bounded_r1_iterative_search_sqlfluff_sqlfluff-1733",
+      "retry_run_id": "bounded_r1_iterative_search_sqlfluff_sqlfluff-1733_attempt_2",
+      "classification": "ZERO_MODEL_RESPONSE_INFRASTRUCTURE_FAILURE",
+      "date": "2026-07-18",
+      "reason": "The original attempt ended without a model response, trajectory, prediction, or evaluator result. One retained-attempt retry is authorized automatically by the frozen protocol."
     }
   ]
 }

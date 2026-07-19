@@ -21,6 +21,83 @@
       "classification": "MODEL_RESPONSE_NO_PREDICTION_NO_RETRY",
       "date": "2026-07-18",
       "reason": "The retained run log contains 25 persisted model responses but no all_preds.jsonl. The frozen protocol forbids retries after any model response."
+    },
+    {
+      "batch_id": "bounded_r1_iterative_search",
+      "instance_id": "pydicom__pydicom-901",
+      "classification": "MODEL_RESPONSE_NO_PREDICTION_NO_RETRY",
+      "date": "2026-07-18",
+      "reason": "The agent produced 25 persisted model responses but did not generate all_preds.jsonl before termination. The frozen protocol forbids retries after any model response."
+    },
+    {
+      "batch_id": "bounded_r1_iterative_search",
+      "instance_id": "pylint-dev__astroid-1333",
+      "classification": "MODEL_RESPONSE_NO_PREDICTION_NO_RETRY",
+      "date": "2026-07-18",
+      "reason": "The agent produced 12 persisted model responses but did not generate all_preds.jsonl before termination. The frozen protocol forbids retries after any model response."
+    },
+    {
+      "batch_id": "bounded_r1_no_search",
+      "instance_id": "pvlib__pvlib-python-1707",
+      "classification": "MODEL_RESPONSE_NO_PREDICTION_NO_RETRY",
+      "date": "2026-07-18",
+      "reason": "The agent produced 25 persisted model responses but did not generate all_preds.jsonl before termination. The frozen protocol forbids retries after any model response."
+    },
+    {
+      "batch_id": "bounded_r1_no_search",
+      "instance_id": "pydicom__pydicom-1694",
+      "classification": "MODEL_RESPONSE_NO_PREDICTION_NO_RETRY",
+      "date": "2026-07-18",
+      "reason": "The agent produced 25 persisted model responses but did not generate all_preds.jsonl before termination. The frozen protocol forbids retries after any model response."
+    },
+    {
+      "batch_id": "bounded_r1_window_30",
+      "instance_id": "pvlib__pvlib-python-1154",
+      "classification": "MODEL_RESPONSE_NO_PREDICTION_NO_RETRY",
+      "date": "2026-07-18",
+      "reason": "The agent produced 25 persisted model responses but did not generate all_preds.jsonl before termination. The frozen protocol forbids retries after any model response."
+    },
+    {
+      "batch_id": "bounded_r1_window_30",
+      "instance_id": "pylint-dev__astroid-1333",
+      "classification": "MODEL_RESPONSE_NO_PREDICTION_NO_RETRY",
+      "date": "2026-07-18",
+      "reason": "The agent produced 25 persisted model responses but did not generate all_preds.jsonl before termination. The frozen protocol forbids retries after any model response."
+    },
+    {
+      "batch_id": "bounded_r1_full_history",
+      "instance_id": "pydicom__pydicom-901",
+      "classification": "MODEL_RESPONSE_NO_PREDICTION_NO_RETRY",
+      "date": "2026-07-18",
+      "reason": "The agent produced 25 persisted model responses but did not generate all_preds.jsonl before termination. The frozen protocol forbids retries after any model response."
+    },
+    {
+      "batch_id": "bounded_r1_full_history",
+      "instance_id": "pylint-dev__astroid-1333",
+      "classification": "MODEL_RESPONSE_NO_PREDICTION_NO_RETRY",
+      "date": "2026-07-18",
+      "reason": "The agent produced 7 persisted model responses but did not generate all_preds.jsonl before termination. The frozen protocol forbids retries after any model response."
+    },
+    {
+      "batch_id": "bounded_r1_no_demonstration",
+      "instance_id": "pydicom__pydicom-1256",
+      "classification": "MODEL_RESPONSE_NO_PREDICTION_NO_RETRY",
+      "date": "2026-07-19",
+      "reason": "The agent produced 25 persisted model responses but did not generate all_preds.jsonl before termination. The frozen protocol forbids retries after any model response."
+    },
+    {
+      "batch_id": "bounded_r1_no_demonstration",
+      "instance_id": "pydicom__pydicom-901",
+      "classification": "MODEL_RESPONSE_NO_PREDICTION_NO_RETRY",
+      "date": "2026-07-19",
+      "reason": "The agent produced 25 persisted model responses but did not generate all_preds.jsonl before termination. The frozen protocol forbids retries after any model response."
+    },
+    {
+      "batch_id": "bounded_r1_no_demonstration",
+      "instance_id": "pylint-dev__astroid-1333",
+      "classification": "MODEL_RESPONSE_NO_PREDICTION_NO_RETRY",
+      "date": "2026-07-19",
+      "reason": "The agent produced 25 persisted model responses but did not generate all_preds.jsonl before termination. The frozen protocol forbids retries after any model response."
     }
   ]
 }

@@ -1,0 +1,37 @@
+{
+  "dataset": "princeton-nlp/SWE-bench_Lite",
+  "dataset_revision": "6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2",
+  "split": "dev",
+  "source_instance_count": 23,
+  "selection": {
+    "algorithm": "frozen bounded-modern R3 full dev23 batch",
+    "seed": 42,
+    "selected_count": 23,
+    "label": "full_history_r3"
+  },
+  "instances": [
+    "marshmallow-code__marshmallow-1343",
+    "marshmallow-code__marshmallow-1359",
+    "pvlib__pvlib-python-1072",
+    "pvlib__pvlib-python-1154",
+    "pvlib__pvlib-python-1606",
+    "pvlib__pvlib-python-1707",
+    "pvlib__pvlib-python-1854",
+    "pydicom__pydicom-1139",
+    "pydicom__pydicom-1256",
+    "pydicom__pydicom-1413",
+    "pydicom__pydicom-1694",
+    "pydicom__pydicom-901",
+    "pylint-dev__astroid-1196",
+    "pylint-dev__astroid-1268",
+    "pylint-dev__astroid-1333",
+    "pylint-dev__astroid-1866",
+    "pylint-dev__astroid-1978",
+    "pyvista__pyvista-4315",
+    "sqlfluff__sqlfluff-1517",
+    "sqlfluff__sqlfluff-1625",
+    "sqlfluff__sqlfluff-1733",
+    "sqlfluff__sqlfluff-1763",
+    "sqlfluff__sqlfluff-2419"
+  ]
+}
